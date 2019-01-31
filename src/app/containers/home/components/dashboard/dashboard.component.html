@@ -4,12 +4,13 @@
                 <icon [icon]="'setting'" [name]="'Profile Edit'" [link]="'setting/profile'" [url]="'assets/images/testimg/company-setting.png'"></icon>
                 <!-- <icon [icon]="'chat'" [name]="'Chat'" [link]="'soon'" [url]="'assets/images/testimg/orgchart.png'"></icon> -->
                 <icon [icon]="'shop-order'" [name]="'Orders'" [link]="'shop-order'" [url]="'assets/images/icons/shopOrder.jpeg'"></icon>
-                <a *ngIf="if_web" href="http://orcasmart.shop" target="_top">
+                <!-- <a *ngIf="if_web" href="http://orcasmart.shop" target="_top">
                         <icon style="margin-right: -10px; margin-left: 30px;" [icon]="'shop'" [name]="'Shop'" [url]="'assets/images/testimg/app-center.png'"></icon>
                 </a>
                 <a *ngIf="!if_web" href="http://www.orcasmart.co">
                         <icon style="margin-right: -10px; margin-left: 30px;" [icon]="'shop'" [name]="'Shop'" [url]="'assets/images/testimg/app-center.png'"></icon>
-                </a>
+                </a> -->
+                <icon [icon]="'shop'" [name]="'Shop'" [url]="'assets/images/testimg/app-center.png'" (click)="backToShop()"></icon>
                 <icon [icon]="'contact_phone'" [name]="'Contacts'" [link]="'contacts/contactList'" [url]="'assets/images/testimg/contact.png'"></icon>
                 <!-- <icon [icon]="'weather'" [name]="'Weather'" [link]="'weather'" [url]="'assets/images/testimg/weather.png'"></icon> -->
                 <!-- <icon [icon]="'mysports'" [name]="'My Sports'" [link]="'soon'" [url]="'assets/images/testimg/showcase.png'"></icon> -->

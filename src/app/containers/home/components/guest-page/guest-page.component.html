@@ -1,4 +1,54 @@
-<button type="submit" class="login-btn" [routerLink]="['/auth/login']">
-    Login to Get Started
-</button>
-<div class="rocket-bg"></div>
+<div class="auth-bg">
+        <video playinline autoplay muted loop poster="assets/images/firstpage.png">
+          <source src="assets/videos/loginbg1.mp4" type="video/mp4">
+        </video>
+        <div class="movie-fade"></div>
+        <div class="movie-cover"></div>
+      </div>
+      
+      <form novalidate (ngSubmit)="onSubmit()" style="width: 600px; background-color: #00000024;">
+        <div style="z-index: 0;">
+          <div class="orcasmart-logo">
+            <img src="assets/images/logo/Orcasmart.png" width="70" />
+          </div>
+          <h1>ORCASMART</h1>
+        </div>
+      
+        <mat-form-field>
+          <input matInput placeholder="Enter your email" [formControl]="myForm.controls.email" [(ngModel)]="user.email" required>
+          <mat-error *ngIf="myForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" [formControl]="myForm.controls.password" [(ngModel)]="user.password"
+            name="password">
+          <mat-error *ngIf="myForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+      
+        <div class="btn-gp">
+          <button mat-raised-button color="primary" type="submit" class="submit-btn" [disabled]="myForm.invalid">
+            Login
+          </button>
+          <button mat-raised-button class="redirect-link" routerLink="/auth/signup">Signup</button>
+        </div>
+      
+        <div class="action-icon">
+          <div class="icon-item">
+            <a routerLink="/auth/pwd_reset">
+              <mat-icon>lock</mat-icon>
+            </a>
+            <div class="icon-lable" routerLink="/auth/pwd_reset">Forget Password</div>
+          </div>
+      
+          <div class="icon-item">
+            <a routerLink="/auth/about_me">
+              <mat-icon>help</mat-icon>
+            </a>
+            <div class="icon-lable">About us</div>
+          </div>
+        </div>
+      
+      </form>
+      <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+      </div>

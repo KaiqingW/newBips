@@ -40,7 +40,7 @@ export const HomeRoutes: Routes = [
     {
         path: 'show-company',
         component: BusinessPanelComponent,
-        data : showBusinessHeader,
+        // data : showBusinessHeader,
     },
     {
         path: 'filebox',

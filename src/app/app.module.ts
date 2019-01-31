@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SpinnerModule } from 'app/components/spinner/spinner.module';
+import { AuthModule } from 'app/containers/auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
@@ -33,6 +34,7 @@ import { FooterModule } from './containers/footer/footer.module';
 
 @NgModule({
   imports: [
+    AuthModule,
     CommonModule,
     BrowserAnimationsModule,
     BrowserModule,

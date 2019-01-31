@@ -20,7 +20,7 @@ const dashboardRoutes: Routes = [
     {
         path:'',
         component:SalesDashboardComponent,
-        data: dashboardHeader
+        // data: dashboardHeader
     }
 ]
 
