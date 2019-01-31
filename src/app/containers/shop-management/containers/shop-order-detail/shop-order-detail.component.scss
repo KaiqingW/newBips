@@ -1,0 +1,53 @@
+:host {
+    font-size: 14px;
+    line-height: 20px;
+    hr {
+        margin: 10px 0;
+    }
+    mat-card {
+        padding: 9px 6px;
+        margin-bottom: 6px;
+        img {
+            width: 140px;
+            height: auto;
+        }
+        .row {
+            // min-height:20px;
+            margin: 3px 0;
+        }
+        .row-2 {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    .price {
+        color: red;
+    }
+    
+    .warehouseSelected {
+        background-color: #E0EAF1 !important;
+        color: black;
+        border-bottom: solid 2px #000000 !important;
+    }
+    
+    .product-card-title {
+        display: flex;
+        flex-direction: row;
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        .btn {
+            height: 40px; // display: flex;
+            // flex:1;
+            text-align: center;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0 5px;
+            line-height: 40px;
+            color: #717171;
+            background-color: white;
+            font-size: 14px;
+            text-transform: capitalize;
+        }
+    }
+}
+

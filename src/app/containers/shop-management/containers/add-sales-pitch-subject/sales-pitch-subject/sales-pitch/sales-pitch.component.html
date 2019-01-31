@@ -1,0 +1,5 @@
+<div *ngIf="salesPitch">
+    <!-- {{index + 1}} -->
+    <img *ngIf="salesPitch?.image" [src]="salesPitch?.image.url" style="width:100%;" alt="">
+    <pre style="word-break: break-all;" [innerHTML]="salesPitch?.body"></pre>
+</div>

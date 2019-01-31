@@ -1,0 +1,34 @@
+<sales-pitch-subject *ngFor="let salesPitchSubject of product?.sales_pitch_subjects" [salesPitchSubject]="salesPitchSubject"></sales-pitch-subject>
+
+<mat-card>
+    <form [formGroup]="pitchSubjectForm" novalidate>
+        <div class="row title">
+            <b>Sales Pitches Title</b>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-select formControlName="pitch_subject_name" placeholder="Selecte the Sales Pitch Title">
+                    <mat-option *ngFor="let pitch_subject_name of pitch_subject_names" [value]="pitch_subject_name">
+                        {{pitch_subject_name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div formArrayName="sales_pitches">
+            <div *ngFor="let sale_pitch of pitchSubjectForm['controls'].sales_pitches['controls'];let i=index">
+                <div [formGroupName]="i">
+                    <add-sales-pitch [sale_pitch_number]="pitchSubjectForm['controls'].sales_pitches['controls'].length" (sendImg)="onGetImg($event)" (sendRichTxt)="logChange($event)" [index]="i" (sendOnDelete)="onDelete($event)"
+                        (sendOnAdd)="onAddMore()"></add-sales-pitch>
+                </div>
+            </div>
+        </div>
+        <button class="add_more_btn" mat-raised-button color="primary" (click)="onAddMore()">Add More</button>
+        <!-- <button (click)="onSave()">Save All</button> -->
+    </form>
+    <!-- <div *ngIf="modalOpen">
+        <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+    </div> -->
+
+    <app-spinner *ngIf="isLoading"></app-spinner>
+</mat-card>

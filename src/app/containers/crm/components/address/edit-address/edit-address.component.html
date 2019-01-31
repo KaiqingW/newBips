@@ -1,0 +1,39 @@
+<div *ngIf="!isLoading">
+    <form [formGroup]="editAddressFrom" class="address-form" >
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Street1" formControlName="street1" name="street1"  required>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Street2" formControlName="street2" name="street2" >
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input type="input" matInput  placeholder="City" formControlName="city" name="city" required>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input type="input" matInput  placeholder="State" formControlName="state"  name="state" required>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input type="input" matInput  placeholder="ZipCode" formControlName="zipcode"  name="zipcode" required>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Country" formControlName="country"  name="country" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Address Type"  formControlName="type">
+                <mat-option value="shipping" >Shipping Address</mat-option>
+                <mat-option value="billing" >Billing Address</mat-option>
+                <mat-option value="office" >Main Address</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

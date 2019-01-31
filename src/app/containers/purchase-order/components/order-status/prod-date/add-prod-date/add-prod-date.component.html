@@ -1,0 +1,63 @@
+<div *ngIf="restQuantity > 0">
+    <h2 mat-dialog-title style="text-align:center;">Add Estimate Production Date</h2>
+
+    <form [formGroup]="prodDateForm">
+        <div class="input-group">
+            <div class="input-label">
+                Production Schedule:
+            </div>
+
+            <div class="input-item">
+                <input type="date" formControlName="est_production_date" required>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                Product Quantity:
+            </div>
+
+            <div class="input-item">
+                <input type="number" formControlName="production_qty" [(ngModel)]="production_qty" [max]="restQuantity"
+                    required placeholder="{{restQuantity}} Maximum ">
+            </div>
+        </div>
+
+        <div class="input-group" *ngIf="production_qty > restQuantity" style="color:red;">
+            Max Product Quantity is : {{restQuantity}}
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                Production Rate:
+            </div>
+
+            <div class="input-item">
+                <input type="number" formControlName="production_rate" required placeholder="Pieces / Day">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                Comment:
+            </div>
+        </div>
+        <textarea style="width:100%" rows=3 formControlName="comment" placeholder="Please provide comments here!"></textarea>
+
+    </form>
+
+    <mat-dialog-actions align="center">
+        <button mat-button class="mat-button" mat-dialog-close>Cancel</button>
+        <button mat-button class="mat-button" (click)="onSave()" [mat-dialog-close]="newProdDateCallBack" [disabled]="prodDateForm.invalid || (production_qty > restQuantity)">Confirm</button>
+
+    </mat-dialog-actions>
+
+
+</div>
+
+<div *ngIf="restQuantity <= 0">
+    Sorry, you can not add more production schedule, there are enough products in production.
+    <mat-dialog-actions align="center">
+        <button mat-button class="mat-button" mat-dialog-close>Confirm</button>
+    </mat-dialog-actions>
+</div>

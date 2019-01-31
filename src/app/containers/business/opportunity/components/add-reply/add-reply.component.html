@@ -1,0 +1,32 @@
+<div *ngIf="!isLoading">
+        <brief_status-card [createdUser]= "briefStatus?.created" [content]="briefStatus?.body"></brief_status-card>
+        <div class="add-comment-container">
+            <form [formGroup]="addCommentForm">
+                <div class="row title">
+                    <b>Comment</b>
+                </div>
+        
+                <mat-card formArrayName= "body">
+                    <div *ngFor="let subNote of addCommentForm['controls'].body['controls']; let i = index">
+                            <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+                            <div class="row" [formGroupName]="i"> 
+                                <div class="col-1" *ngIf="getImg(i)">
+                                    <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                                    <div *ngIf="modalOpen">
+                                            <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                                    </div>
+                                </div>
+                                <div class="col-3"> 
+                                    <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                                </div>
+                            </div>
+                    </div>
+        
+                </mat-card>
+            </form>
+        </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

@@ -1,0 +1,178 @@
+.company-title-background {
+    width: 100%;
+    img {
+        width: 100%;
+    }
+}
+
+.company-title {
+    margin-top: -46px;
+    display: block;
+    background-color: #FFFFFF;
+    padding-bottom: 5px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    .company-logo {
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 60px;
+        height: 60px;
+    }
+    .company_name {
+        width: 100%;
+        text-align: center;
+    }
+    .company-address {
+        width: 100%;
+        margin: 2px 0px;
+        text-align: center;
+        font-size: 13px;
+        color: gray;
+    }
+}
+
+.product-card-title {
+    display: flex;
+    flex-direction: row;
+    .product-btn {
+        height: 40px;
+        width: 50%;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        line-height: 40px;
+        color: #717171;
+        font-size: 14px;
+    }
+}
+
+.prodcutTypeSelected {
+    background-color: #E0EAF1 !important;
+    color: black;
+    border-bottom: solid 2px #000000 !important;
+}
+
+
+.company-activities {
+    .panel-card-title {
+        font-size: 14px;
+    }
+    .panel-card-body {
+        img {
+            width: 40px;
+            margin: 4px 8px;
+        }
+    }
+}
+
+.company-contacts {
+    .panel-card-title {
+        font-size: 14px;
+    }
+    .panel-card-body {
+        font-size: 13px;
+        .company-contact-box {
+            margin-top: -5px;
+            display: inline-block;
+            width: 20%;
+            text-align: center;
+            .company-logo {
+                margin: 0 auto;
+                margin-top: 10px;
+                width: 44px;
+                height: 44px;
+                img {
+                    width: 40px;
+                    margin: 4px 8px;
+                }
+            }
+            .contact-name {
+                display: inline-block;
+                padding-top: 2px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.company-certification {
+    .panel-card-title {
+        font-size: 14px;
+    }
+    .panel-card-body {
+        img {
+            width: 40px;
+            margin: 4px 8px;
+        }
+    }
+}
+
+.company-notes {
+    .panel-card-title {
+        font-size: 14px;
+    }
+    .panel-card-body {
+        div {
+            border: 2px solid lightgray;
+            padding: 8px;
+            margin-bottom: 4px;
+            font-size: 13px;
+            border-radius: 2px;
+            .note-title {
+                font-weight: bold;
+            }
+            .note-create-time {
+                float: right;
+                color: gray;
+            }
+        }
+    }
+}
+
+:host {
+    display: block; // border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #D3D3D3;
+    background-color: #F5F5F5;
+    box-sizing: border-box;
+}
+
+.company-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    img {
+        width: 100%;
+    }
+    .shorthand {
+        font-size: 12px;
+        font-weight: 500;
+        color: #BBBBBB;
+    }
+}
+
+
+:host{
+    .panel-card-title {
+        font-weight: bold;
+        padding: 4px 0px;
+        .detail {
+            font-weight: normal;
+            color: gray;
+            float: right;
+            font-weight: 13px;
+        }
+    }
+    
+    
+    .panel-card,.mat-card,.company-products{
+        padding: 6px !important;
+        .mat-tab-label,.mat-tab-label.mat-tab-label-active {
+            flex:1;
+            height: 40px !important;
+        }
+    }
+}

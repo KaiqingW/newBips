@@ -1,0 +1,152 @@
+<div class="add_note_subject_container">
+    <form [formGroup]="addProjectForm">
+
+        <div class="row title">
+            <b>Project Name</b>             
+        </div>
+        <div class="row">
+            <input type="text" placeholder="Project Name is required !" required formControlName="name" >
+        </div>
+
+        <div class="row title">
+            <b>Choose to upload image or search inventory</b>             
+        </div>
+        <div style="margin: 3%;">
+            <mat-radio-group required >
+                <mat-radio-button value="search" [checked]="searchInventoryFlag" (click)="chooseSearchInventoty()">Search Inventory</mat-radio-button>
+                <mat-radio-button value="upload" style="float: right;" [checked]="uploadImageFlag" (click)="chooseUploadImage()">Upload Product Image</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        
+
+        <div class="row title">
+            <b *ngIf="searchInventoryFlag" >Search Product from Inventory</b>    
+            <b *ngIf="uploadImageFlag" >Upload the New Product's Image</b>                         
+        </div>
+
+        <!-- seach by email, save name -->
+        <mat-form-field class="chip-list" *ngIf="searchInventoryFlag">
+            <mat-chip-list #chipList>
+                <mat-chip *ngFor="let item of productItemNumList" [selectable]="selectable"
+                        [removable]="removable" (remove)="remove(item)">
+                {{item}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Please input Item# to search"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)"
+                    [matAutocomplete]="auto" 
+                    [formControl]="emailCtrl" #personInput/>
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+                <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+
+                <mat-option class="user-content" *ngFor="let product of filteredProducts" [value]="product.headline" (click)="getSlectedProductInfo(product)">
+                
+                    <div class="company-logo" *ngIf="product.images.length != 0">
+                        <avatar-logo
+                            [url]="product.images[0].url" 
+                            [userFirstName]="" 
+                            [userLastName]="" 
+                            [userId]="">
+                        </avatar-logo>
+                    </div>
+                    <div class="company-logo" *ngIf="product.images.length == 0">
+                        <!-- <avatar-logo
+                            [url]="assets/images/bottle.png" 
+                            [userFirstName]="" 
+                            [userLastName]="" 
+                            [userId]="">
+                        </avatar-logo> -->
+                        <img style="width:38px; height:38px; border-radius:38px; border: 1px solid lightgrey;" src="assets/images/bottle.png">
+                    </div>
+                    <div class="user-name">
+                        <span><b>Item#: {{product?.headline}}</b></span>
+                        <!-- <span class="user-email">{{product.name}}</span> -->
+                    </div>
+                </mat-option>
+
+                <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+            </mat-autocomplete>
+        </mat-form-field>
+        <!-- end -->
+
+        <div *ngIf="uploadImageFlag" style="margin: 3%;">
+            <input class="file_input"  accept="image/*" type="file" (change)="uploadProductImage($event)" #fileInput>                
+        </div>
+
+        <div class="row title">
+            <b>Description</b>
+        </div>
+    
+        <mat-card formArrayName="description">
+          
+          <div *ngFor="let subNote of addProjectForm['controls'].description['controls'];let i=index">
+              <!-- <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput> -->
+              <!-- <span style="font-size: 13px; color: red;">Please upload image here</span> -->
+              
+              <div class="row" [formGroupName]="i"> 
+                  <div class="col-1" *ngIf="getImg(i)">
+                      <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                      <div *ngIf="modalOpen">
+                              <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                      </div>
+                  </div>
+                  <div class="col-3"> 
+                      <textarea placeholder="Description is required !" style="width:100%;height:200.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                  </div>
+              </div>
+          </div>
+  
+          <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+        </mat-card>  
+        
+        <div class="estimate-value">
+            Estimated Values
+            $<input type="number" formControlName="opportunity_value" required/> Per Year
+            <!-- <select formControlName="opportunity_value_type" required>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+            </select> -->
+        </div>
+
+        <!-- <div class="row title">
+            <b>Requirement</b>
+        </div>
+
+        <div class="row">
+            <div class="require-date">
+                Require Date
+                <input type="Date" [formControl]="requireDateCtrl" required/>
+                
+            </div>
+            </div>
+            <div class="duration-time">
+                Duration Time 
+                <input type="text" formControlName="duration_time" [(ngModel)]="newDurationTime" disabled required/>
+            </div>
+            <div class="update-frequency">
+            Update Frequency
+            <select [formControl]="updateFrequencyCtrl" required>
+                <option value="onetime">One Time</option>          
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+            </select>
+        </div> -->
+
+    </form>   
+  </div>
+  
+  <div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+  </div>
+  
+  
+  
+  

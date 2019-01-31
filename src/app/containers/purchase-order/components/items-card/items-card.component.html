@@ -1,0 +1,58 @@
+<mat-card class="has-margin orca_card" *ngFor="let item of items; let i = index">
+    <div class="product-header">
+        <div class="product-picture">
+            <img *ngIf="!item?.product?.images || item?.product?.images?.length < 1" src="assets/images/icons/no-img.jpg" (click)="navToItem(item)">
+            <img *ngIf="item?.product?.images && item?.product.images.length > 0" [src]="item.product.images[0].url" (click)="navToItem(item)">
+        </div>
+
+        <div class="item-name">
+            <span class="product-name" (click)="navToItem(item)">
+                <b>{{item.product.name}}</b>
+            </span>
+
+            <span class="product-name" (click)="navToItem(item)">
+                <b>({{item.product.headline}})</b>
+            </span>
+
+            <span class="description" *ngIf="item.company_defined_columns?.color">
+                <b>Color&nbsp;:&nbsp;</b>{{item.company_defined_columns?.color}}
+            </span>
+
+            <span>
+                <b>Order Qty:</b>
+                &nbsp;{{item.quantity | number}}&nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Balance:</b>&nbsp;{{item.balance | number}}
+            </span>
+
+            <span *ngIf="item?.purchase_order_number" (click)="sendOrderNum(item.purchase_order_number)">
+                <b>Order#:</b>
+                &nbsp;{{item.purchase_order_number}}
+            </span>
+
+            <span class="documents" *ngIf="item?.attachments">
+                <div class="box" (click)="navToFolderOrNote($event, 'notes', item)">
+                    <img src="assets/images/testimg/notes-icon.png">
+                    <b class="pending-order" *ngIf="item.notes_subjects_count">{{item.notes_subjects_count}}</b>
+                    <b class="pending-order" *ngIf="!item.notes_subjects_count">{{0}}</b>
+                    <span class="unread" *ngIf="item?.unread_notes_subjects">{{item.unread_notes_subjects}}</span>
+                </div>
+                <div class="box" (click)="navToFolderOrNote($event, 'attachment', item)">
+                    <img src="assets/images/icons/folder.png">
+                    <b class="pending-order" *ngIf="item.attachment_count">{{item.attachment_count}}</b>
+                    <b class="pending-order" *ngIf="!item.attachment_count">{{0}}</b>
+                    <span class="unread" *ngIf="item?.unread_attachments">{{item.unread_attachments}}</span>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <order-process-bar [item]="item" [company_id]="company_id" [status]="status"></order-process-bar>
+
+
+    <!-- <order-container-status *ngFor="let info of item?.container_infos" [status]="status" [container_info]="info"></order-container-status> -->
+
+    <!-- <div class="info-bar">
+        <img style="width:34px;height:34px;" src="assets/images/icons/folder.png" alt="" (click)="navAttach(item.attachments)">
+        <img style="width:34px;height:34px;" src="assets/images/testimg/notes-icon.png" alt="" (click)="navNotes(item.notes_subjects)">
+    </div> -->
+</mat-card>

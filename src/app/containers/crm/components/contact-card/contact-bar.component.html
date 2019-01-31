@@ -1,0 +1,49 @@
+<div class="short-path" *ngIf="account">
+    <div class="item" style=" position: absolute; left:2px;" >
+        <img  (click)="navTo($event, account, 'status')" *ngIf="!account?.lead_status" src="assets/images/testimg/icon-tiv.png">
+        <img (click)="navTo($event, account, 'status')" *ngIf="account.lead_status == 'Active'" src="assets/images/testimg/active.png">
+        <img  (click)="navTo($event, account, 'status')" *ngIf="account?.lead_status == 'Inactive'" src="assets/images/testimg/inactive.png">
+    </div>
+    <div class="item" style=" position: absolute; left:34px;" >
+        <img (click)="navTo($event, account, 'evaluate')" *ngIf="!account?.evaluate" src="assets/images/testimg/gb-customer.png">
+        <img (click)="navTo($event, account, 'evaluate')" *ngIf="account?.evaluate == 'good'" src="assets/images/testimg/good_customer.png">
+        <img  (click)="navTo($event, account, 'evaluate')" *ngIf="account?.evaluate == 'bad'" src="assets/images/testimg/bad_customer.png">
+    </div>
+    <a disableColor [data]="account.telephone_number" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" (click)="navTo($event, account, 'phone')">
+        <mat-icon>phone</mat-icon>
+    </a>
+    <a disableColor [data]="account.email" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" (click)="navTo($event, account, 'email')">
+        <mat-icon>email</mat-icon>
+    </a>
+    <a disableColor [data]="account.website" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" (click)="navTo($event, account, 'website')">
+        <mat-icon>laptop</mat-icon>
+    </a>
+    
+    <div  class="item">
+        <a  (click)="navTo($event, account, 'assign')">
+            <mat-icon>how_to_reg</mat-icon>
+            <!-- <img src="assets/images/testimg/assign-icon.png" (click)="navTo($event, account, 'assign')"> -->
+        </a>
+    </div>
+    
+    <div  class="item">
+        <a (click)="navTo($event, account, 'contacts')"><mat-icon>people</mat-icon></a>
+        <span *ngIf="account?.contacts_count&&account?.contacts_count<=99" class="icon-number"><b>{{account?.contacts_count}}</b></span>
+        <span *ngIf="account?.contacts_count>99" class="icon-number"><b>99</b></span>
+    </div>
+  
+    <div class="item">
+        <img src="assets/images/testimg/notes-icon.png" (click)="navTo($event, account, 'notes')">
+        <span *ngIf="account?.notes_count&&account?.notes_count<=99" class="icon-number"><b>{{account?.notes_count}}</b></span>
+        <span *ngIf="account?.notes_count>99" class="icon-number"><b>99</b></span>
+    </div>
+
+    <div class="item">
+        <img src="assets/images/testimg/quotes.png" (click)="navTo($event, account, 'quotes')">
+        <span *ngIf="account?.quotes_count&&account?.quotes_count<=99" class="icon-number"><b>{{account?.quotes_count}}</b></span>
+        <span *ngIf="account?.quotes_count>99" class="icon-number"><b>99</b></span>
+    </div>
+    
+    <!-- <customer-assign [currentLoginCompanyId]="currentLoginCompanyId" [customerId]="account?.id"></customer-assign> -->
+    
+</div>

@@ -1,0 +1,62 @@
+  <form class="content"  [formGroup]="updateItemForm">
+        <div class="product-header" *ngIf="shipping">
+                <div class="bg-write">
+                    <img src="assets/images/universe.png" style="height: 60px; width: 100%; opacity: 1.0;">
+                  </div>
+                <div class="bg-blue">
+                    <div class="product-picture">
+                        <img  src="assets/images/container.jpg">
+                    </div>
+                
+                    <div class="item-name">
+                        <span class="product-name" *ngIf="shipping?.container_number"><b>{{shipping.container_number}}</b></span><br>
+                    </div>
+              </div>
+            </div>
+            
+            <app-condition-card></app-condition-card>
+            
+            <mat-card *ngIf="shipping">
+                  <div class="summary"><b>Container Information</b>
+                      <span class="showMoreBtn" (click)="switchShowBtn()">
+                              {{showNum == 2 ? "More" : "Less"}}
+                      </span>
+                  </div>
+                  <div class="category">
+                     <span class="item-title">EST Date</span>
+                     <span class="item-content" *ngIf="shipping?.eta_date">{{shipping.eta_date}}</span>
+                  </div>
+                  <div class="category">
+                     <span class="item-title">Actual Date</span>
+                     <span class="item-content" *ngIf="shipping?.actual_arrive_date">{{shipping.actual_arrive_date}}</span>
+                     <span class="item-content" *ngIf="(shipping?.actual_arrive_date == null) && (!editMode)" style="border-radius: 5px;background-color: #01FF70;text-align: center;" routerLink="edit">Click To Update</span>
+                     <input class="item-content" type="date" formControlName="actual_arrive_date" *ngIf="(editMode)" style="border-radius: 5px;text-align: center;" required>
+                    </div>
+          </mat-card>
+          
+          
+          <div *ngFor="let shipping of shippings;let i = index;" formArrayName="items">
+              <div class="item-header">
+                  <div class="item-picture">
+                      <img src="assets/images/icons/no-img.jpg">
+                  </div>
+                  <div class="item-col-1">
+                        <div class="product-name">item#</div>
+                        <div class="description" *ngIf="shipping?.product?.headline">{{shipping.product.headline}}</div>
+                 </div>
+                  <div class="item-col">
+                      <div class="description">Order Qty</div>
+                      <div class="description">{{shipping.quantity | number}}</div>
+                  </div>
+          
+                  <div class="item-col" style="padding-right:2%;" [formGroupName]="i">
+                      <div class="description">Actual</div>
+                      <div class="description" *ngIf="shipping?.actual_quantity">{{shipping.actual_quantity | number}}</div>
+                      <div class="description" *ngIf="!(shipping?.actual_quantity) && (!editMode)">{{N/A}}</div>
+                      <input *ngIf="editMode" class="description" formControlName="qty" type="number" required>
+                  </div>
+              </div>
+              <app-batch-card *ngIf="shipping" (finishBatchUpdate)="receivedNotice($event)" [editMode]="editMode" [orderItemId]="shipping?.order_item_id" [containerNum]="shipping?.container_number"></app-batch-card>
+          </div>
+        </form>
+  

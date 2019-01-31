@@ -1,0 +1,54 @@
+<div class="add_note_subject_container">
+  <form [formGroup]="addProjectForm">
+      <div class="row title">
+          <b>Meeting Name</b>             
+      </div>
+      <div class="meeting-name">
+          <span>{{subjectName}}</span>
+      </div>
+      <div class="row title">
+          <b>Project Name</b>             
+      </div>
+       <div class="row">
+          <input type="text" placeholder="Project Name is required !" required formControlName="name" >
+      </div>
+      
+      <div class="row title">
+          <b>Description</b>
+      </div>
+  
+      <mat-card formArrayName="description">
+        
+        <div *ngFor="let subNote of addProjectForm['controls'].description['controls'];let i=index">
+            
+            <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+            <span style="font-size: 13px; color: red;">Please only upload image here</span>
+            <div class="row" [formGroupName]="i"> 
+                <div class="col-1" *ngIf="getImg(i)">
+                    <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                    <div *ngIf="modalOpen">
+                            <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                    </div>
+                </div>
+                <div class="col-3"> 
+                    <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+    </mat-card>   
+      
+      <!-- <div class ="target-date">
+          Target Complete Date
+          <input type="Date" placeholder="Meeting Date" formControlName="target_date" required>
+      </div> -->
+  </form>   
+</div>
+
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
+
+
+

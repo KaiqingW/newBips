@@ -1,0 +1,33 @@
+<div *ngIf = "weatherCode" class = "main-container">
+  <div class = "main-row">
+    <div class = "col-5">
+      <img class = "img-container" src="{{weatherCode}}">
+    </div>
+    <div class = "col-7">
+      <div class = "tx-md">
+        {{weatherItem.condition?.text}}
+      </div>
+      <div class = "tx-lg">
+        {{weatherItem.condition?.temp}} °F
+      </div>
+
+      <div class = "tx-md">
+        <span>{{weatherLocation?.city}}, {{weatherLocation?.region}} </span>
+        <span id = "zip">{{zipcode2}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- next 5 days -->
+  <div class = "sub-row">
+    <div *ngFor = "let forecast of weatherList" class = "tx-row">
+      <div class = "tx-sm">
+        {{forecast.day}}
+      </div>
+      <img class = "img-container-sm" src="{{forecast.code}}">
+      <div class = "tx-sm margin-top">
+          {{forecast.low}}-{{forecast.high}}
+      </div>
+    </div>
+  </div>
+</div>

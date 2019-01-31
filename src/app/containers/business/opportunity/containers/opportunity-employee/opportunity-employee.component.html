@@ -1,0 +1,39 @@
+
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-employee/{{employee_user_id}}">My Opportunities</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-employee/{{employee_user_id}}/shared">SharedWithMe</a>
+
+
+
+<div *ngIf="!isLoading">
+    
+        <!-- Opportunity employee attachment -->
+        <!-- <app-attachment [title]="'Documents'" (sendFormData)="onReceivedFormData($event)" [attachments]="opportunityEmployee?.attachments"></app-attachment> -->
+        
+        <!-- opportunity setting discussion -->
+        <!-- <div class="opportuntiy-status">
+            <panel-card class="opportunity-employees">
+                <panel-card-title>Discussion</panel-card-title>
+                <panel-card-body >
+                        <status-card [createdUser]="latestStatus?.created" [content]="latestStatus?.body" [commentId]="latestStatus?.id" [replyPermission]="false" 
+                        ></status-card>
+                </panel-card-body>
+            </panel-card>
+        </div> -->
+
+        <!-- opportunity employee discussion -->
+        <!-- <panel-card class="opportunity-employees">
+            <panel-card-title>Opportunities</panel-card-title>
+            <panel-card-body>
+                
+            </panel-card-body>
+        </panel-card> -->
+        <mat-card *ngFor="let opportunity of opportunities" routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/opportunity-details/{{opportunity?.id}}">
+            <opportunity-card [url]="opportunity?.avatar_url" [opportunity_name]="opportunity?.name" [company_name]="opportunity?.company_name"
+            [first_name]="opportunity?.created?.by?.first_name" [last_name]="opportunity?.created?.by?.last_name" [description]="opportunity?.description"></opportunity-card>
+        </mat-card>
+</div>
+
+<app-add-button *ngIf="!isLoading" routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/add-opportunity"></app-add-button>
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

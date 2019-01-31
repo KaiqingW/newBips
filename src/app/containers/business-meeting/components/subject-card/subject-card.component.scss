@@ -1,0 +1,121 @@
+:host{
+    
+    mat-card{
+        padding:9px 4px 9px 8px;
+        height:72px;      
+        // box-shadow: none;  
+    }
+    .subject-content{
+        height: 53px;
+        .subject-name{
+            display:inline-block;
+            vertical-align: middle;
+            width:100%;
+            height: 30px;
+            overflow: hidden;
+            h5{
+                text-align: center;
+                height: 24px;
+                line-height: 24px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+                width: 93%;
+                margin-left: 7%;
+            }
+        }
+        .time{
+            display:inline-block;
+            width:100%;
+            height: 30px;
+            overflow: hidden;
+            
+            .meeting-time{
+                font-size:12px;
+                display: block;
+                width: 65%;
+                text-align: left;
+                float: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+            }
+            .created-time {
+                font-size:11px;
+                display: block;
+                width: 35%;
+                color:gray;
+                text-align: right;
+                float: right;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+            }
+        }
+
+        .attachment-files-count {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            display: inline-block;
+            border-radius: 50px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            .count {
+                position: absolute;
+                left: 50%;
+                top: 60%;
+                transform:translate(-50%,-50%);
+                font-size: 12px;
+            }
+        }
+        .unread{
+            position: absolute;
+            right: 28px;
+            top: 5px;
+            display: inline-block;
+            background-color: red;
+            border-radius: 50px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 12px;
+            .count {
+                position: absolute;
+                left: 50%;
+                top: 60%;
+                transform:translate(-50%,-50%);
+                font-size: 12px;
+            }
+        }
+        // .unread{
+        //     position: absolute;
+        //     right: 28px;
+        //     top: 5px;
+        //     display: inline-block;
+        //     // background-color: red;
+        //     border-radius: 50px;
+        //     width: 20px;
+        //     height: 20px;
+        //     text-align: center;
+        //     line-height: 20px;
+        //     // color: white;
+        //     font-size: 12px;
+        //     .count {
+        //         position: absolute;
+        //         left: 50%;
+        //         top: 60%;
+        //         transform:translate(-50%,-50%);
+        //         font-size: 12px;
+        //     }
+        // }
+    }    
+}
+ng-content{
+    width:101%;
+    margin-left:-6px;
+}

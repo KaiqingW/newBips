@@ -1,0 +1,263 @@
+
+<div class="comany-tile-background"><img src="assets/images/company-bg.png"></div>
+        
+<div class="company-title">
+    <form novalidate [formGroup]="vendorForm">
+        <div *ngIf="!selectedCompany" class="company-logo profile">
+            <img *ngIf="!data?.image" src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"> 
+            <img *ngIf="data?.image" [src]="data?.image">
+            <div class="overlay">
+                <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+                <p>Upload Picture</p>
+            </div>
+        </div>
+        <div *ngIf="selectedCompany" class="company-logo profile">
+            <img *ngIf="!data?.image" [src]="selectedCompany?.logo_url"> 
+            <!-- <img *ngIf="data?.image" [src]="data?.image">
+            <div class="overlay">
+                <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+                <p>Upload Picture</p>
+            </div> -->
+        </div>
+        
+        <mat-form-field >
+            <!-- <input type="input" matInput  placeholder="Company Name" name="name" formControlName="name"  required> -->
+            <input  type="input" matInput  placeholder="Company Name"  name="comapny name" [matAutocomplete]="auto" [formControl]="companyNameCtrl" required>
+            <mat-autocomplete #auto= matAutocomplete>
+            <mat-option *ngFor="let company of companyNameList" [value]="company?.name" (click)="companySlected(company)">
+                <span *ngIf="company?.logo_url"><img  [src]="company?.logo_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{company?.name}}</span>
+                <span *ngIf="!company?.logo_url"><img  src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{company?.name}}</span>
+            </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <p *ngIf="customerAlreadyExist" style="color:red; font-size:12px; margin:-10px 0px 0 2%">This Customer Already exist!</p>
+        <p *ngIf="customerNameRequired" style="color:red; font-size:12px; margin:-10px 0px 0 2%">Customer Name required!</p>
+        
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="Customer Type"  formControlName="type" #companyType required>
+                <mat-option value="4">Prospect Vendor</mat-option>
+                <mat-option value="5">Backup Vendor</mat-option>
+                <mat-option value="6">Main Vendor</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p *ngIf="customerTypeRequired" style="color:red; font-size:12px; margin:-10px 0px 0 2%">Customer Type required!</p>
+
+        <mat-form-field class="example-full-width" *ngIf="!selectedCompany" >            
+            <input type="input" matInput placeholder="Website"  formControlName="website" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" *ngIf="selectedCompany" >           
+            <input type="input" matInput placeholder="Website"  formControlName="website" [ngModel]="selectedCompany?.website">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" *ngIf="!selectedCompany">
+            <input type="input" matInput placeholder="Company Phone Number" mask="(000) 000-0000" prefix="+1"  formControlName="telephone_number" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" *ngIf="selectedCompany">
+            <input type="input" matInput placeholder="Company Phone Number"  mask="(000) 000-0000" prefix="+1" formControlName="telephone_number" [ngModel]="selectedCompany?.telephone_number">
+        </mat-form-field>
+ 
+        <mat-form-field *ngIf="!selectedCompany" class="example-full-width">
+            <input type="input" matInput placeholder="Email"  formControlName="email" >
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedCompany" class="example-full-width">
+            <input type="input" matInput placeholder="Email"  formControlName="email" [ngModel]="selectedCompany?.email">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input type="input" matInput placeholder="Fax Number"  formControlName="fax_number" >
+        </mat-form-field>
+
+
+        
+         <!-- for select customer category -->
+        <mat-form-field  *ngIf="!selectedCompany?.industry||!getLevelOneCategory(selectedCompany?.industry)" class="example-full-width">
+            <!-- <input matInput placeholder="Industry Type"  formControlName="industry" > -->
+            <mat-select placeholder="Industry" name="industry">
+                    <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+                    <mat-option value="{{category?.description}}" *ngFor="let category of LevelOneCategories" (click)="selectedLevelOneCategory(category)">{{category?.description}}</mat-option>
+                    <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="(selectedLevelOneId && !selectedCompany)||(!getLevelTwoCategory(selectedCompany?.industry)&&selectedLevelOneId)">
+                <mat-select class="industry-select" placeholder="Sub Category" >
+                    <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+                    <mat-option value="{{category?.description}}" *ngFor="let category of LevelTwoCategories" (click)="getSubCategoryValue(category)">{{category?.description}}</mat-option>
+                    <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+                </mat-select>
+            </mat-form-field>
+
+
+        <mat-form-field  *ngIf="getLevelOneCategory(selectedCompany?.industry)" class="example-full-width">
+            <mat-select placeholder="Industry" name="industry" [(value)]="selectedLevelOneValue">
+                    <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+                    <mat-option value="{{selectedLevelOneValue}}" disabled>{{selectedLevelOneValue}}</mat-option>
+                    <mat-option value="{{category?.description" *ngFor="let category of LevelOneCategories" (click)="selectedLevelOneCategory(category)">{{category?.description}}</mat-option>
+                    <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+            </mat-select>
+            <!-- <input matInput placeholder="Industry Type"  formControlName="industry" [ngModel]="selectedCompany?.industry" > -->
+        </mat-form-field>
+        
+        <mat-form-field *ngIf="getLevelTwoCategory(selectedCompany?.industry)">
+            <mat-select class="industry-select" placeholder="Sub Category" [(value)]="selectedLevelTwoValue" >
+                <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+                <mat-option value="{{selectedLevelTwoValue}}" disabled>{{selectedLevelTwoValue}}</mat-option>
+                <mat-option value="{{category?.description}}" *ngFor="let category of LevelTwoCategories" (click)="getSubCategoryValue(category)">{{category?.description}}</mat-option>
+                <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="selectedLevelTwoValue &&selectedLevelTwoValue == 'Food And Kindred Products'" class="chip-list">
+            <mat-chip-list #chipList>
+                <mat-chip *ngFor="let category of thirdCategoryListChoosed" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(category)">
+                {{category}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Input to search Third Category"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)"
+                    [matAutocomplete]="auto" 
+                    [formControl]="thirdCategortCtrl" #personInput/>
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" 
+                            (optionSelected)="selectOption($event)">
+                <mat-option *ngFor="let category of thirdCategorySearchedList" [value]="category?.description">
+                <span height="30" style="display:inline-block;margin-bottom: -8px"> {{category?.description}}</span>
+                </mat-option>
+            </mat-autocomplete>  
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!selectedCompany" class="example-full-width">
+            <input type="input" matInput placeholder="Memo"  formControlName="memo" >
+            <mat-error *ngIf="vendorForm.controls.memo.invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field *ngIf="selectedCompany" class="example-full-width">
+            <input type="input" matInput placeholder="Memo"  formControlName="memo" [ngModel]="selectedCompany?.memo">
+            <mat-error *ngIf="vendorForm.controls.memo.invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+
+
+
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Source"  formControlName="lead_source" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+                <mat-select placeholder="Status"  formControlName="lead_status">
+                    <mat-option value="Active">Active</mat-option>
+                    <mat-option value="Inactive">Inactive</mat-option>
+                </mat-select>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="example-full-width" *ngIf="companyType.value ==1">
+            <input matInput placeholder="Order Capacity"  formControlName="order_capacity">
+        </mat-form-field> -->
+        <mat-form-field class="example-full-width" *ngIf="companyType.value == 4 || companyType.value == 5">
+            <mat-select placeholder="Posibility"  formControlName="lead_possibility">
+                <mat-option value="0.1">10%</mat-option>
+                <mat-option value="0.2">20%</mat-option>
+                <mat-option value="0.3">30%</mat-option>
+                <mat-option value="0.4">40%</mat-option>
+                <mat-option value="0.5">50%</mat-option>
+                <mat-option value="0.6">60%</mat-option>
+                <mat-option value="0.7">70%</mat-option>
+                <mat-option value="0.8">80%</mat-option>
+                <mat-option value="0.9">90%</mat-option>
+                <mat-option value="1">100%</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!selectedCompany"  class="example-full-width">
+            <textarea  matInput placeholder="Description" formControlName="description"  matTextareaAutosize matAutosizeMinRows="2"
+            matAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+
+        <mat-form-field  *ngIf="selectedCompany"  class="example-full-width">
+            <textarea matInput placeholder="Description" formControlName="description"  [ngModel]="selectedCompany?.description" matTextareaAutosize matAutosizeMinRows="2"
+            matAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+
+        <panel-card class="customer-contacts" formArrayName="contacts">
+            <panel-card-title>Contacts</panel-card-title>
+            <div class="contact"  *ngFor="let contact of vendorForm['controls'].contacts['controls']; let i=index">
+                <div class="contact-card">
+                    <div class="delete-contact"><button mat-icon-button color="warn" (click)="removeContact(i)">X</button></div>
+                    <div class="contact-content">
+                        <panel-card-body [formGroupName]="i">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="First Name" formControlName="first_name">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Last Name" formControlName="last_name">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Phone Number" formControlName="phone">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" >
+                                <input matInput placeholder="Email" formControlName="email">
+                            </mat-form-field>
+                            
+                            <mat-form-field class="example-full-width" >
+                                <input matInput placeholder="Position" formControlName="position">
+                            </mat-form-field>
+                        </panel-card-body>
+                    </div>
+                </div>
+            </div>
+
+            <button mat-button color="primary" (click)="addContact()">more contacts</button>
+        </panel-card>
+
+        <panel-card class="customer-addresses" formArrayName="addresses">
+            <panel-card-title>Addresses</panel-card-title>
+            <div class="address" *ngFor="let address of vendorForm['controls'].addresses['controls']; let i = index">
+                <div class="address-card">
+                <div class="delete-address"> <button mat-icon-button color="warn" (click)="removeAddress(i)">X</button></div>
+                    <div class="address-content">
+                        <panel-card-body [formGroupName]="i">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Street1"  formControlName="street1">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Street2"  formControlName="street2">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width"  >
+                                <input matInput placeholder="City" formControlName="city">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width"  >
+                                <input matInput placeholder="State" formControlName="state">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Zip Code"  formControlName="zipcode">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Country"  formControlName="country">
+                            </mat-form-field>
+                        </panel-card-body>
+                    </div>
+                </div> 
+            </div>
+            <button mat-button color="primary" (click)="addAddress()">more addresses</button>
+        </panel-card>
+    </form>
+</div>
+
+<div style="height:85px;"></div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>   
+</app-crop-modal>
+
+<!-- <pre>{{vendorForm.value | json}}</pre> -->

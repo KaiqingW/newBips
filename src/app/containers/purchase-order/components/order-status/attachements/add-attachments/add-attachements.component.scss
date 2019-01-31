@@ -1,0 +1,32 @@
+form{
+    text-align: center;
+    .row{
+        display: flex;
+        flex-direction: row;
+        width:100%;
+        margin:12px 0;
+        text-align: center;
+
+        .col{
+            display: flex;
+            width: 40%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .col-2{
+            display: flex;
+            width: 60%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        input,select,textarea{
+            display: inline-block;
+            width:100%;
+            border-radius:0;
+        }
+    }
+
+}
+
+
+

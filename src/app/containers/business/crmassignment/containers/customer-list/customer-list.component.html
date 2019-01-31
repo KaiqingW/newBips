@@ -1,0 +1,83 @@
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/crm-assignment/lead" (click)="getCustomerList('lead')">Lead</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/crm-assignment/potential" (click)="getCustomerList('potential')">Potential</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/crm-assignment/account" (click)="getCustomerList('account')">Account</a>
+
+<div *ngIf="!isLoading" class="assignment-container">
+    <mat-card *ngFor="let customer of customerList" > 
+        <div class="company-content" >
+            <div>
+                <div class="selectbox">
+                    <input type="checkbox" name="acs" (click)="onChange(customer?.id)" [value]="customer?.id"/>
+                </div>
+                <div class="company-logo" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{customer?.id}}">
+                    <company-logo [url]="customer?.logo_url" [comname] = "customer?.name" ></company-logo>
+                </div>
+                <div class="company-name" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{customer?.id}}">
+                    <span><b style="color:#000; font-size:15px;">{{customer?.name}}</b> </span>
+                    <span>{{customer?.industry}}</span>
+                </div>
+                <div class="customer-owner" *ngIf="customer?.followed_by" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{customer?.id}}">
+                    <company-logo [url]="customer?.followed_by?.avatar_url" [comname] = "getFullname(customer?.followed_by) " ></company-logo>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <div style="height:85px;"></div>
+</div>
+
+<div class="assignment-bottom">
+    <mat-card>
+        <i *ngIf="previousPageUrl" class="material-icons keyboard_left" (click)="lastPage()"> keyboard_arrow_left</i>
+        <i *ngIf="!previousPageUrl" class="material-icons keyboard_left" style="color:gray"> keyboard_arrow_left</i>
+        <mat-form-field class="example-full-width page-number">
+                <input matInput style="text-align: center" placeholder="currentPage" [value]="currentPage" #pageNumber>
+            </mat-form-field>
+        <i *ngIf="nextPageUrl" class="material-icons keyboard_right" (click)="nextPage()" > keyboard_arrow_right</i>
+        <i *ngIf="!nextPageUrl" class="material-icons keyboard_right" style="color:gray" > keyboard_arrow_right</i>
+        
+        <button mat-button color="primary"  (click)="exactPage(pageNumber.value)">Go</button>
+            <!-- <b (click)="sendEmail()">123</b> -->
+
+        <button mat-raised-button (click)="selectAll()">SelectAll</button>
+        <button mat-raised-button color="primary" (click)="unSelectAll()">unselectAll</button>
+        <button mat-raised-button color="warn" (click)="obSelectUser()">Assign User</button>
+    </mat-card>
+</div>
+
+<div class="formmat-modal" *ngIf="formmatModalOpen"> 
+        <mat-card>
+                <h4>Selecte User</h4>
+                <mat-form-field >
+                    <input  type="input" matInput  placeholder="Email"  name="email" [matAutocomplete]="auto" [formControl]="emailCtrl">
+                    <mat-autocomplete #auto= matAutocomplete>
+                    <mat-option *ngFor="let user of userEmailList" [value]="user?.email" (click)="userSlected(user)">
+                        <span *ngIf="user?.avatar_url"><img  [src]="user?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
+                        <span *ngIf="!user?.avatar_url"><img  src="assets/images/testimg/useravatar2.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
+                    </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <!-- <div class="more-function-container">
+                        <span class="more-function-bar" *ngIf="!moreFunction" (click)="toggleMoreAndLess()">More</span>
+                        <span class="more-function-bar" *ngIf="moreFunction" (click)="toggleMoreAndLess()">Less</span> 
+                </div> -->
+               
+                <div>
+                    <section class="example-section">
+                        <span style="line-height:24px; ">Notify Via</span>
+                        <mat-checkbox class="example-margin" [(ngModel)]="EmailChecked">Email</mat-checkbox>
+                        <mat-checkbox class="example-margin" [(ngModel)]="MessageChecked">Message</mat-checkbox>
+                    </section>
+
+                    <mat-form-field>
+                        <textarea matInput placeholder="Textarea" [(ngModel)]="NotifyContent" ></textarea>
+                    </mat-form-field>
+                </div>
+                
+                <div class="form-btn">
+                    <button mat-button color="primary" (click)="onCancel()">Cancel</button>
+                    <button mat-button color="primary" (click)="onSubmit()">Submit</button>
+                </div>
+            </mat-card>
+</div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

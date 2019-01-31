@@ -1,0 +1,194 @@
+<div class="product-header" *ngIf="product">
+    <div class="bg-write">
+        <img src="assets/images/universe.png" style="height: 60px; width: 100%; opacity: 1.0;">
+    </div>
+    <div class="bg-blue">
+        <div class="product-picture">
+            <mat-icon (click)="onNavToEdit()" *ngIf="showEditButton" style="color:#27b727;font-size: 30px;">edit</mat-icon>
+            <img (click)="openModal(product?.images[0]?.url)" [src]="product?.images?.length > 0 ? product.images[0].url : 'assets/images/icons/no-img.jpg'">
+            <mat-icon *ngIf="showEditButton" (click)="deleteProduct()" style="color:#ea3224; font-size: 30px;">delete</mat-icon>
+        </div>
+        <b *ngIf="((!product?.info_completed) && (product?.type != 2)) || product?.images?.length == 0" class="incompleted">
+            <span>Incompleted</span>
+        </b>
+        <div class="showcase" *ngIf="product?.as_showcase">{{getType(product.as_showcase)}}</div>
+        <div class="item-name">
+            <span class="product-name">
+                <b>{{product.name}}</b>
+            </span>
+            <i class="material-icons" [style.color]="product.id == selected_copy_product?.id ? 'blue' : 'black'" (click)="copyProductInfo()">
+                file_copy
+            </i>
+            <br>
+            <span style="font-size: 13px;" class="description">{{product.headline}}</span>
+        </div>
+        <div class="overview-content">
+            {{product.description}}
+        </div>
+    </div>
+</div>
+
+<mat-card class="orca_card" *ngIf="product">
+    <div class="warehouse-location">
+        <div class="orca_title_sm">
+            <b>Warehouse Info</b>
+        </div>
+        <div class="multi-pictures-loop" *ngIf="product.warehouses.length ==0">
+            No warehouse has this product!
+        </div>
+        <div class="warehouse-loop" *ngIf="product.warehouses.length > 0">
+            <div class="warehouse" (click)="switchShowMap()">
+                <div class="warehouse-bg">
+                    <img style="z-index:2;position: relative;border-radius:5px;" src="assets/images/on-road.png">
+                </div>
+
+                <div class="warehouse-name-span">
+                    <span>Show Map</span>
+                </div>
+                <div class="quantity">
+                    <span class="quantity-content">
+                        <b>{{warehouses.length | number}} WHSE</b>
+                    </span>
+                </div>
+            </div>
+
+            <div style="width:80%;height:100%;overflow-x:auto;overflow-y: hidden;">
+                <div class="warehouse" *ngFor="let warehouse of product.warehouses;let i =index" (click)="selectWarehouse(warehouse, i)"
+                    [class.selected]="warehouse == selectedWarehouse">
+                    <div class="warehouse-bg">
+                        <img src="assets/images/warehouse.png">
+                    </div>
+                    <div class="warehouse-name-span">
+                        <span>{{warehouse.name | short : 8}}</span>
+                    </div>
+                    <div class="quantity">
+                        <span class="quantity-content">
+                            <b>{{warehouse.amount | number}}</b>
+                        </span>
+                    </div>
+                    <div class="quantity" *ngIf="warehouse.distance">
+                        <span class="quantity-content">
+                            <b>{{getDistance(warehouse)}}</b>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</mat-card>
+
+<div [class.noWarehouses]="!showMap" #gmap id="goFS" style="width:100%;height:56.75vw;margin:5px 0;" class="map"></div>
+
+<button [class.noWarehouses]="!showMap" [class.reset-btn]="showMap" mat-button (click)="reset()">Reset</button>
+
+<div [class.hasWarehouses]="showMap" style="position: relative;top:-68vw;">
+
+    <mat-card class="orca_card" *ngIf="showMap">
+        <div class="multi-pictures">
+            <b>Find Direction to Your Destination</b>
+        </div>
+
+        <div>
+            <b>Destination:
+                <input class="input" style="border-radius: 0;width:80%;display: inline-block;" [(ngModel)]="searchAddress" matInput placeholder="Enter your destination."
+                    aria-label="product name">
+                <button style="position: absolute;right:5%;border-radius:0;" (click)="onSearch()">Search</button>
+            </b>
+        </div>
+        <div class="summary" *ngFor="let address of destinationArr?.results;let i = index" (click)="setDestinationOnMap(address)">
+            <mat-card>
+                {{i+1}} . address: {{address.formatted_address}}
+            </mat-card>
+        </div>
+    </mat-card>
+
+    <mat-card class="orca_card" *ngIf="product">
+        <div class="orca_title_sm">
+            <b>Product Images</b>
+        </div>
+        <div class="multi-pictures-loop" *ngIf="product.images.length > 0">
+            <div class="picture" *ngFor="let picture of product.images">
+                <img [src]="picture.url" (click)="openModal(picture.url)">
+            </div>
+        </div>
+
+        <div class="multi-pictures-loop" *ngIf="product.images.length == 0">
+            No Images!
+        </div>
+    </mat-card>
+
+    <inventory-wholesale-price *ngIf="showEditButton" [product]="product" (sendProduct)="onGetProduct($event)"></inventory-wholesale-price>
+
+    <product-category-card *ngIf="product" [categories]="categories"></product-category-card>
+
+    <mat-card class="orca_card" *ngIf="product">
+        <div class="orca_title_sm">
+            <b>Specification</b>
+            <span class="showMoreBtn" (click)="switchShowBtn()">
+                {{showNum == 5 ? "More" : "Less"}}
+            </span>
+        </div>
+
+        <div class="orca_title_content_row" *ngIf="product.shipping_packaging_type">
+            <span class="orca_title_h_blue">Packagin Type</span>
+            <span class="orca_content_h_white">{{product.shipping_packaging_type}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.pallet_size">
+            <span class="orca_title_h_blue">Pallet Size</span>
+            <span class="orca_content_h_white">{{product.pallet_size}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.pcs_per_case">
+            <span class="orca_title_h_blue">Pieces/Case</span>
+            <span class="orca_content_h_white">{{product.pcs_per_case}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.pcs_per_layer">
+            <span class="orca_title_h_blue">Pieces/Layer</span>
+            <span class="orca_content_h_white">{{product.pcs_per_layer}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.cases_per_layer">
+            <span class="orca_title_h_blue">Cases/Layer</span>
+            <span class="orca_content_h_white">{{product.cases_per_layer}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.layer_per_pallet">
+            <span class="orca_title_h_blue">Layer/Pallet</span>
+            <span class="orca_content_h_white">{{product.layer_per_pallet}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.cases_per_20_container">
+            <span class="orca_title_h_blue">Cases/20' Container</span>
+            <span class="orca_content_h_white">{{product.cases_per_20_container}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.cases_per_40_container">
+            <span class="orca_title_h_blue">Cases/40' Container</span>
+            <span class="orca_content_h_white">{{product.cases_per_40_container}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.pallets_per_20_container">
+            <span class="orca_title_h_blue">Pallets/20' Container</span>
+            <span class="orca_content_h_white">{{product.pallets_per_20_container}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngIf="product.pallets_per_40_container">
+            <span class="orca_title_h_blue">Pallets/40' Container</span>
+            <span class="orca_content_h_white">{{product.pallets_per_40_container}}</span>
+        </div>
+        <div class="orca_title_content_row" *ngFor="let defColumn of product.company_defined_columns | shortObj : showNum">
+            <span class="orca_title_h_blue">{{defColumn.name}}</span>
+            <span class="orca_content_h_white" *ngIf="defColumn.value">{{defColumn.value}}</span>
+            <span class="orca_content_h_white" *ngIf="!defColumn.value">N/A</span>
+        </div>
+
+    </mat-card>
+
+    <app-attachment *ngIf="product" (sendFormData)="onReceivedFormData($event)" [title]="'Attachments'" [attachments]="product?.attachments"></app-attachment>
+    <app-add-wholesale-price-table *ngIf="mode && product" (sendPriceTable)="onGetWholesalePrice($event)"></app-add-wholesale-price-table>
+    <app-wholesale-price-table *ngIf="!mode && product" [wholesalePrices]="wholesalePrices"></app-wholesale-price-table>
+</div>
+<div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
+        <div *ngIf="selectedAttachment" class="attachment-product-content">
+            <p>Comment: {{selectedAttachment.comment}}</p>
+            <div class="div1">{{selectedAttachment.created.at}}</div>
+            <div class="div2">Created By:{{selectedAttachment.created.by.first_name}} {{selectedAttachment.created.by.last_name}}</div>
+        </div>
+    </app-img-modal>
+</div>
+<app-spinner *ngIf="isLoading"></app-spinner>

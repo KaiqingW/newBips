@@ -1,0 +1,106 @@
+<div *ngIf="warehouse">
+    <div class="company-title">
+        <img class="comany-tile-background" src="/assets/images/testimg/orb3.png">
+        <company-logo [comname]="warehouse?.name"></company-logo>
+        <div class="company_name">
+            <b>{{warehouse.name}}</b>
+        </div>
+        <div class="company-address">
+            <span>Address:</span>
+            <span>{{warehouse.address.street1}},</span>
+            <span *ngIf="warehouse?.address?.street2">{{warehouse.address.street2}},</span>
+            <span>{{warehouse.address.zipcode}},</span>
+            <span>{{warehouse.address.city}},</span>
+            <span>{{warehouse.address.state}}</span>
+        </div>
+        <div class="description">
+            <span>
+            {{warehouse.description}}
+            </span>
+        </div>
+        <div class="action-icon">
+            <a disableColor [data]="warehouse.telephone" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" href="tel:{{warehouse.telephone}}">
+                <mat-icon>phone</mat-icon>
+                <span class="icon-lable">Call</span>
+            </a>
+            <a disableColor [data]="warehouse.email" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" href="mailto:{{warehouse.email}}">
+                <mat-icon>email</mat-icon>
+                <span class="icon-lable">Email</span>
+            </a>
+            <a disableColor [data]="warehouse.notes" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'">
+                <mat-icon>chat_bubble</mat-icon>
+                <span class="icon-lable">Note</span>
+            </a>
+            <a disableColor [data]="warehouse.address" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" (click)="showMap()">
+                <mat-icon>pin_drop</mat-icon>
+                <span class="icon-lable">Map</span>
+            </a>
+
+            <a disableColor [data]="warehouse.personnel" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" (click)="showKeepers = !showKeepers">
+                <i class="material-icons">
+                    people
+                </i>
+                <span class="icon-lable">Staff</span>
+            </a>
+
+
+        </div>
+    </div>
+
+    <div *ngIf="isShowMap">
+        <div #crmgmap style="width:100%;height:200px"></div>
+        <div>
+            From:
+            <input style="width:130px" type="text" placeholder="search map"> To:
+            <input type="text" style="width:130px" placeholder="search map">
+            <button (click)="caculate()">Caculate</button>
+        </div>
+    </div>
+
+    <!-- <panel-card class="company-description">
+        <panel-card-title>Warehouse Overview
+            <panel-more-button routerLink="company-info">Detail ></panel-more-button>
+        </panel-card-title>
+        <panel-card-body>{{warehouse.description}}</panel-card-body>
+    </panel-card> -->
+
+    <panel-card class="company-description" *ngIf="showKeepers">
+        <panel-card-title>Warehouse Keepers
+            <!-- <panel-more-button routerLink="company-info">Detail ></panel-more-button> -->
+        </panel-card-title>
+        <panel-card-body class="profile-box">
+            <app-profile-picture style="display: inline-block;" [userFirstName]="'chen'" [userLastName]="'jack'"></app-profile-picture>
+            <app-profile-picture style="display: inline-block;" [userFirstName]="'chen'" [userLastName]="'dong'"></app-profile-picture>
+            <app-profile-picture style="display: inline-block;" [userFirstName]="'andrew'" [userLastName]="'mei'"></app-profile-picture>
+            <app-profile-picture style="display: inline-block;" [userFirstName]="'max'" [userLastName]="'jack'"></app-profile-picture>
+            <app-profile-picture style="display: inline-block;" [userFirstName]="'li'" [userLastName]="'zhang'"></app-profile-picture>
+            <app-profile-picture style="display: inline-block;" [userFirstName]="'chen'" [userLastName]="'yang'"></app-profile-picture>
+            <app-profile-picture style="display: inline-block;" [userFirstName]="'yun'" [userLastName]="'hao'"></app-profile-picture>
+        </panel-card-body>
+    </panel-card>
+
+    <panel-card class="company-products">
+        <panel-card-title>Incoming Shipping</panel-card-title>
+        <panel-card-body>
+
+            <div class="product-card-title">
+                <a [class.prodcutTypeSelected]="shippingSelectedType =='import'" class="product-btn" (click)="showImport()">Receiving</a>
+                <a [class.prodcutTypeSelected]="shippingSelectedType =='export'" class="product-btn" (click)="showExport()">Shipping</a>
+                <a class="product-btn" routerLink="./addInventory">Add Inventory</a>
+            </div>
+
+            <div *ngIf="isImport" class="product-body">
+                <app-import-shipping></app-import-shipping>
+            </div>
+
+            <div *ngIf="!isImport" class="product-body">
+                <app-export-shipping></app-export-shipping>
+            </div>
+
+        </panel-card-body>
+    </panel-card>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

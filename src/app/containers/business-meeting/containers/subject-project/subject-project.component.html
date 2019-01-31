@@ -1,0 +1,70 @@
+<div class="whole-project" *ngIf="project">
+    <div class="project-card-margin">
+        <subject-content [name]="project?.name" [description]="project?.description" [createdTime]="project?.created?.at">
+            <mat-icon *ngIf="superPermission" routerLink="edit-project" style="position: absolute; color:green; left:10px; top:2px; font-size: 30px;">edit</mat-icon>                               
+            <mat-icon *ngIf="superPermission" (click)="deleteProject()" style="position: absolute; color:brown; right:15px; top:0px; font-size: 30px;">delete</mat-icon>                
+        </subject-content>
+    </div>
+
+    <!-- <mat-card class="date">
+        <div><b>Target Complete Date</b> : {{project?.target_date}}</div>
+        <div><b>Require Date</b> : {{project?.require_date}}</div>
+    </mat-card> -->
+
+    <app-attachment (sendFormData)="onReceivedFormData($event)" [title]="'Attachment'" [attachments]="project?.attachments"></app-attachment>
+  
+    <div class="bar">
+        <div class="bar-content">
+            <progress-bar [possibility]="project?.complete"></progress-bar> 
+            <left-day-bar [requireDate]="project?.require_date" [durationTime]="project?.duration_time"></left-day-bar>
+        </div>
+        <span *ngIf="project?.duration_time" class="total-days">{{project?.duration_time}} days</span>
+    </div>
+
+    <div class="discussion">
+        <b> {{project?.project_discussion_comment_count}} Comments Under Discussion Board</b>
+    </div>
+
+    <mat-card *ngIf="project?.project_discussion_comment_count == 0" class="blank-discussion-board" routerLink="discussion" >Please Click to Write Discussions</mat-card>
+    
+    <discussion-brief routerLink="discussion" *ngIf="project?.project_discussion_comment_count != 0" [createdUser]="project?.latest_project_discussion_comment?.created" [content]="project?.latest_project_discussion_comment?.body" [unreadRecord]="project?.latest_project_discussion_comment?.unread_count"></discussion-brief>
+
+    <div class="status">
+        <b>Brief Status</b>
+    </div>
+
+    <div class="status-card-margin" *ngFor="let status of project?.statuses">
+        <status-card [createdUser]="status?.created" [content]="status?.body" [showReplyStatus]="true" [showReplyComment]="false" [statusId]="status.id" [replyPermission]="createrAndOwnerPermission" [unreadCount]="status?.unread_count" [commentType]="commentType">
+            <div class="reply-card-margin" *ngFor="let reply of status.replies">
+                <status-card [createdUser]="reply?.created" [content]="reply?.body" [showReplyStatus]="false" [showReplyComment]="false" [statusId]="" [replyPermission]="false" [unreadCount]="reply?.unread_count" [commentType]="commentType"></status-card>
+            </div>
+        </status-card>
+    
+    </div>
+</div>
+
+<div class="operation-bar">
+    <!-- if this current project has next meeting subject, then show the next meeting button, and everyone can see it     -->
+    <!-- <div class="meeting-button" *ngIf="project?.next_meeting_subject != null" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/{{project?.next_meeting_subject}}">Next Meeting</div> -->
+    <!-- if the current project does not have next meeting subject, then show the new meeting button, only the owner of the project can see it -->
+    <!-- <div class="meeting-button" *ngIf="project?.next_meeting_subject == null && ownerPermission" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/project/{{project?.id}}/generate-new-meeting-subject">New Meeting</div>    -->
+
+    <!-- only the owner of the project can generate the next meetings, when there is no next meetings -->
+    <div *ngIf="ownerPermission && project?.next_meeting_subjects_count == 0" class="meeting-button" 
+        [ngClass]="{'new-meeting-button': createrAndOwnerPermission == true}"
+        routerLink="/company/{{currentLoginCompanyId}}/business-meeting/project/{{project?.id}}/next-subject">
+        Start A Meeting With Your Team</div>
+
+    <!-- everyone can see next meetings if there are next meetings -->
+    <div *ngIf="project?.next_meeting_subjects_count > 0" class="meeting-button" 
+        [ngClass]="{'new-meeting-button': createrAndOwnerPermission == true}"
+        routerLink="/company/{{currentLoginCompanyId}}/business-meeting/project/{{project?.id}}/next-subject">
+        {{project?.next_meeting_subjects_count}} Next Meetings</div>
+    
+</div>
+
+<div class="blank-dev"></div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+
+<app-add-button *ngIf="!isLoading && createrAndOwnerPermission" routerLink="add-status"></app-add-button>

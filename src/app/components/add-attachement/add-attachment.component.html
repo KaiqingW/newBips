@@ -1,0 +1,19 @@
+
+<a class="dislog-title" style="text-align:center;">Add Attachement</a>
+<form class="example-form" [formGroup]="attachmentForm">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="File Name or Description" formControlName="name" required>
+        </mat-form-field>
+        <div class="choose-file">
+            <input  class="file_input" id="file" type="file" formControlName="attachments" accept="image/*,application/msword, application/pdf,application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onFileSelected($event)" #fileInput>
+        </div>      
+        <!-- <mat-hint align="end">Please upload following files: Pdf, Image or Excel.</mat-hint> -->
+</form>
+
+<mat-dialog-actions align="center">
+        <button mat-button  mat-dialog-close>Cancel</button>
+        <button mat-button  (click)="onSave()" [mat-dialog-close]="true"
+         [disabled]="attachmentForm.invalid || (!selectedFile)" >Save file</button>
+</mat-dialog-actions>
+
+<!-- <pre>{{attachmentForm.value | json}}</pre> -->

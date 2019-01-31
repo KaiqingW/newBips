@@ -1,0 +1,119 @@
+
+<form  novalidate [formGroup]="companyForm">
+        
+        <div class="avatar">     
+            <div class="background">
+                <mat-icon>camera_enhance</mat-icon>
+            <input type="file" id="file" (change)="onFileChange($event)" #fileInput>                  
+            </div>
+            <div class="avatar-icon" >
+                <avatar [url]="company_url" *ngIf="!isLoading"></avatar>
+            </div>
+        </div>
+
+    <mat-form-field>
+        <input type="input" matInput placeholder="Company Name"  formControlName="name"  [(value)]="companyName" name="company_name" disabled="true" required />
+        <mat-error *ngIf="companyForm.controls.name.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Type" formControlName="type" #companyType required>
+            <mat-option value="1">Company</mat-option>
+            <mat-option value="2">Shop</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="companyType.value == 1">
+        <!-- <input type="input" matInput placeholder="Industry Type" formControlName="industry" name="industry"/> -->
+        <mat-select class="industry-select" placeholder="Industry" name="industry" formControlName="industry" >
+            <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+            <mat-option value="{{category?.description}}" *ngFor="let category of LevelOneCategories" (click)="selectedLevelOneCategory(category)">{{category?.description}}</mat-option>
+            <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="selectedLevelOneId">
+        <mat-select class="industry-select" placeholder="Sub Category" value="{{category?.description}}" >
+            <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+            <mat-option value="{{category?.description}}" *ngFor="let category of LevelTwoCategories" (click)="getSubCategoryValue(category?.description)">{{category?.description}}</mat-option>
+            <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="selectedLevelTwoValue=='Food And Kindred Products'" class="chip-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let category of thirdCategoryListChoosed" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(category)">
+                    {{category}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+
+              <input placeholder="Input to search Third Category"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)"
+                    [matAutocomplete]="auto" 
+                    [formControl]="thirdCategortCtrl" #personInput/>
+
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" 
+                          (optionSelected)="selectOption($event)">
+              <mat-option *ngFor="let category of thirdCategorySearchedList" [value]="category?.description">
+                <span height="30" style="display:inline-block;margin-bottom: -8px"> {{category?.description}}</span>
+              </mat-option>
+            </mat-autocomplete>  
+    </mat-form-field>
+
+    <mat-form-field *ngIf="companyType.value == 1">
+        <input type="text" matInput placeholder="Website" formControlName="website"/>
+        <mat-error *ngIf="companyForm.controls.website.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    
+
+
+    <!-- <mat-form-field>
+        <input type="input" matInput  placeholder="Phone" formControlName="phone"  name="phone" >
+        <mat-error *ngIf="companyForm.controls.phone.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="input" matInput  placeholder="Company Email" formControlName="email"  name="email" >
+        <mat-error *ngIf="companyForm.controls.email.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field> -->
+
+
+    <!-- <div formGroupName= "address">
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Country" formControlName="country"  name="country" >
+            <mat-error *ngIf="companyForm.controls.address.controls.country.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="input" matInput  placeholder="State" formControlName="state"  name="state" >
+            <mat-error *ngIf="companyForm.controls.address.controls.country.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="input" matInput  placeholder="City" formControlName="city"  name="city" >
+            <mat-error *ngIf="companyForm.controls.address.controls.country.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+        </mat-form-field>
+    </div> -->
+</form>
+
+<!-- <pre>{{companyForm.value | json}}</pre> -->
+
+<div *ngIf="requiredValue" style="color:red; text-align:center">
+    <p>Fill all the field with *</p>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>   
+</app-crop-modal>

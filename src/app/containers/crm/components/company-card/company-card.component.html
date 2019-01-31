@@ -1,0 +1,41 @@
+
+<mat-card [ngClass]="{'newass':assignAtTime()>=currentDateTime}">
+    
+    <div class="company-content" >
+        <div routerLink="url">
+            
+            <div class="company-logo">
+                <company-logo [url]="url" [comname] = "name" ></company-logo>
+            </div>
+
+            <div class="combain">
+                <h5>{{name}}</h5>
+                <span>{{industry}}</span>
+            </div>
+
+            <div class="company-possibility" *ngIf="type == 1 || type == 2 || type == 4 || type == 5">
+                    <progress-bar [possibility]="possibility" [customer_id]="value?.id"></progress-bar>
+            </div>
+            
+            <div class="company-balance" *ngIf="type == 3">
+                $0.00
+            </div>
+
+            <div class="vendor-balance" *ngIf="type == 6" routerLink="/home">
+                <div >
+                    <span class="pay-ability-success"></span>
+                    <span class="pay-ability-normal"></span>
+                    <span class="pay-ability-bad"></span>
+                    <span class="pay-ability-danger"></span>
+                </div>
+                <span class="ven-balance-money">$0.00</span>
+            </div>
+
+            <div class="company-star" >
+                <star [value]="value"></star>
+            </div>
+        </div>
+    </div>
+
+    <ng-content></ng-content>
+</mat-card>

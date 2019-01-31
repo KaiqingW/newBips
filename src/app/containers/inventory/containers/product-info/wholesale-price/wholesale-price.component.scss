@@ -1,0 +1,32 @@
+mat-card {
+    // padding: 5px 0 5px 0;
+    margin-bottom: 1%;
+    width:100%;
+    box-sizing: border-box;
+    form {
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .col {
+        display: flex;
+        width: 25%;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 2px;
+        div {
+            width: 100%;
+            border: 1px solid #eeeeee;
+            background-color: #15305a;
+            color: #ffffff;
+            padding: 1%;
+            text-align: center;
+            border-radius: 5px;
+        }
+        input {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

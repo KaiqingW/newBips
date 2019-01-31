@@ -1,0 +1,11 @@
+<form *ngIf="categories && categories.length > 0" [formGroup]="categoryForm">
+    <div class="summary" formArrayName="categories">
+        <mat-form-field class="field1" *ngFor="let categoryField of categoryForm.get('categories').controls;let i = index;">
+            <mat-select [formGroupName]="i" placeholder="Select Category" required>
+                <mat-option *ngFor="let category of category_array[i]" [value]="category.children" (click)="onAddMoreCategory(category.children, i)">
+                    {{category.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</form>

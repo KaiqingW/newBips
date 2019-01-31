@@ -1,0 +1,100 @@
+<div *ngIf="!isLoading">
+    <form [formGroup]="addProcessForm">
+        <div class="row title">
+            <b>Process Name</b>
+        </div>
+
+        <div class="row">
+            <input type="text" style="height:30px; width:99%; " placeholder="Process Name is required !" required formControlName="process_name" >
+        </div>
+
+        <div class="share-user-container">
+            <button mat-raised-button color="primary" (click)="onSave(personInput)" [disabled]="!(emailPermissionList.length>0) ">Invite</button>
+        </div>
+
+        <div class="company-user-list">
+          <b>Company Employee</b>    
+          <span class="select-title">Work &nbsp; Approval &nbsp;</span>
+          <div class="shared-user-container">
+            <mat-card class="user-card" selected="true" color="accent" *ngFor="let user of employeeList; let i=index;">
+              <div class="shared-user">
+                <app-profile-picture 
+                  [url]="user?.avatar_url" 
+                  [userFirstName]="user?.first_name"
+                  [userLastName]="user?.last_name"
+                  [userId]="user?.id">
+                </app-profile-picture>
+                <span >{{user?.email}}</span>
+                <!-- <span class="select-employee" (click)="selectedToSharedList(user)">Select</span> -->
+                <!-- <mat-checkbox *ngIf="selectEmployeeWorkArr" class="example-margin" [(ngModel)]="selectEmployeeWorkArr[i]" (click)="selectedWorkUser(user, i, 'work')">Work</mat-checkbox> 
+                <mat-checkbox *ngIf="selectEmployeeApprovalArr" class="example-margin" [(ngModel)]="selectEmployeeApprovalArr[i]">Approval</mat-checkbox> -->
+              
+              </div>     
+
+              <div class="select-user">
+                <mat-checkbox class="example-margin" (click)="selectedWorkUser('Work', user)"></mat-checkbox>
+                <mat-checkbox style="float: right;" class="example-margin" (click)="selectedWorkUser('Approval', user)"></mat-checkbox>
+                 
+                <!-- <mat-radio-group required >
+                  <mat-radio-button value="Work" [checked]="employeeProcessStatus[i].Work" (click)="selectedWorkUser('Work', user, i)"></mat-radio-button>
+                  <mat-radio-button style="float: right;" value="Approval" [checked]="employeeProcessStatus[i].Approval" (click)="selectedWorkUser('Approval', user, i)"></mat-radio-button>
+                </mat-radio-group> -->
+              </div>
+
+            </mat-card>
+          </div>
+        </div>
+        
+    </form>
+
+    <!-- <mat-card>
+        <mat-form-field class="chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let email of emailList" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(email)">
+              {{email}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Input to search employee"
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)"
+                  [matAutocomplete]="auto" 
+                  [formControl]="emailCtrl" #personInput/>
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" 
+                        (optionSelected)="selectOption($event)">
+            <mat-option *ngFor="let email of filteredEmails" [value]="email.email">
+              <span *ngIf="email?.avatar_url"><img  [src]="email?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> &nbsp;{{ email?.email }}</span>
+              <span *ngIf="!email?.avatar_url"><img  src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{email?.email}}</span>
+            </mat-option>
+          </mat-autocomplete>   
+        </mat-form-field>
+        <div class="share-user-container">
+            <button mat-raised-button color="primary" (click)="onSave(personInput)" [disabled]="!(emailList.length>0) ">Invite</button>
+        </div>
+  
+        <span style="color:red; margin-top:-10px; margin-bottom:10px;" *ngIf="errorInput">Please input email!</span>
+        <span style="color:red; margin-top:-10px; margin-bottom:10px;" *ngIf="userShared">Email has invited!</span>
+    </mat-card> -->
+  
+    <!-- <mat-card *ngIf="sharedUserList.length>0">
+      <div class="shared-user-list" >
+        <div class="shared-user-container">
+            <div class="shared-user" *ngFor="let user of sharedUserList">
+              <app-profile-picture 
+                [url]="user?.avatar_url" 
+                [userFirstName]="user?.first_name"
+                [userLastName]="user?.last_name"
+                [userId]="user?.id">
+              </app-profile-picture>
+              <mat-icon class="delete-shared-user" (click)="destroySharedUser(user)">clear</mat-icon>
+            </div>     
+        </div>
+      </div>
+    </mat-card> -->
+  
+  </div>
+  
+  <div *ngIf="isLoading"><app-spinner></app-spinner></div>

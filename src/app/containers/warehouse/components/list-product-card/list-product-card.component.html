@@ -1,0 +1,29 @@
+<mat-card *ngFor="let product of productList;let i = index;" [class.selected]="product == selectedProduct">
+    <div class="product-header">
+        <div class="selectbox">
+            <input type="checkbox" name="acs" (click)="selectProduct(product)" [checked]="exist(product)" />
+        </div>
+
+        <div class="product-picture" (click)="onNavToDetail($event,product)">
+            <img *ngIf="product.images.length < 1" src="assets/images/icons/no-img.jpg">
+            <img *ngIf="product?.images && product?.images?.length > 0" [src]="product.images[0].url">
+        </div>
+
+        <div class="item-name" (click)="onNavToDetail($event,product)">
+            <span class="product-name">
+                <b>{{product.name | short : 60}}</b>
+            </span>
+            <br>
+            <span class="description">Item#:{{product.headline}}</span>
+        </div>
+
+        <div class="available">
+            <span class="available-quantity">{{getProductInfWarehouse(product) | number}}</span>
+        </div>
+
+
+        <div class="available" *ngIf="addQtyMode">
+            <input class="available-quantity" type="number">
+        </div>
+    </div>
+</mat-card>

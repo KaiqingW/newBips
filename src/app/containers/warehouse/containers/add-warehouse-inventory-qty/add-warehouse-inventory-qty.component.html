@@ -1,0 +1,6 @@
+<mat-card class="count-bar">
+    <span>You have selected {{selectedProducts.length}} products.</span>
+</mat-card>
+
+<list-product-transaction-card [addQtyMode]="'true'" (sendProduct)="onGetSelectProduct($event)" [selectedProducts]="selectedProducts"
+[productList]="products" (sendForm)="onGetForm($event)"></list-product-transaction-card>

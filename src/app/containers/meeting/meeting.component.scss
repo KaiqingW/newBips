@@ -1,0 +1,32 @@
+a{
+    text-decoration:none;
+}
+.active{
+
+    padding:5px 10px;
+
+    background-color: lightblue;
+}
+.mat-tab-link {
+    height: 48px;
+    padding: 0 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: .6;
+    min-width: 160px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    vertical-align: top;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+.docs-component-viewer-section-tab {
+    text-transform: uppercase;
+}
+.mat-tab-label, .mat-tab-link {
+    color: rgba(0,0,0,.87);
+}

@@ -1,0 +1,45 @@
+
+<a  *ngIf="!(choose == 'file')" class="dislog-title" style="text-align:center;">Add Folder</a>
+<a  *ngIf="(choose == 'file')" class="dislog-title" style="text-align:center;">Add File</a>
+<form class="example-form" [formGroup]="attachmentForm">
+    
+    <!-- <mat-form-field class="example-full-width">
+        <mat-select placeholder="Choose Type:" *ngIf="!selectFolderName" formControlName="choose" [(ngModel)]="choose">
+          <mat-option [value]="'folder'">
+            Add Folder
+          </mat-option>
+          <mat-option [value]="'file'">
+            Add File
+          </mat-option>
+        </mat-select>
+      </mat-form-field>     -->
+    
+    <mat-form-field class="example-full-width" *ngIf="((choose == 'folder')) || selectFolderName">
+        <input matInput *ngIf="selectFolderName" [readonly]="selectFolderName !== ''" [(ngModel)]="selectFolderName" type="text" formControlName="folder" placeholder="Folder Name."  required>
+        <input matInput *ngIf="!selectFolderName" type="text" formControlName="folder" placeholder="Folder Name." required>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" *ngIf="((choose == 'file')) || selectFolderName">
+        <input matInput placeholder="File Name" formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" *ngIf="( (choose == 'file')) || selectFolderName">
+        <textarea rows="4" matInput formControlName="comment" placeholder="Comment for such file." required></textarea>
+    </mat-form-field>
+
+    <div class="choose-file" [style.visibility]="(choose == 'file' || selectFolderName) ? 'visible' : 'hidden'">
+        <input  class="file_input" id="file" type="file" formControlName="attachments" accept="image/*,application/msword, application/pdf,application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onFileSelected($event)" #fileInput>
+    </div>
+    
+    <div class="row" style="text-align: left;" *ngIf="choose == 'file'">
+        Please upload following files: Pdf, Doc, Image or Excel.
+    </div>
+</form>
+
+<mat-dialog-actions align="center">
+        <button mat-button  [mat-dialog-close]="null">Cancel</button>
+        <button mat-button  (click)="onSave()" [mat-dialog-close]="fd"
+        [disabled]="!((choose == 'file' && attachmentForm.value.name && selectedFile && processFileFlag) || (choose == 'folder' && attachmentForm.value.folder && processFileFlag) || (selectFolderName &&  attachmentForm.value.name && selectedFile && processFileFlag) )" [mat-dialog-close]="newAttchmentCallBack">Save</button>
+</mat-dialog-actions>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

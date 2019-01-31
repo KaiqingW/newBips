@@ -1,0 +1,93 @@
+
+<div *ngIf="curerntHuman">
+        <div class="human-title">
+            <!-- <div class="comany-tile-background"></div> -->
+            <img class="human-tile-background"  src="/assets/images/testimg/orb3.png">
+            <company-logo [url]="curerntHuman?.avatar_url" [comname]="curerntHuman?.first_name"></company-logo>
+            <div class="human-name">
+                <b>{{curerntHuman?.first_name}} {{curerntHuman?.last_name}}</b>
+            </div>
+            <!-- <div class="company-address">
+                <span>{{Lead?.address}}</span>
+            </div> -->
+    
+            <div class="action-icon">
+                <a ><mat-icon>phone</mat-icon><span class="icon-lable">Call</span></a>
+                <a ><mat-icon>email</mat-icon><span class="icon-lable">Email</span></a>
+                <a > <mat-icon>thumbs_up_down</mat-icon><span class="icon-lable">Invite</span></a>
+                <a > <mat-icon>trending_up</mat-icon><span class="icon-lable">Convert</span></a>
+                <a > <mat-icon>pin_drop</mat-icon><span class="icon-lable">Map</span></a>
+            </div>
+        </div>
+
+        <panel-card class="user-performance">
+                <panel-card-title>Performance<panel-more-button>Detail ></panel-more-button></panel-card-title>
+                <panel-card-body>
+                    <div><button (click)="showChartFun()" mat-button color="primary">Chart</button><button (click)="showDataFun()" mat-button color="primary">Data</button></div>
+                    <div *ngIf="showData">
+                        <div class="per-item item-bottom"><span class="item-left"><b>Quota :</b><span class="danger">$250,000.00</span> </span> <span class="item-right"> Achieve: <span class="success">$80,000.00</span></span></div>
+                        <div class="per-item item-bottom"><span class="item-left"><b>Revenue MTD :</b></span> <span class="item-right">$30,000.00</span></div>
+                        <div class="per-item item-bottom"><span class="item-left"><b>Profit (%) :</b></span> <span class="item-right">20%</span></div>
+                        <div class="per-item"><span class="item-left"><b>Attendance :</b></span> <span class="item-right"></span></div>
+                    </div>
+    
+                    <div *ngIf="showChart" class="display-chart">
+                        <img src="assets/images/testimg/chart1.png">
+                    </div>
+                    
+                </panel-card-body>
+        </panel-card>
+    
+        <panel-card class="user-activities">
+                <panel-card-title>Activities<panel-more-button>Detail ></panel-more-button></panel-card-title>
+                <panel-card-body>
+                    <div class="per-item item-bottom"><span class="item-left "><b># of call to Customer</b></span> <span class="item-right success">500</span></div>
+                    <div class="per-item item-bottom"><span class="item-left"><b># of visit</b></span> <span class="item-right">510</span></div>
+                    <div class="per-item item-bottom"><span class="item-left"><b># of New Customer</b></span> <span class="item-right danger">20</span></div>
+                    <div class="per-item "><span class="item-left"><b># of potential customer</b></span> <span class="item-right">200</span></div>
+                </panel-card-body>
+        </panel-card>
+    
+        <panel-card class="comission-expense">
+                <panel-card-title>Commision & Expense<panel-more-button>Detail ></panel-more-button></panel-card-title>
+                <panel-card-body>
+                    <mat-card>
+                        <div class="per-item">
+                            <div class="item-left"><b>Apr. 2018</b></div>
+                            <div class="item-middle"><span class="comission-title">Comission</span><span class="comission-value">$5000,00</span></div>
+                            <div class="item-right"><span class="comission-title">Expense</span ><span class="comission-value">$5000,00</span></div>
+                        </div>
+                    </mat-card>
+    
+                    <mat-card>
+                        <div class="per-item">
+                            <div class="item-left"><b>Mar. 2018</b></div>
+                            <div class="item-middle"><span class="comission-title">Comission</span><span class="comission-value">$15000,00</span></div>
+                            <div class="item-right"><span class="comission-title">Expense</span ><span class="comission-value">$5000,00</span></div>
+                        </div>
+                    </mat-card>
+                    <mat-card>
+                        <div class="per-item">
+                            <div class="item-left"><b>Feb. 2018</b></div>
+                            <div class="item-middle"><span class="comission-title">Comission</span><span class="comission-value">$5000,00</span></div>
+                            <div class="item-right"><span class="comission-title">Expense</span ><span class="comission-value">$5000,00</span></div>
+                        </div>
+                    </mat-card>
+                </panel-card-body>
+        </panel-card>
+    
+        <panel-card class="user-benefits">
+                <panel-card-title>Benefits<panel-more-button>Detail ></panel-more-button></panel-card-title>
+                <panel-card-body>
+                    
+                </panel-card-body>
+        </panel-card>
+    
+        <panel-card class="user-compensation">
+                <panel-card-title>Compensation Plan<panel-more-button>Detail ></panel-more-button></panel-card-title>
+                <panel-card-body>
+                    
+                </panel-card-body>
+        </panel-card>
+        
+</div>

@@ -1,0 +1,73 @@
+<!-- <mat-card style="width:200%">
+    <div>
+        this is an opportunity details
+        <img src="assets/images/testimg/opp-bg2.png" style="width:100%">
+    </div>
+    <div>
+        <div class="function-icon-name idea">
+            <img src="assets/images/testimg/idea2.jpg" routerLink="notes/notesSubject" >
+    
+        </div>
+        <div class="function-icon-name quotas">
+            <img src="assets/images/testimg/quotes.png">
+
+        </div>
+        <div class="function-icon-name request-price">
+            <img src="assets/images/testimg/RFP.png" routerLink="request-price">
+  
+        </div>
+        <div class="function-icon-name request-info">
+            <img src="assets/images/testimg/REQ.png" routerLink="request-info">
+  
+        </div>
+
+        <div class="function-icon-name hr-info">
+            <img src="assets/images/testimg/hr.png" routerLink="/company/{{this.currentLoginCompanyId}}/hr/employee">
+    
+        </div>
+      
+
+    </div>
+</mat-card> -->
+
+<div class="opp-container">
+    <div *ngIf="!isLoading">
+        <h3>{{requestInfo.project_name}}</h3>
+
+        <mat-form-field >
+            <input matInput placeholder="Company Name" [value] ="requestInfo?.customer_name">
+        </mat-form-field>
+
+        <mat-form-field >
+            <input matInput placeholder="Contact Name" [value] ="requestInfo?.contact_name">
+        </mat-form-field>
+
+        <mat-form-field >
+            <input matInput placeholder="Phone Number" [value] ="requestInfo?.phone_number">
+        </mat-form-field>
+
+        <mat-form-field >
+            <input matInput placeholder="Email Adress" [value] ="requestInfo?.email_address">
+        </mat-form-field>
+
+        <div *ngFor = "let obj of customizedColumnObj">
+            <div class="section-title" *ngIf="checkSectionName(obj[0])">
+               <span ><b>{{getSectionName(obj[0])}}</b></span>
+            </div>
+            <mat-form-field  *ngIf="!checkSectionName(obj[0])">
+                <input matInput placeholder="{{obj[0]}}" value ="{{obj[1]}}">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field >
+            <input matInput placeholder="Sales Rep" [value] ="requestInfo?.sales_rep_name">
+        </mat-form-field>
+
+        <mat-form-field >
+            <input matInput placeholder="Approved By" [value] ="requestInfo?.approve_by">
+        </mat-form-field>
+    </div>
+</div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+

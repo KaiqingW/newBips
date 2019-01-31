@@ -1,0 +1,113 @@
+$width: 90%;
+
+:host {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+}
+
+.chip-list {
+    width: $width;
+}
+
+.shared-user-list {
+    width: $width;
+    mat-chip {
+        display: inline-block;
+        padding: 0;
+    }
+    .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+        margin: 10px 5px 0 0;
+    }
+}
+
+button {
+    margin-top: 5px; 
+}
+
+.shared-user {
+    margin-right: 20px;
+    app-profile-picture {
+        float: left;
+    }
+    span {
+        display: inline-block;
+        margin-left: 5px;  
+        font-size: 12px;
+        color: grey;
+    }
+    .mat-chip-remove {
+        margin-right: -14px;
+        margin-left: 0;
+        cursor: pointer;
+    }
+}
+.shared-user-container {
+    margin-left: 10px;
+}
+
+.arrow-guide{
+    display:block;
+    background-color:#eee;
+    text-align: center;
+}
+
+.add-product-modal{
+    position: fixed;
+    padding:0px !important;
+    display: block;
+    width: auto;
+    width:100%;
+    height:100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.288);
+    z-index: 10;
+    mat-card{
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width:75%;
+        transform: translate(-50%, -50%);
+        padding:20px;
+        border-radius:5px;
+        h4{
+            text-align: center;
+        }
+        form{
+          
+            text-align: center;
+            .product{
+                width:100%;
+            }
+            .rate{
+                width:49%;
+            }
+            .quantity{
+                width:49%;
+            }
+            mat-form-field{
+                display:inline-block;
+            }
+        }
+        .address-card{
+            padding:4px 6px;
+            border: 1px solid lightgray;
+            margin-top:5px;
+            border-radius: 5px;
+            font-size:12px;
+            text-align: center;
+
+        }
+        .action-btn{
+            width:100%;
+            text-align: center;
+        }
+    }
+}
+
+

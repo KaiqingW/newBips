@@ -1,0 +1,330 @@
+.newass{
+    background-color:red;
+}
+.notass{
+    background-color:green;
+}
+.fixed-area{
+    position: sticky;
+    top: 57;
+    right: 0;
+    width: 100%;
+    height:108px;
+}
+
+.container-admin{
+    height:80%; 
+    overflow-y:scroll;
+}
+.container-user{
+    height:83%; 
+    overflow-y:scroll;
+}
+
+a{
+    position: relative;
+    text-decoration: none;
+    color: #000000;
+    width: 28.2%;
+    height: 20px;
+    display: inline-block;
+    padding: 4% 2%;
+    text-align: center;
+    background-color: #E0EAF1;
+    border-bottom: solid 2px #000000;
+    .total-number{
+        // position: absolute !important;
+        // top: 35px !important;
+        // left: 50px !important;
+        font-size:10px;
+        line-height: 18px;
+        left:0px;
+        top:0px;
+        width:18px;
+        height:18px;
+        position:relative;
+        border-radius: 50px;
+    }
+}
+
+
+.active{
+    background-color: rgb(255, 255, 255);
+    color:#000000;
+    border-bottom: none;
+}
+
+.company-card-margin{
+    margin-bottom: 5px;
+}
+
+.sub-header{
+    height:30px;
+    width:100%;
+    text-align: center;
+    padding:4px 0px;
+    // vertical-align: middle;
+    background-color: #eee;;
+    .company-name-nav{
+        width:45%;
+        display:inline-block;
+        // vertical-align: middle;
+        line-height: 30px;
+    }
+    .industry-nav{
+        width:18%;
+        display:inline-block;
+        line-height: 30px;
+    }
+    // .usage-nav{
+    //     width:18%;
+    //     display:inline-block;
+    //     line-height: 30px;
+    // }
+    .possibility-nav{
+        width:30%;
+        display:inline-block;
+        line-height: 30px;
+    }
+}
+
+.no-subject {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    top: 35%;
+    align-items: center;
+    p {
+        font-size: 20px;
+        font-weight: bolder;
+        color: #CFD7E6;
+        border: 2px;
+        border-color: #CFD7E6;
+        position: absolute;
+        display: block;
+        margin-top: 25px;
+        padding-right: 30px;
+    }
+}
+
+.more-leads{
+    display:block;
+    background-color:#f5f5f5;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    color:gray;
+    position:absolute;
+    bottom:0px;
+    width:100%;
+}
+.search-content-showarea-container{
+    margin-top:2px;
+   
+    .search-content-showarea{
+        border-top:1px solid lightgray;  
+        width:100%;
+        height:20px;
+        line-height:20px;
+        font-size:13px;
+        .high-light{
+            color:red;
+        }
+    }
+}
+
+
+.customer-list{
+    border-top:0.5px solid lightgray;
+    .customer_owner{
+        float:left;
+        padding:2px 2px ;
+        width:10%;
+        height: 22px;
+        company-logo{
+            width:22px;
+            height:22px;
+        }
+    }
+    .contacts{
+        float:right;
+        padding:2px 2px ;
+        width:70%;
+        height: 22px;
+        margin-left:-6px;
+        .contact{
+            line-height: 22px;
+            display:inline-block;
+            float:right;
+            margin-left:5px;
+            company-logo{
+                width:22px;
+                height:22px;
+            }
+        }
+    }
+
+}
+
+.search-area {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .search-field {
+        display: inline-block;
+        padding-left: 1%;
+        width: 45%;
+    }
+    .choice-field {
+        width: 30%;
+
+    }
+    mat-select{
+        font-size:13px !important;
+    }
+    .filter-btn {
+        margin-left: 2%;
+        padding: 0 2%;
+        width: 13%;
+        height: 35px !important;
+        display: inline-block;
+        line-height: 35px;
+        border: 1px solid lightgray;
+        border-radius: 4px;
+        text-align: center;
+        background-color: #143258;
+        color: #ffffff;
+        mat-icon {
+            vertical-align: center;
+            font-size: 15px;
+            height: 19px
+        }
+    }
+}
+
+.formmat-modal{
+    position: fixed;
+    padding:0px !important;
+    display: block;
+    width: auto;
+    width:100%;
+    height:100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.288);
+    z-index: 10;
+    mat-card{
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width:75%;
+        // height:400px;
+        transform: translate(-50%, -50%);
+        padding:20px;
+        border-radius:5px;
+        h4{
+            text-align: center;
+        }
+        mat-form-field{
+            width:100%;
+        }
+        form{
+            mat-chip-list /deep/ div{
+                height:30px;
+                overflow: hidden;
+                // text-overflow: ellipsis;
+                overflow-y: scroll;
+            }
+          
+            text-align: center;
+            .product{
+                width:100%;
+            }
+            .rate{
+                width:49%;
+            }
+            .quantity{
+                width:49%;
+            }
+            mat-form-field{
+                width:100%;
+            }
+        }
+        .form-btn{
+            text-align: center;
+        }
+        .address-card{
+            padding:4px 6px;
+            border: 1px solid lightgray;
+            margin-top:5px;
+            border-radius: 5px;
+            font-size:12px;
+            text-align: center;
+
+        }
+        .action-btn{
+            width:100%;
+            text-align: center;
+        }
+    }
+}
+
+.send-message-modal{
+    position: fixed;
+    padding:0px !important;
+    display: block;
+    width: auto;
+    width:100%;
+    height:100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.288);
+    z-index: 10;
+    mat-card{
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width:75%;
+        transform: translate(-50%, -50%);
+        padding:20px;
+        border-radius:5px;
+        h4{
+            text-align: center;
+        }
+        form{
+          
+            text-align: center;
+            .product{
+                width:100%;
+            }
+            .rate{
+                width:49%;
+            }
+            .quantity{
+                width:49%;
+            }
+            mat-form-field{
+                display:inline-block;
+            }
+        }
+        .address-card{
+            padding:4px 6px;
+            border: 1px solid lightgray;
+            margin-top:5px;
+            border-radius: 5px;
+            font-size:12px;
+            text-align: center;
+
+        }
+        .action-btn{
+            width:100%;
+            text-align: center;
+        }
+    }
+}

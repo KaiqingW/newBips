@@ -1,0 +1,27 @@
+<div *ngIf="order">
+    <mat-card class="panel-card company-products">
+        <h3>General Information</h3>
+        <hr>
+        <div class="row">
+            <b>Order Number&nbsp;:&nbsp;</b>
+            <span>{{order.order_number}}</span>
+        </div>
+        <div class="row">
+            <b>Total Price&nbsp;:&nbsp;</b>
+            <span class="price">{{order.total_price / 100 - total_shipping_fee / 100 | currency}}</span>
+        </div>
+        <div class="row">
+            <b>Total Shipping Fee&nbsp;:&nbsp;</b>
+            <span class="price">{{total_shipping_fee / 100 | currency}}</span>
+        </div>
+        <div class="row">
+            <b>Updated At&nbsp;:&nbsp;</b>
+            <span>{{order.updated.at | amDateFormat : 'MM/DD/YYYY h:mm a' }}</span>
+        </div>
+    </mat-card>
+    <app-company-detail *ngFor="let company of companies" [company]="company" [all_sended_products]="all_sended_products" [shop_order_all_products]="shop_order_all_products"></app-company-detail>
+    <app-shop-address-card *ngIf="order.shipping_address" [title]="'Shipping Address'" [address]="order.shipping_address"></app-shop-address-card>
+    <app-shop-address-card *ngIf="order.billing_address" [title]="'Billing Address'" [address]="order.billing_address"></app-shop-address-card>
+</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

@@ -1,0 +1,18 @@
+<form [formGroup]="noteForm" novalidate  >
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Subject"  [matAutocomplete]="auto" formControlName="subject" #subjectInput/>
+        <!-- <mat-hint >Type a new subject or select an existing one</mat-hint> -->
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject.name">
+                <span>{{ subject.name }}</span>
+            </mat-option>
+        </mat-autocomplete>        
+    </mat-form-field>
+
+    <editor id="quill" (onContentChanged)="logChange($event)"></editor>
+    <mat-hint class="editor-hint">Please type some text in the first line. Please insert image in front of a new line. You can add your description on the right of the image you inserted</mat-hint>
+
+</form>
+
+
+

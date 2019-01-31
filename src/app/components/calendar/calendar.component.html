@@ -1,0 +1,31 @@
+<!-- <div class='flex-container flex-center'> -->
+        <div id='calendar-container' class='flex-container flex-column center'>
+      
+            <div class="height-20px"></div>
+            <div class=' flex-container flex-center-horz '>
+                <i class="material-icons" (click)='previousMonth() '>chevron_left</i>
+                <div class='width-5 '></div>
+                <div>{{date.format('MMMM ')}} {{date.format('YYYY ')}}</div>
+                <div class='width-5 '></div>
+                <i class="material-icons" (click)='nextMonth() '>chevron_right</i>
+            </div>
+            <div class='height-20px '></div>
+            <div class='flex-container width-90' >
+                <div class='calendar-days flex-container flex-center title'>Sun</div>
+                <div class='calendar-days flex-container flex-center title'>Mon</div>
+                <div class='calendar-days flex-container flex-center title'>Tue</div>
+                <div class='calendar-days flex-container flex-center title'>Wed</div>
+                <div class='calendar-days flex-container flex-center title'>Thu</div>
+                <div class='calendar-days flex-container flex-center title'>Fri</div>
+                <div class='calendar-days flex-container flex-center title'>Sat</div>
+            </div>
+            <div class='flex-container flex-wrap width-90'>
+                <div *ngFor="let day of daysArr">
+                    <div class='calendar-days flex-container flex-center' (click)='selectedDate(day)'  [ngClass]="{'inactive ': !day, 'selected': isSelected(day), 'today': todayCheck(day)}">
+                        <span>{{day?.date()}}</span>
+                        <sup class="circle" *ngIf="day?.count">{{day?.count}}</sup>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- </div> -->

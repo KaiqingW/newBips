@@ -1,0 +1,125 @@
+:host{
+    width: 100%;
+    form{
+        width: 96%;
+        margin-left:2%;
+        mat-form-field{
+            width: 100%;
+        }
+        .form-title{
+            width:100%;
+            height:32px;
+            span{
+                font-size:13px;
+                display:inline-block;
+                padding:6px 2px;
+                width:23.85%;
+                background-color:#143258;
+                text-align: center;
+                color:#FFFFFF;
+            }
+        }
+        .form-content{
+            width:100%;
+            height:32px;
+            input{
+                display:inline-block;
+                width:22.9%;
+                height:26px;
+            }
+        }
+
+        .t-form-title{
+            width:100%;
+            height:32px;
+            span{
+                font-size:13px;
+                display:inline-block;
+                padding:6px 2px;
+                width:32.15%;
+                background-color:#143258;
+                text-align: center;
+                color:#FFFFFF;
+            }
+        }
+        .t-form-content{
+            width:100%;
+            height:32px;
+            input{
+                display:inline-block;
+                width:31.3%;
+                height:26px;
+            }
+        }
+
+        .item-list-title{
+            width:100%;
+            height:32px;
+            span{
+                font-size:13px;
+                display:inline-block;
+                padding:6px 2px;
+                width:23.8%;
+                background-color:#143258;
+                text-align: center;
+                color:#FFFFFF;
+            }
+        }
+    }
+
+    .add-product-modal{
+        position: fixed;
+        padding:0px !important;
+        display: block;
+        width: auto;
+        width:100%;
+        height:100%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.288);
+        z-index: 10;
+        mat-card{
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            width:75%;
+            transform: translate(-50%, -50%);
+            padding:20px;
+            border-radius:5px;
+            h4{
+                text-align: center;
+            }
+            form{
+              
+                text-align: center;
+                .product{
+                    width:100%;
+                }
+                .rate{
+                    width:49%;
+                }
+                .quantity{
+                    width:49%;
+                }
+                mat-form-field{
+                    display:inline-block;
+                }
+            }
+            .address-card{
+                padding:4px 6px;
+                border: 1px solid lightgray;
+                margin-top:5px;
+                border-radius: 5px;
+                font-size:12px;
+                text-align: center;
+    
+            }
+            .action-btn{
+                width:100%;
+                text-align: center;
+            }
+        }
+    }
+}

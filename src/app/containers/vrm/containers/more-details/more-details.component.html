@@ -1,0 +1,31 @@
+<div *ngIf="Vendor">
+    <div class="company-title">
+        <div class="comany-tile-background"></div>
+        <company-logo [url]="Vendor?.logo_url" [comname]="Vendor?.name"></company-logo>
+        <div class="company_name">
+            <b>{{Vendor?.name}}</b>
+        </div>
+        <div class="company-address">
+            <span>{{Vendor?.address}}</span>
+        </div>
+    </div>
+
+    <panel-card class="company-description">
+        <panel-card-title>Company Overview <mat-icon routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor/{{vendorId}}/vendor_edit">edit</mat-icon> </panel-card-title>
+        <panel-card-body>
+            <p>{{Vendor?.description}}</p>
+            <div><mat-icon>phone</mat-icon><span>Phone: {{Vendor?.telephone_number}}</span></div> 
+            <div><mat-icon>perm_phone_msg</mat-icon><span>Fax: {{Vendor?.fax_number}}</span></div> 
+            <div *ngIf="Vendor?.address"><mat-icon>location_on</mat-icon>Address: {{Vendor?.address}}</div>
+            <div><mat-icon>email</mat-icon> Email: {{Vendor?.email}}</div>
+            <div><mat-icon>website</mat-icon> Wesite: {{Vendor?.website}}</div>
+            <div *ngIf="Vendor?.lead_source"><mat-icon>website</mat-icon> Source: {{Vendor?.lead_source}}</div>
+            <div *ngIf="Vendor?.lead_status"><mat-icon>website</mat-icon> Status: {{Vendor?.lead_status}}</div>
+            <div><mat-icon>group</mat-icon> Company Size: 200</div>
+            <div><mat-icon>access_time</mat-icon> Year founded: 1990</div>
+        </panel-card-body>
+        
+    </panel-card>
+
+</div>
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

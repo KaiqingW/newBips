@@ -1,0 +1,209 @@
+<div class="whole-project" *ngIf="project">
+    <div class="project-card-margin">
+        <crm-oppo-subject-content [name]="project?.name" [description]="project?.description" [createdTime]="project?.created?.at">
+            <mat-icon *ngIf="superPermission" routerLink="edit-project" style="position: absolute; top: 2px; color:green; font-size: 30px;">edit</mat-icon>                                                
+            <!-- <mat-icon *ngIf="superPermission" (click)="deleteProject()" style="position: absolute; color:brown; right:15px; top:2px; font-size: 30px;">delete</mat-icon>                 -->
+            <!-- <img src="assets/images/testimg/quotes.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' || project?.current_process?.process_name == 'QUOTE'" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{project?.subject?.customer_company_id}}/salesentity/quote/draft" style="position: absolute; right:10px; top:5px; width:25px;">
+            <img src="assets/images/testimg/grey_quote.png" *ngIf="project?.current_process?.process_name != 'SKU Creation' && project?.current_process?.process_name != 'QUOTE'" style="position: absolute; right:10px; top:5px; width:25px;">             -->
+            
+            <!-- only can quote at QUOTE step -->
+            <img src="assets/images/testimg/add_quote.png" *ngIf="project?.current_process?.process_name == 'QUOTE'" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{project?.subject?.customer_company_id}}/salesentity/quote/draft" style="position: absolute; right:10px; top:5px; width:25px;">
+            <img src="assets/images/testimg/grey_add_quote.png" *ngIf="project?.current_process?.process_name != 'QUOTE'" style="position: absolute; right:10px; top:5px; width:25px;">            
+            
+            <!-- only can add sku once -->
+            <!-- <img src="assets/images/testimg/add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && addSKU" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/chooseAddType" [queryParams]="{crmOpportunityProjectId : project.id}" style="position: absolute; right:42px; top:5px; width:25px;"> -->
+            <img src="assets/images/testimg/add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && addSKU && canClickNextProcess" routerLink="choose-search-inventory-or-add-sku" [queryParams]="{crmOpportunityProjectId : project.id}" style="position: absolute; right:42px; top:5px; width:25px;">            
+            <img src="assets/images/testimg/grey_add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && addSKU && !canClickNextProcess" style="position: absolute; right:42px; top:5px; width:25px;">            
+            
+            <img src="assets/images/testimg/grey_add_inventory.png" *ngIf="project?.current_process?.process_name != 'SKU Creation' || project?.current_process?.process_name == 'SKU Creation' && !addSKU" style="position: absolute; right:42px; top:5px; width:25px;">
+            
+            <mat-icon *ngIf="superPermission" (click)="deleteProject()" style="position: absolute; color:brown; left:35px; top:2px; font-size: 30px;">delete</mat-icon>                
+        </crm-oppo-subject-content>
+    </div>
+
+    <!-- <mat-card class="date">
+        <div><b>Target Complete Date</b> : {{project?.target_date}}</div>
+        <div><b>Require Date</b> : {{project?.require_date}}</div>
+    </mat-card> -->
+
+    <!-- <app-attachment (sendFormData)="onReceivedFormData($event)" [title]="'Attachment'" [attachments]="project?.attachments"></app-attachment> -->
+    <!-- for all process, show all process folders and files -->
+    <!-- <opportunity-attachment (sendFormData)="onReceivedFormData($event)" [canUpload]="true" [prevProjectId]="prevProjectId" [title]="'Attachment'" [attachments]="project?.attachments"></opportunity-attachment> -->
+
+    <!-- <div class="bar">
+        <div class="bar-content">
+            <progress-bar [possibility]="project?.complete"></progress-bar> 
+            <left-day-bar [requireDate]="project?.require_date" [durationTime]="project?.duration_time"></left-day-bar>
+        </div>
+        <span *ngIf="project?.duration_time" class="total-days">{{project?.duration_time}} days</span>
+    </div> -->
+
+    <!-- <div class="discussion">
+        <b> {{project?.project_discussion_comment_count}} Comments Under Discussion Board</b>
+    </div>
+
+    <mat-card *ngIf="project?.project_discussion_comment_count == 0" class="blank-discussion-board" routerLink="discussion" >Please Click to Write Discussions</mat-card>
+    
+    <discussion-brief routerLink="discussion" *ngIf="project?.project_discussion_comment_count != 0" [createdUser]="project?.latest_project_discussion_comment?.created" [content]="project?.latest_project_discussion_comment?.body" [unreadRecord]="project?.latest_project_discussion_comment?.unread_count"></discussion-brief> -->
+    
+    <div class="process">
+        <div class="process-content">
+            <div class="all-process" [class.selected]="currentProcessName == null" (click)="allProcess()">               
+                <span class="each-process-name" style="background-color: #15305A;" >                    
+                All Process</span> 
+            </div>      
+            <!-- previous completed process list-->
+            <div class="each-process"  *ngFor="let process of prevProcessList;" [class.selected]="process.process_name == currentProcessName" (click)="swapProcess(process)">                
+                <!-- <span class="each-process-name" style="background-image: url('assets/images/testimg/green-step.png'); background-size: cover;" (click)="swapProcess(process)"> -->
+                <span class="each-process-name" style="background-color: #b3de51;" >                    
+                {{process.process_name | short:4}}</span>
+            </div>   
+            <!-- current working process -->
+            <div class="current-process" *ngIf="currentProcess" [class.selected]="currentProcess.process_name == currentProcessName" (click)="swapProcess(currentProcess)">
+                <span class="process-status" (click)="swapProcess(currentProcess)">{{project?.current_process_status}}</span>
+                
+                <!-- <span class="each-process-name" style="background-image: url('assets/images/testimg/yellow-step.png'); background-size: cover; margin-top: -34px !important;" (click)="swapProcess(currentProcess)"> -->
+                <span class="each-process-name" style="background-color: #f9d033; margin-top: -34px !important;">                    
+                {{currentProcess.process_name | short:4}}</span> 
+            </div>      
+            <!-- next process list -->
+            <div class="each-process"  *ngFor="let process of nextProcessList">                
+                <!-- <span class="each-process-name" style="background-image: url('assets/images/testimg/grey-step.png'); background-size: cover; color: white;"> -->
+                <span class="each-process-name" style="background-color:#909090; color: white;">                    
+                {{process.process_name | short:4}}</span> 
+            </div>      
+        </div>
+    </div>
+
+    <!-- <div class="all-process-button" (click)="allProcess()">All Process History</div> -->
+
+    <opportunity-process-attachment (sendFormData)="onReceivedFormData($event)" [title]="'Attachment'" [attachments]="attachments"></opportunity-process-attachment>
+    
+    <div class="status">
+        <b *ngIf="currentProcessName">{{currentProcessName}}</b>
+        <b *ngIf="!currentProcessName">All Opportunity Process</b>
+    </div>
+
+    <mat-card class="process-status-approve">
+        <!-- current process, or show all process -->
+        <div class="process-name" *ngIf="!showApprove && (currentProcessId == project?.current_process?.id || currentProcessId == 0)">
+            <!-- if the current process is not sku, 
+            or the current process is sku, and the sku_process_status is null or waitting
+            then show current process status -->
+            <span *ngIf="project?.current_process?.process_name != 'SKU Creation' || (project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status != 'completed')" class="process-name-status" style="color: #f9d033;">{{project?.current_process_status}}</span>
+            <!-- if the current process is sku, and the sku process status is completed
+            then show the dku product card -->
+            <sku-product-card *ngIf="project?.sku_product && project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status == 'completed'"
+                                [images]="project?.sku_product.images" [productName]="project?.sku_product.name" [productItemNumber]="project?.sku_product.headline">
+
+            </sku-product-card>
+        </div>
+
+        <!-- previous process, and not all process -->
+        <div class="process-name" *ngIf="!showApprove && (currentProcessId != project?.current_process?.id && currentProcessId !=0)">
+            <!-- if the current clicked process name is not sku creation, then show completed -->
+            <span *ngIf="currentProcessName != 'SKU Creation'" class="process-name-status" style="color: #bbe659;">Completed</span>   
+            <!-- if the current clicked process name  is sku creation, and the sku process status is completed,
+            then show the sku product card -->
+            <sku-product-card *ngIf="project?.sku_product && currentProcessName == 'SKU Creation' && project?.sku_process_status == 'completed'"
+                        [images]="project?.sku_product.images" [productName]="project?.sku_product.name" [productItemNumber]="project?.sku_product.headline">
+
+            </sku-product-card>
+            
+        </div>
+
+         <!-- currentProcessId == 0 means that all process -->
+    <!-- current process or all process, is the current process status is 'Waiting Approval', show the button, the used process id is the current process id of the project -->
+        <div class="action-button" *ngIf="showApprove">
+            <!-- <span class="approve-button" routerLink="add-approve-deny" [queryParams]="{current_process_status: 'Approved'}">
+                <img src="assets/images/testimg/approved.png">
+            </span> -->
+            <img *ngIf="canApprove" style="width:120px; float:left; margin-left:10%; margin-top: -3%;" src="assets/images/testimg/approved.png" routerLink="add-approve-deny" [queryParams]="{current_process_status: 'Approved'}">
+            <img *ngIf="canApprove" style="width:120px; float:right; margin-right:10%; margin-top: -3%;" src="assets/images/testimg/rejected.png" routerLink="add-approve-deny" [queryParams]="{current_process_status: 'Denied'}">
+            
+            <span *ngIf="!canApprove" class="process-name-status" style="color: #f9d033;">{{project?.current_process_status}}</span>
+            
+            <!-- <span class="denied-button" routerLink="add-approve-deny" [queryParams]="{current_process_status: 'Denied'}">Deny</span> -->
+        </div>
+    </mat-card>
+
+    <div class="status">
+        <b *ngIf="currentProcessId != 0 && currentProcessName == 'RFI'">Idea and Concepts</b>
+        <b *ngIf="currentProcessId != 0 && currentProcessName != 'RFI'">Messages</b>
+        <b *ngIf="currentProcessId == 0">History</b>
+        
+    </div>
+
+    <!-- get statuses and comments by process id -->
+    <div class="status-card-margin" *ngFor="let status of statusesAndComments">
+        <status-card [createdUser]="status?.created" [content]="status?.body" [showReplyStatus]="true" [showReplyComment]="false" [statusId]="status.id" [replyPermission]="true" [unreadCount]="status?.unread_count">
+            <div class="reply-card-margin" *ngFor="let reply of status.replies">
+                <status-card [createdUser]="reply?.created" [content]="reply?.body" [showReplyStatus]="false" [showReplyComment]="false" [statusId]="" [replyPermission]="false" [unreadCount]="reply?.unread_count"></status-card>
+            </div>
+        </status-card>
+    
+    </div>
+</div>
+
+<!-- when right now the user is looking at all process history, which means that currentProcessId == 0, do not show the operation bar -->
+<div class="operation-bar" *ngIf="currentProcessId != 0">
+        <!-- currentProcessId == 0 means that all process -->
+    <!-- current process or all process, show the button, the used process id is the current process id of the project -->
+    <!-- the process has not completed yet -->
+    <div *ngIf="project?.current_process?.next_process?.id != null && (currentProcessId == project?.current_process?.id || currentProcessId == 0)">
+        <!-- // only the person who is responsible for the current orocess of the project can click the approval button        -->        
+        <div *ngIf="!isLoading && chooseApproval && canClickNextProcess" class="meeting-button" routerLink="add-status">
+                Upload Your {{project?.current_process?.process_name}} For Approval
+        </div>
+        <!-- // for the people who are not responsible for the current process, cannot click the approval button -->        
+        <div *ngIf="!isLoading && chooseApproval && !canClickNextProcess" class="waiting-approval-button">
+            Upload Your {{project?.current_process?.process_name}} For Approval
+        </div>
+    
+        <!-- // only the person who is responsible for the current orocess of the project can click next process button         -->
+        <div *ngIf="!isLoading && chooseNextProcess && canClickNextProcess" class="meeting-button" routerLink="add-status">
+                Next Process
+        </div>
+        <!-- // for the people who are not responsible for the current process, cannot click the next process button -->
+        <div *ngIf="!isLoading && chooseNextProcess && !canClickNextProcess" class="waiting-approval-button">
+            Next Process
+        </div>
+
+        <!-- <div *ngIf="!isLoading && addSKU" class="meeting-button" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/chooseAddType" [queryParams]="{crmOpportunityProjectId : project.id}">
+                Add SKU
+        </div> -->
+        <!-- // only the person who is responsible for the current orocess of the project can add sku         -->        
+        <div *ngIf="!isLoading && addSKU && canClickNextProcess" class="meeting-button" routerLink="choose-search-inventory-or-add-sku" [queryParams]="{crmOpportunityProjectId : project.id}">
+            Search Inventory Or Add SKU
+        </div>
+        <!-- // for the people who are not responsible for the current process, cannot click the add sku button -->
+        <div *ngIf="!isLoading && addSKU && !canClickNextProcess" class="waiting-approval-button">
+            Search Inventory Or Add SKU
+        </div>
+    
+        <div *ngIf="!isLoading && waitingApproval" class="waiting-approval-button">
+                Waiting Approval
+        </div>
+    </div>
+
+    <!-- if the next process id is null, which means that current we are in the last process, so show completed -->
+    <div *ngIf="project?.current_process?.next_process?.id == null">
+        <div *ngIf="!isLoading" class="waiting-approval-button">
+                Completed
+        </div>
+    </div>
+
+    <!-- for each process or all process, message-chat is alwsays showed there -->
+    <div class="message-chat">
+        <!-- <mat-icon style="position: absolute; right: 25px; bottom: 30px; font-size: 40px; color: #2874ed;" routerLink="add-message">chat</mat-icon>     -->
+        <img src="assets/images/testimg/message.png" style="position: absolute; width: 46px; right: 9px; bottom: 12px;" routerLink="add-message" [queryParams]="{currentProcessId: currentProcessId}">
+    </div>
+
+</div>
+
+<div class="blank-dev"></div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+
+<!-- <app-add-button *ngIf="!isLoading && createrAndOwnerPermission" routerLink="add-status"></app-add-button> -->
+<!-- <app-add-button *ngIf="!isLoading" routerLink="add-status"></app-add-button> -->

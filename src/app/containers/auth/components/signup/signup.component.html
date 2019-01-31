@@ -1,0 +1,32 @@
+<form novalidate>
+  <mat-form-field>
+    <input type="text" matInput placeholder="First Name" [formControl]="myForm.controls.firstname" [(ngModel)]="user.first_name" name="firstName" required>
+    <mat-error *ngIf="myForm.controls.firstname.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput placeholder="Last Name" [formControl]="myForm.controls.lastname" [(ngModel)]="user.last_name" name="lastName" required>
+    <mat-error *ngIf="myForm.controls.lastname.invalid">{{getLastnameErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="email" matInput placeholder="Email" [formControl]="myForm.controls.email" [(ngModel)]="user.email" name="email" required>
+    <mat-error *ngIf="myForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Password" [formControl]="myForm.controls.password" [(ngModel)]="user.password" name="password" required>
+    <mat-error *ngIf="myForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Confirmed Password" [formControl]="myForm.controls.confirmed_password" name="confirmed_password" required>
+    <mat-error *ngIf="myForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+</form>
+<button mat-raised-button color="primary" type="submit" class="submit-btn" [disabled]="myForm.invalid" (click)="onSubmit()">
+  Sign Up
+</button>
+
+<a class="redirect-link" routerLink="/auth/login">Cancel</a>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+
+<!-- <pre>{{myForm.value | json}}</pre> -->

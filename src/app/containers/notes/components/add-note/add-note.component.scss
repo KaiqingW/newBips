@@ -1,0 +1,34 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-left: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-top: 10px;
+}
+
+editor {
+    width: 100%;
+    margin-top: 10px;
+    
+}
+  
+.example-full-width {
+    width: 100%;
+}
+
+.editor-hint {
+    font-size: 12px;
+    margin-bottom: 10px;
+    float: left;
+    align-self: flex-start;
+}
+
+  

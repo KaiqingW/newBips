@@ -1,0 +1,53 @@
+<form [formGroup]="shipForm"> 
+        <div class="row">
+          <div class="input_info" *ngIf="currentBalance">
+              <div class="item">
+                    Quantity
+              </div>
+              
+             <input type="number" formControlName="quantity" [(ngModel)]="typingQuantity"  placeholder="{{currentBalance | number}}" required>
+          </div>
+          
+          <div class="input_info" *ngIf="item && (item.shipping_method == 'air')">
+              <div class="item">
+                    Flight#
+              </div>
+              <input type="text" formControlName="container_number" placeholder="Flight#" required>
+          </div>
+
+          <div class="input_info" *ngIf="item && (item.shipping_method != 'air')">
+                <div class="item">
+                      Container#
+                </div>
+                <input type="text" formControlName="container_number" placeholder="Container#" required>
+            </div>
+
+          <div class="input_info">
+                  <div class="item">
+                        Shipping Date                  
+                    </div>
+                  <input type="date" formControlName="vessel_date" [(ngModel)]="vassel_date" required>
+              </div>
+          <div class="input_info">
+              <div class="item">
+                    ETA Date
+              </div>
+              <input type="date" formControlName="eta_date" min="vassel_date" required>
+          </div>
+          <div class="input_info">
+              <div class="item">
+                    REF #              
+                </div>
+              <input type="text" formControlName="glk_number" placeholder="Reference Number" required>
+          </div>
+        </div>
+      </form>
+     
+      <div *ngIf="typingQuantity > currentBalance"  class="invalid-message">
+          The shipping quantity excess the order quantity.
+      </div>
+<mat-dialog-actions align="center">
+  <button mat-button class="mat-button" mat-dialog-close>Cancel</button>
+  <button mat-button class="mat-button" (click)="onSave()" [mat-dialog-close]="newShippingInfoCallBack" [disabled]="shipForm.invalid">Confirm</button>
+</mat-dialog-actions>
+

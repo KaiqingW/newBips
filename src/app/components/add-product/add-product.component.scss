@@ -1,0 +1,41 @@
+mat-form-field{
+    width:100%;
+}
+
+mat-option{
+    white-space: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    height:auto;
+    line-height: 20px;
+    padding: 10px 16px;
+    text-align: left;
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+   /* scroll bar style */
+    ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: red;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}

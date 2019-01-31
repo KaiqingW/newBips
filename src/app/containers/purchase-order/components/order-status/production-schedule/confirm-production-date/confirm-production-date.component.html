@@ -1,0 +1,118 @@
+<div>
+    <h3 mat-dialog-title style="text-align:center;">Confirm Estimate Product Date</h3>
+
+    <div *ngIf="schedule">
+        <div class="input-group">
+            <div class="input-label">
+                ETS Time:
+            </div>
+
+            <div class="input-item">
+                <b>{{schedule?.ets_time}}</b>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                ETF Time:
+            </div>
+
+            <div class="input-item">
+                <b>{{schedule.etf_time}}</b>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                Production Rate:
+            </div>
+
+            <div class="input-item">
+                <b>{{schedule.prod_rate}}</b>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                Production Number:
+            </div>
+
+            <div class="input-item">
+                <b>{{schedule.production_qty}}</b>
+            </div>
+        </div>
+
+        <div class="input-group" *ngIf="((schedules[index].schedules.length - 1) == selectedIndex)">
+            <div class="input-label">
+                Change Status
+            </div>
+
+            <div class="input-item">
+                <select style="width:100%;" [(ngModel)]="choose" required>
+                    <option style="display: none"></option>
+                    <option value="change_date">Change Date</option>
+                    <option value="actual_date">Actual Date</option>
+                </select>
+            </div>
+        </div>
+
+        <form [formGroup]="statusForm">
+            <div class="input-group" *ngIf="(choose == 'change_date')">
+                <div class="input-label">
+                    Change ETS Time To
+                </div>
+
+                <div class="input-item">
+                    <input type="date" style="width:100%;" formControlName="ets_time" required>
+                </div>
+            </div>
+
+            <div class="input-group" *ngIf="choose != 'change_date'">
+                <div class="input-label">
+                    Selected ETS Date
+                </div>
+
+                <div class="input-item">
+                    <input type="date" style="width:100%;" formControlName="ets_time" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-label">
+                    Comment:
+                </div>
+            </div>
+            <textarea formControlName="comment" style="width:100%;"></textarea>
+        </form>
+
+
+    </div>
+
+
+    <mat-dialog-actions align="center">
+        <button mat-button class="mat-button" mat-dialog-close>Cancel</button>
+        <button mat-button class="mat-button" *ngIf=" (selectedIndex === lastIndex) || (choose)" [disabled]="statusForm.invalid"
+            (click)="onSave()">Submit</button>
+    </mat-dialog-actions>
+
+</div>
+
+<!-- <div *ngIf="addBatchMode">
+    <form [formGroup]="batchNumForm">
+            <div class="input-group">
+                <div class="input-label">
+                    Batch#:
+                </div>
+                
+                <div class="input-item">
+                    <input type="text" formControlName="batch_num" required>
+                </div>
+            </div>
+    </form>
+
+    <mat-dialog-actions align="center">
+    <button mat-button class="mat-button" mat-dialog-close>Cancel</button>
+    <button mat-button class="mat-button" [disabled]="batchNumForm.invalid" (click)="onSave()" [mat-dialog-close]="confirmProdDateCallBack">Submit</button>
+    </mat-dialog-actions>
+
+</div> -->

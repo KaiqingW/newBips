@@ -1,0 +1,65 @@
+:host{
+    
+    mat-card{
+        padding:6px 4px 9px 8px;
+        height:45px;        
+    }
+    .subject-content{
+        // height: 53px;
+        display: inline-block;
+        width: 100%;
+        .avatar {
+            display: block;
+            float: left;
+            padding:6px 2px ;
+            width:15%;
+            height: 40px;
+            company-logo{
+                width:40px;
+                height:40px;
+            }
+        }
+        .content {
+            display: block;
+            width: 80%;
+            line-height: 23px;
+            
+            text-align: left;
+            float: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; 
+            .creater {
+                .create-time {
+                    margin-left: 5%;
+                    color: #B7B7B7;
+                    font-size: 12px; 
+
+                }
+            }
+            .discuss-body {
+                color: rgb(141, 139, 139);
+                
+            }
+        }
+        
+    }   
+}
+
+.subject-container{
+    padding-top: 8px;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    box-sizing:border-box;
+    position: relative;
+
+    .col-1{
+        display: flex;
+        flex:1;
+    }
+    .col-3{
+        display:flex;
+        flex:4;
+    }           
+}

@@ -1,0 +1,49 @@
+<div class="add_note_subject_container">
+  <form [formGroup]="noteForm">
+      <div class="row title">
+          <b>Notes Subject</b>             
+      </div>
+      <div class="row">
+          <input type="text" placeholder="Note subject is required !"  formControlName="name" >
+      </div>
+
+      <div class="row title" *ngIf="show_select">
+            <b>Visibility to Customer</b>             
+        </div>
+        <div class="row" *ngIf="show_select">
+            <select formControlName="public"  name="" id="">
+                <option value=1>Visible to Customer.</option>
+                <option value=0>Not Visible to Customer.</option>
+            </select>
+        </div>
+
+      <div class="row title">
+          <b>Description</b>
+      </div>
+  
+      <mat-card formArrayName="description">
+
+          <div *ngFor="let subNote of noteForm['controls'].description['controls'];let i=index">
+              <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+              <div class="row" [formGroupName]="i"> 
+                  <div class="col-1" *ngIf="getImg(i)">
+                      <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                      <div *ngIf="modalOpen">
+                              <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                      </div>
+                  </div>
+                  <div class="col-3"> 
+                      <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                  </div>
+              </div>
+              <button class="add_more_btn" *ngIf="noteForm['controls'].description['controls'].length" style="background-color:red !important; color:white;" mat-button (click)="onDelete(i)">Delete current text</button>
+
+          </div>
+      
+          <button class="add_more_btn" mat-button (click)="onAddMore()">Add More</button>
+
+      </mat-card>
+
+  </form>
+
+</div>

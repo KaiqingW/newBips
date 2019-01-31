@@ -1,0 +1,158 @@
+<div class="main-container">
+        <!-- <div class="invalid-message" *ngIf="orderForm.invalid && orderForm.touched">
+    All the inputs are required!
+    </div> -->
+    
+    <form [formGroup]="orderForm" >
+        <mat-card class="orders-container">
+            <div class="row" *ngIf="showSelect">
+                <div class="input-group" style="padding:0 2px;">
+                        <div class="orders-list" style="width:50% !important;">Order Destination Type</div>
+                        <select formControlName="dest_type" class="item-content" required style="padding:0 !important;margin:6px 0;width:50%;text-align: center;" name="" id="">
+                            <option *ngFor="let choice of selectChoices" selected="choice.value == 'dropship'" [value]="choice.value">{{choice.viewValue}}</option>
+                        </select>
+                </div>
+            </div>
+
+            <div *ngIf="!Account$">
+                        <div class="row" *ngIf="orderForm.value.dest_type != 'warehouse'">
+                            <div class="input-group" style="padding:0 2px;">
+                                    <div class="orders-list" style="width:50% !important;">Customer's Company</div>
+                                    <input class="item-content" [formControl]="searchCtrl"  type="text" style="font-size:12px;width:50%;box-sizing: border-box;" required >
+                                    <!-- <button  style="height:24px;line-height:24px;width:15%;box-sizing: border-box;margin:6px 0;" (click)="onSearchCompany()">search</button> -->
+                            </div>
+                        </div>
+            
+                        <mat-card  *ngIf="orderForm.value.dest_type != 'warehouse'">
+                                <div (scroll)="onMouseWheel($event)" *ngIf="accountlist$ && accountlist$?.length > 0 && !isLoading ; else no_subject_found">
+                            
+                                        <div class="company-card-margin" *ngFor="let account of accountlist$ ">
+                                            <order-company-card (selected)="onGetSelected($event)" [url]="account?.logo_url" [name]="account?.name" [industry]="account?.industry" [account]="account" (click)="chooseCustomer(account)">
+                                            </order-company-card>
+                                        </div>
+                                </div>
+                            
+                                <ng-template #no_subject_found *ngIf="searchCtrl.value">
+                                    <div class="no-subject" *ngIf="!isLoading">
+                                        <img src="../../../../assets/images/no-item.png" width="50px" height="50px">
+                                        <p>No Accounts Found</p>
+                                    </div>
+                                </ng-template>
+                        </mat-card>
+            </div>
+            
+            <div *ngIf="Account$">
+                    <div class="row" *ngIf="dest_type != 'warehouse'">
+                            <div class="input-group" style="padding:0 2px;">
+                                    <div class="orders-list" style="width:50% !important;">Customer Company</div>
+                                    <input readonly type="text" [value]="Account$.name || customer_name" style="font-size:11px;width:50%;" required class="item-content">
+                            </div>
+                    </div>
+            </div>        
+
+            <div class="row"> 
+                <div class="col">
+                    <div class="input-group">
+                        <div class="orders-list">Cust. PO #</div>
+                        <input [ngClass]="{ 'has-danger':orderForm.controls.purchase_order_number.invalid}" formControlName="purchase_order_number" class="item-content" required>
+                    </div>
+                    <div class="input-group" style="color:red" *ngIf="orderForm.controls.purchase_order_number.invalid && orderForm.controls.purchase_order_number.dirty">
+                        po should is required!
+                    </div>
+                    <div class="input-group">
+                        <div class="orders-list">Order Date</div>
+                        <input [ngClass]="{ 'has-danger':orderForm.controls.order_date.invalid}" formControlName="order_date" type="date" style="font-size:11px;" [(ngModel)]="order_date" required class="item-content">
+                    </div>
+                    <div class="orders-label">Customer Info.</div>
+                    <textarea [ngClass]="{ 'has-danger':orderForm.controls.customer_name.invalid}" rows="4" cols="23" formControlName="customer_name" required></textarea>
+                </div>
+             
+                <div class="col">
+                    <div class="input-group">
+                        <div class="orders-list">S.O.# </div>
+                        <input [ngClass]="{ 'has-danger':orderForm.controls.sales_order_number.invalid}" formControlName="sales_order_number" class="item-content" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="orders-list">Request Date</div>
+                        <input [ngClass]="{ 'has-danger':orderForm.controls.request_date.invalid}" formControlName="request_date" style="font-size:11px;" type="date" [min]="order_date"  required  class="item-content">
+                    </div>
+                    <div class="orders-label">Destination</div>
+                    <textarea [ngClass]="{ 'has-danger':orderForm.controls.destination.invalid}" rows="4" cols="23" formControlName="destination" required></textarea>
+                </div>
+            </div>
+
+        </mat-card>
+    </form>
+
+    <div class="add-button">
+        <button class="add-button-name" routerLink="newOrderItem" (click)="saveOrderFormInfo()">Add New Item</button>
+        <button class="add-button-name" *ngIf="Account$" routerLink="share-order" (click)="saveOrderFormInfo()">Add Shared Contacts</button>
+    </div>
+
+    <h5 *ngIf="orderItems.length > 0">Order Items</h5>
+    <mat-card class="nopadding" *ngFor="let item of orderItems; let i = index">
+        <!-- <div class="delete-button" (click)="removeOrderItem(i)"> - </div> -->
+        <i  class="material-icons delete-icon"  (click)="removeOrderItem(i)">cancel</i>
+
+            <div  class="orders-container">
+                <div class="items-list">
+                    <div class="selected item-content">Sales item#</div>
+                    <div class="item-content">{{item.sales_item_number}}</div>
+                </div>
+                <!-- <div class="items-list">
+                    <div class="selected item-content">Color</div>
+                    <div class="item-content">{{item.company_defined_columns.color}}</div>
+                </div> -->
+                <div class="items-list">
+                    <div class="selected item-content">Order QTY</div>
+                    <div class="item-content">{{item.quantity}}</div>
+                </div>
+                <div class="items-list">
+                        <div class="selected item-content">Unit Price</div>
+                        <div class="item-content">{{item.unit_price}}</div>
+                </div>
+
+
+                <div class="items-list">
+                    <div class="selected item-content">Case QTY</div>
+                    <div class="item-content">{{item.case_quantity}}</div>
+                </div>
+                <div class="items-list">
+                    <div class="selected item-content">Case/Plt</div>
+                    <div class="item-content">{{item.cases_per_plate}}</div>
+                </div>
+                <div class="items-list">
+                    <div class="selected item-content">Pes/Plt</div>
+                    <div class="item-content" [innerHTML]="item.cases_per_plate*item.case_quantity"></div>
+                </div>
+                <!-- <div class="items-list">
+                        <div class="selected item-content">Material</div>
+                        <div class="item-content">{{item.company_defined_columns.material}}</div>
+                </div> -->
+                <div class="items-list" *ngFor="let each of company_defined_columns[i]">
+                        <div class="selected item-content">{{each.name}}</div>
+                        <div class="item-content">{{each.value}}</div>
+                </div>
+                
+                
+                <div class="selected-bottom item-content margin-top">Description</div>
+                <div class="text-left">{{item.description}}</div>
+                <div class="selected-bottom item-content margin-top">Requirement</div>
+                <div class="text-left">{{item.requirement}}</div>
+            </div>
+    </mat-card>
+
+    <h5 *ngIf="sharedContacts.length > 0">Shared Contacts</h5>
+    <mat-card class="nopadding" *ngFor="let contact of sharedContacts; let i = index">
+        <!-- <div class="delete-button" (click)="removeSharedContact(i)"> - </div> -->
+        <i  class="material-icons delete-icon"  (click)="removeSharedContact(i)">cancel</i>
+            <div class="contacts-container">
+                {{contact}}
+            </div>
+    </mat-card>
+
+      
+</div>
+
+
+<app-spinner *ngIf="isLoading"></app-spinner>

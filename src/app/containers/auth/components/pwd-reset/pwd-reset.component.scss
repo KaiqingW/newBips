@@ -1,0 +1,76 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+.test-account{
+    padding:10px 20px;
+    text-align: left;
+    border:1px solid red;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+mat-form-field{
+    width: 100%;
+}
+.btn-gp{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    align-items: center;
+
+    .submit-btn {
+        box-sizing: border-box;
+        width: 80%;
+        margin: 10px 0;
+    }
+    
+}   
+
+.action-icon{
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    .icon-item{
+        width:100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .icon-lable{
+            margin-top:-6px;
+            color:gray;
+            font-size:13px;
+            width:100%;
+            text-align: center; 
+        }
+    }
+    a {
+        margin: 10px 15px;
+        display:inline-block;
+        width:30px;
+        height:30px;
+        background-color:#006CD6;
+        border-radius:50px;
+        text-align: center;
+        line-height: 30px;
+        text-decoration: none;
+        
+
+    }
+    mat-icon{
+        // padding:10px 15px;
+        color:white;
+        line-height: 30px;
+        font-size:15px;
+    }
+}

@@ -1,0 +1,21 @@
+<mat-card>
+    <div class="subject-content" >
+        <div>
+            <div class="subject-name">
+              <ng-content></ng-content>
+              <h5 (click)="navigateByUrl(url)">{{name}}</h5>
+            </div>
+  
+            <div class="time" (click)="navigateByUrl(url)">
+                <!-- <span class="meeting-time">Meeting Time: {{meetingDate}} {{meetingTime}} {{meetingFrequency}}</span> -->
+                <span class="created-time">{{createdTime | local | amDateFormat : 'MM/DD/YYYY h:mm a'}}</span>
+            </div>
+  
+            <span *ngIf="unreadRecord > 0" class="unread">{{unreadRecord}}</span>
+            
+        </div>
+    </div>
+  
+    <ng-content></ng-content>
+  </mat-card>
+  

@@ -1,0 +1,124 @@
+<form *ngIf="company" novalidate [formGroup]="companySettingForm">
+
+    <div class="avatar">     
+        <div class="background company-logo profile">
+            <mat-icon *ngIf="!company?.logo_url && !(data?.image)">camera_enhance</mat-icon>    
+            <img *ngIf="(!data?.image) && company?.logo_url" [src]="company?.logo_url">  
+            <img *ngIf="(data?.image)" [src]="data?.image">         
+            <div class="overlay">
+                <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+                <p>Upload Picture</p>
+            </div>
+        </div>
+    </div>
+
+    <mat-form-field>
+        <input type="input" matInput placeholder="Company Name" style="color:gray" formControlName="name" readonly [(ngModel)]="company.name" name="company_name"/>
+        <mat-error *ngIf="companySettingForm.controls.name.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="input" matInput placeholder="Industry Type" formControlName="industry" [(ngModel)]="company.industry" name="industry"/>
+        <mat-error *ngIf="companySettingForm.controls.industry.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="text" matInput placeholder="Website" [(ngModel)]="company.website" formControlName="website"/>
+        <mat-error *ngIf="companySettingForm.controls.website.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="text" matInput placeholder="Phone" [(ngModel)]="company.phone" formControlName="phone"/>
+        <mat-error *ngIf="companySettingForm.controls.website.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="text" matInput placeholder="Email" [(ngModel)]="company.email" formControlName="email"/>
+        <mat-error *ngIf="companySettingForm.controls.phone.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input type="text" matInput placeholder="Fax" [(ngModel)]="company.fax" formControlName="fax"/>
+        <mat-error *ngIf="companySettingForm.controls.fax.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+            <textarea matInput placeholder="Description" [(ngModel)]="company.description" formControlName="description"></textarea>
+        <!-- <input type="text" matInput placeholder="Description" [(ngModel)]="company.description" formControlName="description"/> -->
+        <mat-error *ngIf="companySettingForm.controls.description.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+        <input type="input" matInput  placeholder="Database Name" disabled [value]="company.database_name" name="database_name"  >
+        <mat-error *ngIf="companySettingForm.controls.database_name.invalid">{{getCompanynameErrorMessage()}}</mat-error>
+    </mat-form-field> -->
+
+    <span *ngIf="fillINAddress" style="color:red">Fill all field with *</span>
+    <div formGroupName="address" class="address-form" *ngIf="company?.address">
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Street1" formControlName="street1" [(ngModel)]="company?.address.street1"  name="street1"  required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Street2" formControlName="street2" [(ngModel)]="company?.address.street2" name="street2" >
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="City" formControlName="city" [(ngModel)]="company?.address.city" name="city" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="State" formControlName="state" [(ngModel)]="company?.address.state"  name="state" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="ZipCode" formControlName="zipcode" [(ngModel)]="company?.address.zipcode"  name="zipcode" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Country" formControlName="country" [(ngModel)]="company?.address.country"  name="country" required>
+        </mat-form-field>
+    </div>
+
+    <div formGroupName="address" class="address-form" *ngIf="!company?.address">
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Street1" formControlName="street1" name="street1"  required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Street2" formControlName="street2" name="street2" >
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="City" formControlName="city" name="city" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="State" formControlName="state"  name="state" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="ZipCode" formControlName="zipcode"  name="zipcode" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput  placeholder="Country" formControlName="country"  name="country" required>
+        </mat-form-field>
+    </div>
+
+
+</form>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>   
+</app-crop-modal>
+
+<!-- <pre>{{companySettingForm.value | json}}</pre> -->

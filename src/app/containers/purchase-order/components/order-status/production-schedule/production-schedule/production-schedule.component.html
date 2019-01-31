@@ -1,0 +1,53 @@
+<mat-card class="shipping-info-loop" *ngIf="!item?.public">
+    <div class="selected item-content margin-top">Production Schedule
+        <b *ngIf="ownCompany" class="add-shipped-button" (click)="addEstProdDateDialog()">+</b>
+    </div>
+    <div class="schedule-row nopadding">
+        <div class="col-1">
+            <div class="selected item-content">#</div>
+            <b></b>
+        </div>
+        <div class="col-2">
+            <div class="selected item-content">ETS</div>
+        </div>
+        <div class="col-2">
+            <div class="selected item-content">ETF</div>
+        </div>
+
+        <div class="col-4">
+            <div class="selected item-content">Updated Time</div>
+        </div>
+    </div>
+
+    <div *ngIf="schedules" style="box-sizing: border-box;">
+        <mat-card class="schedule-row background_color shippingListCard" *ngFor="let schedule of schedules;let i = index">
+            <div style="width:100%;display:flex;flex-direction: column;" *ngFor="let scheduleItem of schedule.schedules;let j = index" 
+            [ngClass]="{'schedule_finished':( (schedules[i].schedules[j].ifFinish)&&(j === (schedules[i].schedules.length -1))), 
+            'schedule_delayed':( (schedules[i].schedules.length != 1)&&(schedules[i].schedules[j].ifFinish == false)&&(j === (schedules[i].schedules.length -1)))}"
+                (click)="confirmProdDateDialog(i, j, scheduleItem)">
+                <div style="display:flex;flex-direction: row;width:100%;box-sizing: border-box;">
+                    <div class="col-1">
+                        <span *ngIf="j == 0">{{i+1}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span>{{scheduleItem.ets_time}}</span>
+                    </div>
+                    <div class="col-2">
+                        <span>{{scheduleItem.etf_time}}</span>
+                    </div>
+                    <!-- need to change it from utc time to local -->
+                    <div class="col-4">
+                        <span>{{scheduleItem.updated_at.date}}<b class="unread_color" *ngIf = "scheduleItem.is_unread">*</b></span>
+                    </div>
+                </div>  
+                <div class="col-12">
+                    <div class="col-1">
+                    </div>
+                    <div style="width:100%;border:0;border: 1px solid #aaa;box-sizing: border-box;padding-right:4px;padding-left:13px">Comment : {{scheduleItem.comment | short : 40}}</div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div *ngIf="schedules.length == 0">There is no production schedule yet, please click the add button on the right.</div>
+    
+</mat-card>

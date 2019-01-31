@@ -1,0 +1,72 @@
+:host{
+    
+    mat-card{
+        padding:9px 4px 0px 8px;
+        // height:85px;        
+    }
+    .subject-content{
+        // height: 53px;
+        .subject-name{
+            display:inline-block;
+            vertical-align: middle;
+            width:100%;
+            height: 30px;
+            overflow: hidden;
+            h5{
+                text-align: center;
+                height: 24px;
+                line-height: 24px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+            }
+        }
+        hr {
+            margin-top: -5px;
+        }
+        .subject-container{
+            // padding:8px 16px 0 16px;
+            padding-top: 8px;
+            display: flex;
+            flex-direction: row;
+            width:100%;
+            box-sizing:border-box;
+            position: relative;
+        
+            .col-1{
+                display: flex;
+                // width:100px;
+                flex:1;
+            }
+            .col-3{
+                display:flex;
+                // width:250px;
+                flex:4;
+            }
+        
+        }
+        .time{
+            display:inline-block;
+            width:100%;
+            // height: 30px;
+            overflow: hidden;
+            .created-time {
+                font-size:11px;
+                display: block;
+                width: 35%;
+                color:gray;
+                text-align: right;
+                float: right;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+            }
+        }
+    }    
+}
+
+
+ng-content{
+    width:101%;
+    margin-left:-6px;
+}

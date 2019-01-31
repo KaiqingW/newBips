@@ -1,0 +1,48 @@
+form{
+    width:95%;
+    padding:0 2%;
+    mat-chip-list /deep/ div{
+        height:30px;
+        overflow: hidden;
+        // text-overflow: ellipsis;
+        overflow-y: scroll;
+    }
+  
+    text-align: center;
+    .product{
+        width:100%;
+    }
+    .rate{
+        width:49%;
+    }
+    .quantity{
+        width:49%;
+    }
+    mat-form-field{
+        width:100%;
+    }
+}
+
+.customer-container{
+    width:100%;
+    .customer-header{
+        width:100%;
+        height:32px;
+        border:1px solid black;
+        text-align: left;
+        .add-product{
+            padding:2px;
+            padding:2px 3px;
+            display: inline-block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            line-height:32px;
+            font-size:13px;
+        }
+    }
+    .customer-content{
+        border: 1px solid red;
+        width:100%;
+    }
+}

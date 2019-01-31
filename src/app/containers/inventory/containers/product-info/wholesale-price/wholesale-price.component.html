@@ -1,0 +1,26 @@
+<mat-card class="orca_card" *ngIf="product">
+    <form [formGroup]="wholesaleForm">
+        <div class="col">
+            <div>Est Cost</div>
+            <input id="est_cost" [readonly]="!editMode" (keyup)="onKeyUp($event)" formControlName="est_cost" type="number">
+        </div>
+        <div class="col">
+            <div>Est Sale</div>
+            <input id="est_sale_price" [readonly]="!editMode" (keyup)="onKeyUp($event)" formControlName="est_sale_price" type="number">
+        </div>
+        <div class="col">
+            <div>Markup%</div>
+            <input id="markup" [readonly]="!editMode" (keyup)="onKeyUp($event)" formControlName="markup" type="number">
+        </div>
+        <div class="col">
+            <div>Margin%</div>
+            <input id="margin" [readonly]="!editMode" (keyup)="onKeyUp($event)" formControlName="margin" type="number">
+        </div>
+    </form>
+
+    <div class="orca_btn_bar">
+        <button *ngIf="!editMode" mat-raised-button color="primary" mat-button (click)="changeMode()">Edit</button>
+        <button *ngIf="editMode" mat-raised-button color="primary" mat-button (click)="onSave()">Save</button>
+        <button *ngIf="editMode" mat-raised-button color="warn" mat-button (click)="changeMode()">Cancel</button>
+    </div>
+</mat-card>

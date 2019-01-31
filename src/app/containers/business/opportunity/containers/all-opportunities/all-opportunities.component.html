@@ -1,0 +1,11 @@
+<div *ngIf="!isLoading">
+    <mat-card *ngFor="let opportunity of filterOpportunities" routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/opportunity-details/{{opportunity?.id}}">
+        <opportunity-card [url]="opportunity?.avatar_url" [opportunity_name]="opportunity?.name" [company_name]="opportunity?.company_name"
+        [first_name]="opportunity?.created?.by?.first_name" [last_name]="opportunity?.created?.by?.last_name" [description]="opportunity?.description"></opportunity-card>
+    </mat-card>
+</div>
+
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

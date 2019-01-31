@@ -1,0 +1,126 @@
+<div class="whole-subject" *ngIf="subject">
+    
+      <!-- opportunity does not need prev -->
+      <!-- <div class="prev-project" *ngIf="subject?.prev_meeting_project" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{subject?.prev_meeting_project?.subject?.id}}/opportunity-person-project/{{subject?.prev_meeting_project?.id}}">      
+          <mat-icon style="position: relative; top:5px; font-size: 24px;"><i class="material-icons">arrow_upward</i></mat-icon>
+          <span>{{subject?.prev_meeting_project?.name}}</span> 
+      </div> -->
+              
+      <div class="subject-card-margin">
+          <crm-oppo-subject-content [name]="subject?.name" [description]="subject?.description" [createdTime]="subject?.created?.at">            
+              <mat-icon *ngIf="superPermission" (click)="edit()" style="position: absolute; top: 2px; right: 15px; color:green; font-size: 30px;">edit</mat-icon>                                
+          </crm-oppo-subject-content>
+          
+          <mat-card class="content-card">
+              <div class="subject-list">
+                  <div class="subject_creater">
+                      <avatar-logo
+                          [url]="subject?.created?.by?.avatar_url" 
+                          [userFirstName]="subject?.created?.by?.first_name" 
+                          [userLastName]="subject?.created?.by?.last_name" 
+                          [userId]="subject?.created?.by?.user_id">
+                      </avatar-logo>
+  
+                  </div>
+                  <!-- <div class="shared-contacts-admin">
+                      <div  *ngIf="subject?.sharedWithAdmin.length > 0">
+                          <div class="contact-admin" *ngFor="let share of subject?.sharedWithAdmin | showMore : maxAdmin">
+                              <avatar-logo
+                                  [url]="share?.avatar_url" 
+                                  [userFirstName]="share?.first_name" 
+                                  [userLastName]="share?.last_name" 
+                                  [userId]="share?.user_id">
+                              </avatar-logo>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="separate">|</div>
+  
+                  <div [ngClass]="{'shared-contacts-location' : superPermission}">
+                      <div  *ngIf="subject?.sharedWith.length > 0" class="shared-contacts">
+                          <div class="contact" *ngFor="let share of subject?.sharedWith | showMore : maxShare">
+                              <avatar-logo
+                                  [url]="share?.avatar_url" 
+                                  [userFirstName]="share?.first_name" 
+                                  [userLastName]="share?.last_name" 
+                                  [userId]="share?.user_id">
+                              </avatar-logo>
+                          </div>
+                      </div>
+                  </div>
+  
+                  <mat-icon *ngIf="subject?.sharedWithAdmin.length > maxAdmin || subject?.sharedWith.length > maxShare" 
+                      routerLink="all-shared-user"
+                      style="font-size: 30px; margin-top: 5px; float: right; margin-left: -2px;" >more_horiz</mat-icon>
+                   -->
+                  <!-- <div class="assign-button" *ngIf="superPermission">
+                      <button routerLink="share"><mat-icon>person_add</mat-icon></button>                    
+                  </div> -->
+              </div>
+          </mat-card>
+  
+          <!-- <mat-card class="operation-card">
+              <mat-icon *ngIf="superPermission" (click)="deleteSubject()" style="position: absolute; color:brown; right:15px; top:4px; font-size: 30px;">delete</mat-icon>                
+              <mat-icon *ngIf="superPermission" (click)="finishSubject()" style="position: absolute; color:green; left:5px; top:4px; font-size: 30px;">assignment_turned_in</mat-icon>                
+              <mat-icon *ngIf="superPermission" (click)="edit()" style="position: absolute; color:green; left:45px; top:4px; font-size: 30px;">edit</mat-icon>                
+              <mat-icon *ngIf="superPermission" routerLink="share" style="position: absolute; right:50px; top:4px; font-size: 30px;">person_add</mat-icon>
+          </mat-card> -->
+      </div>
+  
+      <!-- <opportunity-attachment (sendFormData)="onReceivedFormData($event)" [canUpload]="true" [prevProjectId]="prevProjectId" [title]="'Attachment'" [attachments]="subject?.attachments"></opportunity-attachment> -->
+      <opportunity-attachment (sendFormData)="onReceivedFormData($event)" [canUpload]="false" [prevProjectId]="" [title]="'Template'" [attachments]="project?.subject?.attachments"></opportunity-attachment>
+      
+      <!-- <div class="discussion">
+          <b> {{subject?.discussion?.subject_comment_count}} Comments Under Discussion Board</b>
+      </div>
+  
+      <mat-card routerLink="discussion" *ngIf="subject?.discussion?.subject_comment_count == 0" class="blank-discussion-board">Please Click to Write Discussions</mat-card>
+      
+      <div class="discuss-card-margin">
+  
+      </div>
+  
+      <discussion-brief routerLink="discussion" *ngIf="subject?.discussion?.subject_comment_count != 0" [createdUser]="subject?.discussion?.latest_subject_comment?.created" [content]="subject?.discussion?.latest_subject_comment?.body" [unreadRecord]="subject?.discussion?.unread_count"></discussion-brief> -->
+  
+      <div class="project" *ngIf="projectList">
+          <b> {{projectList.length}} Opportunity Under The Customer</b>
+          <!-- <span class="add-button" *ngIf="!isLoading && superPermission" routerLink="add-project">+</span> -->
+          
+      </div>
+  
+      <div class="project-card-margin" *ngFor="let project of projectList; let i=index;">
+          <crm-project-card [projectId]="project?.id" [name]="project?.name" [productItemNumber]="project?.product_item_number" [complete]="project?.complete" [nextMeetingSubject]="project?.next_meeting_subject" [prevSalesProjectId]="project?.subject?.prev_meeting_project_id"
+                      [unreadCount]="project?.unread_count" [owners]="project?.owners" [superPermission]="superPermission" [requireDate]="project?.require_date" [updateFrequency]="project?.update_frequency" [currentProcessId]="project?.current_process?.id" [currentProcessStatus]="project?.current_process_status" [subjectId]="subject?.id" [productImageUrl]="project?.product_image_url">
+              <!-- <progress-bar [possibility]="project?.complete"></progress-bar> 
+              <left-day-bar [requireDate]="project?.require_date" [durationTime]="project?.duration_time"></left-day-bar> -->
+              <!-- <img src="assets/images/testimg/quotes.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' || project?.current_process?.process_name == 'QUOTE'" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{project?.subject?.customer_company_id}}/salesentity/quote/draft" style="width:24px;">
+              <img src="assets/images/testimg/grey_quote.png" *ngIf="project?.current_process?.process_name != 'SKU Creation' && project?.current_process?.process_name != 'QUOTE'" style="width:24px;"> -->
+              
+                <!-- right now only add quote at QUOTE step -->
+                <!-- everyone can add quote right now -->
+              <img src="assets/images/testimg/add_quote.png" *ngIf="project?.current_process?.process_name == 'QUOTE'" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{project?.subject?.customer_company_id}}/salesentity/quote/draft" style="width:24px;">
+              <img src="assets/images/testimg/grey_add_quote.png" *ngIf="project?.current_process?.process_name != 'QUOTE'" style="width:24px;">
+          
+              <!-- <img src="assets/images/testimg/add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status == 'waitting'" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/chooseAddType" [queryParams]="{crmOpportunityProjectId : project.id}" style="position: absolute; right:42px; width:25px;"> -->
+              <!-- // only the person who is responsible for the current orocess of the project can click next process button               -->
+              <img src="assets/images/testimg/add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status == 'waitting' && skuAndQuotePermissionArr[i]" routerLink="crm-opportunity-project/{{project?.id}}/choose-search-inventory-or-add-sku" [queryParams]="{crmOpportunityProjectId : project.id}" style="position: absolute; right:42px; width:25px;">              
+              <img src="assets/images/testimg/grey_add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status == 'waitting' && !skuAndQuotePermissionArr[i]" style="position: absolute; right:42px; width:25px;">              
+              
+              <img src="assets/images/testimg/grey_add_inventory.png" *ngIf="project?.current_process?.process_name != 'SKU Creation' || (project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status != 'waitting')" style="position: absolute; right:42px; width:25px;">
+            </crm-project-card>
+      </div>
+  </div>
+  
+  <!-- <div class="operation-bar"> -->
+      <!-- if this current project has next meeting subject, then show the next meeting button, and everyone can see it     -->
+      <!-- <div class="meeting-button" [ngClass]="{'new-meeting-button': superPermission == true}" *ngIf="subject?.prev_meeting_project != null" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/{{subject?.prev_meeting_project?.subject?.id}}/project/{{subject?.prev_meeting_project?.id}}">Upper Meeting</div> -->
+  <!-- </div> -->
+  
+  <div class="blank-dev"></div>
+  
+  <div *ngIf="isLoading"><app-spinner></app-spinner></div>
+  
+  <!-- <app-add-button *ngIf="!isLoading && superPermission" routerLink="add-sales-customer-product-project"></app-add-button> -->
+  <app-add-button *ngIf="!isLoading" routerLink="add-sales-customer-product-project"></app-add-button>
+  

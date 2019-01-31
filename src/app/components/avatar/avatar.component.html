@@ -1,0 +1,9 @@
+<div class="content">
+<div *ngIf="!url; else avatarImg" class="icon">
+<mat-icon >account_circle</mat-icon>
+</div>
+<!-- <mat-icon *ngIf="!url; else avatarImg">account_circle</mat-icon> -->
+<ng-template #avatarImg>
+    <img src="{{url}}" />
+</ng-template>
+</div>

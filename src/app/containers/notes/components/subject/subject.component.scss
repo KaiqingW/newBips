@@ -1,0 +1,207 @@
+@import '~materialize-css/dist/css/materialize.min.css';
+
+mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}
+
+mat-card.subject-card {
+    min-height: 60px;
+}
+
+mat-card-title{
+    display: inline-block;
+    margin-bottom: 10px;
+    // .note-unread{
+    //     position: absolute;
+    //     right: 45px;
+    //     top: 10px;
+    //     display: inline-block;
+    //     background-color: red;
+    //     border-radius: 50px;
+    //     width: 20px;
+    //     height: 20px;
+    //     text-align: center;
+    //     line-height: 20px;
+    //     color: white;
+    // }
+}
+mat-card-content{
+  width:100%;
+  overflow: inherit;
+}
+mat-card-subtitle{
+    font-size: 10px;
+}
+mat-card {
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.background-to-click{
+    z-index:-20;
+}
+
+.mat-card-header{
+    margin-bottom: -15px;
+}
+
+.subject {
+    background-color:#F5F5F5;
+}
+
+.subject-name {
+    display: flex;
+    justify-content: left;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #3b5998
+}
+
+.subject-description {
+    display: flex;
+    justify-content: left;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.subject-time {
+    color: #B7B7B7;
+    font-size: 13px;
+}
+
+.subject-card {
+    border-bottom: 1px solid #B7B7B7;
+}
+
+.options{
+    background: white;
+}
+
+.delete {
+    margin-left: 50px;
+}
+.share {
+    position:absolute;
+    right: 0px;
+    margin-right: 50px;
+}
+
+.notes-number {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 15px;
+    font-weight: 10;
+    color: #949599;
+}
+
+.note-time {
+    color: #B7B7B7;
+    padding-bottom: 8px;
+    font-size: 12px;
+}
+
+.note-time-updated {
+    color: #B7B7B7;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.icon {
+    color: #B7B7B7;
+    position: absolute;
+    right: 5px;
+    bottom: -8px;
+}
+
+.note-unread{
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    display: inline-block;
+    background-color: red;
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+}
+
+.note-name {
+    margin-top: 10px;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.note-name::ng-deep .picture {
+    background-color: white;
+    display: block;
+    margin: 5px 0;
+}
+
+.note-name::ng-deep img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.note-name::ng-deep .picture p {
+    color: black;
+}
+
+.header-image::ng-deep{
+    app-profile-picture{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 30px;
+        height: 30px;
+    }
+    .shorthand{
+        font-size: 20px !important;
+    }
+}
+
+$shared-image-size: 24px;
+
+.shared-image-list {
+    height: $shared-image-size;
+    position: absolute;
+    right:0;
+    width:50%;
+    .share-info-row{
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      right:20px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      width:100%;
+
+      .shared-images{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width:90%;
+        box-sizing: border-box;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right:3px;
+
+        .shared-profile-picture{
+          padding-right: 3px;
+        }
+      }
+
+      .shared-icon {
+        width:10%;
+        display: flex;
+        box-sizing: border-box;
+        color: #B7B7B7;
+      }
+    }
+
+}

@@ -1,0 +1,16 @@
+<div class="content" *ngIf="shippings">
+    <app-calendar></app-calendar>
+    <div style="height:5vw;"></div>
+    <!-- <div *ngFor="let shipping of shippings">
+        <app-product-card [title1]="'Order#'" [title2]="'EST Date'" [des1]="shipping.container" [des2]="shipping.date" [imgUrl]="'assets/images/testimg/purchaseorder.png'"></app-product-card>
+    </div> -->
+    <div class="product-card-title">
+        <a [class.prodcutTypeSelected]="orderType =='pending'" class="product-btn" (click)="showImport()">Pending</a>
+    </div>
+    <app-order-list (sendImg)="onGetImg($event)" (sendNav)="onGetNav($event)" [orders]="pending_orders"></app-order-list>
+</div>
+
+<div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
+    </app-img-modal>
+</div>

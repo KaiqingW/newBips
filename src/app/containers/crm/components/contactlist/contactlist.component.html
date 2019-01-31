@@ -1,0 +1,20 @@
+
+<div class="container" *ngIf="contactList">
+    <mat-card *ngFor="let contact of contactList" routerLink="{{contact?.id}}">
+            <div class="company-content" >
+                <div>
+                    <div class="company-logo">
+                        <company-logo [url]="contact?.avatar_url" [comname] = "contact?.company_name" ></company-logo>
+                    </div>
+                    <div class="company-name">
+                        <span><b style="color:#000; font-size:15px;">{{contact?.first_name}}&nbsp;{{contact?.last_name}}&nbsp;</b></span>
+                        <span>{{contact?.email}}</span>
+                    </div>
+                </div>
+        </div>
+    </mat-card>
+</div>
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+    

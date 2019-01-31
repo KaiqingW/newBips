@@ -1,0 +1,31 @@
+<mat-card>
+    <div class="subject-content" >
+        <div>
+            <div class="subject-name">
+                <h5>{{name}}</h5>
+                <ng-content></ng-content>
+            </div>
+            <hr>
+            <div  class="subject-container" *ngFor= "let content of subContent; let i = index">
+                <div class="col-1" *ngIf="content.img">
+                    <img (click)="openSubjectModal()" [src]="content.img" style="width:75px;height:75px;;margin-right:16px" alt="content.img">
+                    <div *ngIf="subjectModalOpen">
+                        <app-img-modal img [imgSrc]="content.img" (modalClose)="closeModal()"></app-img-modal>
+                    </div>      
+                </div>
+                
+                <div class="col-3"> 
+                    <div class="pre-container"></div> 
+                    <read-more style="text-align: left" [text]="content.text"></read-more>
+                </div>
+                
+            </div>  
+
+            <div class="time">
+                <span class="created-time">Created Time: {{createdTime | local | amDateFormat : 'MM/DD/YYYY h:mm a'}}</span>
+            </div>
+        </div>
+    </div>
+  
+</mat-card>
+  

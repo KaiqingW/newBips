@@ -1,0 +1,112 @@
+<div id="container" style="height:90vh; overflow: scroll;" (scroll)="onScroll($event)">
+  <shop-search-bar (sendClear)="onGetClear($event)" (sendFilterObject)="onGetFilterObj($event)" (sendTerm)="onGetTerm($event)"></shop-search-bar>
+  <div class="main-wrapper">
+    <mat-card *ngIf="productList" class="panel-card company-products" style="box-shadow: none !important; background-color: #ffffff00">
+      <div class="panel-card-body">
+        <div id="content"></div>
+
+        <div style="margin-bottom: 10px;">
+          <span class="txt" (click)="setAllCategory()">All Departments</span>
+          <span *ngIf="firstCate">/</span>
+          <span class="txt" (click)="searchByNav('first')">{{firstCate}}</span>
+          <span *ngIf="secondCate">/</span>
+          <span class="txt" (click)="searchByNav('second')">{{secondCate}}</span>
+          <span *ngIf="thirdCate">/</span>
+          <span class="txt" (click)="searchByNav('third')">{{thirdCate}}</span>
+        </div>
+
+        <div style="text-align: center; color: #ddd; font-size: 25px; padding-top: 100px; padding-bottom: 120px;" *ngIf="productList.length < 1">Opps! It seems your search did not match any products :'(</div>
+
+        <div class="product-modal-box icon-hover" *ngFor="let product of productList; let i = index;" [class.selected]="product == selectedProduct"
+          (click)="selectProduct(product)">
+          <div class="product-modal" (click)="onNavToDetail($event, product.id, product.company.id, product.company_product_id)">
+            <img *ngIf="!product.image || product?.image.length < 1" src="assets/images/bottle.png">
+            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+            <div *ngIf="product?.name" class="product-name">
+              <span>
+                <b>{{product?.name}}</b>
+              </span>
+              <br>
+            </div>
+            <div class="product-price">
+              <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price/100}} - </span>
+              $
+              <span *ngIf="product.retail_prices.length > 0">{{product.retail_prices[0].price/100}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div style="text-align: right;">
+            <i class="material-icons" (click)="firstPage()">first_page</i>
+            <i *ngIf="lastPageUrl" class="material-icons keyboard_left" (click)="previousPage()"> keyboard_arrow_left</i>
+            <i *ngIf="!lastPageUrl" class="material-icons keyboard_left" style="color:lightgray"> keyboard_arrow_left</i>
+            <mat-form-field class="example-full-width page-number">
+              <input matInput style="text-align: center" placeholder="Page" [value]="getPage()" #pageNumber>
+            </mat-form-field>
+            <i *ngIf="nextPageUrl" class="material-icons keyboard_right" (click)="nextPage()"> keyboard_arrow_right</i>
+            <i *ngIf="!nextPageUrl" class="material-icons keyboard_right" style="color:lightgray"> keyboard_arrow_right</i>
+            <i class="material-icons" (click)="lastPage()">last_page</i> -->
+
+      <!-- <button mat-button color="primary" (click)="exactPage(pageNumber.value)">Go</button> -->
+      <!-- </div> -->
+
+      <!-- <div style="display: flex; justify-content: flex-end; align-items: center; font-size: 12px;">
+          <div *ngIf="previousPageUrl" (click)="previousPage()" style="display: flex; align-items: center;">
+            <div>
+              <i class="material-icons keyboard_left" style="font-size: 40px;">keyboard_arrow_left</i>
+            </div>
+            <div class="page">Previous Page</div>
+          </div>
+          <div *ngIf="!previousPageUrl" style="color:lightgray; display: flex; align-items: center;">
+            <div>
+              <i class="material-icons keyboard_left" style="font-size: 40px;">keyboard_arrow_left</i>
+            </div>
+            <div>Previous Page</div>
+          </div>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <div class="page" *ngIf="previousPageUrl && current>2">
+            <span (click)="firstPage()">1</span>
+          </div>
+    
+          <div style="width: 100px;display: flex;justify-content: space-evenly;">
+            <div *ngIf="current>3">
+              <i>...</i>
+            </div>
+            <div class="page" *ngIf="current>1" (click)="previousPage()">
+              <i>{{current-1}}</i>
+            </div>
+            <div class="page" style="text-decoration: underline;">
+              <i>{{current}}</i>
+            </div>
+            <div class="page" *ngIf="(last-current)>0" (click)="nextPage()">
+              <i>{{current+1}}</i>
+            </div>
+            <div *ngIf="(last-current)>2">
+              <i>...</i>
+            </div>
+          </div>
+    
+          <div class="page" *ngIf="lastPageUrl && (last-current)>1">
+            <i (click)="lastPage()">{{last}}</i>
+          </div>
+    
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <div *ngIf="nextPageUrl" (click)="nextPage()" style="display: flex; align-items: center;">
+            <div class="page">Next Page</div>
+            <div>
+              <i class="material-icons keyboard_right" style="font-size: 40px;"> keyboard_arrow_right</i>
+            </div>
+          </div>
+          <div *ngIf="!nextPageUrl" style="color:lightgray; display: flex; align-items: center;">
+            <div>Next Page</div>
+            <div>
+              <i class="material-icons keyboard_right" style="font-size: 40px;"> keyboard_arrow_right</i>
+            </div>
+          </div> -->
+
+
+      <!-- <button mat-button color="primary" (click)="exactPage(pageNumber.value)">Go</button> -->
+      <!-- </div> -->
+    </mat-card>
+  </div>
+</div>

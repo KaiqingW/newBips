@@ -1,0 +1,102 @@
+.prev-project {
+    // height: 10%;
+    // overflow: hidden;
+    // overflow-y: scroll;
+    .project-card-margin{
+        margin-bottom: 5px;
+    }
+}
+
+.next-meeting {
+    margin-top: -3px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #15305A;
+    text-align: center;
+    height: 22px;
+    padding-top: 2px;
+}
+
+.subject-card-margin {
+    margin-bottom: 5px;    
+}
+
+hr {
+    border-top:0.5px solid lightgray;
+    
+}
+.subject-list{
+    // border-top:0.5px solid lightgray;
+    .subject_creater{
+        float:left;
+        padding:2px 2px ;
+        // width:8%;
+        height: 22px;
+        avatar-logo{
+            width:22px;
+            height:22px;
+        }
+    }
+    .shared-contacts-admin{
+        float:left;
+        padding:2px 2px;
+        // width:40%;
+        height: 22px;
+        margin-left:-1%;
+        .contact-admin{
+            line-height: 22px;
+            display:inline-block;
+            float:left;
+            margin-left:5px;
+            avatar-logo{
+                width:22px;
+                height:22px;
+            }
+        }
+    }
+    .separate {
+        float:left;
+        margin-right: 1%;
+        font-size: 20px;
+    }
+    .shared-contacts{
+        float:left;
+        padding:2px 2px;
+        // width:50%;
+        height: 22px;
+        margin-left:-6px;
+        .contact{
+            line-height: 22px;
+            display:inline-block;
+            float:right;
+            margin-left:5px;
+            avatar-logo{
+                width:22px;
+                height:22px;
+            }
+        }
+    }
+}
+
+.no-subject {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    top: 35%;
+    align-items: center;
+    p {
+        font-size: 20px;
+        font-weight: bolder;
+        color: #CFD7E6;
+        border: 2px;
+        border-color: #CFD7E6;
+        position: absolute;
+        display: block;
+        margin-top: 25px;
+        padding-right: 30px;
+    }
+}
+
+.blank-dev {
+    height: 20%;
+}

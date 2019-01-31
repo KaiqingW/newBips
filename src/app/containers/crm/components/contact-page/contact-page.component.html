@@ -1,0 +1,151 @@
+<div class="people-profile" *ngIf="!isLoading">
+  <div *ngIf="!editContactModal">     
+          <mat-card class="people-profile-card">
+            <mat-card-header>
+              <div mat-card-avatar class="subject-header-image">
+                <app-profile-picture
+                  [url]="contact?.avatar_url"
+                  [userFirstName]="contact?.first_name"
+                  [userLastName]="contact?.last_name"
+                  [userId]="contact?.id">
+                </app-profile-picture>
+                <mat-icon class="delete-icon" (click)="deleteContact()">delete</mat-icon> 
+                <mat-icon class="edit-icon" (click)="editContact()">edit</mat-icon>
+                
+              </div>
+              <mat-card-title class="people-profile-info">{{contact?.first_name}} {{contact?.middle_name}} {{contact?.last_name}}</mat-card-title>
+              <mat-card-subtitle class="people-profile-subinfo">{{contact?.position}}</mat-card-subtitle>
+              <div class="people-icon">
+                <ul>
+                  <li><a href="tel:{{contact?.phone}}"><i class="material-icons md-18">call</i></a></li>
+                  <li><a href="mailto:{{contact?.email}}"><i class="material-icons md-18">email</i></a></li>
+                  <li><a href="sms:{{contact?.phone}}"><i class="material-icons md-18">chat</i></a></li>
+                </ul>
+              </div>
+            </mat-card-header>
+          </mat-card>
+
+          <mat-card class="detail-info">
+              <div><mat-icon>phone</mat-icon><span>Phone: {{contact?.phone}}</span></div> 
+              <div><mat-icon>account_box</mat-icon><span>Position: {{contact?.position}}</span></div> 
+              <div><mat-icon>email</mat-icon> Email: {{contact?.email}}</div>
+
+                        
+
+        <!-- <span id="el_CASE_DATABASE_Detail_of_Case" class="control-group">
+            <div style="position: relative;width: 100px;">
+                <span style="margin-left: 100px; width: 18px; overflow: hidden;">
+                    <select style=" width: 200px; margin-left: -100px;height:30px;"
+                    onchange="document.getElementById('x_Detail_of_Case').value=this.value">            
+                        <option value=""> </option>
+                        <option value="2F Buyer">2F Buyer</option>
+                        <option value="1F Buyer">1F Buyer</option>
+                        <option value="Condo Buyer">Condo Buyer</option>
+                        <option value="Coop Buyer">Coop Buyer</option>
+                        <option value="Bank Attorney">Bank Attorney</option>
+                        <option value="Commercial Property">Commercial Property</option>
+                        <option value="Deed Recording">Deed Recording</option>
+                        <option value="L/A">L/A</option> 
+                        <option value="Divorce">Divorce</option>        
+                        <option value="Trade Mark">Trade Mark</option>        
+                        <option value="Violation">Violation</option>        
+                        <option value="Attorney Letter">Attorney Letter</option>        
+                        <option value="Plaintiff">Plaintiff</option>        
+                        <option value="Defendant">Defendant</option>        
+                        <option value="Other">Other</option>        
+                        
+                </select>
+                </span> 
+                <input style="position:absolute; left: 1px; top: 1px; width:calc(200% - 19px); height:23px; border:none;" onpropertychange="cop()" oninput="cop()" style="font-size:18px; height:30px; width:200px" type="text" data-field="x_Detail_of_Case" name="x_Detail_of_Case" id="x_Detail_of_Case" size="20" maxlength="255"  value="">        
+            </div> 
+        </span> -->
+          </mat-card>
+      </div> 
+
+      <div class="edit-container" *ngIf="editContactModal"> 
+
+        <form novalidate [formGroup]="contactForm">
+            <div class="avatar">     
+                <div class="background company-logo profile">
+                    <!-- <mat-icon *ngIf="!contact?.avatar_url && !(data?.image)">camera_enhance</mat-icon>     -->
+                    <img *ngIf="(!data?.image) && contact?.avatar_url" [src]="contact?.avatar_url">  
+                    <img *ngIf="(data?.image)" [src]="data?.image">         
+                    <div class="overlay">
+                        <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+                        <p>Upload Picture</p>
+                    </div>
+                </div>
+            </div>
+            
+            <mat-form-field>
+                <input  type="input" matInput  placeholder="Email" name="email" formControlName="email"  >
+            </mat-form-field>
+    
+            <mat-form-field>
+                <input  type="input" matInput  placeholder="First Name" name="first name" formControlName="first_name"   >
+            </mat-form-field>
+    
+            <mat-form-field>
+                <input type="input" matInput  placeholder="Last Name" name="last name" formControlName="last_name" >
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="input" matInput  placeholder="Phone Number" name="phone number" formControlName="phone" >
+            </mat-form-field>
+    
+            <!-- <mat-form-field *ngIf="!mannualInputValue">
+                <mat-select placeholder="Position" name="position" formControlName="position">
+                    <mat-option value="None">None</mat-option>
+                    <mat-option value="Employee">Employee</mat-option>
+                    <mat-option value="Manager">Manager</mat-option>
+                    <mat-option value="CEO">CEO</mat-option>
+                    <mat-option value="" (click)="mannualInput()">Other</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="mannualInputValue">
+                    <input type="input" matInput  placeholder="Position" autofocus name="position" formControlName="position">    
+            </mat-form-field> -->
+            <div class="mannul-input-select">
+                <div class="mannul-input-container">
+                    <mat-form-field  *ngIf="!testValue.value">
+                        <input class="mannul-input" type="input" matInput  placeholder="Position" autofocus name="position" formControlName="position">   
+                    </mat-form-field>
+                    <mat-form-field  *ngIf="testValue.value">
+                            <input class="mannul-input" type="input" matInput  placeholder="Position" autofocus name="position" formControlName="position" [(ngModel)]="testValue.value" >   
+                    </mat-form-field>
+                </div>  
+                <select class="munnul-select" #testValue (click)="testSelected(testValue.value)">
+                    <option value=""></option>
+                    <option value="Employee"> Employee</option>
+                    <option value="Manger">Manger</option>
+                    <option value="CEO">CEO</option>
+                </select>
+            </div>
+
+        </form>
+        <div class="action-btn">
+            <button mat-button (click)="cancelEdit()">Cancel</button>
+            <button mat-button color="primary" (click)="onSave(contactForm.value)">Save</button>
+        </div>
+          
+      </div>
+     
+</div>
+
+
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>   
+</app-crop-modal>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+
+
+

@@ -1,0 +1,61 @@
+<mat-card class="orca_card">
+    <!-- <mat-card> -->
+    <div *ngIf="wholesalePrices && wholesalePrices.length > 0 && wholesalePrices[0].warehouse_id">
+        Your are editing wholesale price for warehouse : {{wholesalePrices[0].warehouse_id}}
+    </div>
+
+    <form [formGroup]="priceForm">
+        <div class="row">
+            <b>Select Warehouse : </b>
+            <select formControlName="warehouse_id" *ngIf="warehouses" name="" id="" required>
+                <option required *ngFor="let warehouse of warehouses;let i = index;" [value]=warehouse.id>
+                    {{i+1}}.{{warehouse.name}}
+                </option>
+            </select>
+        </div>
+        <!-- <div class="row">
+            <b>Unit : </b>
+            <select formControlName="unit" *ngIf="warehouses" name="" id="">
+                <option required *ngFor="let unit of units;let i = index;" [value]=unit>
+                    {{unit}}
+                </option>
+            </select>
+        </div> -->
+        <div formArrayName="prices">
+            <div class="row">
+                <div class="col-3">
+                    <div class="price-label">Min Qty</div>
+                </div>
+                <div class="col-3">
+                    <div class="price-label">Max Qty</div>
+                </div>
+                <div class="col-3">
+                    <div class="price-label">Price</div>
+                </div>
+            </div>
+            <div *ngFor="let price of priceForm['controls'].prices['controls'];let i=index">
+                <div class="row" [formGroupName]="i">
+                    <div class="col-3">
+                        <input type="number" required formControlName="min_qty" required readonly>
+                    </div>
+                    <div class="col-3">
+                        <input type="number" formControlName="max_qty" required>
+                    </div>
+                    <div class="col-3">
+                        <input type="number" formControlName="price" required>
+                    </div>
+                    <div class="col-3">
+                        <i class="material-icons" *ngIf="priceForm['controls'].prices['controls'].length" (click)="onDelete(i)">
+                            cancel
+                        </i>
+                    </div>
+                </div>
+            </div>
+            <div class="orca_btn_bar" *ngIf="!hide">
+                <button class="add_more_btn" mat-raised-button mat-button (click)="onAddMore()">Add More</button>
+                <button class="add_more_btn" mat-raised-button color="primary" mat-button disable="priceForm.invalid" (click)="savePriceTable()">Save</button>
+                <button class="add_more_btn" mat-raised-button color="warn" mat-button (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</mat-card>

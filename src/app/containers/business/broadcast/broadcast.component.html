@@ -1,0 +1,133 @@
+
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/broadcast/lead" (click)="getBroadcastList('lead')">Lead</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/broadcast/potential" (click)="getBroadcastList('potential')">Potential</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/broadcast/account" (click)="getBroadcastList('account')">Account</a>
+<div *ngIf="!isLoading" class="broad-container">
+    <mat-card *ngFor="let contact of companyContacts">
+        <div class="company-content" >
+            <div>
+                <div class="selectbox">
+                    <input type="checkbox" name="acs" (click)="onChange(contact?.email)" [value]="contact?.email"/>
+                </div>
+                <div class="company-logo">
+                    <company-logo [url]="contact?.avatar_url" [comname] = "contact?.company_name" ></company-logo>
+                </div>
+                <div class="company-name">
+                    <span><b style="color:#000; font-size:15px;">{{contact?.company_name}}</b> &nbsp;&nbsp;&nbsp;{{industry}}</span>
+                    <span>{{contact?.first_name}}&nbsp;{{contact?.last_name}}&nbsp;{{contact?.email}}</span>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>
+
+<div class="broadcast-bottom">
+    <mat-card>
+        <i *ngIf="lastPageUrl" class="material-icons keyboard_left" (click)="lastPage()"> keyboard_arrow_left</i>
+        <i *ngIf="!lastPageUrl" class="material-icons keyboard_left" style="color:gray"> keyboard_arrow_left</i>
+        <mat-form-field class="example-full-width page-number">
+                <input matInput style="text-align: center" placeholder="currentPage" [value]="currentPage" #pageNumber>
+            </mat-form-field>
+        <i *ngIf="nextPageUrl" class="material-icons keyboard_right" (click)="nextPage()" > keyboard_arrow_right</i>
+        <i *ngIf="!nextPageUrl" class="material-icons keyboard_right" style="color:gray" > keyboard_arrow_right</i>
+        
+        <button mat-button color="primary"  (click)="exactPage(pageNumber.value)">Go</button>
+            <!-- <b (click)="sendEmail()">123</b> -->
+
+        <button mat-raised-button (click)="selectAll()">SelectAll</button>
+        <button mat-raised-button color="primary" (click)="unSelectAll()">unselectAll</button>
+        <button mat-raised-button color="warn" (click)="onSendEmail()">Send email</button>
+    </mat-card>
+</div>
+<div class="formmat-modal" *ngIf="formmatModalOpen">
+    
+    <mat-card>
+        <h4>Send Email</h4>
+        <form [formGroup]="broadcastForm">
+            <mat-form-field class="example-full-width">  
+                <mat-chip-list #chipList class=" email-height">
+                    <mat-chip *ngFor="let email of contactList" [selectable]="selectable"
+                            [removable]="removable" (remove)="remove(email)">
+                        {{email}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Press Enter or Comma to add another user"
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur"
+                            formControlName="emails"
+                            disabled/>
+                </mat-chip-list>         
+                <!-- <input type="input" matInput placeholder="TO"  formControlName="emails" [value]="contactList"> -->
+            </mat-form-field>
+            <!-- <mat-form-field class="example-full-width ">           
+                <input type="input" matInput placeholder="From"  required>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width ">           
+                <input type="input" matInput placeholder="Subject"  formControlName="subject" required>
+            </mat-form-field>
+            <mat-form-field class="example-full-width ">           
+                <textarea  type="input" matInput placeholder="Content"  formControlName="content" required></textarea>
+            </mat-form-field>
+
+        </form>
+
+        <div *ngFor="let item of itemList; let i = index">
+            <span>{{i}}  <img [src]="item?.images[0]?.url"  style="height:40px; display:inline-block; margin-bottom: -8px; width:40px; margin-top:4px;"> --{{item?.name}} </span>
+        </div>
+         
+        <div class="email-blast-list">
+                <span class="add-item-btn"  (click)="openProductModal()">Add Item</span>
+        </div>
+
+        <div class="form-btn">
+            <button mat-button color="primary" (click)="onCancel()">Cancel</button>
+            <button mat-button color="primary" (click)="onSubmit()">Submit</button>
+        </div>
+    </mat-card>
+
+</div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+
+<div class="add-product-modal" *ngIf="showAddProductModal">
+    <mat-card>
+        <form >
+            <h4>Add Item</h4>
+
+            <mat-form-field class="example-full-width product">
+                <input  type="input" matInput  placeholder="Product" name="product_id"  [matAutocomplete]="auto" [formControl]="productCtrl">
+                <mat-autocomplete class="product-list-add" #auto= matAutocomplete>
+
+                    <mat-option  *ngFor="let product of searchProductList" [value]="product?.name" (click)="productSelected(product)">
+                        <div *ngIf="product?.images[0]" class="item-container" style="height:48px">
+                            <img [src]="product?.images[0].url"  style="height:40px; display:inline-block; margin-bottom: -8px; width:40px; margin-top:4px;">
+                            <div style="display:inline-block; width:83%; float:right; font-size:14px;">
+                                <span>{{ product?.name | short: 50}}</span><br>
+                                <span>#item {{product?.headline}}</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!product?.images[0]" class="item-container" style="height:48px">
+                            <img  style="height:40px;  display:inline-block; margin-bottom: -8px; width:40px; margin-top:4px;" src="assets/images/bottle.png">
+                            <div style="display:inline-block; width:83%; float:right; font-size:14px;">
+                                <span>{{ product?.name | short: 50}}</span><br>
+                                <span>#item {{product?.headline}}</span>
+                            </div>
+                        </div>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+        
+
+            <button mat-button color="primary" (click)="cancelAddProduct()" >Cancel</button>
+            <button mat-button color="primary"   (click)="addProduct(selectedProduct)">Add</button>
+        </form>
+        <!-- <pre>{{productForm.value | json}}</pre> -->
+    </mat-card>
+
+</div>
+
+
+

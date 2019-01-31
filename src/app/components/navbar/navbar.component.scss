@@ -1,0 +1,144 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; // width:375px !important;
+}
+
+.nav-container {
+    background-color: #15305A;
+    height: 100%;
+    width: 300px;
+    color: #FFFFFF;
+}
+
+// .sidennav-content{
+//   width:100% !important;
+// }
+.sidenav-container {
+    //sidebar half width;
+    flex: 1;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.authlink-container {
+    position: absolute;
+    border-top: 1px solid #FFFFFF;
+    bottom: 0;
+    width: 100%;
+}
+
+.authlink-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.authlink {
+    display: block;
+    text-decoration: none;
+    padding-left: 10px;
+    color: #15305A;
+    outline: 0;
+    font-size: 15px;
+}
+
+.content-wrapper {
+    box-sizing: border-box;
+    padding-top: 56px;
+    height: 100%;
+    background-color: rgb(212, 232, 233);
+}
+
+.no-padding {
+    padding-top: 0 !important;
+}
+
+.menubar {
+    position: fixed;
+    background-color: #15305A;
+    color: white;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-icons {
+    margin-bottom: -9px;
+}
+
+.menubar-content {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.search-bar {
+    background-color: white;
+    color: black;
+    height: 80%;
+    line-height: 80%;
+}
+
+//to change the website width to $screen_width, when using on computer;
+//use the isDesktop() funciton to check, when return true, add these two class to container and navbar
+$screen_width : 500px;
+.desktop-reduce-sidenav-container-width {
+    margin: 0 auto;
+    width: $screen_width !important;
+    :host{
+      width: $screen_width !important;
+
+    }
+}
+
+.desktop-reduce-menubar-width {
+    width: $screen_width !important;
+    :host{
+      width: $screen_width !important;
+
+    }
+}
+
+@media print {
+    // div {display: none;}
+    // .printMe {display: block;}
+    .hidden-print{
+        display:none;
+    }
+}
+.cartMark{
+    color: white;
+    font-weight: 200;
+    font-size: 18px;
+    padding-top: 0%;
+}
+.cart {
+    position: absolute;
+    right: 28px;
+    top: 13px;
+}
+// .reddot {
+//         position: absolute;
+//         top: 5%;
+//         right: 4%;
+//         text-align: center;
+//         font-size: 18px;
+//         font-weight: 600;
+//         background-color:red;
+//         text-align: center;
+//         // color: white;
+//         border-radius: 50px;
+//         width: 18px;
+//         height: 18px;
+//         line-height: 20px;
+// }

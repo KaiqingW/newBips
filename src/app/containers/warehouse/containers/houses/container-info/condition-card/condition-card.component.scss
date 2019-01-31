@@ -1,0 +1,46 @@
+.summary {
+    padding: 2%;
+    width:100%;
+    position: relative;
+    box-sizing: border-box;
+    .showMoreBtn{
+        position: absolute;
+        right:15px;
+    }
+    mat-card{
+        padding-left:2%;
+        padding-right: 2%;
+    }
+}
+
+.item-content{
+    display:inline-block;
+    width:58%;
+    background-color:#ffffff;
+    padding: 1%;
+    border-radius: 1px;
+    border:1px solid #eeeeee;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.summary {
+    padding: 2%;
+    width:100%;
+    position: relative;
+    box-sizing: border-box;
+    .showMoreBtn{
+        position: absolute;
+        right:15px;
+    }
+    mat-card{
+        padding-left:2%;
+        padding-right: 2%;
+    }
+}
+
+mat-card {
+    padding: 5px;
+    margin-bottom: 1%;
+}

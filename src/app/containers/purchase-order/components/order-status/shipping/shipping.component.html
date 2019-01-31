@@ -1,0 +1,84 @@
+<mat-card>
+
+    <div class="selected item-content margin-top">{{title}}
+        <!-- <b class="add-shipped-button" (click)="addShippingInfoDialog()" *ngIf=" ownCompany">+</b> -->
+    </div>
+    <div class="nopadding">
+        <div class="items-list-id">
+            <div class="selected item-content">#</div>
+        </div>
+        <div class="items-list-qty">
+            <div class="selected item-content">QTY</div>
+        </div>
+
+        <div class="items-list-date" *ngIf="shippingType==4">
+            <div class="selected item-content">Received QTY</div>
+        </div>
+        <div class="items-list-container">
+            <div class="selected item-content">Container#</div>
+        </div>
+        <div class="items-list-date" *ngIf="shippingType!=4">
+            <div class="selected item-content">{{shippingType == 2 ? 'Start Date' : 'Shipping Date'}}</div>
+        </div>
+        <div class="items-list-date">
+            <div class="selected item-content">{{shippingType == 2 ? 'End Date' : 'Arrival Date'}}</div>
+        </div>
+        <div class="items-list-num">
+            <div class="selected item-content">REF</div>
+        </div>
+    </div>
+
+    <div class="shipCardContainer" (scroll)="onMouseWheel($event)">
+        <div class="nopadding shippingListCard" *ngFor="let shipping of shippingInfos?.data">
+            <div class="background_color" (click)="onSelectedShippingInfo(shipping, i)" [routerLink]="['updateshippedinfo', shipping.id]">
+                <div class="items-list-id loop">
+                    <div *ngIf="shipping.index" class="item-content">{{shipping.index}}</div>
+                    <b class="unread-mark" *ngIf="shipping.is_unread"></b>
+                    </div>
+                <div class="items-list-qty loop">
+                    <div class="item-content">{{shipping.quantity | number}}</div>
+                </div>
+
+                <div class="items-list-date loop" *ngIf="shippingType==4">
+                    <div class="item-content">{{shipping.actual_quantity | number}}</div>
+                </div>
+
+                <div class="items-list-container loop">
+                    <div class="item-content">{{shipping.container_number | short}}</div>
+                </div>
+
+                <div class="items-list-date loop" *ngIf="shippingType!=4">
+                    <div class="item-content">{{shipping.vessel_date | amDateFormat : 'MM/DD/YYYY' }}</div>
+                </div>
+
+                <div class="items-list-date loop">
+                    <div class="item-content">{{shipping.eta_date | amDateFormat : 'MM/DD/YYYY' }}</div>
+                    
+                </div>
+
+                <div class="items-list-num loop btn-center">
+                    <!-- <button class="item-content" style="display: inline-block;box-sizing: border-box;width:100%;height:100%;border-radius:5px;background-color:#eee;"
+                        type="button">{{shipping.glk_number | short : 8}}</button> -->
+                    <button class="item-content">{{shipping.glk_number | short : 8}}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!shippingInfos || shippingInfos?.data.length === 0">There is no {{title2}} info yet, please click the add button on the right.</div>
+
+
+    <!-- <div *ngIf="shippingType!=4 && shippingInfos?.data.length > 0 && shippingInfos?.data[0]?.actual_arrive_date"> -->
+    <div *ngIf="shippingType!=4 && shippingInfos?.data.length > 0">
+        <div class="selected-2 item-content margin-top"><b>{{title2}}</b></div>
+        <div class="margin-top arrive-date-container min-height">
+            <div class="arrive-date" *ngFor="let info of shippingInfos?.data; let i = index">
+                <div *ngIf="info.actual_arrive_date">
+                    <label class="arrive-right" [ngClass]="{'arriveLateBackground':evaluateLate(info)}">#{{i + 1}}</label>
+                    <span class="arrive-data" [ngClass]="{'arriveLateData':evaluateLate(info)}">{{info.actual_arrive_date | amDateFormat : 'MM/DD/YYYY'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>

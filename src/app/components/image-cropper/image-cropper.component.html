@@ -1,0 +1,21 @@
+<div class="company-logo profile">
+    <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"> 
+        <div class="overlay">
+            <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+            <p>Upload Picture</p>
+        </div> -->
+
+    <div class="background">
+        <mat-icon (click)=fileInput.click()>camera_enhance</mat-icon>
+        <input style="display:none;" type="file" id="file" class="file" (change)="onFileChange($event)" #fileInput>
+    </div>
+</div>
+
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>
+</app-crop-modal>

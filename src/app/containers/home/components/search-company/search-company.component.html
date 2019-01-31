@@ -1,0 +1,30 @@
+<div class="search-box">
+    <input class="search-content" placeholder="Company Name" #name>
+    <span class="search-button" (click)="searchCompany(name.value)">Search</span>
+</div>
+
+<div *ngIf="companies$">
+    <mat-card *ngFor = "let company of companies$" class="company-content">
+            <div class="company-logo">
+                <company-logo [url]="company.logo_url"></company-logo>
+            </div>
+            <div class="company-name">
+                <span><b>{{company.name}}</b></span><br>
+                <span class="company-address">{{company?.address}}</span>
+            </div>
+            <!-- <div class="join-btn">
+                <span>Join</span>
+            </div> -->
+    </mat-card>
+
+    <div class="create-new-company-show">
+        <p>Not in System ?</p>
+        <span (click)="createCompany()"> Create New Company </span>
+    </div>
+</div>
+
+<div class="create-new-company" *ngIf="!companies$">
+        <p>Not in System ?</p>
+        <span routerLink="/create-company-stepone"> Create New Company </span>
+</div>
+

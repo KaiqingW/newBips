@@ -1,0 +1,22 @@
+
+<div class="current-user-image">
+    <app-profile-picture  (click)="onClickProfilePicture()"
+        [url]="auth.currentUser?.avatar_url" 
+        [userFirstName]="auth.currentUser?.first_name"
+        [userLastName]="auth.currentUser?.last_name"
+        [userId]="auth.currentUser?.id">
+    </app-profile-picture>
+</div>
+
+
+<div class="user-information" [matMenuTriggerFor]="menu">
+    <span class="email">
+        {{ auth.currentUser.email }}
+    </span>
+    <mat-icon>arrow_drop_down</mat-icon>
+    <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onClick()">Profile</button>
+            <button mat-menu-item>Setting</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+</div>

@@ -1,0 +1,85 @@
+<mat-card class="orca_card" *ngIf="!firstCate">
+    <div class="summary">
+        <b>Product Information</b>
+    </div>
+
+    <form [formGroup]="categoryForm">
+        <div class="summary">
+            <!-- <span>Unit Weight:</span> -->
+            <mat-form-field class="field1">
+                <input matInput type="number" formControlName="unit_weight" placeholder="Unit Weight" required>
+            </mat-form-field>
+            <mat-form-field class="field1">
+                <mat-select formControlName="unit" placeholder="Unit" required>
+                    <mat-option *ngFor="let unit of units" [value]="unit">
+                        {{unit}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="summary">
+            <!-- <span>First Category:</span> -->
+            <mat-form-field class="field2">
+                <mat-select formControlName="first_category" placeholder="First Category" required>
+                    <mat-option *ngFor="let cate of categories" [value]="cate">
+                        {{cate.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="summary" *ngIf="categoryForm.value.first_category && categoryForm.value.first_category?.children?.length">
+            <!-- <span>Second Category:</span> -->
+            <mat-form-field class="field2">
+                <mat-select formControlName="second_category" placeholder="Second category">
+                    <mat-option *ngFor="let cate of categoryForm.value.first_category.children " [value]="cate">
+                        {{cate.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="summary" *ngIf="categoryForm.value.second_category && categoryForm.value.second_category?.children.length > 0"> -->
+        <div class="summary" *ngIf="categoryForm.value.second_category && categoryForm.value.second_category?.children?.length">
+
+            <!-- <span>Third Category:</span> -->
+            <mat-form-field class="field2">
+                <mat-select formControlName="third_category" placeholder="Third category">
+                    <mat-option *ngFor="let cate of categoryForm.value.second_category.children" [value]="cate">
+                        {{cate.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="btn-group">
+            <button mat-raised-button mat-button color="primary" (click)="onSave()">Save</button>
+        </div>
+    </form>
+
+</mat-card>
+
+<mat-card class="orca_card" *ngIf="firstCate">
+    <div class="summary orca_title_sm">
+        <b>Product Information</b>
+    </div>
+
+    <div class="orca_title_content_row" *ngIf="unit_weight">
+        <span class="orca_title_h_blue">Unit Weight</span>
+        <span class="orca_content_h_white">{{unit_weight}}</span>
+    </div>
+
+    <div class="orca_title_content_row" *ngIf="firstCate">
+        <span class="orca_title_h_blue">First Category</span>
+        <span class="orca_content_h_white">{{firstCate}}</span>
+    </div>
+    <div class="orca_title_content_row" *ngIf="secondCate">
+        <span class="orca_title_h_blue">Second Category</span>
+        <span class="orca_content_h_white">{{secondCate}}</span>
+    </div>
+    <div class="orca_title_content_row" *ngIf="thirdCate">
+        <span class="orca_title_h_blue">Third Category</span>
+        <span class="orca_content_h_white">{{thirdCate}}</span>
+    </div>
+</mat-card>

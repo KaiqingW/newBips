@@ -1,0 +1,72 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100%;
+    box-sizing: border-box;
+    .avatar-img{
+        display:flex;
+        position: relative;  
+        height:60px;
+        width:60px;
+        text-align: center;
+        line-height: 60px;
+        border-radius: 50px;
+        opacity: 1.0;
+        border: 1px solid darkgrey;
+        margin:0 2px;
+    }
+    .avatar {
+        display:flex;
+        position: relative;    
+        border:1px solid lightgray;
+        height:60px;
+        width:60px;
+        text-align: center;
+        line-height: 60px;
+        border-radius: 50px;
+        background-color:lightgray;
+        margin:0 2px;
+        .profile {
+            margin: 0px auto;
+            max-width: 200px;
+            position: relative;
+            border-radius: 50%;
+          }
+    }
+    .detail{
+        display: flex;
+        position: relative;
+        margin: 6px 2px 2px;
+        border-radius: 5px;
+        text-align: left;
+        font-size: 15px;
+        color: grey;
+    }
+}
+.img-container{
+    position: relative;
+    box-sizing: border-box;
+}
+.remove{
+    position: absolute;
+    top:-10px;
+    right:-5px;
+    z-index: 100;
+}
+.remove-left{
+    position: absolute;
+    top:-10px;
+    right:60px;
+    z-index: 100;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+mat-card{
+    padding: 5px 0 5px 0;
+    margin-bottom: 1%;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}

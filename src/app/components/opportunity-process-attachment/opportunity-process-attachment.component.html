@@ -1,0 +1,32 @@
+<mat-card>
+    <div class="certification">
+        <b style="font-size:14px">{{title}}</b>&nbsp;&nbsp;
+        <!-- canUpload decide whether the user can upload attachment -->
+        <!-- <span *ngIf="canUpload" class="pull-right" (click)="addAttachementDialog()">+</span> -->
+
+    </div>
+
+    <div class="attach-row">
+
+        <div class="attachment" *ngFor="let attachment of attachments;let i = index;">
+            <div class="each-item" (click)="onClickAttachment(attachment, i)">
+                <img class="note-img" [src]="getIconImg(attachment)" style="width:34px;height:34px" alt="">
+            </div>
+
+            <div class="each-item">
+                {{attachment.name | short : 7}}
+            </div>
+        </div>
+    </div>
+</mat-card>
+
+<div *ngIf="modalOpen">
+    <app-img-modal style="z-index: 15;" [imgSrc]="selectedImg" (modalClose)="closeModal()">
+        <div *ngIf="selectedAttachment" class="attachment-product-content">
+            <p>Comment: {{selectedAttachment.comment}}</p>
+            <button mat-raised-button *ngIf="selectedAttachment.description && !selectedAttachment.description.includes('image')" (click)="onDownload(selectedAttachment)">Download</button>
+            <div class="div1">Created By:{{selectedAttachment.created.by.first_name}} {{selectedAttachment.created.by.last_name}}</div>
+            <div class="div2">{{selectedAttachment.created.at}}</div>
+        </div>
+    </app-img-modal>
+</div>

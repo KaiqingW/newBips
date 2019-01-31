@@ -1,0 +1,87 @@
+<form novalidate [formGroup]="contactForm">
+        <div *ngIf="selectedUser" class="company-logo profile">
+                <div *ngIf="!data?.image">
+                        <img *ngIf="selectedUser.avatar_url" [src]="selectedUser.avatar_url"> 
+                        <img *ngIf="!selectedUser.avatar_url" src="https://orcasmart-dev.s3.us-east-2.amazonaws.com/images/DEM6o0kwR6IqaVRU1a1sPpYTdpT9sfy5AfLpMjhQ.png">
+                        <img *ngIf="(!selectedUser.avatar_url)&&data?.image" [src]="data?.image">
+                        <div  *ngIf="!selectedUser.avatar_url" class="overlay">
+                                <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+                                <p>Upload Picture</p>
+                        </div>
+                </div>
+                <div *ngIf="data?.image">
+                        <img *ngIf="data?.image" [src]="data?.image">
+                        <div class="overlay">
+                                <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+                                <p>Upload Picture</p>
+                        </div>
+                </div>
+        </div>
+        <mat-form-field >
+                <input  type="input" matInput  placeholder="Email"  name="email" [matAutocomplete]="auto" [formControl]="emailCtrl">
+                <mat-autocomplete #auto= matAutocomplete>
+                <mat-option *ngFor="let user of userEmailList" [value]="user?.email" (click)="userSlected(user)">
+                        <span *ngIf="user?.avatar_url"><img  [src]="user?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
+                        <span *ngIf="!user?.avatar_url"><img  src="assets/images/testimg/useravatar2.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
+                </mat-option>
+                </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field  *ngIf="selectedUser" style="display:none">
+                <input  type="input" matInput  placeholder="user_id" name="user_id" formControlName="user_id" [(ngModel)]="selectedUser.id">
+        </mat-form-field>
+        <mat-form-field  *ngIf="selectedUser" style="display:none">
+                <!-- <input  type="input" matInput  placeholder="user_id" name="user_id" formControlName="user_id" [(ngModel)]="selectedUser?.id" style="display:inline-block;"> -->
+                <input  type="input" matInput  placeholder="Email" name="email" formControlName="email" [(ngModel)]="selectedUser.email"  >
+        </mat-form-field>
+
+        <mat-form-field  *ngIf="selectedUser">
+                <input  type="input" matInput  placeholder="First Name" name="first name" formControlName="first_name"  [(ngModel)]="selectedUser.first_name" >
+        </mat-form-field>
+        <mat-form-field  *ngIf="!selectedUser">
+                <input  type="input" matInput  placeholder="First Name" name="first name" formControlName="first_name" >
+        </mat-form-field>
+
+        <mat-form-field *ngIf="selectedUser">
+                <input type="input" matInput  placeholder="Last Name" name="last name" formControlName="last_name" [(ngModel)]="selectedUser.last_name">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!selectedUser">
+                <input type="input" matInput  placeholder="Last Name" name="last name" formControlName="last_name" value="">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="selectedUser">
+                <input type="input" matInput  placeholder="Phone Number" name="phone number" formControlName="phone" [(ngModel)]="selectedUser.phone_number">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!selectedUser">
+                <input type="input" matInput  placeholder="Phone Number" name="phone number" formControlName="phone" value="">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!positionOthers">
+                <!-- <input type="input" matInput  placeholder="Position" name="position" formControlName="position" value=""> -->
+                <mat-select placeholder="Position" name="position" formControlName="position">
+                        <mat-option value="None">None</mat-option>
+                        <mat-option value="Employee">Employee</mat-option>
+                        <mat-option value="Manager">Manager</mat-option>
+                        <mat-option value="CEO">CEO</mat-option>
+                        <mat-option value="other" (click)="mannualInput()">Other</mat-option>
+                </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="positionOthers">
+                <input type="input" matInput  placeholder="Position" name="position" formControlName="position" autofocus value="">    
+        </mat-form-field>
+</form>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<!-- <pre>{{contactForm.value | json}}</pre> -->
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+        <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        <div class="button-list">
+                <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+                <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+        </div>   
+</app-crop-modal>

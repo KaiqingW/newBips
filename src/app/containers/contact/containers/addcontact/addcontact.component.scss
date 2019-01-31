@@ -1,0 +1,134 @@
+:host{
+    margin-top:20px;
+  }
+  .profile {
+      margin: 0px auto;
+      max-width: 200px;
+      position: relative;
+      border-radius: 50%;
+    }
+    .profile:hover .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .profile:hover .overlay p {
+      display: block;
+    }
+    .profile img {
+      display: block;
+      width: 100%;
+      border-radius: 50%;
+      height: auto;
+    }
+    .profile .overlay {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      overflow: hidden;
+      height: 100%;
+      border-radius: 50%;
+    }
+    .profile .overlay input {
+      width: 100%;
+      position: absolute;
+      opacity: 0;
+      bottom: 20px;
+      z-index: 2;
+      cursor: pointer;
+    }
+    .profile .overlay p {
+      position: absolute;
+      bottom: 0px;
+      line-height: 22px;
+      font-size:14px;
+      font-weight: bold;
+      text-align: center;
+      color: #fff;
+      width: 100%;
+      display: none;
+    }
+  
+    
+    .company-logo{
+      display:block;
+      margin:0 auto;
+      margin-top:10px;
+      width:60px;
+      height:60px;
+      background-color:#f5f5f5;
+      z-index:2px;
+      border-radius: 50px;
+      img{
+          width:60px;
+          height:60px;
+      }
+  }
+  
+  form{
+      margin: 0 1%;
+      mat-form-field{
+          margin:0 2%;
+          width: 95%;
+      }
+  }
+
+
+
+
+  
+// older one for add employee and contact
+
+
+// $width: 90%;
+
+// :host {
+//     display: flex;
+//     height: 100%;
+//     flex-direction: column;
+//     // justify-content: center;
+//     align-items: center;
+// }
+// .chip-list {
+//     width: $width;
+// }
+
+// .shared-user-list {
+//     width: $width;
+//     mat-chip {
+//         display: inline-block;
+//         padding: 0;
+//     }
+//     .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+//         margin: 10px 5px 0 0;
+//     }
+// }
+
+// button {
+//     margin-top: 5px; 
+// }
+
+// .shared-user {
+//     margin-right: 20px;
+//     app-profile-picture {
+//         float: left;
+//     }
+//     span {
+//         display: inline-block;
+//         margin-left: 5px;  
+//         font-size: 12px;
+//         color: grey;
+//     }
+//     .mat-chip-remove {
+//         margin-right: -14px;
+//         margin-left: 0;
+//         cursor: pointer;
+//     }
+// }
+// .shared-user-container {
+//     margin-left: 10px;
+// }
+
+// .arrow-guide{
+//     display:block;
+//     background-color:#eee;
+//     text-align: center;
+// }

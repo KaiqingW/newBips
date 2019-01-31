@@ -1,0 +1,7 @@
+<label>{{data.sharedUser.email}}</label>
+<hr>
+<label>{{data.sharedUser.first_name}} {{data.sharedUser.last_name}}</label>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="1">Confirm</button>
+<mat-dialog-actions>

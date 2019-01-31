@@ -1,0 +1,82 @@
+:host{
+    
+    mat-card{
+        padding:6px 4px 9px 8px;
+    }
+    .shadow {
+        box-shadow: none !important;
+    }
+
+    .subject-content{
+        display: inline-block;
+        width: 100%;
+        .avatar {
+            display: block;
+            float: left;
+            padding:6px 2px ;
+            width:15%;
+            height: 40px;
+            company-logo{
+                width:40px;
+                height:40px;
+            }
+        }
+        .content {
+            width: 80%;
+            
+            text-align: left;
+            float: left;
+            .creater {
+                .create-time {
+                    margin-left: 5%;
+                    color: #B7B7B7;
+                    font-size: 12px; 
+                }
+                .reply {
+                    float: right;
+                    margin-right: 4%;
+                    border-radius: 5%;
+                    padding: 2px;
+                    padding: 5px 8px;
+                    background-color:#eeeeee;
+                    color:gray;
+                    border-radius:10px;
+                    text-decoration: none;
+                }
+            }
+
+            .subject-container{
+                padding-top: 8px;
+                display: flex;
+                flex-direction: row;
+                width:100%;
+                box-sizing:border-box;
+                position: relative;
+            
+                .col-1{
+                    display: flex;
+                    flex:1;
+                }
+                .col-3{
+                    display:flex;
+                    flex:4;
+                }           
+            }
+        }   
+        .unread{
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            display: inline-block;
+            background-color: red;
+            border-radius: 50px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+        }    
+    }   
+}
+
+

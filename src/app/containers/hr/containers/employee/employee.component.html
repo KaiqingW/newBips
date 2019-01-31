@@ -1,0 +1,14 @@
+
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/hr/resume">Resume</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/hr/candidate">Candidate</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/hr/employee">Employee</a>
+<div>
+    <div *ngFor="let employee of this.companyEmployeeList">
+        <human-card [routerLink]="employee?.id" [url]="employee?.avatar_url" [fname]="employee?.first_name"
+         [lname]="employee?.last_name" [jointime]="employee?.joined_at"></human-card>
+    </div>
+</div>
+
+<app-add-button *ngIf="!isLoading" routerLink="/company/{{this.currentLoginCompanyId}}/hr/add-human"></app-add-button>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

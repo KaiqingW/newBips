@@ -1,0 +1,50 @@
+<mat-card>
+    <div class="summary"><b>Container Condition</b>
+        <span class="showMoreBtn" (click)="switchShowBtn()">
+                {{showNum == 2 ? "More" : "Less"}}
+        </span>
+    </div>
+    <div class="category">
+       <span class="item-title">1.Is there any Damage on container?</span>
+       <!-- <span class="item-content" *ngIf="shipping?.eta_date">{{shipping.eta_date}}</span> -->
+    </div>
+    <div class="category">
+       <span class="item-title">2.Is there any Damage inside container?</span>
+       <!-- <span class="item-content" *ngIf="shipping?.actual_arrive_date">{{shipping.actual_arrive_date}}</span>
+       <span class="item-content" *ngIf="(shipping?.actual_arrive_date == null) && (!editMode)" style="border-radius: 5px;background-color: #01FF70;text-align: center;" routerLink="edit">Click To Update</span>
+       <input class="item-content" type="date" formControlName="actual_arrive_date" *ngIf="(editMode)" style="border-radius: 5px;text-align: center;" required> -->
+    </div>
+
+    <div class="category">
+        <span class="item-title">3.Is the container clean?</span>
+     </div>
+
+     <div class="category">
+        <span class="item-title">4.Is there any bad smell inside container?</span>
+     </div>
+     <div class="category">
+        <span class="item-title">5.Is there wet?</span>
+     </div>
+</mat-card>
+
+<mat-card>
+    <div class="summary"><b>Product Condition</b>
+        <span class="showMoreBtn" (click)="switchShowBtn()">
+                {{showNum == 2 ? "More" : "Less"}}
+        </span>
+    </div>
+    <div class="category">
+       <span class="item-title">1.Is all pallets in good condition?</span>
+       <!-- <span class="item-content" *ngIf="shipping?.eta_date">{{shipping.eta_date}}</span> -->
+    </div>
+    <div class="category">
+       <span class="item-title">2.Is all box in good condition?</span>
+       <!-- <span class="item-content" *ngIf="shipping?.actual_arrive_date">{{shipping.actual_arrive_date}}</span>
+       <span class="item-content" *ngIf="(shipping?.actual_arrive_date == null) && (!editMode)" style="border-radius: 5px;background-color: #01FF70;text-align: center;" routerLink="edit">Click To Update</span>
+       <input class="item-content" type="date" formControlName="actual_arrive_date" *ngIf="(editMode)" style="border-radius: 5px;text-align: center;" required> -->
+    </div>
+
+    <div class="category">
+        <span class="item-title">3.Is all items in good condition?</span>
+     </div>
+</mat-card>

@@ -1,0 +1,41 @@
+
+    <mat-card *ngFor="let contact of contactsList" [class.mat-card-container]="!contact?.user_id" routerLink="/contacts/{{contact.id}}" class="company-content">
+            <div class="company-logo">
+                <company-logo [url]="contact?.avatar_url" [comname]="contact.first_name"></company-logo>
+            </div>
+            <div class="company-name">
+                <span><b>{{contact.first_name}} {{contact.last_name}}</b></span><br>
+                <span class="company-address">{{contact?.email}}</span>
+            </div>
+    
+            <!-- <div *ngIf="currentCompanyUserLevel == 1" class="user-level ">
+                <div class="join-btn" *ngIf="contact.is_admin == 0" >
+                    <span (click)="promoteEmployee(contact)">User</span>
+                </div>
+                <div class="join-btn" *ngIf="contact.is_admin == 0" >
+                    <span (click)="deleteEmployee(contact)">X</span>
+                </div>
+    
+                <div class="join-btn" (click)="demoteEmployee(contact)" *ngIf="contact.is_admin == 2" >
+                    <span >Admin</span>
+                </div>
+    
+                <div class="join-btn" (click)="deleteEmployee(contact)" *ngIf="contact.is_admin == 2" >
+                    <span>X</span>
+                </div>
+               
+            </div> -->
+    
+            <div  class="user-level " *ngIf="!contact?.user_id">
+                <div class="join-btn" >
+                    <span >unreg</span>
+                </div>
+    
+            </div>
+    </mat-card>
+    
+    <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+    </div>
+
+    <app-add-button *ngIf="!isLoading" routerLink="/contacts/add"></app-add-button>

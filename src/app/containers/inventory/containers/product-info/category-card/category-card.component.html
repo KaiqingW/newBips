@@ -1,0 +1,10 @@
+<mat-card class="orca_card" *ngIf="categories">
+    <div class="orca_title_sm">
+        <b>Categories</b>
+    </div>
+    <div class="category">
+        <span class="item-title" *ngFor="let category of categories" mat-raised-button color="primary" matBadgeColor="accent">
+            {{category.name}}
+        </span>
+    </div>
+</mat-card>

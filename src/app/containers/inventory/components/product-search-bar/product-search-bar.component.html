@@ -1,0 +1,12 @@
+<div class="search-area">
+    <mat-form-field class="choice-field">
+        <mat-select [placeholder]="optionPlaceholder" [(ngModel)]="defaultOption" [formControl]="optionCtrl" >
+            <mat-option *ngFor="let option of options" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="search-field">
+        <input class="input" matInput [placeholder]="searchPlaceholder" [formControl]="searchCtrl">
+    </mat-form-field>
+</div>

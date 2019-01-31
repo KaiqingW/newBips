@@ -1,0 +1,69 @@
+<!-- <form novalidate (ngSubmit)="onSubmit()">
+  <mat-form-field>
+      <input matInput placeholder="Enter your email" [formControl]="myForm.controls.email" [readonly]="resetStep !== 1" [(ngModel)]="user.email" required>
+      <mat-error *ngIf="myForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+  
+  <mat-form-field *ngIf="resetStep !== 3" [ngStyle]="{'visibility': resetStep === 2 ? 'visible' : 'hidden'}">
+      <input class="" type="number" matInput placeholder="Confirmation Code" [formControl]="myForm.controls.digits" [(ngModel)]="user.digits" name="digits">
+      <mat-error *ngIf="myForm.controls.code.invalid">{{getPasswordErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field [ngStyle]="{'visibility': resetStep === 3 ? 'visible' : 'hidden'}">
+    <input class="" type="password" matInput placeholder="Password" [type]="hide ? 'password' : 'text'" [formControl]="myForm.controls.password" [(ngModel)]="user.password" name="password">
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    <mat-error *ngIf="myForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+  <div class="btn-gp">
+    <button (click)="getDigits()" mat-raised-button color="primary" type="submit" class="submit-btn" *ngIf ="resetStep === 1">
+      Continue
+    </button>
+    <button (click)="getToken()" *ngIf="resetStep === 2" mat-raised-button color="primary" type="submit" class="submit-btn" [disabled]="myForm.invalid">
+      Confirm my code
+    </button>
+    <button (click)="getResetPassword()" mat-raised-button color="warn" type="submit" class="submit-btn" *ngIf ="resetStep === 3">
+        Submit New Password.
+    </button>
+  </div>
+</form>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div> -->
+<!-- (ngSubmit)="onSubmit()" -->
+<form novalidate >
+    <mat-form-field>
+        <input matInput placeholder="Enter your email" [formControl]="myForm.controls.email" [readonly]="resetStep !== 1" [(ngModel)]="user.email" required>
+        <mat-error *ngIf="myForm.controls.email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field *ngIf="resetStep !== 3" [ngStyle]="{'visibility': resetStep === 2 ? 'visible' : 'hidden'}">
+        <input class="" type="number" matInput placeholder="Confirmation Code" [formControl]="myForm.controls.digits" [(ngModel)]="user.digits" name="digits">
+        <!-- <mat-error *ngIf="myForm.controls.code.invalid">{{getPasswordErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+  
+    <mat-form-field [ngStyle]="{'visibility': resetStep === 2 ? 'visible' : 'hidden'}">
+      <input class="" type="password" matInput placeholder="Password" [type]="hide ? 'password' : 'text'" [formControl]="myForm.controls.password" [(ngModel)]="user.password" name="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-error *ngIf="myForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [ngStyle]="{'visibility': resetStep === 2 ? 'visible' : 'hidden'}">
+        <input class="" type="password" matInput placeholder="Reenter Password" [type]="hide ? 'password' : 'text'"  [formControl]="myForm.controls.confirmed_password"  name="confirmed_password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="myForm.controls.password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+  
+    <div class="btn-gp">
+      <button *ngIf ="resetStep === 1" (click)="resetPasswordSendEmail()" mat-raised-button color="primary" type="submit" class="submit-btn" [disabled]="myForm.controls.email.invalid"  >
+        Continue
+      </button>
+      <!-- <button (click)="getToken()" *ngIf="resetStep === 2" mat-raised-button color="primary" type="submit" class="submit-btn" [disabled]="myForm.invalid">
+        Confirm my code
+      </button> -->
+      <button (click)="getResetPassword()" mat-raised-button color="warn" type="submit" class="submit-btn" *ngIf ="resetStep === 2">
+          Submit New Password.
+      </button>
+    </div>
+  </form>
+  
+  <div *ngIf="isLoading"><app-spinner></app-spinner></div>

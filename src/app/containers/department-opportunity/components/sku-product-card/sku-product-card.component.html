@@ -1,0 +1,21 @@
+<div class="project-content">
+    <div class="content">
+        <div class="product-image" *ngIf="images">
+            <img *ngIf="images.length < 1" src="assets/images/bottle.png" style="width:38px;" >
+            <img *ngIf="images && images.length > 0" [src]="images[0].url" style="width:38px;" (click)="openModal(images[0].url)">
+            <!-- <img src="{{productImageUrl}}" style="width:38px;" (click)="openModal(productImageUrl)"> -->
+        </div>
+        <div class="name" >
+            <b>{{productName | short : 60}}</b> <br>
+            <b *ngIf="productItemNumber">Item#: {{productItemNumber}}</b>
+        </div>
+        <div class="bar">
+            <ng-content></ng-content>    
+        </div>
+    </div>      
+</div>
+
+<div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
+    </app-img-modal>
+</div>

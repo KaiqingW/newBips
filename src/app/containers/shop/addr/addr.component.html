@@ -1,0 +1,130 @@
+<mat-card>
+    <div *ngIf="defaultAddr">
+        <h3>Ship to default address:</h3>
+        <div style="margin: 16px;">{{defaultAddr.first_name}} {{defaultAddr.last_name}}, {{defaultAddr.street1}} {{defaultAddr.street2}} {{defaultAddr.city}}
+            {{defaultAddr.state}} {{defaultAddr.country}}, {{defaultAddr.zipcode}}</div>
+    </div>
+    <h3 *ngIf="defaultAddr">or ship to other addresses: </h3>
+    <form>
+        <div style="padding-bottom: 6px; text-align: left;" *ngFor="let addr of addrList">
+            <input type="radio" name="addr" value={{addr.id}} (click)="onSelectAddr(addr.id)">{{addr.first_name}} {{addr.last_name}}, {{addr.street1}} {{addr.street2}} {{addr.city}} {{addr.state}} {{addr.country}},
+            {{addr.zipcode}}
+            <br>
+            <div style="display:flex; justify-content: flex-end;">
+                <button (click)="onDefaultAddr(addr.id)" style=" margin: 6px;">Set as Default</button>
+                <button (click)="onDeleteAddr(addr.id)" style=" margin: 6px;">Delete</button>
+            </div>
+        </div>
+    </form>
+</mat-card>
+
+<!-- <mat-card>
+    <mat-radio-group>
+        <mat-radio-button *ngFor="let addr of addrList" [value]=addr.id color="primary" style="word-wrap: break-word; padding-bottom: 6px; text-align: left;">{{addr.first_name}} {{addr.last_name}}, {{addr.street1}} {{addr.street2}} {{addr.city}} {{addr.state}} {{addr.country}},
+            {{addr.zipcode}}
+        </mat-radio-button>
+    </mat-radio-group>
+</mat-card> -->
+
+<form [formGroup]="addAddressForm" class="address-form">
+    <div *ngIf="!fullAddress">
+        <p style=" font-size:12px;  color:gray">Enter Your Zipcode to Add New Shipping Address</p>
+        <mat-form-field>
+            <input type="input" matInput placeholder="Zipcode" name="zipcode" [formControl]="zipcodeCtrl">
+        </mat-form-field>
+        <p *ngIf="zipcodeError" style="color:red;">Zip code Error, Check Again</p>
+        <p *ngIf="allFieldRequied" style="color:red;">Please Fill zip code!</p>
+
+        <div style="display:none">
+            <mat-form-field>
+                <input type="input" matInput placeholder="first name" formControlName="first_name" name="first_name" required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="input" matInput placeholder="last name" formControlName="last_name" name="last_name" required>
+            </mat-form-field>
+            <div formGroupName="address">
+                <mat-form-field>
+                    <input type="input" matInput placeholder="Street1" formControlName="street1" name="street1" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="input" matInput placeholder="Street2" formControlName="street2" name="street2">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="input" matInput placeholder="City" formControlName="city" name="city" [(ngModel)]="city" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="input" matInput placeholder="State" formControlName="state" [(ngModel)]="state" name="state" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="input" matInput placeholder="ZipCode" formControlName="zipcode" [(ngModel)]="zipcode" name="zipcode" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input type="input" matInput placeholder="Country" formControlName="country" name="country" [(ngModel)]="country" required>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div *ngIf="fullAddress">
+        <p *ngIf="allFieldRequied" style="color:red;">Fill all the field with *</p>
+        <mat-form-field>
+            <input type="input" matInput placeholder="first name" formControlName="first_name" name="first_name" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="input" matInput placeholder="last name" formControlName="last_name" name="last_name" required>
+        </mat-form-field>
+        <div formGroupName="address">
+            <mat-form-field>
+                <input type="input" matInput placeholder="Street1" formControlName="street1" name="street1" required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="input" matInput placeholder="Street2" formControlName="street2" name="street2">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="input" matInput placeholder="City" formControlName="city" name="city" [(ngModel)]="city" required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="input" matInput placeholder="State" formControlName="state" [(ngModel)]="state" name="state" required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="input" matInput placeholder="ZipCode" formControlName="zipcode" [(ngModel)]="zipcode" name="zipcode" required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="input" matInput placeholder="Country" formControlName="country" name="country" [(ngModel)]="country" required>
+            </mat-form-field>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+
+<div (click)="onSave()">
+    <!-- <div routerLink="/shop/whs"> -->
+    <button mat-menu-item class="header_green">
+        Add New Shipping Address
+    </button>
+</div>
+
+<div *ngIf="hasAddr" routerLink="/shop/whs">
+    <button mat-menu-item class="header_yellow">
+        Confirm Shipping Address
+    </button>
+</div>

@@ -1,0 +1,10 @@
+<form *ngIf="placeholder && selects && default" [formGroup]="statusForm">
+    <mat-form-field style="width:100%;">
+        <mat-select [(value)]="default" formControlName="status">
+          <mat-option *ngFor="let select of selects" [value]="select">
+            {{select}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+

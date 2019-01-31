@@ -1,0 +1,80 @@
+<div *ngIf="subjectNote">
+    <div #nameInput>
+        <mat-card class="subject-card" >
+            <div class="subject-name">
+                <p>{{subjectNote.subject?.name}}</p>
+            </div>
+        </mat-card>
+
+
+        <mat-card >  
+            <mat-card-header>
+                <div mat-card-avatar class="header-image"> 
+                    <app-profile-picture 
+                        [url]="subjectNote?.created.by.avatar_url" 
+                        [userFirstName]="subjectNote?.created.by.first_name"
+                        [userLastName]="subjectNote?.created.by.last_name"
+                        [userId]="subjectNote?.created.by.id">
+                    </app-profile-picture>
+                </div>
+                <mat-card-title>{{subjectNote?.created.by.first_name}} {{subjectNote?.created.by.last_name}}</mat-card-title>
+                <mat-card-subtitle>{{subjectNote?.created.at| local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</mat-card-subtitle>
+            </mat-card-header>                 
+            <div class="note-name" [innerHTML]="subjectNote?.body"></div>  
+            <div class="note-time-updated">
+                <p>Last updated by: {{subjectNote?.updated.by.first_name}} {{subjectNote?.updated.by.last_name}} at {{subjectNote?.updated.at | local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</p>               
+            </div>
+
+        </mat-card>
+
+
+
+
+        <div class="comments-number"><span>{{subjectNote?.comments.length}} Comments</span></div>
+
+        <div class="comment-area">
+            <mat-card  *ngFor="let comment of subjectNote?.comments">
+                <mat-card-header>
+                    <div mat-card-avatar class="header-image"> 
+                        <app-profile-picture 
+                            [url]="comment?.created.by.avatar_url" 
+                            [userFirstName]="comment?.created.by.first_name"
+                            [userLastName]="comment?.created.by.last_name"
+                            [userId]="comment?.created.by.id">
+                        </app-profile-picture>
+                    </div>
+                    <!-- <mat-card-title>{{comment?.created.by.first_name}} {{comment?.created.by.last_name}} <span *ngIf="comment.replied.to">@ {{comment?.replied.to.first_name}} {{comment?.replied.to.last_name}}</span> <span class="comment-time-updated">{{comment?.updated.at | local | amTimeAgo:true}}</span> </mat-card-title> -->
+                    <mat-card-title>{{comment?.created.by.first_name}} {{comment?.created.by.last_name}}  <span class="comment-time-updated">{{comment?.updated.at | local | amTimeAgo:true}}</span> </mat-card-title>
+                    <mat-card-subtitle *ngIf="!comment.unread_records[0]" class="comment-body" [innerHTML]="comment?.body"></mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="comment.unread_records[0]" class="comment-body comment-blod" [innerHTML]="comment?.body"></mat-card-subtitle>
+
+                </mat-card-header> 
+
+                <div class="icon">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="deleteComment(comment.id)" disabled>
+                            <span>Delete</span>
+                        </button>
+
+                        <button mat-menu-item >
+                            <span routerLink="comment/reply/{{comment.id}}">Reply</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    
+    <div class="add-a-comment"><a class="add-comment-btn" routerLink="comment/create/{{subjectNote.id}}">Add a comment</a></div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="imgSrc" (modalClose)="closeModal()"></app-img-modal>
+</div>

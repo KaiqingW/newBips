@@ -1,0 +1,7 @@
+<div *ngIf="text" class="subject-description" [innerHTML]="text" [class.collapsed]="isCollapsed" 
+[style.height]="isCollapsed ? maxHeight+'px' : 'auto'">
+</div>
+<div *ngIf="text">
+    <a *ngIf="isCollapsable" class="subject-description-read-more" (click)="isCollapsed =! isCollapsed">
+        Read {{isCollapsed? 'more':'less'}}</a>
+</div>

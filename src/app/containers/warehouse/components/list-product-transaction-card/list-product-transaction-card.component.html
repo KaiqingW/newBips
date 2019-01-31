@@ -1,0 +1,35 @@
+<form *ngIf="productForm" [formGroup]="productForm">
+    <div formArrayName="inventories">
+        <mat-card *ngFor="let inventory of productForm['controls'].inventories['controls'];let i=index" [class.selected]="productList[i] == selectedProduct">
+            <div [formGroupName]="i">
+                <div class="product-header">
+                    <div class="selectbox">
+                        <input type="checkbox" name="acs" (click)="selectProduct(productList[i])" [checked]="exist(productList[i])" />
+                    </div>
+
+                    <div class="product-picture" (click)="onNavToDetail($event,productList[i])">
+                        <img *ngIf="productList[i].images.length < 1" src="assets/images/icons/no-img.jpg">
+                        <img *ngIf="productList[i]?.images && productList[i]?.images?.length > 0" [src]="productList[i].images[0].url">
+                    </div>
+
+                    <div class="item-name" (click)="onNavToDetail($event,productList[i])">
+                        <span class="product-name">
+                            <b>{{productList[i].name | short : 60}}</b>
+                        </span>
+                        <br>
+                        <span class="description">Item#:{{productList[i].headline}}</span>
+                    </div>
+
+                    <div class="available">
+                        <span class="available-quantity">{{getProductInfWarehouse(productList[i]) | number}}</span>
+                    </div>
+
+
+                    <div class="available" *ngIf="addQtyMode">
+                        <input formControlName="amount" class="available-quantity" type="number">
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</form>

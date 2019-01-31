@@ -1,0 +1,17 @@
+<div class="container">
+    <form novalidate [formGroup]="opportunityForm" class="opportunity-form">
+            <mat-form-field class="example-full-width" >           
+                <input type="input" matInput placeholder="Opportunity Name"  formControlName="name" >
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" >           
+                <input type="input" matInput placeholder="Company Name"  formControlName="company_name" >
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" >           
+                <input type="input" matInput placeholder="Description"  formControlName="description" >
+            </mat-form-field>
+    </form>
+</div>
+
+<!-- <pre>{{opportunityForm.value | json}}</pre> -->

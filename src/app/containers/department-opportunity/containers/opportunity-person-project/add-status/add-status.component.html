@@ -1,0 +1,106 @@
+<person-project-card-brief [createdUser]="briefProject?.created" [content]="briefProject?.name"></person-project-card-brief>
+
+<div class="add_note_subject_container">
+    <form [formGroup]="addStatusForm">       
+        <div class="row title">
+            <b>Status</b>
+        </div>
+    
+        <mat-card formArrayName="body">
+            <!-- if the current process needs approval, and the current process status is not approval
+            which means that right now the user is upluading files for approval
+            for this case, do not give reminder -->
+            <!-- if the current process status is not approved, and the process needs approval
+            which means that the user is going to next process
+            then give the reminder -->
+            <!-- <div *ngIf="(briefProject?.current_process_status != 'Approved' && briefProject?.current_process?.process_approvals.length == 0)" style="color: red; text-align: center;">Please upload your attachment for {{briefProject?.current_process?.next_process?.process_name}}</div> -->
+            <div *ngFor="let subNote of addStatusForm['controls'].body['controls'];let i=index">
+                <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+                <!-- attachment is required for request for approval -->
+                <!-- <span *ngIf="(briefProject?.current_process_status != 'Approved' && briefProject?.current_process?.process_approvals.length != 0)" style="font-size: 13px; color: red;">Attachment is Required !</span> -->
+                
+                <div class="row" [formGroupName]="i"> 
+                    <div class="col-1" *ngIf="getImg(i)">
+                        <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                        <div *ngIf="modalOpen">
+                                <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                        </div>
+                    </div>
+                    <div class="col-3"> 
+                        <textarea placeholder="Description is required !" style="width:100%;height:200.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                    </div>
+                </div>
+                <!-- <button class="add_more_btn" *ngIf="addStatusForm['controls'].body['controls'].length" style="background-color:red !important; color:white;" (click)="onDelete(i)">Delete current text</button> -->
+                <!-- <br>
+                <br>
+                <hr>   -->
+            </div>
+        
+            <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+        </mat-card>    
+        <!-- <div class="complete" *ngIf="isOwner">
+            Complete
+            <select formControlName="complete" required>
+                <option value="0.05">5%</option>
+                <option value="0.1">10%</option>
+                <option value="0.15">15%</option>
+                <option value="0.2">20%</option>
+                <option value="0.25">25%</option>
+                <option value="0.3">30%</option>
+                <option value="0.35">35%</option>
+                <option value="0.4">40%</option>
+                <option value="0.45">45%</option>
+                <option value="0.5">50%</option>
+                <option value="0.55">55%</option>
+                <option value="0.6">60%</option>
+                <option value="0.65">65%</option>
+                <option value="0.7">70%</option>
+                <option value="0.75">75%</option>
+                <option value="0.8">80%</option>
+                <option value="0.85">85%</option>
+                <option value="0.9">90%</option>
+                <option value="0.95">95%</option>
+                <option value="1.0">100%</option>
+            </select>
+        </div> -->
+    </form>   
+</div>
+
+<!-- <wide-select-bar style="width:100%;" (sendSelect)="onGetSelect($event)" [selects]="selects" [placeholder]="placeholder" [default]="default"></wide-select-bar> -->
+
+<div class="select-process-instruction" *ngIf="chooseApproval">Please select people who will approve your work ! Required !</div>
+<div class="select-process-instruction" *ngIf="chooseNextProcess">Please select people who will continue to work on next process of the opportunity ! Required !</div>
+
+<div class="send-email-message" *ngIf="chooseApproval || chooseNextProcess">
+    <div class="select-info"><b>Please select Email or Text Message</b></div>
+    <mat-card>
+        <mat-checkbox class="example-margin" [(ngModel)]="sendEmailCheck">Email</mat-checkbox> 
+        <mat-checkbox class="example-margin" [(ngModel)]="sendMessageCheck">Text Message</mat-checkbox>
+        
+    </mat-card>
+
+    <textarea [(ngModel)]="messageContent" placeholder="Please input the content of your message here !  Required !" style="width:100%;height:50.14px;padding:6px;"></textarea>
+
+    <div class="select-info"><b>Please select people who you want to send email and text message ! Required !</b></div>
+
+    <mat-card class="user-list">
+        <h4>Notify</h4>
+        
+        <!-- select user from processUserList, which is approval for the process or work people for next process -->        
+        <div *ngIf="processUserList">
+            <div *ngFor="let user of processUserList">
+                <mat-checkbox class="example-margin" (click)="selectUser(user)"><b>{{user?.first_name}} {{user?.last_name}}  </b> {{user?.email}}</mat-checkbox> <br>           
+            </div>
+        </div>
+
+    </mat-card>
+    
+</div>
+
+<div style="color: red; text-align: center; margin-top: 5%;" *ngIf="waitingApproval">
+    Your process is waiting for approval.
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

@@ -1,0 +1,339 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<div class="product-info" *ngIf="item">
+    <div class="product-header">
+        <div class="bg-write">
+            <img src="assets/images/universe.png" style="height: 60px; width: 100%; opacity: 1.0;">
+        </div>
+        <div class="bg-blue">
+            <div class="product-picture" (click)="onShowProdPic()">
+                <img [src]="item?.product?.images?.length > 0 ? item.product.images[0].url :  'assets/images/icons/no-img.jpg'">
+                <mat-icon *ngIf="showEditButton" routerLink="edit" style="position: absolute; color:green; left:60%; font-size: 30px;">edit</mat-icon>                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="purchase-orders-container" *ngIf="item">
+    <div class="orders-container">
+        <mat-card>
+            <div class="item-content" style="width:100%;padding:2% 2% 0 2% !important;font-size:17px">
+                <b>{{item.sales_item_number}}&nbsp;&nbsp;{{item.company_defined_columns.color}}&nbsp;&nbsp;{{item?.company_defined_columns.material}}</b>
+            </div>
+            <div class="item-content" style="width:100%;padding:0 2% 2% 2% !important;">{{item.description}}</div>
+        </mat-card>
+
+        <mat-card>
+            <div class="field-info">
+                <div class="items_num">
+                    <div class="selected item-content">Order QTY</div>
+                    <div class="item-content-border">{{item.quantity | number}}</div>
+                </div>
+
+                <div class="items_num">
+                    <div class="selected item-content">Balance</div>
+                    <div class="item-content-border">{{currentBalance | number}}</div>
+                </div>
+
+                <div class="items_num">
+                    <div class="selected item-content">Case Qty</div>
+                    <div class="item-content-border">{{item?.case_quantity | number}}</div>
+                </div>
+
+                <div class="items_num">
+                    <div class="selected item-content">Case/Plt</div>
+                    <div class="item-content-border">{{item?.cases_per_plate | number}}</div>
+                </div>
+
+                <div class="items_num">
+                    <div class="selected item-content">Pcs/Plt</div>
+                    <div class="item-content-border">{{item?.cases_per_plate * item?.case_quantity | number}}</div>
+                </div>
+
+                <div class="items_num" *ngIf="totalReceivedQty">
+                    <div class="selected item-content">Total Received QTY</div>
+                    <div class="item-content-border">{{totalReceivedQty | number}}</div>
+                </div>
+
+
+                <div class="items_num" *ngFor="let each of company_defined_columns">
+                    <div class="selected item-content">{{each.name}}</div>
+                    <div class="item-content-border">{{each.value}}</div>
+                </div>
+
+            </div>
+
+        </mat-card>
+
+        <mat-card *ngIf="item?.requirement">
+            <div class="selected item-content margin-top">Requirement</div>
+            <div class="text-left">{{item.requirement}}</div>
+        </mat-card>
+
+    </div>
+
+    <production-schedule (sendOutput)="onGetFetchOrderItem()" [item]="item" [companyId]="companyId" [itemId]="itemId" [ownCompany]="ownCompany" [schedules]="item?.production_schedule_subjects" *ngIf="!item?.public"></production-schedule>
+    <!-- <mat-card class="shipping-info-loop" *ngIf="!item?.public">
+        <div class="selected item-content margin-top">Production Schedule
+            <b *ngIf="ownCompany" class="add-shipped-button" (click)="addEstProdDateDialog()">+</b>
+        </div>
+        <div class="schedule-row nopadding">
+            <div class="col-1">
+                <div class="selected item-content">#</div>
+            </div>
+            <div class="col-2">
+                <div class="selected item-content">ETS</div>
+            </div>
+            <div class="col-2">
+                <div class="selected item-content">ETF</div>
+            </div>
+
+            <div class="col-4">
+                <div class="selected item-content">Updated Time</div>
+            </div>
+        </div>
+
+        <div *ngIf="schedules" style="box-sizing: border-box;">
+            <mat-card class="schedule-row background_color shippingListCard" *ngFor="let schedule of schedules;let i = index">
+                <div style="width:100%;display:flex;flex-direction: column;" *ngFor="let scheduleItem of schedule;let j = index" [ngClass]="{'schedule_finished':( (schedules[i][j].ifFinish)&&(j === (schedules[i].length -1))), 'schedule_delayed':( (schedules[i].length != 1)&&(schedules[i][j].ifFinish == false)&&(j === (schedules[i].length -1)))}"
+                    (click)="confirmProdDateDialog(i, j)">
+                    <div style="display:flex;flex-direction: row;width:100%;box-sizing: border-box;">
+                        <div class="col-1">
+                            <span *ngIf="j == 0">{{i+1}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span>{{scheduleItem.ets_time}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span>{{scheduleItem.etf_time}}</span>
+                        </div>
+
+                        <div class="col-4">
+                            <span>{{scheduleItem.createAt}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="col-1">
+                        </div>
+                        <div style="width:100%;border:0;border: 1px solid #aaa;box-sizing: border-box;padding-right:4px;padding-left:13px">Comment : {{scheduleItem.comment | short : 40}}</div>
+                    </div>
+                </div>
+
+
+            </mat-card>
+        </div>
+        <div *ngIf="schedules.length ==0">There is no production schedule yet, please click the add button on the right.</div>
+
+    </mat-card> -->
+
+
+    <mat-card>
+        <div class="shipping-info-loop">
+            <div class="selected item-content margin-top" *ngIf="item  && item?.shipping_method == 'air'">Air Shipping Schedule
+                <b class="add-shipped-button" (click)="addShippingInfoDialog()" *ngIf="ownCompany">+</b>
+            </div>
+            <div class="selected item-content margin-top" *ngIf="item  &&  item?.shipping_method != 'air'">Ocean Freight Shipping Schedule
+                <b class="add-shipped-button" (click)="addShippingInfoDialog()" *ngIf="ownCompany">+</b>
+            </div>
+            <div class="nopadding">
+                <div class="items-list-id">
+                    <div class="selected item-content">#</div>
+                </div>
+                <div class="items-list-qty">
+                    <div class="selected item-content">QTY</div>
+                </div>
+                <div class="items-list-container">
+                    <div class="selected item-content" *ngIf="item  && item?.shipping_method == 'air'">Flight#</div>
+                    <div class="selected item-content" *ngIf="item  && item?.shipping_method != 'air'">Container#</div>
+                </div>
+                <div class="items-list-date">
+                    <div class="selected item-content">Shipping Date</div>
+                </div>
+                <div class="items-list-date">
+                    <div class="selected item-content">ETA Date</div>
+                </div>
+                <div class="items-list-num">
+                    <div class="selected item-content">REF</div>
+                </div>
+            </div>
+            <div class="shipCardContainer" (scroll)="onMouseWheel($event)">
+                <div class="nopadding shippingListCard" *ngFor="let shipping of shippingInfos?.data; let i=index;">
+                    <div class="background_color" (click)="onSelectedShippingInfo(shipping, i)" routerLink="updateshippedinfo/{{shipping.id}}">
+                        <div class="items-list-id loop">
+                            <b class="unread-dot" *ngIf="shipping.is_unread">111</b>
+                            <div *ngIf="shipping?.index" class="item-content">{{shipping.index}}</div>
+                        </div>
+                        <div class="items-list-qty loop">
+                            <div class="item-content">{{shipping.quantity | number}}</div>
+                        </div>
+                        <div class="items-list-container loop">
+                            <div class="item-content">{{shipping.container_number | short}}</div>
+                        </div>
+                        <div class="items-list-date loop">
+                            <div class="item-content">{{shipping.vessel_date | amDateFormat : 'MM/DD/YYYY' }}</div>
+                        </div>
+                        <div class="items-list-date loop">
+                            <div class="item-content">{{shipping.eta_date | amDateFormat : 'MM/DD/YYYY' }}</div>
+                        </div>
+
+                        <div class="items-list-num loop btn-center">
+                            <div class="item-content" >{{shipping.glk_number | short : 8}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="shippingInfos?.data.length === 0">There is no shipping info yet, please click the add button on the right.</div>
+        </div>
+
+        <!-- <div style="padding:0px !important" *ngIf="shippingInfos?.data.length > 0 && shippingInfos?.data[0]?.actual_arrive_date"> -->
+        <div style="padding:0px !important" *ngIf="shippingInfos?.data.length > 0">
+            <div class="selected-2 item-content margin-top">
+                <b>Actual Arrival Date to Port</b>
+            </div>
+            <div class="margin-top arrive-date-container min-height">
+                <div class="arrive-date" *ngFor="let info of shippingInfos?.data; let i = index">
+                    <div *ngIf="info.actual_arrive_date">
+                        <label class="arrive-right" [ngClass]="{'arriveLateBackground':evaluateLate(info)}">#{{i + 1}}</label>
+                        <span class="arrive-data" [ngClass]="{'arriveLateData':evaluateLate(info)}">{{info.actual_arrive_date | amDateFormat : 'MM/DD/YYYY'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    
+    <shipping (sendWheel)="onReceiveWheel($event)" [title]="'Customs Clearance'" [shippingType]="2" [item]="item" [shippingInfos]="clearanceShippingInfos"
+        [title2]="'Actual Clearance Finish Date'" [ownCompany]="ownCompany" [companyId]="companyId" [itemId]="itemId"></shipping>
+
+    <shipping (sendWheel)="onReceiveWheel($event)" [title]="'Ground Shipping'" [shippingType]="3" [item]="item" [shippingInfos]="groundShippingInfos"
+        [title2]="'Actual Arrival Date to Destination'" [ownCompany]="ownCompany" [companyId]="companyId" [itemId]="itemId"></shipping>
+
+    <shipping (sendWheel)="onReceiveWheel($event)" [title]="'Recevied Shipping'" [shippingType]="4" [item]="item" [shippingInfos]="finishShippingInfos"
+        [title2]="'Received Shipping'" [ownCompany]="ownCompany" [companyId]="companyId" [itemId]="itemId"></shipping>
+
+    <mat-card>
+        <div class="selected item-content margin-top">Notes Topics
+            <b class="add-shipped-button" routerLink="notes/notesSubject/newNotesSubject">+</b>
+        </div>
+        <div class="notes-container">
+            <div *ngFor="let notes_subject of item?.notes_subjects; let i = index;">
+                <mat-card class="note" *ngIf="i<3" routerLink="notes/notesSubject/notesSubjectDetail/{{notes_subject.id}}">
+                    <div class="row">
+                        <div class="col-1" *ngIf="getFirstImg(notes_subject.description)">
+                            <img class="note-img" [src]="getFirstImg(notes_subject.description)" style="width:34px;height:34px" alt="">
+                        </div>
+                        <div class="col-5">
+                            <b class="note-description">{{notes_subject.name | short : '30'}}</b>
+                        </div>
+                    </div>
+
+                    <!-- <div class="note-date">{{notes_subject.created.at | local | amDateFormat : 'MM/DD/YYYY h:mm a'}}</div> -->
+                    <div class="note-comment">comment({{notes_subject?.notes.length}})</div>
+                    <div class="time">
+                        <img *ngIf="notes_subject.created.by.avatar_url" [src]="notes_subject.created.by.avatar_url" width="20px" style="border-radius:50%;">
+                        <span *ngIf="!notes_subject.created.by.avatar_url" class="shorthand">{{notes_subject.created.by.first_name?.charAt(0) | uppercase}}{{notes_subject.created.by.last_name?.charAt(0)
+                            | uppercase}}</span>
+                        <span>{{notes_subject.created.by.first_name}} {{notes_subject.created.by.last_name}} {{notes_subject.created.at
+                            | amDateFormat : 'MM/DD/YYYY h:mm a' }}</span>
+                    </div>
+                </mat-card>
+            </div>
+            <span class="readmore" routerLink="notes/notesSubject">Read More</span>
+        </div>
+    </mat-card>
+
+    <mat-card>
+
+        <div class="selected item-content margin-top">Attachments
+            <b class="add-shipped-button" *ngIf="!selectedFolderStatus && !item.public" (click)="addAttachementDialog()">+</b>
+            <b class="add-shipped-button" *ngIf="selectedFolderStatus" (click)="addAttachementDialog()">+</b>
+        </div>
+
+        <div class="certification">
+            <img *ngIf="!showFolder" class="note-img" src="assets/images/icons/folder.png" style="width:19px;height:19px" alt="">
+            <b *ngIf="!showFolder">
+                &nbsp;
+                <i class="material-icons">keyboard_arrow_right</i>
+                &nbsp;
+            </b>
+            <b>{{selectFolderName}}</b>
+        </div>
+
+        <div class="attach-row" *ngIf="showFolder">
+            <div class="attachment" *ngFor="let attachment of nonCategoryAttachArr; let j = index;">
+                <div class="each-item" (click)="showFiles(attachment[0], attachment)">
+                    <div class="unread" *ngIf="attachment[1].length && attachment[1].length - 1 != 0">
+                        <b>{{attachment[1].length - 1}}</b>
+                    </div>
+                    <img class="note-img" [src]="getIconImg(attachment)" style="width:34px;height:34px" alt="">
+                </div>
+                <div class="each-item">
+                    {{attachment.name | short : 10}}
+                </div>
+            </div>
+            <div class="attachment" [class.remove]="!attachment[0]" *ngFor="let attachment of item?.attachments;let i = index;">
+                <div style="box-sizing: border-box;width:100%;">
+                    <div class="each-item" (click)="showFiles(attachment[0], attachment)">
+                        <div class="unread" *ngIf="attachment[1].length && attachment[1].length - 1 != 0">
+                            <b>{{attachment[1].length - 1}}</b>
+                        </div>
+                        <img class="note-img" src="assets/images/icons/folder.png" style="width:34px;height:34px" (click)="showFiles(attachment[0], attachment)"
+                            alt="">
+                        <b class="unread-number" *ngIf="getUnread(attachment)">{{getUnread(attachment)}}</b>
+                    </div>
+
+                    <div class="each-item">
+                        {{attachment[0] | short : 10}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="attach-row" *ngIf="!showFolder">
+            <div class="attachment" (click)="backToFolder()">
+                <div class="each-item">
+                    <img class="note-img" src="assets/images/icons/folder_level_up.png" style="width:34px;height:34px" alt="">
+                </div>
+
+                <div class="each-item">
+                    <b>Go Back</b>
+                </div>
+            </div>
+
+            <div class="attachment" *ngFor="let attachment of selectAttachmentArr;let i = index;" [class.remove]="attachment.name =='upload_level_up.png'">
+                <div class="each-item" (click)="onClickAttachment(attachment, i)">
+                    <img class="note-img" [src]="getIconImg(attachment)" style="width:34px;height:34px" alt="">
+                </div>
+
+                <div class="each-item">
+                    <b>{{attachment.name | short : 10}}</b>
+                    <b class="unread-mark" *ngIf="attachment.unread"></b>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <div *ngIf="modalOpen && selectedAttachment">
+        <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
+            <div *ngIf="selectedAttachment" class="attachment-product-content">
+                <p>Comment: {{selectedAttachment.comment}}</p>
+                <button mat-raised-button *ngIf="selectedAttachment.description && !selectedAttachment.description.includes('image')" (click)="onDownload(selectedAttachment)">Download</button>
+                <div class="div1">Created By:{{selectedAttachment.created.by.first_name}} {{selectedAttachment.created.by.last_name}}</div>
+                <div class="div2">{{selectedAttachment.created.at}}</div>
+            </div>
+        </app-img-modal>
+    </div>
+
+    <div *ngIf="modalOpen && selectProductPic">
+        <app-img-modal [imgSrc]="item?.product?.images?.length > 0 ? item.product.images[0].url :  'assets/images/bottle.jpg'" (modalClose)="closeModal()">
+        </app-img-modal>
+    </div>
+
+    <div class="margin-top"></div>
+    <div class="bottom-ban" style="height:200px"></div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

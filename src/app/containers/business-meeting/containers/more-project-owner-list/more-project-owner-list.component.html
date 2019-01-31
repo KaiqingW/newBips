@@ -1,0 +1,28 @@
+<div class="whole-project" *ngIf="project">
+    <div class="project-card-margin">
+        <subject-content [name]="project?.name" [description]="project?.description" [createdTime]="project?.created?.at">
+            <!-- <mat-icon *ngIf="superPermission" routerLink="edit-project" style="position: absolute; top: 2px; color:green; font-size: 30px;">edit</mat-icon>                                                 -->
+            
+            <!-- <mat-icon *ngIf="superPermission" (click)="deleteProject()" style="position: absolute; color:brown; right:15px; top:2px; font-size: 30px;">delete</mat-icon>                 -->
+        </subject-content>
+    </div>
+</div>
+
+<div class="users" *ngIf="project">  
+    <div class="current-users-title" *ngIf="project?.owners.length > 0"><h3>All Project Owners</h3></div>  
+    <mat-card *ngFor="let user of project?.owners" class="user-content">
+            <div class="company-logo">
+                <avatar-logo
+                    [url]="user?.avatar_url" 
+                    [userFirstName]="user.first_name" 
+                    [userLastName]="user.last_name" 
+                    [userId]="user?.user_id">
+                </avatar-logo>
+            </div>
+            <div class="user-name">
+                <span><b>{{user.first_name}} {{user.last_name}}</b></span><br>
+                <span class="user-email">{{user?.email}}</span>
+            </div>
+  
+    </mat-card>
+  </div>

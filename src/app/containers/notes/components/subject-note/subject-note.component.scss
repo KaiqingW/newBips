@@ -1,0 +1,90 @@
+mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}
+mat-card.subject-card {
+    min-height: 60px;
+}
+
+mat-card {
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.subject-name {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.note-time-updated {
+    color: #B7B7B7;
+    font-size: 12px; 
+    margin-top: 5px;  
+}
+
+.comment-time-updated{
+    color: #B7B7B7;
+    font-size: 12px; 
+    margin-top: 5px;  
+}
+
+.comment-body{
+    color:#000000;
+}
+.comment-blod{
+    font-weight: bold;
+}
+.header-image::ng-deep{
+    app-profile-picture{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 30px;
+        height: 30px;
+    }
+    .shorthand{
+        font-size: 20px !important;
+    }
+}
+.add-a-comment{
+    height:55px;
+    display:block;
+    position: fixed;
+    width:100%;
+    bottom:0px;
+    background-color:#fff;
+}
+
+.add-comment-btn{
+    position: fixed;
+    width:80%;
+    bottom:10px;
+    padding:10px 10px;
+    background-color:#eeeeee;
+    color:gray;
+    margin-left: 8%;
+    border-radius:10px;
+    text-decoration: none;
+}
+
+.icon {
+    color: #B7B7B7;
+    position: absolute;
+    bottom:20px;
+    right: 5px;
+    top: 1px;
+}
+
+.comments-number{
+    font-size:12px;
+    color:#918787;
+    margin:7px 14px;
+}
+.comment-area{
+    margin-bottom:50px;
+}

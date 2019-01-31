@@ -1,0 +1,26 @@
+<mat-card class="panel-card company-products" *ngIf="address">
+    <h3>{{title}}</h3>
+    <hr>
+    <div class="row">
+        <b>Street 1&nbsp;:&nbsp;</b>
+        <span>{{address.street1}}</span>
+    </div>
+    <div class="row" *ngIf="address.street2">
+        <b>Street 2&nbsp;:&nbsp;</b>
+        <span>{{address.street2}}</span>
+    </div>
+    <div class="row">
+        <b>City&nbsp;:&nbsp;</b>
+        <span>{{address.city}}</span>
+    </div>
+    <div class="row">
+        <div class="col-1">
+            <b>State&nbsp;:&nbsp;</b>
+            <span>{{address.state}}</span>
+        </div>
+        <div class="col-1">
+            <b>Zipcode&nbsp;:&nbsp;</b>
+            <span>{{address.zipcode}}</span>
+        </div>
+    </div>
+</mat-card>

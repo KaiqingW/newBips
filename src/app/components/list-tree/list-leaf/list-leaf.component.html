@@ -1,0 +1,36 @@
+<ul *ngFor="let item of list;index as i;">
+    <li *ngIf="item?.name" >
+        <span class="indent-span" [ngStyle]="getIndent(item)"></span>
+        <i class="material-icons" (click)="open(i)" *ngIf="(item?.children?.length > 0) && !checkChildren(i)"> arrow_right </i>
+        <i class="material-icons" (click)="close(i)" *ngIf="(item?.children?.length > 0) && checkChildren(i)"> arrow_drop_down </i>
+        <input name="category_radio" id="item.id" type="radio" (click)="onSelectRadio(item)">
+        <span class="txt-span" *ngIf="!editItem || (editItem != item)">{{item.name}}</span>
+        <form [formGroup]="editForm" *ngIf="editItem == item">
+            <input type="text" formControlName="name" required>
+        </form>
+        <div class="icon-bar">
+            <i *ngIf="!editItem || (editItem != item)" (click)="onAddCategory(item, i)" class="material-icons">
+                add_circle_outline
+            </i>
+            <i *ngIf="!editItem || (editItem != item)" class="material-icons" (click)="onEditCategory(item)">
+                edit
+            </i>
+            <button (click)="onSaveEditForm(item)" *ngIf="editItem && editItem == item">Save</button>
+            <i class="material-icons" (click)="onDropCategory(item)">
+                remove_circle_outline
+            </i>
+        </div>
+
+    </li>
+
+    <li *ngIf="!(item?.name)">
+        <span class="indent-span" [ngStyle]="getInputIndent(item)"></span>
+        <input type="text" required style="width:100px;" [(ngModel)]="category">
+        <button (click)="saveCate(item)">Save</button>
+        <i (click)="deleteCate(i)" class="material-icons">
+            remove_circle_outline
+        </i>
+    </li>
+
+    <app-list-leaf *ngIf="item?.children && checkChildren(i)" (sendCategory)="onGetCate($event)" [list]="item.children" (sendRadio)="onGetRadio($event)"></app-list-leaf>
+</ul>

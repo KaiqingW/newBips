@@ -1,0 +1,193 @@
+:host {
+    width: 100%;
+}
+
+.whole-subject {
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    .prev-meeting {
+        margin-top: 2px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 22px;
+        padding-top: 2px;
+    }
+
+    .prev-project {
+        text-align: center;
+        padding-bottom: 2px;
+        background-color: #fff;
+    }
+
+    .curr-meeting-subject {
+        margin-top: 2px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 22px;
+        padding-top: 2px;
+    }
+
+    .subject-card-margin{
+        margin-bottom: 3px;
+
+        .content-card {
+            // margin-top: -4%;
+            padding-bottom: 16px !important;
+            border-top:0.5px solid lightgray;
+            
+            .subject-list{
+                // border-top:0.5px solid lightgray;
+                margin-top: -7%;
+                // padding:9px 4px 0px 8px;
+                
+                .subject_creater{
+                    float:left;
+                    padding:6px 2px ;
+                    // width:10%;
+                    height: 30px;
+                    margin-left: -3%;
+                    avatar-logo{
+                        width:30px;
+                        height:30px;
+                    }
+                }
+                .shared-contacts-admin{
+                    float:left;
+                    padding:6px 2px;
+                    // width:40%;
+                    height: 30px;
+                    margin-left:-1%;
+                    .contact-admin{
+                        line-height: 30px;
+                        display:inline-block;
+                        float:left;
+                        margin-left:5px;
+                    
+                        avatar-logo{
+                            width:30px;
+                            height:30px;
+                        }
+                    }
+                }
+                .separate {
+                    float:left;
+                    margin-left: 1%;
+                    font-size: 30px;
+                    margin-top: 2px;
+                }
+                // ng class
+                .shared-contacts-location {
+                    margin-right: 8%;
+                }
+                .shared-contacts{
+                    float:left;
+                    padding:6px 2px ;
+                    // width:41%;
+                    height: 30px;
+                    margin-left: -1%;
+                    .contact{
+                        line-height: 30px;
+                        display:inline-block;
+                        float:right;
+                        margin-left: 5px;
+                        
+                        avatar-logo{
+                            width:30px;
+                            height:30px;
+                        }
+                    }
+                }
+                .assign-button {
+                    width:10%;
+                    position: absolute;
+                    top: 9px;
+                    right: 25px;
+                    button {
+                        border: none;
+                        background-color: white;
+                    }
+                }
+            }
+        }
+        .operation-card {
+            padding-bottom: 12px !important;
+            border-top:0.5px solid lightgray;
+        }
+    }
+
+    .discussion {
+        margin-top: -2px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 22px;
+        padding-top: 2px;
+    }
+
+    .project {
+        margin-top: 2px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 22px;
+        padding-top: 2px;
+        
+        .add-button {
+            float: right;
+            // text-align: center;
+            // background-color: #FFFFFF;
+            // display:inline-block;
+            color:#FFFFFF;
+            // border-radius: 4px;
+            // height:20px;
+            line-height: 20px;
+            vertical-align: middle;
+            font-size: 40px;
+            margin-right: 10px;
+        }
+    }
+
+    .blank-discussion-board {
+        text-align: center;
+        height: 15px;
+    }
+}
+
+.operation-bar {
+    height: 55px;
+    position: fixed;
+    width:100%; 
+    bottom:10px;
+    // background-color:#fff;
+    text-align: center;
+    .meeting-button{
+        // width:70%;
+        box-sizing: border-box;
+        bottom:10px;
+        padding:10px 10px;
+        // background-color:#eeeeee;
+        // color:gray;
+        color: #fff;
+        background-color: #15305A;
+        margin-left: 5%;
+        margin-right: 5%;
+        border-radius:10px;
+        text-decoration: none;
+    }
+
+    .new-meeting-button {
+        width:70%;        
+    }
+}
+
+.blank-dev {
+    height: 20%;
+}

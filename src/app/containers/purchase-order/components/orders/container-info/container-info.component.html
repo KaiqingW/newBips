@@ -1,0 +1,107 @@
+<div class="orders-header" id="orders-header">
+    <div class="orders-title">
+        <b>Container #</b>
+    </div>
+    <div class="orders-title">
+        <b>Est Begin</b>
+    </div>
+    <div class="orders-title">
+        <b>Est End</b>
+    </div>
+    <div class="orders-title">
+        <b>Actual Date</b>
+    </div>
+    <div class="orders-title">
+        <b>Status</b>
+    </div>
+</div>
+
+
+
+<!-- <div *ngIf="containers" (scroll)="onMouseWheel($event)" id="content2" class="product-info-loop"> -->
+<div *ngIf="containers" (scroll)="onMouseWheel($event)" id="content2" class="product-info-loop">
+    <!-- <mat-card *ngIf="lastPageUrl" (click)="previousPage()" class="pagination">
+        <b>
+            Page : {{currentPage}} / {{lastPageNumber}}
+            Click Here For Previous Page
+        </b>
+        <i class="material-icons">
+            arrow_drop_up
+        </i>
+    </mat-card> -->
+
+    <mat-card class="order-list-card" [style.height]="isExpand(container) ? 'auto' : 'auto'" *ngFor="let container of containers"
+        [class.selected]="container == selectedContainer" (click)="selectContainer(container)">
+        <div class="orders-container">
+            <div class="orders-list">
+                <b (click)="setCust(order)">{{container?.container_number}}</b>
+            </div>
+            <div class="orders-list">
+                <div>
+                    <b *ngIf="container.vessel_date">{{container?.vessel_date | amDateFormat : 'MM/DD/YYYY'}}</b>
+                    <b *ngIf="!container.vessel_date">N/A</b>
+                </div>
+            </div>
+
+            <div class="orders-list">
+                <div>
+                    <b *ngIf="container?.eta_date">{{container?.eta_date | amDateFormat : 'MM/DD/YYYY'}}</b>
+                    <b *ngIf="!container?.eta_date">N/A</b>
+                </div>
+            </div>
+
+            <div class="orders-list">
+                <div>
+                    <b *ngIf="container?.actual_arrive_date">{{container?.actual_arrive_date | amDateFormat : 'MM/DD/YYYY'}}</b>
+                    <b *ngIf="!container?.actual_arrive_date">N/A</b>
+                </div>
+            </div>
+
+            <div class="orders-list-btn">
+                <button class="btn-primary right" *ngIf="container?.type">{{container_status[container.type - 1]}} </button>
+            </div>
+        </div>
+        <div style="background-color:#eee">
+            <orders-items-card *ngIf="(clickedContainer == container) && container?.items" (sendOrder)="onGetOrder($event)" (sendNav)="navToStatus($event)"
+                [status]="status" [items]="container.items" [company_id]="company_id"></orders-items-card>
+        </div>
+
+        <div class="share-bar">
+            <i class="material-icons icon" (click)="open($event, container)">
+                {{ clickedContainer == '' || clickedContainer != container ? "keyboard_arrow_down" : "keyboard_arrow_up" }}
+            </i>
+        </div>
+
+    
+        <!-- shared list -->
+        <!-- <div class="shared-image-list">
+            <div class="share-info-row">
+                <div class="shared-images">
+                    <app-profile-picture [url]="order?.created?.by?.avatar_url" [userFirstName]="order?.created?.by?.first_name" [userLastName]="order?.created?.by?.last_name"
+                        [userId]="order?.created?.by?.id">
+                    </app-profile-picture>
+                    <div *ngFor="let sharedUser of order.shared_with" class="shared-profile-picture">
+                        <app-profile-picture [url]="sharedUser?.avatar_url" [userFirstName]="sharedUser?.first_name" [userLastName]="sharedUser?.last_name"
+                            [userId]="sharedUser?.id">
+                        </app-profile-picture>
+                    </div>
+                </div>
+            </div>
+            <i class="material-icons icon" (click)="open($event, order)">
+                {{ openOrder == '' || openOrder != order ? "keyboard_arrow_down" : "keyboard_arrow_up" }}
+            </i>
+        </div> -->
+
+    </mat-card>
+    <div style="box-sizing: border-box;width:100%;height:150px;"></div>
+    <!-- <mat-card *ngIf="nextPageUrl" (click)="nextPage()" class="pagination">
+
+        <b>
+            Page : {{currentPage}} / {{lastPageNumber}}
+            Click Here For Next Page
+        </b>
+        <i class="material-icons">
+            arrow_drop_down
+        </i>
+    </mat-card> -->
+</div>

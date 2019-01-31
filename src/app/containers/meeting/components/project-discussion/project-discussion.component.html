@@ -1,0 +1,199 @@
+<div *ngIf="subjectNote">
+    <div #nameInput>
+        <!-- <mat-card class="subject-card" >
+            <div class="subject-name">
+                <p>{{subjectNote.subject?.name}}</p>
+            </div>
+        </mat-card> -->
+
+        <mat-card >  
+            <!-- <mat-card-header>
+                <div mat-card-avatar class="header-image"> 
+                    <app-profile-picture 
+                        [url]="subjectNote?.created.by.avatar_url" 
+                        [userFirstName]="subjectNote?.created.by.first_name"
+                        [userLastName]="subjectNote?.created.by.last_name"
+                        [userId]="subjectNote?.created.by.id">
+                    </app-profile-picture>
+                </div>
+                <mat-card-title>{{subjectNote?.created.by.first_name}} {{subjectNote?.created.by.last_name}}</mat-card-title>
+                <mat-card-subtitle>{{subjectNote?.created.at| local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</mat-card-subtitle>
+            </mat-card-header>  -->
+            <!-- <b>Description</b><br>                 -->
+            <!-- <b><div class="note-name" [innerHTML]="subjectNote?.body"></div></b> -->
+            
+            
+            <div class="project-name">
+                <b><p>{{subjectNote?.name}}</p></b>
+            </div>
+            <hr>
+
+            <div *ngIf="subjectNote?.type == 'project'">
+                <div  class="project-container" *ngFor= "let note of subNotes; let i = index">
+                    <div class="col-1" *ngIf="note?.img">
+                        <img (click)="openProjectModal()" [src]="note?.img" style="width:75px;height:75px;;margin-right:16px" alt="note?.img">
+                        <div *ngIf="projectModalOpen">
+                            <app-img-modal img [imgSrc]="note?.img" (modalClose)="closeModal()"></app-img-modal>
+                        </div>      
+                    </div>
+                    
+                    <div class="col-3"> 
+                        <div class="pre-container"></div>
+                        <!-- <p style="text-align: left">{{note?.text}}</p> -->
+                        <read-more style="text-align: left" [text]="note.text"></read-more>
+                        
+                    </div>
+                
+                </div>  
+            </div>
+            <div class="note-time-updated">
+                <p>Last updated by: {{subjectNote?.updated.by.first_name}} {{subjectNote?.updated.by.last_name}} at {{subjectNote?.updated.at | local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</p>               
+            </div>
+        </mat-card>
+
+        <!-- <div class="shared-image-list" *ngIf="subjectNote?.type == 'project'">                
+            <div class="share-info-row">
+            <div class="shared-owner">
+                <div class="shared-profile-picture" *ngFor="let owner of subjectNote?.owner">
+                    <app-profile-picture 
+                        [url]="owner.avatar_url" 
+                        [userFirstName]="owner.first_name"
+                        [userLastName]="owner.last_name" 
+                        [userId]="owner.id">
+                    </app-profile-picture>
+                </div>
+            </div>
+
+            <div class="shared-images">
+                <div class="shared-profile-picture" *ngFor="let user of nextSubjectSharedUserList">
+                    <app-profile-picture 
+                        [url]="user.avatar_url" 
+                        [userFirstName]="user.first_name" 
+                        [userLastName]="user.last_name" 
+                        [userId]="user.id">
+                    </app-profile-picture>
+                </div>
+            </div>
+            </div>
+        </div> -->
+
+        <!-- <mat-card class="note-status" *ngIf="subjectNote?.type == 'project'">
+            <div class="status-content">
+                <div class="status-bar">
+                    <progress-bar [possibility]="subjectNote?.complete"></progress-bar> 
+                    <deadline-bar *ngIf="subjectNote?.duration_time" [leftTime]="leftTime" [durationTime]="subjectNote?.duration_time"></deadline-bar>                       
+                </div>
+                <span *ngIf="subjectNote?.duration_time" class="duration-time">{{subjectNote?.duration_time}} days</span>
+            </div>
+        </mat-card> -->
+
+        <!-- <mat-card class="target-date">
+            <div><b>Target Date</b> : 2018-06-15</div>
+            <div>
+                
+            </div>
+            <div><b>TLR</b> : <span class="performance">R</span></div>
+        </mat-card> -->
+
+        <!-- <div class="comments-number"><span>{{subjectNote?.comments.length}} TeamMember Feedback</span></div> -->
+
+        <div class="discussion-number" *ngIf="subjectNote?.type == 'project'"><span><b>Comments</b></span></div>           
+        <div class="discuss-area" *ngIf="subjectNote?.type == 'project'">
+            <mat-card *ngFor="let discussion of discussionArr">
+                <mat-card-header>
+                    <div mat-card-avatar class="header-image"> 
+                        <app-profile-picture 
+                            [url]="discussion?.created.by.avatar_url" 
+                            [userFirstName]="discussion?.created.by.first_name"
+                            [userLastName]="discussion?.created.by.last_name"
+                            [userId]="discussion?.created.by.id">
+                        </app-profile-picture>
+                    </div>
+                    <mat-card-title>{{discussion?.created.by.first_name}} {{discussion?.created.by.last_name}}  <span class="comment-time-updated">{{discussion?.updated.at | local | amTimeAgo:true}}</span> </mat-card-title>
+                    <mat-card-subtitle  class="des-container" *ngFor= "let note of discussion?.body; let i = index">
+                        <div class="col-1" *ngIf="note.img">
+                            <img (click)="openCommentModal()" [src]="note.img" style="width:75px;height:75px;;margin-right:16px" alt="note.img">
+                            <div *ngIf="commentModalOpen">
+                                <app-img-modal img [imgSrc]="note.img" (modalClose)="closeModal()"></app-img-modal>
+                            </div>      
+                        </div>
+                        
+                        <div class="col-3"> 
+                            <div class="pre-container"></div>
+                            <!-- <p style="text-align: left">{{note.text}}</p> -->
+                            <read-more style="text-align: left" [text]="note.text"></read-more>
+                            
+                        </div>
+                       
+                    </mat-card-subtitle>  
+                    <mat-card-title class="update"> 
+                        <!-- <span class="comment-time-updated">{{comment?.updated.at | local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</span>  -->
+                        <span class="reply" (click)="addReply(discussion.id)">Reply</span>
+                    </mat-card-title>
+                    
+                </mat-card-header> 
+                <span *ngIf="discussion?.unread_records[0]" class="note-unread">{{discussion?.unread_records.length}}</span>                
+
+                <mat-card class="reply-card" *ngFor="let reply of discussion?.replies">
+                    <mat-card-header>
+                        <div mat-card-avatar class="header-image"> 
+                            <app-profile-picture 
+                                [url]="reply?.created.by.avatar_url" 
+                                [userFirstName]="reply?.created.by.first_name"
+                                [userLastName]="reply?.created.by.last_name"
+                                [userId]="reply?.created.by.id">
+                            </app-profile-picture>
+                        </div>
+                        <!-- <mat-card-title>{{comment?.created.by.first_name}} {{comment?.created.by.last_name}} <span *ngIf="comment.replied.to">@ {{comment?.replied.to.first_name}} {{comment?.replied.to.last_name}}</span> <span class="comment-time-updated">{{comment?.updated.at | local | amTimeAgo:true}}</span> </mat-card-title> -->
+                        <!-- <mat-card-title>{{comment?.created.by.first_name}} {{comment?.created.by.last_name}}  <span class="comment-time-updated">{{comment?.updated.at | local | amTimeAgo:true}}</span> </mat-card-title> -->
+                        <!-- <mat-card-title>{{comment?.created.by.first_name}} {{comment?.created.by.last_name}}  <span class="comment-time-updated">{{comment?.updated.at | local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</span> </mat-card-title> -->
+                        
+                        <mat-card-subtitle  class="des-container" *ngFor= "let note of reply?.body; let i = index">
+                            <div class="col-1" *ngIf="note.img">
+                                <img (click)="openReplyModal()" [src]="note.img" style="width:75px;height:75px;;margin-right:16px" alt="note.img">
+                                <div *ngIf="replyModalOpen">
+                                    <app-img-modal img [imgSrc]="note.img" (modalClose)="closeModal()"></app-img-modal>
+                                </div>      
+                            </div>
+                            
+                            <div class="col-3"> 
+                                <div class="pre-container"></div>
+                                <!-- <p style="text-align: left">{{note.text}}</p> -->
+                                <read-more style="text-align: left" [text]="note.text"></read-more>
+                                
+                            </div>
+                           
+                        </mat-card-subtitle>  
+
+                        <mat-card-title class="reply_update"> 
+                            <span class="comment-time-updated">{{reply?.updated.at | local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</span> 
+                        </mat-card-title>
+                        
+                        <!-- <mat-card-subtitle *ngIf="!comment.unread_records[0]" class="comment-body" [innerHTML]="comment?.body"></mat-card-subtitle> -->
+                        <!-- <mat-card-subtitle *ngIf="comment.unread_records[0]" class="comment-body comment-blod" [innerHTML]="comment?.body"></mat-card-subtitle> -->
+    
+                    </mat-card-header>   
+                    <span *ngIf="reply?.unread_records[0]" class="note-unread">{{reply?.unread_records.length}}</span>
+                    
+                </mat-card>
+            </mat-card>
+        </div>
+    </div>
+   
+    <div class="operation-bar">
+        <div class="add-a-comment" *ngIf="subjectNote?.type == 'project'">
+            
+            <!-- everyone of the meeting can add discussion -->
+            <div class="add-comment-btn-full" (click)="addDiscussion()">Add Discussion</div>                        
+            
+        </div>                
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<!-- <div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="imgSrc" (modalClose)="closeModal()"></app-img-modal>
+</div> -->

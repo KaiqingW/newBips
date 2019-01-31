@@ -1,0 +1,89 @@
+body {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a.active {
+    color: rgba(0,0,0,.87);
+}
+
+#calendar-container {
+    width: 100%;
+}
+
+.calendar-days {
+    width: 12vw;
+    height: 12vw;
+    box-sizing: border-box;
+    border: 1px solid #dee2e6;
+    border-collapse: collapse;
+    sup{
+        position: relative;
+        top:-12px;
+    }
+
+}
+
+.inactive {
+    // background-color:#d3d3d3;
+    // background-color: #dee2e6;
+}
+.material-icons{
+    border: 1px solid #dee2e6;
+}
+
+.today {
+    color: #0c5460;
+    background-color: #d1ecf1;
+}
+
+.reserved {
+    color: blueviolet;
+}
+.flex-center{
+    justify-content: center;
+    align-items: center;
+}
+.flex-column{
+    flex-direction: column;
+}
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    .height-20px{
+        height:20px;
+    }
+    .width-5{
+        width:5vw;
+    }
+    .flex-center-horz{
+        flex-direction: row;
+        justify-content:center;
+    }
+}
+.title{
+    background-color: #0062cc;
+    color:white;
+}
+.width-90{
+    width:90%;
+}
+.center{
+    align-items: center;
+
+}
+.circle{
+    width:14px;
+    height:14px;
+    color:white;
+    background-color:#FF4136;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 14px;
+}
+
+.selected {
+    // background: peru;
+    border:1px solid #0062cc;
+    opacity: 0.6;
+}

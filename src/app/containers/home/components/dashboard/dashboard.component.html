@@ -1,0 +1,28 @@
+<div *ngIf="!isLoading" class="container">
+        <div class="icons">
+                <icon [icon]="'business'" [name]="'Business'" [link]="'show-company'" [url]="'assets/images/icons/business.jpg'"></icon>
+                <icon [icon]="'setting'" [name]="'Profile Edit'" [link]="'setting/profile'" [url]="'assets/images/testimg/company-setting.png'"></icon>
+                <!-- <icon [icon]="'chat'" [name]="'Chat'" [link]="'soon'" [url]="'assets/images/testimg/orgchart.png'"></icon> -->
+                <icon [icon]="'shop-order'" [name]="'Orders'" [link]="'shop-order'" [url]="'assets/images/icons/shopOrder.jpeg'"></icon>
+                <a *ngIf="if_web" href="http://orcasmart.shop" target="_top">
+                        <icon style="margin-right: -10px; margin-left: 30px;" [icon]="'shop'" [name]="'Shop'" [url]="'assets/images/testimg/app-center.png'"></icon>
+                </a>
+                <a *ngIf="!if_web" href="http://www.orcasmart.co">
+                        <icon style="margin-right: -10px; margin-left: 30px;" [icon]="'shop'" [name]="'Shop'" [url]="'assets/images/testimg/app-center.png'"></icon>
+                </a>
+                <icon [icon]="'contact_phone'" [name]="'Contacts'" [link]="'contacts/contactList'" [url]="'assets/images/testimg/contact.png'"></icon>
+                <!-- <icon [icon]="'weather'" [name]="'Weather'" [link]="'weather'" [url]="'assets/images/testimg/weather.png'"></icon> -->
+                <!-- <icon [icon]="'mysports'" [name]="'My Sports'" [link]="'soon'" [url]="'assets/images/testimg/showcase.png'"></icon> -->
+                <icon [icon]="'filebox'" [name]="'Filebox'" [link]="'filebox'" [url]="'assets/images/testimg/Filebox.png'"></icon>
+                <icon [icon]="'note'" [name]="'Notes'" [link]="'notes/subject'" [url]="'assets/images/testimg/note.jpg'"></icon>
+                <!-- <icon [icon]="'meeting'" [name]="'Meeting'" [link]="'personal-meeting/meeting/subject'" [url]="'assets/images/icons/expo.jpg'"><div *ngIf="unreadSubject > 0" class="bubble">{{unreadSubject}}</div></icon> -->
+
+                <icon *ngIf="isPPIEmployee" [icon]="'vendor'" [name]="'Vendor'" [link]="'company/237/vrm/main-vendor/1'" [url]="'assets/images/testimg/VRM_f1.png'"></icon>
+
+        </div>
+        <button mat-raised-button color="warn" class="logout-btn" (click)="logout()">Logout</button>
+</div>
+
+<div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+</div>

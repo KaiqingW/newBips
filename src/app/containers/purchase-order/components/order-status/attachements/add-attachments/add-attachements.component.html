@@ -1,0 +1,82 @@
+<h2 mat-dialog-title style="text-align:center;">
+    Add Attachement</h2>
+<form [formGroup]="attachmentForm">
+    <!-- <div class="row" *ngIf="!selectFolderName">
+                <div class="col" style="text-align:center !important;">
+                    <b>Choose Type:</b>
+                </div>
+                 <div class="col-2">
+                     <select style="display: inline-block;width: 100%;" name="" id="" *ngIf="!selectFolderName" formControlName="choose" [(ngModel)]="choose">
+                        <option value="none"></option>
+                        <option value="folder" selected="selected">Add Folder</option>
+                        <option value="file">Add File</option>
+                    </select>
+                </div>
+        </div> -->
+
+    <div class="row" *ngIf="((choose == 'folder')) || selectFolderName">
+        <div class="col" style="text-align:center !important;">
+            <b>Folder Name:</b>
+        </div>
+        <div class="col-2">
+            <input style="display: inline-block;width: 100%;" *ngIf="selectFolderName" [readonly]="selectFolderName !== ''" [(ngModel)]="selectFolderName"
+                type="text" formControlName="folder" placeholder="Folder Name." required>
+            <input style="display: inline-block;width: 100%;" *ngIf="!selectFolderName" type="text" formControlName="folder" placeholder="Folder Name."
+                required>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="((choose == 'folder')) || selectFolderName">
+        <div class="col" style="text-align:center !important;">
+            <b>Visible to Customer:</b>
+        </div>
+        <div class="col-2">
+            <span *ngIf="selectFolderName" >{{edit_mode == 1 ? 'Visible' : 'Not Visible'}}</span>
+            <!-- <input style="display: inline-block;width: 100%;" [readonly]="selectFolderName !== ''"
+                type="text" formControlName="public" placeholder="Visibility" required> -->
+            <select *ngIf="!selectFolderName" formControlName="public" name="" id="">
+                <option value=1>Visible</option>
+                <option *ngIf="!must_public" value=0>Not Visible</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="( (choose == 'file')) || selectFolderName">
+        <div class="col" style="text-align:center !important;">
+            <b>File Name:</b>
+        </div>
+        <div class="col-2">
+            <input style="display: inline-block;width: 100%;" type="text" formControlName="name" placeholder="File name is required."
+                required>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="( (choose == 'file')) || selectFolderName">
+        <div class="col" style="text-align:center !important;">
+            <b>Comment:</b>
+        </div>
+        <div class="col-2">
+            <textarea style="display: inline-block;width: 100%;" rows="4" formControlName="comment" placeholder="Comment for such file."
+                required></textarea>
+        </div>
+    </div>
+
+    <div class="row" [style.visibility]="(choose == 'file' || selectFolderName) ? 'visible' : 'hidden'">
+        <input class="file_input" id="file" type="file" formControlName="attachments" accept="image/*,application/msword, application/pdf,application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            (change)="onFileSelected($event)" #fileInput>
+    </div>
+
+    <div class="row" style="text-align: left;" *ngIf="choose == 'file'">
+        Please upload following files: Pdf, Image or Excel.
+    </div>
+</form>
+
+<mat-dialog-actions align="center">
+    <button mat-button class="mat-button" [mat-dialog-close] ="null">Cancel</button>
+    <button mat-button class="mat-button" [mat-dialog-close]="fd" (click)="onSave()" [disabled]="!((choose == 'file' && attachmentForm.value.name && selectedFile) || (choose == 'folder' && attachmentForm.value.folder) || (selectFolderName &&  attachmentForm.value.name && selectedFile) )">
+        {{choose == 'folder' ? 'Save Folder' :'Save File'}}
+    </button>
+</mat-dialog-actions>
+
+
+<app-spinner *ngIf="isLoading"></app-spinner>

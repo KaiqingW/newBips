@@ -1,0 +1,293 @@
+
+b{
+    font-size:15px;
+}
+.darkblue-bg{
+    background-color:#15305a;
+}
+.gray-bg{
+    background-color:gray;
+}
+.red-bg{
+    background-color:red;
+}
+.red{
+    color:red
+}
+
+.request-info {
+    font-size: 13px;
+
+    .bg-blue {
+        position: relative;
+        width: 100%;
+        height: 10%;
+        background-color: #ffffff;;
+        margin-top: -1%;
+        .product-picture{
+            width:100%;
+            height:75%;
+            display:inline-block;
+            text-align: center;
+            img{
+                position: relative;
+                width: 60px;
+                height: 60px;
+                background-color:#eeeeee;
+                border-radius:60px;
+                margin-top: -9%;
+                opacity: 1.0;
+                border: 1px solid lightgrey;
+            }
+        }
+    }
+
+    .item-name{
+        position: relative;
+        width:100%;
+        text-align: center;
+        color: #000000;
+        margin-top: 2%;
+        line-height: 18px;
+        .product-name {
+            font-size: 16px;
+        }
+        .product-name .description{
+            display:block;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        
+        }
+    }
+}
+
+
+.prodcut-image{
+    mat-card {
+        padding: 5px 0 5px 0;
+        margin-bottom: 1%;
+        .multi-pictures {
+            margin: 2%;
+        }
+        .multi-pictures-loop {
+            width: 100%;
+            height: 10%;
+            padding:0 2%;
+            box-sizing:border-box;
+            position: relative;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            .picture {
+                width: 17%;
+                margin:1% 1%;
+                display: inline-block;
+                img {
+                    opacity: 1.0;
+                    border: 1px solid darkgrey;
+                    border-radius: 60px;
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        }
+    }
+    
+}
+
+.product-info{
+    mat-card{
+        padding: 5px 0 5px 0;
+        margin-bottom: 1%;
+        .matcard-title{
+            margin: 2%;
+        }
+        .product-content{
+
+            .item-content{
+                // border:1px solid red;
+                margin: 0 0% 0 1%;
+                width: 48%;
+                position: relative;
+                line-height: 15px;
+                display: inline-block;
+                .item-title{
+                    height:22px;
+                    font-size:15px;
+                    line-height: 22px;
+                    position: relative;
+                    color:#ffffff;
+                    text-align: center;
+                    padding: 1%;
+                    border-radius: 5px;
+                    width: 35%;
+                    display: inline-block;
+                    border:1px solid #eeeeee;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .item-value{
+                    // border:1px solid black;
+                    height:22px;
+                    font-size:15px;
+                    line-height: 22px;
+                    display:inline-block;
+                    width:54%;
+                    background-color:#ffffff;
+                    padding: 1%;
+                    border-radius: 1px;
+                    border:1px solid #eeeeee;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+            }
+        }
+
+    }
+}
+
+.questions{
+    mat-card{
+        padding: 5px 0 5px 0;
+        margin-bottom: 1%;
+        .matcard-title{
+            margin: 2%;
+        }
+        .question-container{
+            .question-item{
+                margin: 0 0% 0 1%;
+                width: 96%;
+                position: relative;
+                line-height: 15px;
+                display: inline-block;
+                .item-content{
+                    width:100%;
+                    height:22px;
+                    font-size:15px;
+                    line-height: 22px;
+                    position: relative;
+                    background-color:gray;
+                    color:#ffffff;
+                    text-align: center;
+                    padding: 1%;
+                    border-radius: 5px;
+                    display: inline-block;
+                    border:1px solid #eeeeee;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .item-value{
+                    width:75%;
+                    height:22px;
+                    font-size:15px;
+                    line-height: 22px;
+                    display:inline-block;
+                    background-color:#ffffff;
+                    padding: 1%;
+                    border-radius: 1px;
+                    border:1px solid #eeeeee;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .disconut{
+                    text-align: center;
+                    width: 18%;
+                    height:22px;
+                    font-size:15px;
+                    line-height: 22px;
+                    display:inline-block;
+                    background-color:#ffffff;
+                    padding: 1%;
+                    border-radius: 1px;
+                    border:1px solid #eeeeee;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+        
+      
+    }
+}
+
+.notice{
+    mat-card{
+        padding: 5px 0 5px 0;
+        margin-bottom: 1%;
+        .matcard-title{
+            margin: 2%;
+        }
+        .notice-container{
+            .item-content{
+                // border:1px solid red;
+                margin: 0 0% 0 1%;
+                width: 98%;
+                position: relative;
+                line-height: 15px;
+                display: inline-block;
+                .item-title{
+                    height:22px;
+                    font-size:15px;
+                    line-height: 22px;
+                    position: relative;
+                    color:#ffffff;
+                    text-align: center;
+                    padding: 1%;
+                    border-radius: 5px;
+                    width: 35%;
+                    display: inline-block;
+                    border:1px solid #eeeeee;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .item-value{
+                    // border:1px solid black;
+                    text-align: center;
+                    height:22px;
+                    font-size:15px;
+                    line-height: 22px;
+                    display:inline-block;
+                    width:54%;
+                    background-color:#ffffff;
+                    padding: 1%;
+                    border-radius: 1px;
+                    border:1px solid #eeeeee;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+            }
+        }
+    }
+}
+
+.notes{
+    mat-card{
+        padding: 5px 0 5px 0;
+        margin-bottom: 1%;
+        .matcard-title{
+            margin: 2%;
+        }
+    }
+}
+
+.documents{
+    mat-card{
+        padding: 5px 0 5px 0;
+        margin-bottom: 1%;
+        .matcard-title{
+            margin: 2%;
+        }
+    }
+}
+

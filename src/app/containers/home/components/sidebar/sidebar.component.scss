@@ -1,0 +1,228 @@
+:host{
+    position: absolute;
+    z-index: 3;
+    left: 0px;
+    height: 100%;
+    min-width: 90px;
+    overflow: hidden;
+    border-radius: 0 5px 5px 0;
+    transition: width 0.1s;
+  }
+  
+  .statusbar-placeholder{
+    display: block;
+    position: relative;
+    height: 108px;
+  }
+  
+  .sidebar-body{
+    display: block;
+    // padding: 10px 10px;
+    position: relative;
+    height: calc(100% - 40px);
+    /* background-color: rgba(37,37,37,0.8); */
+    background-color: white;
+    // overflow: scroll;
+  }
+  
+  .sidebar-toggle{
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 3px;
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  
+  /*for toggling the class*/
+  
+  
+  :host{
+    width: 320px;
+    transition: 0.2s;
+  }
+  
+  :host.isSidebarOpen{
+    width: 300px;
+  }
+  
+  :host #close-sidebar{
+    display: none;
+  }
+  
+  :host #open-sidebar{
+    display: block;
+  }
+  
+  :host.isSidebarOpen #open-sidebar{
+    display: none;
+  }
+  
+  :host.isSidebarOpen #close-sidebar{
+    display: block;
+  }
+  
+  
+  .user-activities{
+    width:93%;
+    padding: 10px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    .head-line{
+      display: flex;
+      justify-content: space-between;
+      font-weight: 900;
+    }
+    .per-item{
+        width:100%;
+        padding: 6px 0px;
+        
+        span{
+            font-size:13px;
+            display:inline-block;
+            width:48%;
+        }
+        .item-left{
+            text-align:left;
+        }
+        .danger{
+            color:red;
+        }
+        .success{
+            color:green;
+        }
+        .item-middle{
+            text-align:center;
+        }
+        .item-right{
+            text-align:right;
+        }
+  
+    }
+    .item-bottom{
+        border-bottom: 0.5px solid #e5e5e5;
+    }
+    .display-chart{
+        width:100%;
+        img{
+            width:100%;
+        }
+    }
+  }
+  
+  .user-performance{
+    width:93%;
+    padding: 10px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    .head-line{
+      display: flex;
+      justify-content: space-between;
+      font-weight: 900;
+    }
+    .per-item{
+        width:100%;
+        padding: 6px 0px;
+        span{
+            font-size:13px;
+            display:inline-block;
+            width:48%;
+        }
+        .item-left{
+            text-align:left;
+            .danger{
+                color:red;
+            }
+  
+        }
+        .item-middle{
+            text-align:center;
+        }
+        .item-right{
+            text-align:right;
+            .success{
+                color:green;
+            }
+        }
+  
+    }
+    .item-bottom{
+        border-bottom: 0.5px solid #e5e5e5;
+    }
+    .display-chart{
+        width:100%;
+        img{
+            width:100%;
+        }
+    }
+  }
+  
+  .comission-expense{
+    width:93%;
+    padding: 10px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    .head-line{
+      display: flex;
+      justify-content: space-between;
+      font-weight: 900;
+    }
+    .per-item{
+        width:100%;
+        padding:2px;
+        height:32px;
+  
+        span{
+            font-size:11px;
+            display:inline-block;
+            overflow:hidden;
+        }
+        div{
+            float:left;
+            font-size:11px;
+            display:inline-block;
+            line-height: 20px;
+        }
+        .item-left{
+            text-align:left;
+            width:25%;
+            line-height: 20px;
+        }
+        .item-middle{
+            width:41%;
+  
+        }
+        .comission-title{
+            background-color:#143258;
+            color:#ffffff;
+            padding:2px 4px;
+            border:0.5px solid #e5e5e5;
+        }
+        .comission-value{
+            // background-color:#143258;
+            // color:#ffffff;
+            border:0.5px solid #e5e5e5;
+            padding:2px 4px;
+        }
+        .item-right{
+            width:30%;
+        }
+        .danger{
+            color:red;
+        }
+        .success{
+            color:green;
+        }
+       
+    
+    }
+    .item-bottom{
+        border-bottom: 0.5px solid #e5e5e5;
+    }
+  }
+  

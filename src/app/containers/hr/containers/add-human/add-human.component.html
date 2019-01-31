@@ -1,0 +1,68 @@
+<div class="human-tile-background"><img src="/assets/images/testimg/orb3.png"></div>
+
+<div class="human-title">
+        <div class="company-logo profile">
+            <img *ngIf="!data?.image" src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"> 
+            <img *ngIf="data?.image" [src]="data?.image">
+            <div class="overlay">
+                <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
+                <p>Upload Picture</p>
+            </div>
+        </div>
+    <form novalidate [formGroup]="humanForm">
+
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="First Name"  formControlName="first_name" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Last Name"  formControlName="last_name" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Gender"  formControlName="gender" >
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Birthday"  formControlName="date_of_birth" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Join Date"  formControlName="date_joined" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Details"  formControlName="details" >
+            </mat-form-field>
+            <div>Address: </div>
+            <div formGroupName="address">
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Street1"  formControlName="street1" >
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Street2"  formControlName="street2" >
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="City"  formControlName="city" >
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="State"  formControlName="state" >
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Zip Code"  formControlName="zipcode" >
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Country"  formControlName="country" >
+                </mat-form-field>
+
+            </div>
+            
+    </form>
+
+</div>
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>   
+</app-crop-modal>
+
+<pre>{{humanForm.value | json}}</pre>

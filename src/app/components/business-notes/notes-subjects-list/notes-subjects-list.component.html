@@ -1,0 +1,40 @@
+<div class="item-content">
+    Notes Subject Topics
+</div>
+<div class="notes-container" (scroll)="onMouseWheel($event)">
+    <mat-card class="note" (click)="onSelecedNote(notes_subject)" *ngFor="let notes_subject of notesSubjects;let i = index;">
+        <div class="row">
+            <div class="col-1" *ngIf="getFirstImg(notes_subject.description)">
+                <img class="note-img" [src]="getFirstImg(notes_subject.description)" style="width:34px;height:34px" alt="">
+            </div>
+            <div [ngClass]="{'col-5':getFirstImg(notes_subject.description), 'col-6':!getFirstImg(notes_subject.description)}">
+                <b class="note-description">{{notes_subject.name | short : 32}}</b>
+            </div>
+        </div>
+
+        <div class="notes-content">
+            <!-- <read-more style="text-align: left" [text]="note.text"></read-more> -->
+            <p [innerHTML]="getNoteContent(notes_subject.description)?.text" style="height:16px; overflow:hidden"></p>
+            <b class="unread_mark" *ngIf="notes_subject?.is_unread">unread</b>
+            <b class="unread_notes" *ngIf="notes_subject?.unread_notes">{{notes_subject.unread_notes}} Unread Notes</b>
+        </div>
+
+        <div class="note-bottom">
+            <div class="note-owner-avatar">
+                <i class="material-icons notVisibleToCustomer" *ngIf="!notes_subject?.public">
+                    visibility_off
+                </i>
+                <img *ngIf="notes_subject.created.by.avatar_url" [src]="notes_subject.created.by.avatar_url" width="20px" style="border-radius:50%;">
+            </div>
+            <div class="note-comment">
+                {{notes_subject.created.at | local | amDateFormat : 'MM/DD/YYYY h:mm a' }} comment({{notes_subject?.notes.length}})</div>
+
+            <!-- <div class="user-name">
+                        {{notes_subject?.created?.by?.first_name}} {{notes_subject?.created?.by?.last_name}}
+                    </div> -->
+
+        </div>
+    </mat-card>
+</div>
+
+<app-add-button routerLink="newNotesSubject"></app-add-button>

@@ -1,0 +1,90 @@
+<!-- <mat-sidenav-container class="sidenav-container" [class.desktop-reduce-sidenav-container-width]="isDesktop()"> -->
+<mat-sidenav-container class="sidenav-container " >
+  <mat-sidenav #sidenav mode="push" opened="false">
+    <div class="nav-container">
+      <div *ngIf="this.auth.orcaAuthenticated; else log_in">
+        <current-user [auth]="auth" [sidenav]="sidenav"></current-user>
+      </div>
+      <ng-template #log_in>
+
+        <mat-toolbar color="accent">
+            <mat-toolbar-row class="first-row">
+              <i class="material-icons mat-72">account_circle</i>
+              <a routerLink="/auth/login" class="authlink" (click)="sidenav.close()">SIGN IN</a>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+      </ng-template>
+
+      <mat-grid-list cols="3" rowHeight="100px" (click)="sidenav.close()">
+        <mat-grid-tile>
+          <icon [icon]="'home'" [name]="'home'" [link]="'home'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'note'" [name]="'Notes'" [link]="'notes/subject'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'assistant'" [name]="'Expo'" [link]="'expo'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'store'" [name]="'Store'" [link]="'store'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'import_contacts'" [name]="'Showcase'" [link]="'showcase'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'contact_phone'" [name]="'Contacts'" [link]="'contacts'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'person'" [name]="'CRM'" [link]="'crm'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'import_contacts'" [name]="'Inventory'" [link]="'inventory'"></icon>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <icon [icon]="'view_list'" [name]="'Orders'" [link]="'purchase-order'"></icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </div>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content class="sidennav-content">
+    <!-- if in the editing page -->
+    <!-- <mat-toolbar [class.desktop-reduce-menubar-width]="isDesktop()" class="menubar" *ngIf="headerData?.isEditingPage"> -->
+    <mat-toolbar class="menubar hidden-print" *ngIf="headerData?.isEditingPage">
+      <button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
+      <span>{{headerData?.title}}</span>
+      <button id="header-submit-edit" mat-button>Save</button>
+    </mat-toolbar>
+    <!-- if not in the editing page -->
+    <!-- <mat-toolbar [class.desktop-reduce-menubar-width]="isDesktop()"  class="menubar" *ngIf="!headerData?.isEditingPage && (headerData?.showHeader)"> -->
+    <mat-toolbar   class="menubar hidden-print" *ngIf="!headerData?.isEditingPage && (headerData?.showHeader)">
+      <div class="left-icons">
+        <mat-icon id="header-cancel" *ngIf="headerData?.isBack" (click)="onCancel()">keyboard_arrow_left</mat-icon>
+        <!-- <mat-icon (click)="sidenav.toggle()">menu</mat-icon> -->
+        <mat-icon *ngIf="headerData?.dashboard" (click)="onDashboard()">home</mat-icon>
+        <mat-icon *ngIf="headerData?.isHome" (click)="onHome()">home</mat-icon>
+      </div>
+      <div><span>{{headerData?.title}}</span></div>
+  
+     <!-- <mat-form-field *ngIf="isSearching" class="search-bar"> -->
+        <!-- <input (input)="onSearch($event.target.value)" *ngIf="needSearching" id="search-input" matInput value=""> -->
+    <!-- </mat-form-field> -->
+    <!-- <mat-icon *ngIf="needSearching" id="header-search">search</mat-icon>
+    <mat-icon *ngIf="!needSearching" id="header-search"></mat-icon> -->
+    <div>
+      <mat-icon class="cart" *ngIf="headerData.needCart" routerLink="/shop/shopping-cart" style="font-size:24px; color:white;" flex>shopping_cart</mat-icon>
+      <mat-icon *ngIf="!headerData.needCart" id="header-search"></mat-icon>
+      <!-- <div *ngIf="headerData.needCart" class="reddot" id="cart_number"></div> -->
+    </div>
+
+    
+    </mat-toolbar>
+
+    <div class="content-wrapper" [class.no-padding]="!(headerData?.showHeader)">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

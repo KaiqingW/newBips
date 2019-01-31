@@ -1,0 +1,79 @@
+<mat-form-field >
+    <input  type="input" matInput #searchBox placeholder="Contact Email" name="email" [matAutocomplete]="auto">
+    <mat-autocomplete #auto= matAutocomplete>
+    <mat-option *ngFor="let contact of contacts" [value]="contact?.email">
+            <span>{{contact.email}}</span>
+    </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <div class="join-btn" (click)="checkInfo(searchBox.value)">
+    <span>Invite</span>
+  </div>
+  
+  <!-- <div  class="title"><h3>Your Company : {{loginedCompanyName}}</h3></div>
+  <mat-card class="company-content">
+      <div class="company-logo">
+          <company-logo [url]="currentUser?.avatar_url" [comname]="currentUser?.first_name"></company-logo>
+      </div>
+      <div class="company-name">
+          <span><b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b></span><br>
+          <span class="company-address">{{loginedCompanyName}}</span>
+      </div>      
+  </mat-card> -->
+
+  <!-- right now, only share order to account's contact
+  if need to share order to your colleague, need to share the account to him , then he will see the orders, editted by yali-->
+  <!-- <mat-card *ngFor="let contact of colleagueList; let i=index;" class="company-content">
+      <div class="company-logo">
+          <company-logo [url]="contact.avatar_url" [comname]="contact.first_name"></company-logo>
+      </div>
+      <div class="company-name">
+          <span><b>{{contact.first_name}} {{contact.last_name}}</b></span><br>
+          <span class="company-address">{{loginedCompanyName}}</span>
+      </div>      
+      <div class="user-level">
+          <div class="join-btn" (click)="deleteSharedUser('colleague', i)">
+              <span>X</span>
+          </div>
+      </div>
+  </mat-card> -->
+
+
+
+  <div class="title"><h3>Customer's Contacts : {{accountName}} <i class="material-icons">
+        add_circle_outline
+        </i></h3></div>
+  <mat-card *ngFor="let contact of contactList; let i=index;" class="company-content">
+      <div class="company-logo">
+          <company-logo [url]="contact.avatar_url" [comname]="contact.first_name"></company-logo>
+      </div>
+      <div class="company-name">
+          <span><b>{{contact.first_name}} {{contact.last_name}}</b></span><br>
+          <span class="company-address">{{accountName}}</span>
+      </div>     
+      <div class="user-level">
+          <div class="join-btn" (click)="deleteSharedUser('contact', i)">
+              <span>X</span>
+          </div>
+      </div> 
+  </mat-card>
+  
+
+  
+  <div class="title"><h3>Third Part Company : Contacts</h3></div>
+  <mat-card *ngFor="let contact of otherList; let i=index;" class="company-content">
+      <div class="company-logo">
+          <company-logo [url]="contact.avatar_url" [comname]="contact.first_name"></company-logo>
+      </div>
+      <div class="company-name">
+          <span><b>{{contact.first_name}} {{contact.last_name}}</b></span><br>
+          <span class="company-address">Logistic</span>
+      </div>
+      <div class="user-level">
+          <div class="join-btn" (click)="deleteSharedUser('third', i)">
+              <span>X</span>
+          </div>
+      </div>
+         
+  </mat-card>

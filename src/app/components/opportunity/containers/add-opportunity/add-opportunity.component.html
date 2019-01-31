@@ -1,0 +1,53 @@
+<mat-card *ngIf="!isLoading"  class="request_info">
+    <form *ngIf="requestInfoForm" [formGroup]="requestInfoForm">
+        <h4 style="border:1px solid  black; width: 94%; padding:2px 4px">
+            Customer Info.
+        </h4>
+    <!-- <app-upload-img [company_id]="currentLoginCompanyId" (imgChange)="onReceiveImgs($event)"></app-upload-img> -->
+        <input style="display:none" matInput placeholder="customerId"  formControlName="customer_id" [(ngModel)]="customer_id">
+        
+        <mat-form-field>
+            <input matInput placeholder="Company Name"  formControlName="customer_name">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Contact Name"  formControlName="contact_name">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Phone Number"  formControlName="phone_number">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Email Address"  formControlName="email_address">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Project Name"  formControlName="project_name">
+        </mat-form-field>
+
+        <div *ngIf="(request_defined_columns_obj | json) != '{}'" formGroupName="request_defined_columns">
+            <div *ngFor="let field of customizedFieldName" >
+                <h4 *ngIf="checkSectionName(field?.column_name)" style="border:1px solid  black; width: 94%; padding:2px 4px">
+                    {{field?.description}}
+                </h4>
+                <mat-form-field  *ngIf="!checkSectionName(field?.column_name)">
+                    <input matInput placeholder="{{field?.column_name}}"  formControlName={{field?.column_name}}>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <mat-form-field>
+            <input matInput placeholder="Report Name"  formControlName="sales_rep_name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Approved  By"  formControlName="approve_by">
+        </mat-form-field>
+        
+    </form>
+
+</mat-card>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+
+
+<!-- <pre *ngIf="requestInfoForm">{{requestInfoForm.value | json}}</pre> -->

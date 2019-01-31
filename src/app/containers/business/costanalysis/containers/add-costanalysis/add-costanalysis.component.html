@@ -1,0 +1,101 @@
+<div *ngIf="!isLoading">
+    <form  [formGroup]="costAnalysisForm">
+        <mat-form-field  >           
+            <input type="text " matInput placeholder="Product Name"  formControlName="product_name">
+        </mat-form-field>
+
+        <mat-form-field  >           
+            <input type="text" matInput placeholder="Description"  formControlName="description">
+        </mat-form-field>
+
+        <div class="form-title">
+            <div><span>ExchangeRate</span><span>Material</span><span>Size</span><span>Pcs/Case</span></div>
+        </div>
+    
+        <div class="form-content">
+            <input placeholder="" formControlName="exchange_rate">
+            <input placeholder="" formControlName="material">
+            <input placeholder="" formControlName="size">
+            <input placeholder="" formControlName="pieces_case">
+        </div>
+
+        <div class="t-form-title">
+            <div><span>Case/Pallet</span><span>Pallet/Container</span><span>Total</span></div>
+        </div>
+    
+        <div class="t-form-content">
+            <input placeholder="" formControlName="case_pallet">
+            <input placeholder="" formControlName="pallet_container">
+            <input placeholder="" formControlName="total">
+        </div>
+
+        <div class="item-list-title">
+            <div><span>Item Name</span><span>Price</span><span>Cost</span><span>Selling Pricing</span></div>
+        </div>
+
+        <div class="item-list-body" *ngIf="itemList">
+            <mat-card *ngFor="let item of itemList">
+                {{item?.name}}
+            </mat-card>
+        </div>
+
+        <div>
+            <a class="add-more-btn" (click)="addProductModal()">+</a>
+        </div>
+
+        <h5>Others</h5>
+        
+        <div *ngIf="(cost_analysis_defined_columns_obj | json) != '{}'" formGroupName="request_defined_columns">
+                <div *ngFor="let field of customizedFieldName" >
+                    <mat-form-field>
+                        <input matInput placeholder="{{field?.column_name}}"  formControlName={{field?.column_name}}>
+                    </mat-form-field>
+                </div>
+            </div>
+        
+    </form>
+
+    <div class="add-product-modal" *ngIf="showAddProductModal">
+        <mat-card>
+            <form [formGroup]="itemForm">
+                <h4>Add Item</h4>
+                <mat-form-field class="example-full-width product">
+                    <input  type="input" matInput  placeholder="Item" name="product_id"  [matAutocomplete]="auto" [formControl]="itemCtrl">
+                    <mat-autocomplete class="product-list-add" #auto= matAutocomplete>
+                        <mat-option *ngFor="let item of searchItemList" [value]="item?.name" (click)="itemSlected(item)">
+                            <div *ngIf="item?.images[0]" class="item-container" style="height:48px">
+                                <img [src]="item?.images[0].url"  style="height:40px; display:inline-block; margin-bottom: -8px; width:40px; margin-top:4px;">
+                                <p style="display:inline-block; width:83%; float:right; font-size:14px;">{{ item?.name | short: 75 }}</p>
+                            </div>
+
+                            <div *ngIf="!item?.images[0]" class="item-container" style="height:48px">
+                                <img  style="height:40px;  display:inline-block; margin-bottom: -8px; width:40px ;margin-top:4px;" src="assets/images/bottle.png">
+                                <p style="display:inline-block; width:83%; float:right; font-size:14px;">{{ item?.name | short: 75}}</p>
+                            </div>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <input type="input" matInput  formControlName="product_id" style="display:none" [ngModel]="selectedItem?.id" required>
+                <input type="input" matInput  formControlName="description" style="display:none" [ngModel]="selectedItem?.description">
+                <input type="input" matInput  formControlName="name" style="display:none" [ngModel]="selectedItem?.name">
+    
+                <mat-form-field class="example-full-width rate">           
+                    <input type="input" matInput placeholder="Rate"  formControlName="rate" required>
+                </mat-form-field>
+                <mat-form-field class="example-full-width quantity"  >           
+                    <input type="input" matInput placeholder="Quantity"  formControlName="quantity" required>
+                </mat-form-field>
+    
+                <button mat-button color="primary" (click)="cancelAddProduct()" >Cancel</button>
+                <button mat-button color="primary" [disabled]="itemForm.invalid"  (click)="addItem(itemForm.value)">Add</button>
+            </form>
+            <!-- <pre>{{itemForm.value | json}}</pre> -->
+        </mat-card>
+    
+    </div>
+    <!-- <pre>{{costAnalysisForm.value | json}}</pre> -->
+</div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+

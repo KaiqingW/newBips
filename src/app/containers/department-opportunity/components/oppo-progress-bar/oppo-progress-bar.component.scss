@@ -1,0 +1,102 @@
+:host{
+    width:100%;
+    height:40px;
+    vertical-align: middle;
+  }
+  .progress {
+      // overflow: hidden;
+      position:relative;
+      margin: 18px auto;
+      display:block;
+      line-height: 44px;
+      padding: 0 2px;
+      width: 80%;
+      height: 10px;
+      background: #eee;
+      border-radius: 17px;
+      background-image: -webkit-linear-gradient(top, #ebecef, #bfc3c7);
+      background-image: -moz-linear-gradient(top, #ebecef, #bfc3c7);
+      background-image: -o-linear-gradient(top, #ebecef, #bfc3c7);
+      background-image: linear-gradient(to bottom, #ebecef, #bfc3c7);
+  
+      .progress-label{
+        display:block;
+        height:12px;
+        font-size:11px;
+        margin-top:-10px;
+        line-height: 12px;
+        // float: right;
+      }
+     
+    }
+    
+    .progress-bar {
+      display: block;
+      overflow: hidden;
+      height: 10px;
+      background: #EEE;
+      border-radius: 4px;
+      background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+      background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+      background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.2), transparent 60%);
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 60%);
+      -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px rgba(255, 255, 255, 0.6);
+    }
+    
+    .progress-in-danger {
+      display: block;
+      min-width: 8px;
+      height: 10px;
+      background: #D82D44;
+      background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+    }
+  
+    .progress-in-middle {
+      display: block;
+      min-width: 8px;
+      height: 10px;
+      background: #FEBF2E;
+      background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+    }
+  
+    .progress-in-primary {
+      display: block;
+      min-width: 8px;
+      height: 10px;
+      background: #29A3B7;
+      background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+    }
+  
+    .progress-in-success {
+      display: block;
+      min-width: 8px;
+      height: 10px;
+      background: #3AA74D;
+      background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+    }
+    
+    form{
+      width:80px;
+      display: inline-block;
+  }
+  
+  mat-select {
+    margin-left:20px;
+  }
+  .mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-arrow {
+    color: #63961C;
+  }
+    

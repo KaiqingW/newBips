@@ -1,0 +1,125 @@
+.company-title{
+    display:block;
+    background-color:#FFFFFF;
+    padding-bottom:5px;
+    margin-bottom:10px;
+    // border-bottom: 1px solid lightgray;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    img{
+        z-index:0;
+        position:relative;
+    }
+    .comany-tile-background{
+        width:100%;
+    }
+
+    company-logo{
+        position:relative;
+        z-index:2;
+        margin:0 auto;
+        margin-top:-30px;
+        width:60px;
+        height:60px;
+    }
+    .company_name{
+        width:100%;
+        text-align: center;
+    }
+
+    .company-address,.description{
+        width:100%;
+        margin: 2px 0px;
+        text-align: center;
+        font-size: 13px;
+        color:gray;
+    }
+    .profile-box{
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .action-icon{
+
+        text-align: center;
+        
+
+        a {
+            margin: 10px 15px;
+            display:inline-block;
+            width:30px;
+            height:30px;
+            background-color:#006CD6;
+            border-radius:50px;
+            text-align: center;
+            line-height: 30px;
+            text-decoration: none;
+            .icon-lable{
+                display: block;
+                margin-top:-6px;
+                color:gray;
+                font-size:13px;
+                text-align: center; 
+            }
+
+        }
+        mat-icon,i{
+            // padding:10px 15px;
+            color:white;
+            line-height: 30px;
+            font-size:15px;
+        }
+    }
+}
+
+.prodcutTypeSelected{
+    background-color:#E0EAF1 !important ;
+    color:black;
+    border-bottom: solid 2px #000000 !important;
+}
+
+.product-card-title{
+    display: flex;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    a{
+      box-sizing: border-box;
+      height: 40px;
+      width: 50%;
+      line-height: 40px;
+      color: #717171;
+      font-size: 14px;
+      text-align: center;
+    }
+    .product-btn{
+      background-color: #FFFFFF;
+      border-bottom: solid 2px #FFFFFF;
+    }
+}
+
+.company-products{
+    panel-card-title{
+        font-size:14px;
+    }
+    panel-card-body{
+        width:100%;
+        .product-modal-box{
+            display:inline-block;
+            margin:1.2%;
+            width:22.5%;
+            product-modal{
+                width:100%;
+                display:inline-block;
+            }
+        }
+    }
+}
+
+.product-body{
+    width:100%;
+    margin-top:15px;
+}
+
+

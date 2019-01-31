@@ -1,0 +1,45 @@
+<table style="width:100%;margin-top:15px;" *ngIf="infos">
+    <caption *ngIf="caption">
+        <b>{{caption}}</b>
+    </caption>
+    <tr>
+        <th>{{(shipping_type !='air') ?'Container#' : 'Airway Bill'}}</th>
+        <th>Qty</th>
+        <th>ETD</th>
+        <th>ETA</th>
+    </tr>
+    <tr *ngFor="let info of infos; let i = index;">
+        <td (click)="onSelectContainer(info)"> {{info.container_number}}</td>
+        <td *ngIf="info.quantity"> {{info.quantity | number}}
+        </td>
+        <td *ngIf="info.vessel_date"> {{info.vessel_date | amDateFormat : 'YYYY/MM/DD' }}
+        </td>
+        <td *ngIf="info.eta_date"> {{info.eta_date | amDateFormat : 'YYYY/MM/DD' }}
+            <b class="unread-mark" *ngIf="infos[0].is_unread"></b>
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%;margin-top:15px;" *ngIf="production_infos">
+    <caption *ngIf="caption">
+        <b>{{caption}}</b>
+    </caption>
+    <tr>
+        <th>Qty</th>
+        <th>Production Rate</th>
+        <th>ETS</th>
+        <th>ETF</th>
+        
+    </tr>
+    <tr *ngFor="let info of production_infos; let i = index;">
+        <td (click)="onSelectContainer(info)"> {{info.production_qty | number}}
+        </td>
+        <td *ngIf="info.prod_rate"> {{info.prod_rate | number}}
+        </td>
+        <td *ngIf="info.ets_time"> {{info.ets_time | amDateFormat : 'YYYY/MM/DD' }}
+            <b class="unread-mark" *ngIf="production_infos[0].is_unread"></b>
+        </td>
+        <td *ngIf="info.etf_time"> {{info.etf_time | amDateFormat : 'YYYY/MM/DD' }}
+        </td>
+    </tr>
+</table>

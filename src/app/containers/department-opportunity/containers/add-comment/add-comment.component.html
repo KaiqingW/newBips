@@ -1,0 +1,39 @@
+<person-project-card-brief [createdUser]="briefProject?.created" [content]="briefProject?.name"></person-project-card-brief>
+
+<div class="add_note_subject_container">
+    <form [formGroup]="addCommentForm">       
+        <div class="row title">
+            <b>Comment</b>
+        </div>
+    
+        <mat-card formArrayName="body">
+    
+            <div *ngFor="let subNote of addCommentForm['controls'].body['controls'];let i=index">
+                <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+                <span style="font-size: 13px; color: red;">Please upload image here</span>
+                
+                <div class="row" [formGroupName]="i"> 
+                    <div class="col-1" *ngIf="getImg(i)">
+                        <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                        <div *ngIf="modalOpen">
+                                <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                        </div>
+                    </div>
+                    <div class="col-3"> 
+                        <textarea placeholder="Description is required !" style="width:100%;height:200.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                    </div>
+                </div>
+                <!-- <button class="add_more_btn" *ngIf="addCommentForm['controls'].body['controls'].length" style="background-color:red !important; color:white;" (click)="onDelete(i)">Delete current text</button> -->
+                <!-- <br>
+                <br>
+                <hr>   -->
+            </div>
+        
+            <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+        </mat-card>    
+    </form>   
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

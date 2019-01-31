@@ -1,0 +1,22 @@
+:host{
+
+}
+
+.add-comment-div{
+    width:100%;
+    position: fixed;
+    bottom:1px;
+    height: 60px;
+    text-align: center;
+    background-color:#fff;
+    a{
+        display:inline-block;
+        padding:10px 20px;
+        border:1px solid lightgray;
+        background-color: lightgray;
+        color:gray;
+        margin-top:10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+}

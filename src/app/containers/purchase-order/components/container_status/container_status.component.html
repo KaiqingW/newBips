@@ -1,0 +1,30 @@
+<!-- <div class="progress-bar-row" *ngIf="container_info && status">
+    <div class="row">
+        <span>Container#&nbsp;:&nbsp;{{container_info.container_number}}</span>
+    </div>
+    <div class="row">
+        <span [style.left]="style_left" [style.transform]="transform">{{container_info.updated.at | date : 'yyyy/MM/dd'}}</span>
+    </div>
+    <div>
+        <mat-progress-bar mode="determinate" [value]="(container_info.type+ 2)/(status.length - 1)*100"></mat-progress-bar>
+    </div>
+    <div class="row">
+        <span [style.left]="style_left" [style.transform]="transform">{{status[container_info.type + 2]}}</span>
+    </div>
+</div> -->
+
+
+<div class="progress-bar-row" *ngIf="container_info && status">
+    <div class="row">
+        <span>Container#&nbsp;:&nbsp;{{container_info.container_number}}</span>
+    </div>
+    <div class="row">
+        <span [style.left]="style_left" [style.transform]="transform">{{container_info.updated.at | date : 'yyyy/MM/dd'}}</span>
+    </div>
+    <div>
+        <mat-progress-bar mode="determinate" [value]="(container_info.type+ 2)/(status.length - 1)*100"></mat-progress-bar>
+    </div>
+    <div class="row">
+        <span [style.left]="style_left" [style.transform]="transform">{{status[container_info.type + 2]}}</span>
+    </div>
+</div>

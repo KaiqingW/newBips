@@ -1,0 +1,18 @@
+
+<div id="wrap">
+	<ul id="list">
+		<li *ngFor = "let news of newsList; let i=index">
+			<span class="news-img"><img src={{news.urlToImage}} class="img-circle" /></span>
+			<span class="content">{{news.title | short : 75}}
+				<a class="right" href={{news.url}} target="_Blank">Read more</a>
+			</span>
+		</li>
+
+		<li *ngFor = "let news of newsList; let i=index">
+			<span class="news-img"><img src={{news.urlToImage}} class="img-circle" /></span>
+			<span class="content">{{news.title | short : 75}}
+				<a class="right" href={{news.url}} target="_Blank">Read more</a>
+			</span>
+		</li>
+	</ul>
+</div>

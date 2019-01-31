@@ -1,0 +1,110 @@
+<div class="progress-bar-row">
+    <div class="row" *ngIf="item.info_item">
+        <div class="col flex-col" [style.left]="getRightPosition(item.status)" [style.transform]="getTransform(item.status)">
+            <span>{{status[item.status]}}</span>
+            <span>{{item.info_item | amDateFormat : 'YYYY/MM/DD' }}</span>
+        </div>
+    </div>
+    <div class="row" *ngIf="item.info_item">
+    </div>
+    <div>
+        <mat-progress-bar mode="determinate" [value]="item.status/(status.length - 1)*100"></mat-progress-bar>
+    </div>
+    <!-- <div class="row" style="padding-top:2px;" *ngIf="item.status < 3">
+        <span *ngIf="item.status == 0" style="position: absolute;" [style.left]="getRightPosition(0)" [style.transform]="getTransform(0)">
+            <img style="width:24px;height:24px;" src="assets/images/icons/pending.png" alt="container-ship.png">
+
+        </span>
+        <span *ngIf="item.status == 1" style="position: absolute;" [style.left]="getRightPosition(1)" [style.transform]="getTransform(1)">
+            <img style="width:24px;height:24px;" src="assets/images/icons/prepare.png" alt="container-ship.png">
+
+        </span>
+        <span *ngIf="item.status == 2" style="position: absolute;" [style.left]="getRightPosition(2)" [style.transform]="getTransform(2)">
+            <img style="width:24px;height:24px;" src="assets/images/icons/production.jpg" alt="container-ship.png">
+
+        </span>
+    </div> -->
+    <!-- <div class="row" style="padding-top:2px;" *ngIf="item?.container_infos && item?.container_infos.length > 0"> -->
+    <div class="row" style="padding-top:2px;">
+        
+        <!-- <div class="col" (click)="onGetInfos(1)" *ngIf="item?.count_map && item.count_map.get(1)" style="position: absolute;" [style.left]="getRightPosition(3)"
+            [style.transform]="getTransform(3)">
+            <img [class.selected]="selected_container_type == 1" style="width:24px;height:24px;" src="assets/images/icons/container-shipping.png"
+                alt="container-ship.png">
+            <b *ngIf="item?.count_map">
+                {{item.count_map.get(1)}}
+            </b>
+        </div> -->
+        <span *ngIf="item.status == 0" style="position: absolute;" [style.left]="getRightPosition(0)" [style.transform]="getTransform(0)">
+            <img style="width:24px;height:24px;" src="assets/images/icons/pending.png" alt="container-ship.png">
+        </span>
+        <span (click)="onGetInfos(-2, production_schedule_map.get(0))" *ngIf="production_schedule_map.has(0)" style="position: absolute;" [style.left]="getRightPosition(1)"
+            [style.transform]="getTransform(1)">
+            <img style="width:24px;height:24px;" src="assets/images/icons/prepare.png" alt="container-ship.png">
+            <b *ngIf="production_schedule_map.get(0)">
+                {{production_schedule_map.get(0).length}}
+            </b>
+            <b class="unread-number" *ngIf="getMapUnread(production_schedule_map.get(0))">{{getMapUnread(production_schedule_map.get(0))}}</b>
+        </span>
+        <span (click)="onGetInfos(-1, production_schedule_map.get(1))" *ngIf="production_schedule_map.has(1)" style="position: absolute;" [style.left]="getRightPosition(2)"
+            [style.transform]="getTransform(2)">
+            <img style="width:24px;height:24px;" src="assets/images/icons/production.jpg" alt="container-ship.png">
+            <b *ngIf="production_schedule_map.get(1)">
+                {{production_schedule_map.get(1).length}}
+            </b>
+            <b class="unread-number" *ngIf="getMapUnread(production_schedule_map.get(1))">{{getMapUnread(production_schedule_map.get(1))}}</b>
+        </span>
+        <div class="col" (click)="onGetInfos(1, item.container_infos)" *ngIf="item?.count_map && item.count_map.get(1)" style="position: absolute;" [style.left]="getRightPosition(3)"
+            [style.transform]="getTransform(3)">
+            <img [class.selected]="selected_container_type == 1" style="width:24px;height:24px;" [src]="item?.shipping_method == 'ocean' ? 'assets/images/icons/container-shipping.png' : 'assets/images/icons/airplane.png'"
+                alt="container-ship.png">
+            <b *ngIf="item?.count_map">
+                {{item.count_map.get(1)}}
+            </b>
+            <b class="unread-number" *ngIf="getItemUnread(item.container_infos, 1)">{{getItemUnread(item.container_infos, 1)}}</b>
+        </div>
+        <div class="col" (click)="onGetInfos(2, item.container_infos)" *ngIf="item?.count_map && item.count_map.get(2)" style="position: absolute;" [style.left]="getRightPosition(4)"
+            [style.transform]="getTransform(4)">
+            <img [class.selected]="selected_container_type == 2" style="width:24px;height:24px;" src="assets/images/icons/customs.png"
+                alt="customs.png">
+            <b *ngIf="item?.count_map">
+                {{item.count_map.get(2)}}
+            </b>
+            <b class="unread-number" *ngIf="getItemUnread(item.container_infos, 2)">{{getItemUnread(item.container_infos, 2)}}</b>
+        </div>
+        <div class="col" (click)="onGetInfos(3, item.container_infos)" *ngIf="item?.count_map && item.count_map.get(3)" style="position: absolute;" [style.left]="getRightPosition(5)"
+            [style.transform]="getTransform(5)">
+            <img [class.selected]="selected_container_type == 3" style="width:24px;height:24px;" src="assets/images/icons/ground-shipping.png"
+                alt="ground-shipping.png">
+            <b *ngIf="item?.count_map">
+                {{item.count_map.get(3)}}
+            </b>
+            <b class="unread-number" *ngIf="getItemUnread(item.container_infos, 3)">{{getItemUnread(item.container_infos, 3)}}</b>
+        </div>
+        <div class="col" (click)="onGetInfos(4, item.container_infos)" *ngIf="item?.count_map && item.count_map.get(4)" style="position: absolute;" [style.left]="getRightPosition(6)"
+            [style.transform]="getTransform(6)">
+            <img [class.selected]="selected_container_type == 4" style="width:24px;height:24px;" src="assets/images/icons/received.png"
+                alt="received.png">
+            <b *ngIf="item?.count_map">
+                {{item.count_map.get(4)}}
+            </b>
+            <b class="unread-number" *ngIf="getItemUnread(item.container_infos, 4)">{{getItemUnread(item.container_infos, 4)}}</b>
+        </div>
+        <div class="col" (click)="onGetInfos(5, item.container_infos)" *ngIf="item?.count_map && item.count_map.get(5)" style="position: absolute;" [style.left]="getRightPosition(7)"
+            [style.transform]="getTransform(7)">
+            <img [class.selected]="selected_container_type == 5" style="width:24px;height:24px;" src="assets/images/icons/finish.png"
+                alt="finish.png">
+            <b *ngIf="item?.count_map">
+                {{item.count_map.get(5)}}
+            </b>
+            <b class="unread-number" *ngIf="getItemUnread(item.container_infos, 5)">{{getItemUnread(item.container_infos, 5)}}</b>
+        </div>
+        
+        <!-- <span style="position: absolute;" [style.left]="getRightPosition(item.status)" [style.transform]="getTransform(item.status)">{{status[item.status]}}</span> -->
+    </div>
+    <order-process-bar-info *ngIf="selected_container_type" [shipping_type]="item?.shipping_method" [production_infos]="selected_production_schedule"
+        [infos]="selected_container_infos">
+    
+    </order-process-bar-info>
+
+</div>

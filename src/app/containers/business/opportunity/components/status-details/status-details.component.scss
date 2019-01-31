@@ -1,0 +1,50 @@
+:host{
+
+}
+
+.container{
+    margin-bottom:80px;
+    .status-content{
+        margin-bottom:10px;
+        mat-card{
+            height:36px;
+            padding:10px 0px 10px 0px;
+            h4{
+                text-align:center;
+            }
+            span{
+                display:block;
+                color:gray;
+                font-size:13px;
+                float: right;
+            }
+        }
+    }
+}
+
+.status-card {
+    // height: 50%;
+    .reply-card-margin {
+        margin-left: 10%;
+        width: 90%;
+    }
+}
+
+.add-comment-div{
+    width:100%;
+    position: fixed;
+    bottom:1px;
+    height: 60px;
+    text-align: center;
+    background-color:#fff;
+    a{
+        display:inline-block;
+        padding:10px 20px;
+        border:1px solid lightgray;
+        background-color: lightgray;
+        color:gray;
+        margin-top:10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+}

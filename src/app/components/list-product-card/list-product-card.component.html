@@ -1,0 +1,28 @@
+<div class="container" (scroll)="toSendScroll($event)">
+    <mat-card *ngFor="let product of productList;let i = index;" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+        <div class="product-header">
+            <div class="product-picture" (click)="onNavToDetail($event,product)">
+                <img *ngIf="product.images.length < 1" src="assets/images/icons/no-img.jpg">
+                <img *ngIf="product?.images && product?.images?.length > 0" [src]="product.images[0].url">
+            </div>
+
+            <div class="item-name" (click)="onNavToDetail($event,product)">
+                <span class="product-name">
+                    <b>{{product.name | short : 60}}</b>
+                </span>
+                <br>
+                <span class="description">Item#:{{product.headline}}</span>
+            </div>
+
+            <div class="available">
+                <span class="available-quantity">Avl:{{product.total_amount | number}}</span>
+                <div>
+                    <button mat-button *ngIf="product?.shop_status == 1" (click)="onNavToEdit(product.id)">Edit</button>
+                </div>
+                <app-select-bar style="width:100%;" (sendSelect)="onGetSelect($event, product.id)" [selects]="selects" [placeholder]="placeholder"
+                    [default]="default"></app-select-bar>
+            </div>
+        </div>
+    </mat-card>
+    <div style="height:100px;"></div>
+</div>

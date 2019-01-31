@@ -1,0 +1,97 @@
+<div style="position: relative">
+  <!-- <mat-card>
+    <div class="category" *ngFor="let warehouse of warehouses; let i = index;">
+      <div>
+        <span class="item-title">Warehouse {{i+1}}</span>
+        <span class="item-content">{{warehouse.address.zipcode}}, {{warehouse.address.city}}</span>
+      </div>
+      <div>
+        <span class="item-title">Available QTY: </span>
+        <span class="item-content">{{warehouse.amount}}</span>
+      </div>
+    </div>
+  </mat-card> -->
+  <div *ngIf="product">
+    <div class="warehouse-location">
+      <span>Choose a Warehouse:</span>
+      <span (click)="choseWhs()" class="multi-pictures">
+        <b>detail</b>
+      </span>
+      <div class="multi-pictures-loop" *ngIf="product.warehouses.length ==0">
+        No warehouse has this product!
+      </div>
+      <div class="warehouse-loop" *ngIf="chooseWhs">
+        <div class="warehouse" (click)="switchShowMap()">
+          <div class="warehouse-bg">
+            <img style="z-index:2;position: relative;border-radius:5px;" src="assets/images/on-road.png">
+          </div>
+          <div class="warehouse-name-span">
+            <span>Show Map</span>
+          </div>
+          <div class="quantity">
+            <span class="quantity-content">
+              <b>{{warehouses.length | number}} WHSE</b>
+            </span>
+          </div>
+        </div>
+        <div style="width:80%;height:100%;overflow-x:auto;overflow-y: hidden;">
+          <div class="warehouse" *ngFor="let warehouse of product.warehouses;let i =index" (click)="selectWarehouse(warehouse, i)"
+            [class.selected]="warehouse == selectedWarehouse">
+            <div class="warehouse-bg">
+              <img src="assets/images/warehouse.png">
+            </div>
+            <div class="warehouse-name-span">
+              <span>{{warehouse.name | short : 8}}</span>
+            </div>
+            <div class="quantity">
+              <span class="quantity-content">
+                <b>{{warehouse.amount | number}}</b>
+              </span>
+            </div>
+            <!-- <div class="quantity">
+              <span class="quantity-content">
+                Qty:
+                <input id="{{'input'+i}}" [value]="qtyArr[i]" matInput (keyup)="onKey($event, i)" autofocus>
+              </span>
+            </div> -->
+            <div class="quantity" *ngIf="warehouse.distance">
+              <span class="quantity-content">
+                <b>{{getDistance(warehouse)}}</b>
+              </span>
+            </div>
+            <button style="width: 100%">Select</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <mat-card *ngIf="showMap">
+    <div>
+      <div class="summary">
+        <b>Your Destination:
+          <input class="input" style="border-radius: 0;width:80%;display: inline-block;" [(ngModel)]="searchAddress" matInput placeholder="Enter your destination."
+            aria-label="product name">
+          <button style="position: absolute;right:5%;border-radius:0;" (click)="onSearch()">Search</button>
+        </b>
+      </div>
+    </div>
+    <div style="font-size: 12px;padding: 6px">* The shipping fee and delivery time may vary depending on the different warehouses</div>
+  </mat-card> -->
+  <div [class.noWarehouses]="!showMap" #gmap id="goFS" style="width:100%;height:56.75vw;margin:5px 0;" class="map"></div>
+  <!-- <button [class.noWarehouses]="!showMap" [class.reset-btn]="showMap" mat-button (click)="reset()">Reset</button> -->
+  <div [class.hasWarehouses]="showMap" style="position: relative;top:-188vw;">
+    <!-- <div>
+              <button mat-menu-item class="header_yellow" (click)="calcShipping('NY','11801','US','NY','12529','US','12.5')">
+                  Shipping Fee
+              </button>
+          </div> -->
+    <!-- <div routerLink="/shop">
+        <button mat-menu-item class="header_yellow">
+          Place Your Order
+        </button>
+      </div> -->
+
+  </div>
+ 
+</div>
+<app-spinner *ngIf="isLoading"></app-spinner>

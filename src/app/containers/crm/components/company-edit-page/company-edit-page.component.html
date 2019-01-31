@@ -1,0 +1,123 @@
+<form novalidate [formGroup]="customerForm" *ngIf="!isLoading">
+        <div class="avatar">     
+            <div class="background">
+                <mat-icon>camera_enhance</mat-icon>
+            <input type="file" id="file" (change)="onFileChange($event)" #fileInput>                  
+            </div>
+            <div class="avatar-icon" >
+                <avatar [url]="customer?.logo_url" *ngIf="!isLoading"></avatar>
+            </div>
+        </div>
+        
+        <mat-form-field class="example-full-width" >           
+            <input type="input" matInput placeholder="Name"  formControlName="name" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" >           
+            <input type="input" matInput placeholder="Website"  formControlName="website" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" >           
+            <input type="input" matInput placeholder="Email"  formControlName="email" >
+        </mat-form-field>
+        <!-- <mat-form-field class="example-full-width"  >           
+            <input type="input" matInput placeholder="Category"  formControlName="industry" [value]="getLevelOneCategory(customer.industry)">
+        </mat-form-field> -->
+
+        <mat-form-field>
+            <mat-select placeholder="Category" [(value)]="levelOneCategoryValue" >
+                <mat-option value="{{getLevelOneCategory(customer?.industry)}}" disabled>{{getLevelOneCategory(customer?.industry)}}</mat-option>
+                <mat-option [value]="item?.description" *ngFor="let item of levelOneCategoryList"  (click)="getLevelTwoCompanyCategories(item?.id, item?.description)">{{item?.description}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width"  *ngIf="getLevelTwoCategory(customer.industry)||levelOneCategoryFValue">           
+            <mat-select placeholder="SubCategory" [(value)]="levelTwoCategoryValue" >
+                <mat-option value="{{getLevelTwoCategory(customer.industry)}}">{{getLevelTwoCategory(customer?.industry)}}</mat-option>
+                <mat-option [value]="item?.description" *ngFor="let item of LevelTwoCategoryList" (click)="getLevelTwoCategoryValue(item?.description)">{{item?.description}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="getLevelTwoCategory(customer.industry)=='Food And Kindred Products'|| levelTwoCategoryValue =='Food And Kindred Products'"  class="chip-list">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let category of thirdCategoryListChoosed" [selectable]="selectable"
+                        [removable]="removable" (remove)="remove(category)">
+                    {{category}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Input to search Third Category"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)"
+                        [matAutocomplete]="auto" 
+                        [formControl]="thirdCategortCtrl" #personInput/>
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" 
+                              (optionSelected)="selectOption($event)">
+                  <mat-option *ngFor="let category of thirdCategorySearchedList" [value]="category?.description">
+                    <span height="30" style="display:inline-block;margin-bottom: -8px"> {{category?.description}}</span>
+                  </mat-option>
+                </mat-autocomplete>  
+        </mat-form-field>
+        <!-- <mat-form-field class="example-full-width" >           
+            <mat-select placeholder="SubCategory" [(value)]="levelThreeCategoryValue" >
+                <mat-option value="{{getLevelTwoCategory(customer.industry)}}">{{getLevelTwoCategory(customer.industry)}}</mat-option>
+                <mat-option value="item?.description" *ngFor="let item of LevelTwoCategoryList" (click)="getLevelTwoCategoryValue(item?.description)">{{item?.description}}</mat-option>
+            </mat-select>
+        </mat-form-field> -->
+
+
+        <mat-form-field class="example-full-width"  >           
+            <textarea type="input" matInput placeholder="Memo"  formControlName="memo" ></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width"  >           
+            <input type="input" matInput placeholder="Telephone Number" mask="(000) 000-0000" prefix="+1"  formControlName="telephone_number" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width"  >           
+            <input type="input" matInput placeholder="Fax Number"  formControlName="fax_number" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width"  >           
+            <mat-select placeholder="Posibility"  formControlName="lead_possibility">
+                <mat-option value="0.1">10%</mat-option>
+                <mat-option value="0.2">20%</mat-option>
+                <mat-option value="0.3">30%</mat-option>
+                <mat-option value="0.4">40%</mat-option>
+                <mat-option value="0.5">50%</mat-option>
+                <mat-option value="0.6">60%</mat-option>
+                <mat-option value="0.7">70%</mat-option>
+                <mat-option value="0.8">80%</mat-option>
+                <mat-option value="0.9">90%</mat-option>
+                <mat-option value="1">100%</mat-option>
+            </mat-select>
+            <!-- <input type="input" matInput placeholder="Possibility"  formControlName="lead_possibility" > -->
+        </mat-form-field>
+       
+        <mat-form-field class="example-full-width"  >           
+            <mat-select placeholder="Status"  formControlName="lead_status">
+                <mat-option value="Active">Active</mat-option>
+                <mat-option value="Inactive">Inactive</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width"  >           
+            <input type="input" matInput placeholder="Lead Source"  formControlName="lead_source" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width"  >           
+            <textarea type="input" matInput placeholder="Description"  formControlName="description" ></textarea>
+        </mat-form-field>
+       
+
+</form>
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>   
+</app-crop-modal>
+
+
+<!-- <pre>{{customerForm.value | json}}</pre> -->

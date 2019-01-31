@@ -1,0 +1,124 @@
+<!-- second step, add id="content" at html at the location where the onMouseWheel function is called, editted by yali -->
+<div class="container" id="content" (scroll)="onMouseWheel($event)">
+    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject">
+        My Meeting
+        <span *ngIf="subjectListUnread" class="mysubject-unread">{{subjectListUnread}}</span>
+    </a>
+    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/shared-subject">
+        Shared
+        <span *ngIf="sharedSubjectListUnread" class="shared-with-me-unread">{{sharedSubjectListUnread}}</span>
+    </a>
+    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/finished-subject">Finished</a>
+
+    <div *ngIf="subjectList$ && subjectList$?.length > 0 && !isLoading; else no_subject_found">
+
+        <mat-card class="subject-card-margin" [style.height]="isExpand(subject) ? 'auto' : 'auto'" *ngFor="let subject of subjectList$; let i=index" [class.selected]="subject == selectedSubject" (click)="selectSubject(subject)">
+
+            <subject-card [name]="subject?.name" [meetingDate]="subject?.meeting_date" [meetingTime]="subject?.meeting_time" [unreadRecord]="subject?.unread_count"
+                [createdTime]="subject?.created?.at" [url]="subject?.id" [meetingFrequency]="subject?.meeting_frequency" [attachmentFilesCount]="subject?.attachments_files_count">
+                <mat-icon class="star" *ngIf="subject?.mark==1" (click)="markSubject(subject?.id, 1)" style="position: absolute; color: gold; top:4px">star</mat-icon>
+                <mat-icon class="star" *ngIf="subject?.mark==0" (click)="markSubject(subject?.id, 0)" style="position: absolute; color: lightgray; top:4px">star_border</mat-icon>
+                <mat-icon class="star" *ngIf="subject?.mark==2" (click)="cancelMarkSubject(subject?.id)" style="position: absolute; color: red; top:4px">star</mat-icon>
+                
+                <div class="subject-list">
+                    <div class="subject_creater" routerLink="{{subject.id}}">
+                        <avatar-logo [url]="subject?.created?.by?.avatar_url" [userFirstName]="subject?.created?.by?.first_name" [userLastName]="subject?.created?.by?.last_name"
+                            [userId]="subject?.created?.by?.user_id">
+                        </avatar-logo>
+                    </div>
+                    <div class="shared-contacts-admin" routerLink="{{subject.id}}">
+                        <div *ngIf="subject?.sharedWithAdmin.length > 0">
+                            <div class="contact-admin" *ngFor="let share of subject?.sharedWithAdmin | showMore : maxAdmin">
+                                <avatar-logo [url]="share?.avatar_url" [userFirstName]="share?.first_name" [userLastName]="share?.last_name" [userId]="share?.user_id">
+                                </avatar-logo>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="separate" routerLink="{{subject.id}}">|</div>
+
+                    <div class="shared-contacts" routerLink="{{subject.id}}">
+                        <div *ngIf="subject?.sharedWith.length > 0">
+                            <div class="contact" *ngFor="let share of subject?.sharedWith | showMore : maxShare[i]">
+                                <avatar-logo [url]="share?.avatar_url" [userFirstName]="share?.first_name" [userLastName]="share?.last_name" [userId]="share?.user_id">
+                                </avatar-logo>
+                            </div>
+                        </div>
+                    </div>
+
+                    <mat-icon *ngIf="subject?.sharedWithAdmin.length > maxAdmin || subject?.sharedWith.length > maxShare[i]" routerLink="{{subject?.id}}/all-shared-user"
+                        style="font-size: 30px; float: right; margin-right: 10px;">more_horiz</mat-icon>
+                </div>
+            </subject-card>
+
+            <div class="subject-project-list" *ngIf="openSubject == subject">
+                <div class="subject-project" *ngFor="let project of subject?.projects">
+
+                    <div>
+                        <div class="each-project-owner" [ngClass]="{'no-unread' : project?.unread_count <= 0}" *ngIf="project?.owners" routerLink="{{subject.id}}/project/{{project.id}}">
+                            <!-- <avatar-logo [url]="project?.owners[0]?.avatar_url" [userFirstName]="project?.owners[0]?.first_name" [userLastName]="project?.owners[0]?.last_name"
+                                [userId]="project?.owners[0]?.user_id">
+                            </avatar-logo> -->
+                            <img src="assets/images/testimg/project-icon.png" width="45px" height="40px">
+        
+                        </div>
+
+                        <div class="project-unread" *ngIf="project?.unread_count > 0" >{{project?.unread_count}}</div>                                                
+                        
+                        <div class="each-project-next-subjects" [ngClass]="{'no-next-subjects' : project?.next_meeting_subjects_count == 0}" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/project/{{project.id}}/next-subject">
+                           
+                            <div class="next-subjects-count">{{project?.next_meeting_subjects_count}}
+                            </div>
+                        </div>
+                      
+                        <div class="next-meeting-subjects-unread" [ngClass]="{'no-project-unread' : project?.unread_count > 0}" *ngIf="project?.total_next_meeting_subjects_unread > 0">{{project?.total_next_meeting_subjects_unread}}</div>                                                                                        
+                        
+                    </div>
+
+                    <div class="subject-project-name" [ngClass]="{'has-next-meeting-subjects-unread' : project?.total_next_meeting_subjects_unread > 0}" routerLink="{{subject.id}}/project/{{project.id}}">{{project?.name}}
+                    </div>
+                    <div class="project-owners">
+                        <div>
+                            <div class="contact-owner" *ngFor="let owner of project?.owners | showMore : maxOwner">
+                                <avatar-logo [url]="owner?.avatar_url" [userFirstName]="owner?.first_name" [userLastName]="owner?.last_name" [userId]="owner?.user_id">
+                                </avatar-logo>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <mat-icon  *ngIf="project?.owners.length > 3" routerLink="{{subject?.id}}/project/{{project?.id}}/all-project-owner"
+                            style="float: right; margin-right: 5px; color: #000;">more_horiz</mat-icon>
+                </div>
+
+            </div>
+
+            <div class="more-arrow">
+                <i class="material-icons icon" (click)="open($event, subject)">
+                    {{ openSubject == '' || openSubject != subject ? "keyboard_arrow_down" : "keyboard_arrow_up" }}
+                </i>
+            </div>
+            
+        </mat-card>
+
+    </div>
+</div>
+
+
+<ng-template #no_subject_found>
+    <div class="no-subject" *ngIf="!isLoading">
+        <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
+        <p>No Meeting Found</p>
+    </div>
+</ng-template>
+
+<app-add-button *ngIf="!isLoading" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/add-subject"></app-add-button>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="isDataLoading">
+    <app-spinner></app-spinner>
+</div>
+

@@ -1,0 +1,508 @@
+@import '~materialize-css/dist/css/materialize.min.css';
+
+.host {
+    width: 100%;
+}
+
+mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}
+
+mat-card.subject-card {
+    min-height: 60px;
+    text-align: center;
+}
+
+mat-card-title{
+    display: inline-block;
+    margin-bottom: 10px;
+    // .note-unread{
+    //     position: absolute;
+    //     right: 45px;
+    //     top: 10px;
+    //     display: inline-block;
+    //     background-color: red;
+    //     border-radius: 50px;
+    //     width: 20px;
+    //     height: 20px;
+    //     text-align: center;
+    //     line-height: 20px;
+    //     color: white;
+    // }
+}
+mat-card-content{
+  width:100%;
+  overflow: inherit;
+}
+mat-card-subtitle{
+    font-size: 10px;
+}
+mat-card {
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.background-to-click{
+    z-index:-20;
+}
+
+.mat-card-header{
+    margin-bottom: -15px;
+}
+
+.subject {
+    background-color:#F5F5F5;
+}
+
+.subject-name {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 3px;
+    color: #3b5998
+}
+
+.subject-description {
+    display: flex;
+    justify-content: left;
+    text-align: left;
+    font-size: 18px;
+}
+
+.subject-create-time {
+    color: #B7B7B7;
+    font-size: 10px;
+    margin: 3px;
+    text-align: right;
+}
+
+.subject-time {
+    color: #B7B7B7;
+    font-size: 13px;
+}
+
+.subject-card {
+    border-bottom: 1px solid #B7B7B7;
+}
+
+.options{
+    background: white;
+    margin-top: 44px;
+}
+
+.delete {
+    margin-left: 50px;
+}
+// .share {
+//     position:absolute;
+//     right: 0px;
+//     margin-right: 50px;
+// }
+
+.meeting-attachment {
+    margin-top: 35px;
+}
+
+.discussion {
+    // margin-top: 44px;
+    margin-top: -2px;
+    margin-bottom: 5px;
+    // margin-left: 15px;
+    padding-left: 15px;
+    // font-weight: 10;
+    font-size: 16px;
+    // color: #949599;
+    color: #fff;
+    background-color: #15305A;
+    text-align: center;
+    height: 22px;
+    padding-top: 2px;
+}
+
+.discussion-info {
+    padding: 5%;
+}
+
+.notes-number {
+    // margin-top: 44px;
+    margin-top: 6px;
+    margin-bottom: 2px;
+    // margin-left: 15px;
+    padding-left: 15px;
+    // font-weight: 10;
+    font-size: 16px;
+    // color: #949599;
+    color: #fff;
+    background-color: #15305A;
+    text-align: center;
+    height: 22px;
+    padding-top: 2px;
+}
+
+.note-time {
+    color: #B7B7B7;
+    padding-bottom: 8px;
+    font-size: 12px;
+}
+
+.icon {
+    color: #B7B7B7;
+    position: absolute;
+    right: 5px;
+    bottom: -8px;
+}
+
+.note-unread{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: inline-block;
+    background-color: red;
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+}
+
+.discussion-unread{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: inline-block;
+    background-color: red;
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+}
+
+.note-name::ng-deep .picture {
+    background-color: white;
+    display: block;
+    margin: 5px 0;
+}
+
+.note-name::ng-deep img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.note-name::ng-deep .picture p {
+    color: black;
+}
+
+.header-image::ng-deep{
+    app-profile-picture{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 30px;
+        height: 30px;
+    }
+    .shorthand{
+        font-size: 20px !important;
+    }
+}
+
+$shared-image-size: 30px;
+
+.shared-image-list {
+    background-color: white;
+    height: $shared-image-size;
+    // position: absolute;
+    right:0;
+    width:100%;
+    padding-top: 3px;
+    margin-bottom: 3px;
+    .share-info-row{
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      width:100%;
+      box-sizing: border-box;
+
+      .shared-owner {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+          width: 30%;
+          box-sizing: border-box;
+          .shared-profile-picture{
+            padding-left: 10px;
+          }
+      }
+      .shared-owner-creater {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+          width: 20%;
+          box-sizing: border-box;
+          .shared-profile-picture{
+            padding-left: 10px;
+          }
+      }
+      .shared-images{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width:70%;
+        box-sizing: border-box;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right:3px;
+
+        .shared-profile-picture{
+          padding-right: 3px;
+        }
+      }
+
+      .shared-button {
+          width: 10%;
+          box-sizing: border-box;
+          justify-content: flex-end;
+          .share {
+              position: absolute;
+              right: 10px;
+              top: 3px;
+          }
+      }
+
+    //   .shared-icon {
+    //     width:10%;
+    //     display: flex;
+    //     box-sizing: border-box;
+    //     color: #B7B7B7;
+    //   }
+    }
+}
+
+.note-body {
+    margin-bottom: 55px;
+    margin-top: 5px;
+}
+
+.note-card {   
+    .note-info {
+        width: 100%;
+        box-sizing: border-box;        
+        font-weight: 300;
+        font-size: 14px;
+        display: flex;
+        flex-direction: row;  
+        // margin-bottom: 5%;    
+        .note-name {
+            padding-top: 10px;
+            padding-bottom: 17px;
+            width: 72%;
+            box-sizing: border-box;
+            font-weight: bold;
+            font-size:18px;
+            color: #3b5998
+            
+        }
+        .note-status {          
+            width: 28%;
+            box-sizing: border-box;
+            text-align: right;
+            .status-bar {
+                progress-bar{
+                    display:inline-block;
+                    height:44px;
+                    vertical-align: middle;
+                }
+                .left-days {
+                    position: absolute;
+                    top: 50px;
+                    right: 18px;
+                    width: 25%;
+                    
+                }
+            }
+        }
+    }
+    .project-owner-time {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+        
+        .shared-owner{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 10%;
+            box-sizing: border-box;
+            align-items: center;
+            padding-right:3px; 
+            .shared-profile-picture{
+                padding-right: 3px;
+            }
+        }
+        .shared-button {
+            width: 15%;
+            box-sizing: border-box;
+            justify-content: flex-end;         
+            // position: absolute;
+            // right: 25px;
+        }
+        .shared-button-absolute {
+            width: 15%;
+            box-sizing: border-box;
+            justify-content: flex-end;   
+            position: relative;
+            right: -255px;
+        }
+        .shared-button-owner {
+            width: 15%;
+            box-sizing: border-box;
+            justify-content: flex-end;   
+            position: relative;
+            right: -118px;
+        }
+        .shared-user{
+            text-align: right;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 50%;
+            box-sizing: border-box;
+            align-items: center;
+            // padding-right:3px; 
+            justify-content: flex-end;
+            align-items: center;
+            .shared-profile-picture{
+                padding-right: 3px;
+            }
+        }
+        .shared-user-creater{
+            text-align: right;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 35%;
+            box-sizing: border-box;
+            align-items: center;
+            // padding-right:3px; 
+            justify-content: flex-end;
+            align-items: center;
+            .shared-profile-picture{
+                padding-right: 3px;
+            }
+        }
+        .note-time-updated {
+            color: #B7B7B7;
+            font-size: 12px;
+            margin-top: 5px;
+            text-align: left;
+            width: 40%;
+            box-sizing: border-box;
+            
+        }
+    }
+
+}
+
+.operation-bar {
+    height: 55px;
+    position: fixed;
+    width:100%; 
+    bottom:10px;
+    background-color:#fff;
+    text-align: center;
+    .prev-meeting {
+        .add-comment-btn{
+            // position: fixed;
+            width:92%;
+            box-sizing: border-box;
+            bottom:10px;
+            padding:10px 10px;
+            background-color:#eeeeee;
+            color:gray;
+            margin-left: 4%;
+            margin-right: 2%;
+            border-radius:10px;
+            text-decoration: none;
+        }
+
+    }
+}
+
+.header-image::ng-deep{
+    app-profile-picture{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 30px;
+        height: 30px;
+    }
+    .shorthand{
+        font-size: 20px !important;
+    }
+}
+
+.comment-time-updated{
+    color: #B7B7B7;
+    font-size: 12px; 
+    margin-top: 5px;  
+}
+
+.comment-body {
+    margin-top: 0px;
+}
+
+.des-container{
+    // padding:8px 16px 0 16px;
+    // padding-top: 8px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    box-sizing:border-box;
+    position: relative;
+
+    .col-1{
+        display: flex;
+        // width:100px;
+        flex:1;
+    }
+    .col-3{
+        display:flex;
+        // width:250px;
+        flex:4;
+    }
+
+}
+
+.subject-container{
+    // padding:8px 16px 0 16px;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    box-sizing:border-box;
+    position: relative;
+
+    .col-1{
+        display: flex;
+        // width:100px;
+        flex:1;
+    }
+    .col-3{
+        display:flex;
+        // width:250px;
+        flex:4;
+    }
+
+}
+

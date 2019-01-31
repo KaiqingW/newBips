@@ -1,0 +1,93 @@
+<mat-card [ngClass]="{'has-product-item' : productItemNumber}">
+    <div class="project-content">
+        <!-- <div *ngIf="requireDate && updateFrequency">
+            <span class="require-date">Require Date: {{requireDate | amDateFormat : 'MM/DD/YYYY'}}</span>
+            <span class="report-frequency">Report Frequency: {{updateFrequency}}</span>
+        </div> -->
+        <div class="content" *ngIf="currentProcess">
+            <div class="product-image" *ngIf="productImageUrl">
+                <img src="{{productImageUrl}}" style="width:38px;" (click)="openModal(productImageUrl)">
+            </div>
+            <div class="name" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{prevSalesProjectId}}/sales-opportunity-subject/{{subjectId}}/crm-opportunity-project/{{projectId}}" [queryParams]="{currentProcessId: currentProcess.id, currentProcessName: currentProcess.process_name}">
+                <b>{{name}}</b> <br>
+                <b *ngIf="productItemNumber">Item#: {{productItemNumber}}</b>
+            </div>
+            <div class="bar">
+                <ng-content></ng-content>    
+            </div>
+        </div>      
+    </div>
+
+    <div class="process">
+        <div class="process-content">
+            <!-- previous completed process list-->
+            <div class="each-process"  *ngFor="let process of prevProcessList">
+                <!-- <span class="process-status" *ngIf ="currentProcessId == process.id"
+                routerLink = "/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{prevSalesProjectId}}/sales-opportunity-subject/{{subjectId}}/crm-opportunity-project/{{projectId}}"
+                [queryParams]="{currentProcessId: process.id, currentProcessName: process.process_name}" >{{currentProcessStatus}}</span> -->
+                
+                <span class="process-name" style="background-color: #b3de51;" 
+                routerLink = "/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{prevSalesProjectId}}/sales-opportunity-subject/{{subjectId}}/crm-opportunity-project/{{projectId}}"
+                [queryParams]="{currentProcessId: process.id, currentProcessName: process.process_name}">{{process.process_name | short:4}}</span> 
+            </div>       
+            <!-- current working process -->
+            <div class="current-process" *ngIf="currentProcess">
+                <span class="process-status">{{currentProcessStatus}}</span>
+                
+                <span class="process-name" style="background-color: #f9d033; margin-top: -34px !important;" 
+                routerLink = "/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{prevSalesProjectId}}/sales-opportunity-subject/{{subjectId}}/crm-opportunity-project/{{projectId}}"
+                [queryParams]="{currentProcessId: currentProcess.id, currentProcessName: currentProcess.process_name}">{{currentProcess.process_name | short:4}}</span> 
+            </div>      
+            <!-- next process list -->
+            <div class="each-process"  *ngFor="let process of nextProcessList">
+                <!-- <span class="process-status" *ngIf ="currentProcessId == process.id">{{currentProcessStatus}}</span> -->
+                
+                <span class="process-name" style="background-color:#909090; color: white;">{{process.process_name | short:4}}</span> 
+            </div>       
+        </div>
+    </div>
+
+    <hr>
+    <div class="project-user">
+        <div class="user-list">
+            <div class="owner-list" *ngFor="let owner of owners | showMore : maxOwner">
+                <div class="owner">
+                    <avatar-logo
+                        [url]="owner?.avatar_url" 
+                        [userFirstName]="owner?.first_name" 
+                        [userLastName]="owner?.last_name" 
+                        [userId]="owner?.user_id">
+                    </avatar-logo>
+                </div>
+            </div>
+
+            <mat-icon *ngIf="owners.length > maxOwner" routerLink="crm-opportunity-project/{{projectId}}/all-opportunity-owner"
+                    style="font-size: 30px; float: right; margin-right: 50px; margin-top: -37px;">more_horiz</mat-icon>
+
+            <!-- not show next-meet-shared-user now -->
+            <!-- <div class="next-meet-shared-user" [ngClass]="{'new-location' : superPermission}">
+                <div *ngFor="let share of nextMeetingSubjectSharedUserList">
+                    <div class="share">
+                        <avatar-logo
+                            [url]="share?.avatar_url" 
+                            [userFirstName]="share?.first_name" 
+                            [userLastName]="share?.last_name" 
+                            [userId]="share?.user_id">
+                        </avatar-logo>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- <div class="assign-button" *ngIf="superPermission" routerLink="crm-opportunity-project/{{projectId}}/assign-owner">
+                <button><mat-icon>person_add</mat-icon></button>                    
+            </div> -->
+        </div>
+    </div>
+    <span *ngIf="unreadCount > 0" class="unread">{{unreadCount}}</span>
+    
+</mat-card>
+
+<div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
+    </app-img-modal>
+</div>
