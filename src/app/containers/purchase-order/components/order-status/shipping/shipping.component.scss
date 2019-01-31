@@ -1,0 +1,182 @@
+.selected {
+    background-color: #15305a !important;
+    color: white;
+    position: relative;
+}
+
+.selected-2 {
+    position: relative;
+    border:1px solid #aaa;
+}
+
+.item-content {
+    padding: 6px 0 !important;
+    text-align: center;
+    width: 100%;
+}
+
+.margin-top {
+    font-size: 12px;
+}
+
+.add-shipped-button {
+    position: absolute;
+    right: 3%;
+    height: 18px;
+    width: 18px;
+    color: #eee;
+    font-size: 20px;
+    top: 0;
+    line-height: 31.47px;
+}
+
+.nopadding {
+    padding: 0 !important;
+    border: 3px solid white;
+    font-size: 11px;
+}
+
+.items-list-id {
+    width: 4%;
+    height: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    text-align: center !important;
+    border: 1px solid #aaa;
+}
+
+.items-list-qty {
+    width: 15%;
+    height: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: 1px solid #aaa;
+}
+
+.items-list-container {
+    width: 21%;
+    height: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: 1px solid #aaa;
+}
+
+.items-list-date {
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: 1px solid #aaa;
+}
+.min-height{
+    min-height: 48px;
+}
+.items-list-num {
+    width: 15.5%;
+    height: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    //jack want to earse the button
+    border: 1px solid #aaa;
+}
+
+.shippingListCard:nth-child(odd) {
+    background-color: #d2ebf3;
+}
+
+.shippingListCard:nth-child(even) {
+    // background-color: #eef3f5;
+}
+
+.loop {
+    position: relative;
+    height: 30px;
+    padding: 0px !important;
+    .item-content {
+        text-align: center !important;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+mat-card {
+    padding: 0;
+    border-top: 0px !important;
+    margin-bottom: 10px;
+    background-color: white;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.arrive-date-container {
+    padding-left: 2%; // background-color:#eeeeee;
+    border: 1px solid #aaa;
+    padding: 0 !important;
+    .arrive-date {
+        display: inline-block;
+        width: 32%;
+        padding: 5px;
+        .arriveLateBackground {
+            color: white;
+            width: 20%;
+            display: inline-block;
+            padding: 7px 2%;
+            text-align: right;
+            margin-right: 3%;
+            background-color: rgb(228, 58, 58) !important;
+        }
+        .arriveLateData {
+            padding: 7px 2%;
+            text-align: center;
+            width: 60%;
+            display: inline-block; // background-color:#FFFFFF;
+            background-color: #eee;
+            border-bottom: 2px solid rgb(228, 58, 58) !important;
+        }
+        .arrive-right {
+            width: 20%;
+            display: inline-block;
+            padding: 7px 2%;
+            text-align: right;
+            margin-right: 3%;
+            background-color: rgb(85, 223, 92);
+        }
+        .arrive-data {
+            padding: 7px 2%;
+            text-align: center;
+            width: 60%;
+            display: inline-block; // background-color:#FFFFFF;
+            background-color: #eee;
+            border-bottom: 2px solid rgb(85, 223, 92);
+        }
+    }
+}
+
+.shipCardContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.unread-mark{
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    background-color:red;
+    border-radius: 5px;
+    width: 5px;
+    height: 5px;
+    line-height: 20px;
+}

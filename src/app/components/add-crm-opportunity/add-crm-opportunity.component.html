@@ -1,0 +1,65 @@
+<a class="dislog-title" style="text-align:center;">Add Opportunity</a>
+<form class="example-form" [formGroup]="opportunityForm">
+    <div style="display:none">
+        <input formControlName = "customer_company_id" [(ngModel)]="customer_id" >
+        <input formControlName = "subject_type" >
+        <input formControlName = "customer_name" [(ngModel)]= "customer_name">
+        <input formControlName = "customer_description" [(ngModel)] ="customer_description">
+        <input formControlName = "product_id" [(ngModel)]="product_id">
+        <input formControlName = "product_item_number" [(ngModel)]="product_item_number">
+    </div>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Opportunity Name" formControlName="product_opportunity_name" required>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Opportunity Description" formControlName="opportunity_description" required>
+    </mat-form-field>
+
+    <mat-form-field class="chip-list" >
+        <mat-chip-list #chipList>
+            <mat-chip *ngFor="let product of productList" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(product)">
+            {{product}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Please input to search products"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+            [matAutocomplete]="auto" 
+            [formControl]="searchCtrl" #personInput style="width:100%"/>
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+                <mat-option style="padding: 10px 7px" *ngFor="let product of searchList" [value]="product">
+                        <div  *ngIf="product?.images[0]" class="item-container" style="height:48px">
+                            <img [src]="product?.images[0].url"  style="height:40px; display:inline-block; margin-bottom: -8px; width:40px; margin-top:4px;">
+                            <div style="display:inline-block; width:83%; float:right; font-size:14px;">
+                                <span>{{ product?.name | short: 50}}</span><br>
+                                <span>#item {{product?.headline}}</span>
+                            </div>
+                        </div>
+            
+                        <div *ngIf="!product?.images[0]" class="item-container" style="height:48px">
+                            <img  style="height:40px;  display:inline-block; margin-bottom: -8px; width:40px ;margin-top:4px;" src="assets/images/bottle.png">
+                            <div style="display:inline-block; width:83%; float:right; font-size:14px;">
+                                <span>{{ product?.name | short: 50}}</span><br>
+                                <span>#item {{product?.headline}}</span>
+                            </div>
+                        </div>
+                    <!-- <span style="font-size:13px;" *ngIf="product?.images[0]"><img  style="width: 40px ; height:40px; float:left; margin-top:10px;" src="{{product?.images[0]?.url}}">{{ product.name | short : 65 }}</span>
+                    <span style="font-size:13px;" *ngIf="!product?.images[0]"><img  style="width: 40px ; height:40px; float:left; margin-top:10px;" src="assets/images/bottle.png">{{ product.name | short : 65 }}</span> -->
+                    </mat-option>
+        </mat-autocomplete>   
+    </mat-form-field>
+</form>
+
+<mat-dialog-actions align="center">
+        <button mat-button  mat-dialog-close>Cancel</button>
+        <button mat-button  (click)="onSave()" [mat-dialog-close]="true"
+         [disabled]="opportunityForm.invalid" >Save file</button>
+</mat-dialog-actions>
+
+<!-- <pre>{{opportunityForm.value | json}}</pre> -->

@@ -1,0 +1,100 @@
+.checkout_row {
+    .product_image {
+      max-height: 200px;
+    }
+  }
+  
+  .header_yellow{
+    background-color: rgba($color: #ffc439, $alpha: 1.0);
+    text-align: center;
+    width: 80%;
+    margin: 6px auto;
+    border-radius: 6px;
+}
+.header_green{
+    background-color: rgba($color: #c1d137, $alpha: 1.0);
+    text-align: center;
+    width: 80%;
+    margin: 6px auto;
+    border-radius: 6px;
+}
+
+#paypal-button-container{
+    background-color: rgba($color: #ffc439, $alpha: 1.0);
+    text-align: center;
+    height: 100%;
+    width: 80%;
+    margin: 6px auto;
+    border-radius: 6px;
+}
+
+.header_grey{
+    background-color: rgba($color: #b6b6b6, $alpha: 1.0);
+    text-align: center;
+    width: 80%;
+    line-height: 80%;
+    height: 30px;
+    margin: 6px auto;
+    border-radius: 6px;
+    color: white;
+}
+
+.product_image{
+    width: 40px;
+    height: 40px;
+}
+.empty-cart{
+    display: block;
+    position: absolute;
+    width: 100%;
+    padding: 5%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+mat-card{
+    padding: 16px 16px;
+}
+
+.item-container{
+    width:100%;
+    .item-img{
+        display:inline-block;
+        width:50px;
+        float:left;
+        img{
+            width:50px;
+            height:50px;
+        }
+    }
+    .item-content{
+        width:80%;
+        display:inline-block;
+        float:left;
+        font-size:12px;
+        .item-name{
+           
+        }
+    }
+
+    .action-area{
+        display:inline-block;
+        input{
+            border-radius: 4px;
+            height:19px;
+        }
+        button{
+            padding: 3px 6px;
+            font-size: 12px;
+            border-radius: 5px;
+            margin-left:10px;
+        }
+        .update-action{
+            background: #f0c14b;
+            border-color: #a88734 #9c7e31 #846a29;
+            color: #111;
+        }
+    }
+
+}

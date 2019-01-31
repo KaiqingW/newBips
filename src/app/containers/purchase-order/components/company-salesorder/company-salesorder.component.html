@@ -1,0 +1,22 @@
+<div class="purchase-orders-container">
+    <div class="product-info-loop">
+      <mat-card *ngFor="let product of productList" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+        <div class="orders-container">
+            <div class="orders-list">
+                <b routerLink="/purchase-order/orders/{{product.id}}">Cus. PO # {{product.customer_order_number}}</b>
+            </div>
+            <div class="orders-list">
+                <b routerLink="/purchase-order/orders/{{product.id}}">Date: {{product.order_date}}</b>
+            </div>
+            <div class="orders-list-btn">
+                <button routerLink="/purchase-order/orders/{{product.id}}" class="btn-primary right" >100</button>                      
+            </div>
+        </div>
+      </mat-card>
+    </div>
+</div>
+<div style="height: 1%;">
+</div>
+<div routerLink="/purchase-order/orders/new" class="white-block">
+    <button class="btn-add" >+</button>
+</div>

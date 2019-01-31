@@ -1,0 +1,36 @@
+mat-card{
+    height:44px;
+    width:100%;
+    padding: 10px 16px;
+    .human-content{
+        height:44px;
+        width:100%;      
+        .human-logo{
+            float: left;
+            line-height: 44px;    
+            width:15%;
+            display:inline-block;
+            company-logo{
+                width: 40px;
+                height:40px;
+            }
+        }
+        .human-name{
+            width:40%;
+            float: left;
+            height:44px;
+            display:inline-block;
+            line-height: 44px;    
+        }
+        .join-time{
+            height:44px;
+            float: left;
+            width:30%;
+            display:inline-block;
+            line-height: 44px;    
+            font-size:12px;
+            color:gray;
+        }
+    
+    }
+}

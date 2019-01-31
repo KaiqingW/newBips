@@ -1,0 +1,136 @@
+.container{
+    overflow: hidden;
+    font-size:12px;
+}
+.card-1{
+    margin:1%;
+    padding:4%;
+}
+.title{
+    text-align: center;
+}
+.row{
+    width:100%;
+    margin: 5% 0;
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    div{
+        display: flex;
+        box-sizing: border-box;
+        width:50%;
+        margin:0;
+        padding:0;
+        display: inline-block;
+        padding: 2%;
+    }
+    div:nth-child(odd){
+        text-align: right;
+    }
+}
+.top-title{
+    padding:5px 0;
+}
+.card-2{
+    text-align: center;
+    vertical-align: middle;
+    margin:1%;
+    padding:4%;
+    form{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        margin-top:10px;
+        .inner-group{
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            label,input,select{
+                width:50%;
+                box-sizing: border-box;
+                // margin-left:5px;
+                display: inline-block;
+                text-align: center;
+            }
+        }
+    }  
+}
+.container-0{
+    width: 100%;
+    text-align: center;
+    text-transform: capitalize;
+    box-sizing: border-box;
+}
+.container-1{
+    // padding:0 2px;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    flex-wrap: wrap;
+    h3{
+        line-height: 26px;
+        height:26px;
+    }
+    // justify-content: space-around;
+    box-sizing: border-box;
+}
+.container-2{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width:100%;
+}
+.title{
+    background-color: #15305a!important;
+        color: #fff;
+        position: relative;
+        padding: 6px 0!important;
+        text-align: center;
+}
+.text{
+    padding: 2% 0;
+    text-align: center;
+    border: 1px solid #aaa;
+}  
+.box{
+    display: flex;
+    width:48%;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding:2px 0;
+    margin:0 1%;
+    .title{
+        background-color: #15305a!important;
+        color: #fff;
+        position: relative;
+        padding: 6px 0!important;
+        text-align: center;
+        width: 100%;
+    }
+      
+}
+.box-2{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    position: relative;
+    .title, .text{
+        width:50%;
+        box-sizing: border-box;
+    }
+    input,select,span{
+        display: inline-block;
+        width:50%;
+        margin:0 !important;
+        border:1px solid #aaa;
+    }
+    i{
+        position: absolute;
+        right: 5px;
+    }
+}
+
+
+

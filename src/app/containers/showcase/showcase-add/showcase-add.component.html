@@ -1,0 +1,54 @@
+
+<form novalidate *ngIf="addProductForm" [formGroup]="addProductForm">
+        <app-upload-img [company_id]="company_id" (imgChange)="onReceiveImgs($event)"></app-upload-img>
+
+        <div class="input-group">
+          <mat-form-field>
+            <input matInput type="text" required formControlName="name" placeholder="Product Name" name="" value="">
+            <!-- <mat-error *ngIf="warehouseForm['controls'].name.invalid">{{getWarehouseErrorMessage()}}</mat-error> -->
+          </mat-form-field>
+        </div>
+      
+        <div class="input-group">
+            <mat-form-field>
+              <input matInput type="text" required required placeholder="Headline" formControlName="headline" name="" value="">
+            </mat-form-field>
+        </div>
+      
+        <div class="input-group">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Category" formControlName="category" name="" value="" required>
+            </mat-form-field>
+          </div>
+      
+      
+          <!-- <div class="input-group">
+            <mat-form-field>
+                <mat-select formControlName="as_showcase" placeholder="Is Showcase" required> 
+                    <mat-option  [value]="true">
+                        Yes 
+                    </mat-option>
+                    <mat-option  [value]="false">
+                        No
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>
+           -->
+          <div *ngIf="(company_defined_columns_obj | json) != '{}'" formGroupName="company_defined_columns">
+            <div class="input-group"  *ngFor="let definedCol of company_defined_columns">
+                  <mat-form-field>
+                    <input matInput required type="text" placeholder={{definedCol.column_name}} formControlName={{definedCol.column_name}} name="" value="">
+                  </mat-form-field>
+              </div>
+          </div>
+          
+          <div class="input-group">
+              <mat-form-field>
+                <textarea matInput type="text" placeholder="Description" formControlName="description" name="" value=""></textarea>
+              </mat-form-field>
+          </div>
+
+</form>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

@@ -1,0 +1,88 @@
+<mat-card *ngIf="addProductForm && category_array?.length == 0">
+  Please add product categories before creating a new product.
+  <br> Click
+  <a [routerLink]="['/company' , company_id , 'company-setting', 'service-category']">here</a> to add new Category.
+</mat-card>
+
+<form novalidate *ngIf="addProductForm && category_array.length > 0" [formGroup]="addProductForm">
+  <app-upload-img [company_id]="company_id" (imgChange)="onReceiveImgs($event)"></app-upload-img>
+
+  <mat-form-field class="input-group-2">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let vender of venderList" [selectable]="selectable" [removable]="removable" (remove)="remove(vender)">
+        {{vender.name}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Please provide vender name" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" [matAutocomplete]="auto" [formControl]="venderCtrl"
+        #personInput/>
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+      <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+      <mat-option *ngFor="let vender of filteredVenders" [value]="vender" (click)="getSelectedVenderInfo(vender)">
+        <span *ngIf="vender?.logo_url">
+          <img [src]="vender?.logo_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{vender.name}}</span>
+        <span *ngIf="!vender?.logo_url">
+          <img src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{vender?.name}}</span>
+      </mat-option>
+      <mat-option *ngIf=" filteredVenders &&filteredVenders.length == 0" [value]="vender">
+        <span>
+          <img src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> No Results</span>
+      </mat-option>
+      <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+    </mat-autocomplete>
+  </mat-form-field>
+ 
+  <div class="input-group" *ngIf="vender_company_addresses && vender_company_addresses.length > 0">
+    <mat-form-field>
+      <mat-select formControlName="vender_address_id" placeholder="Please provide vender address.">
+        <mat-option *ngFor="let address of vender_company_addresses" [value]="address.id">
+          {{address.street1 + ',' + address.city + ',' + address.zipcode}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field>
+      <input matInput type="text" required formControlName="name" placeholder="Service Name" name="" value="">
+    </mat-form-field>
+  </div>
+
+
+  <div *ngIf="categories && categories.length > 0">
+    <div class="input-group" formArrayName="categories" *ngFor="let categoryField of addProductForm.get('categories').controls;let i = index;">
+      <mat-form-field class="field1" [formGroupName]="i">
+        <mat-select formControlName="category" placeholder={{getCategoryPlaceholder(i)}}>
+          <mat-option *ngFor="let category of category_array[i]" [value]="category.id" (click)="onAddMoreCategory(category.children, i)">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div class="input-group">
+    <mat-form-field class="input2">
+      <input matInput type="number" required formControlName="est_cost" placeholder="Unit Cost" name="" value="">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field>
+      <textarea matInput type="text" placeholder="Description" formControlName="description" name="" value=""></textarea>
+    </mat-form-field>
+  </div>
+
+  <!-- <div *ngIf="(company_defined_columns_obj | json) != '{}'" formGroupName="company_defined_columns">
+    <div class="input-group" *ngFor="let definedCol of company_defined_columns">
+      <mat-form-field>
+        <input matInput type="text" placeholder={{definedCol.column_name}} formControlName={{definedCol.column_name}} name="" value="">
+      </mat-form-field>
+    </div>
+  </div> -->
+
+</form>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

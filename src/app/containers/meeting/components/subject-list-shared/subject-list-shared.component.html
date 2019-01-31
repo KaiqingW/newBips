@@ -1,0 +1,102 @@
+
+    <a *ngIf="companyId > 0" routerLink="/company/{{companyId}}/company-meeting/meeting/subject" routerLinkActive="active" class="note-nav-tab">My Meeting <span *ngIf="unreadMySubjectNumber > 0" class="mysubject-unread">{{unreadMySubjectNumber}}</span></a>
+    <a *ngIf="companyId > 0" routerLink="/company/{{companyId}}/company-meeting/meeting/subject_shared" routerLinkActive="active" class="note-nav-tab">Shared With Me  <span *ngIf="unreadSharedWithMeNumber >0" class="shared-with-me-unread">{{unreadSharedWithMeNumber}}</span></a>
+    <a *ngIf="companyId == 0" routerLink="/personal-meeting/meeting/subject" routerLinkActive="active" class="note-nav-tab">My Meeting <span *ngIf="unreadMySubjectNumber > 0" class="mysubject-unread">{{unreadMySubjectNumber}}</span></a>
+    <a *ngIf="companyId == 0" routerLink="/personal-meeting/meeting/subject_shared" routerLinkActive="active" class="note-nav-tab">Shared With Me  <span *ngIf="unreadSharedWithMeNumber >0" class="shared-with-me-unread">{{unreadSharedWithMeNumber}}</span></a>
+
+    <div class="subject-list" *ngIf="sharedSubjectList && sharedSubjectList.length > 0 && !isLoading; else no_subject_found">
+        <div class="subject-subject" *ngFor="let subject of sharedSubjectList; let i = index">
+
+            <mat-card class="meeting_time" routerLink="{{subject.id}}">
+                <span>{{subject.name | omitName }}</span>
+                
+            </mat-card>
+            
+        <mat-card class="subject-card">
+            <div routerLink="{{subject.id}}">
+            <div class="subject-card-header">
+                <div class="subject-body">
+                    <span class="subject_name">Meeting Time: {{subject.meeting_date}} {{subject.meeting_time}}</span>
+                  
+                    <span *ngIf="subject.unread_records[0]" class="subject-unread">{{subject.unread_records.length}}</span>
+                </div>
+
+                <!-- <div mat-card-avatar class="subject-header-image">
+                <app-profile-picture
+                    [url]="subject?.created.by.avatar_url"
+                    [userFirstName]="subject?.created.by.first_name"
+                    [userLastName]="subject?.created.by.last_name"
+                    [userId]="subject?.created.by.id">
+                </app-profile-picture>
+                </div> -->
+
+                <div class="subject-name-time">
+                    <div class="subject-time">
+                      {{subject.created.at| local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </mat-card>
+
+        <mat-card class="shared-image-list">
+
+            <div class="shared-owner">
+                <div class="shared-profile-picture">
+                    <app-profile-picture
+                    [url]="subject?.created.by.avatar_url"
+                    [userFirstName]="subject?.created.by.first_name"
+                    [userLastName]="subject?.created.by.last_name"
+                    [userId]="subject?.created.by.id">
+                    </app-profile-picture>
+                </div>
+                <!-- <div *ngIf="subject.id ==25" class="shared-profile-picture">
+                    <app-profile-picture [url]="''" [userFirstName]="'Yali'" [userLastName]="'Wang'" [userId]="">
+                    </app-profile-picture>
+                </div> -->
+            </div>
+            
+            <div class="shared-staff">
+
+            <div *ngFor="let sharedUser of subject.share.with; let ii = index" class="shared-profile-picture">
+                <app-profile-picture
+                [url]="sharedUser?.avatar_url"
+                [userFirstName]="sharedUser?.first_name"
+                [userLastName]="sharedUser?.last_name"
+                [userId]="sharedUser?.id">
+                </app-profile-picture>
+            </div>
+
+            <!-- <div class="shared-icon">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="quit(subject.id)" >
+                    <span>Delete</span>
+                </button>
+                <button mat-menu-item routerLink="{{subject.id}}/share">
+                    <span>Share</span>
+                </button>
+                </mat-menu>
+            </div> -->
+
+            </div>
+        </mat-card>
+
+        </div>
+    </div>
+
+    <ng-template #no_subject_found>
+        <div class="no-subject" *ngIf="!isLoading">
+        <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
+        <p>No Notes Found</p>
+        </div>
+    </ng-template>
+
+    <!-- <app-add-button *ngIf="!isLoading" routerLink="/notes/create"></app-add-button> -->
+
+    <div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+    </div>

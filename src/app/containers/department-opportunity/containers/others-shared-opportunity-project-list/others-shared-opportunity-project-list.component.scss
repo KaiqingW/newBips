@@ -1,0 +1,84 @@
+// :host {
+//     width: 100%;
+// }
+
+.shared-opportunity-list {
+    margin-top: 2px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #15305A;
+    text-align: center;
+    height: 22px;
+    padding-top: 2px;
+}
+
+.subject-card-margin {
+    margin-bottom: 3px;
+}
+
+// active router link
+a{
+    position:relative;
+    text-decoration: none;
+    color:#000000;
+    width:41%;
+    height:20px;
+    display:inline-block;
+    padding:4% 4%;
+    text-align: center;
+    background-color: #E0EAF1;
+    border-bottom: solid 2px #000000;
+
+    .mysubject-unread{
+        position: absolute;
+        right: -2px;
+        top: 1px;
+        background-color: red;
+        border-radius: 50px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        color: white;
+    }
+    
+    .shared-with-me-unread{
+        position: absolute;
+        right: 2px;
+        top: 1px;
+        background-color: red;
+        border-radius: 50px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        color: white;
+    }
+}
+.active{
+    background-color: rgb(255, 255, 255);
+    color:#000000;
+    border-bottom: none;
+}
+// end
+
+.blank-dev {
+    height: 20%;
+}
+
+.no-subject {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    top: 35%;
+    align-items: center;
+    p {
+        font-size: 20px;
+        font-weight: bolder;
+        color: #CFD7E6;
+        border: 2px;
+        border-color: #CFD7E6;
+        position: absolute;
+        display: block;
+        margin-top: 25px;
+        padding-right: 30px;
+    }
+}

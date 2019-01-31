@@ -1,0 +1,7 @@
+<mat-card *ngIf="salesPitchSubject">
+    <div>
+        <b>Sales Pitch Title</b>
+        {{salesPitchSubject.pitch_subject_name}}
+    </div>
+    <sales-pitch *ngFor="let salesPitch of salesPitchSubject?.sales_pitches;let i = index" [salesPitch]="salesPitch" [index]="i" ></sales-pitch>
+</mat-card>

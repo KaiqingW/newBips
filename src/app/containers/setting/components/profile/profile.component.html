@@ -1,0 +1,158 @@
+
+<form novalidate [formGroup]="profileForm" *ngIf="!isLoading" >
+    <div class="avatar">     
+      <div class="background">
+        <mat-icon>camera_enhance</mat-icon>
+      <input type="file" id="file" (change)="onFileChange($event)" #fileInput>                  
+      </div>
+      <div class="avatar-icon" >
+        <avatar [url]="user?.avatar_url" *ngIf="!isLoading"></avatar>
+      </div>
+    </div>
+    <mat-form-field>
+        <input type="text" matInput placeholder="First Name" formControlName="first_name"/>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input type="text" matInput placeholder="Middle Name" formControlName="middle_name"/>
+        <mat-error *ngIf="profileForm.controls.middle_name.invalid">{{getMiddlenameErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input type="text" matInput placeholder="Last Name" formControlName="last_name"/>
+        <mat-error *ngIf="profileForm.controls.last_name.invalid">{{getLastnameErrorMessage()}}</mat-error>
+    </mat-form-field> 
+    <mat-radio-group>
+        <input type="radio" value="male" name="gender" formControlName="gender">Male        
+        <input type="radio" value="female" name="gender" formControlName="gender">Female
+    </mat-radio-group>
+     <mat-form-field>
+        <input type="text" matInput placeholder="Email" [value]="user?.email" disabled/>
+        <!-- <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error> -->
+    </mat-form-field> 
+     <!-- <mat-form-field>
+        <input type="text" matInput placeholder="Headline" formControlName="headline"/>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field>  -->
+    <mat-form-field>
+        <input type="text" matInput placeholder="Experience" formControlName="experience"/>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field> 
+    <mat-form-field>
+        <input type="text" matInput placeholder="Education" formControlName="education"/>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field>     
+    <mat-form-field>
+        <input type="text" matInput placeholder="Skill" formControlName="skill"/>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field> 
+    <mat-form-field>
+        <input type="tel" matInput placeholder="Phone" formControlName="phone_number"/>
+        <!-- <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error> -->
+    </mat-form-field> 
+    <mat-form-field>
+        <input type="text" matInput placeholder="Industry" formControlName="industry"/>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field> 
+    <!-- <mat-form-field>
+        <input type="text" matInput placeholder="Position" formControlName="position"/>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field>  -->
+    <mat-form-field>
+        <textarea type="text" matInput placeholder="Summary" formControlName="summary"></textarea>
+        <mat-error *ngIf="profileForm.controls.first_name.invalid">{{getFirstnameErrorMessage()}}</mat-error>
+    </mat-form-field> 
+    <!-- <input  type="text" matInput placeholder="Summary" formControlName="address_id" [ngModel]="user.address?.id" style="display:none"/> -->
+    
+
+    <div  formGroupName="address">
+        <!-- <div style="color:red; display:block" *ngIf="allFieldRequied">Please fill the all the address</div>  -->
+        <div *ngIf="user.address== null">
+            <div *ngIf="!fullAddress" >
+                <mat-form-field>
+                    <input  type="input" matInput  placeholder="Zipcode"  name="zipcode" [formControl]="zipcodeCtrl">
+                </mat-form-field>
+                <div style="display:none">
+                    <mat-form-field class="example-full-width">           
+                        <input type="input" matInput placeholder="Street1"  formControlName="street1" >
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">           
+                        <input type="input" matInput placeholder="Street2"  formControlName="street2" >
+                    </mat-form-field> 
+                    <mat-form-field class="example-full-width">           
+                        <input type="input" matInput placeholder="City"  formControlName="city" >
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">           
+                        <input type="input" matInput placeholder="State"  formControlName="state" >
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">           
+                        <input type="input" matInput placeholder="Zip Code"  formControlName="zipcode" >
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">           
+                        <input type="input" matInput placeholder="Country"  formControlName="country" >
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div *ngIf="fullAddress">
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Street1"  formControlName="street1" required>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Street2"  formControlName="street2" >
+                </mat-form-field> 
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="City"  formControlName="city" [(ngModel)]="city" required>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="State"  formControlName="state" [(ngModel)]="state" name="state" required>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Zip Code"  formControlName="zipcode" [(ngModel)]="zipcode" name="zipcode" required>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">           
+                    <input type="input" matInput placeholder="Country"  formControlName="country" name="country" [(ngModel)]="country" required>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div *ngIf="user.address?.id">
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Street1"  formControlName="street1" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Street2"  formControlName="street2" >
+            </mat-form-field> 
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="City"  formControlName="city" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="State"  formControlName="state" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Zip Code"  formControlName="zipcode" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width">           
+                <input type="input" matInput placeholder="Country"  formControlName="country" >
+            </mat-form-field>
+        </div>
+        
+    </div>
+
+</form>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<app-crop-modal *ngIf="modalOpenCropImage">
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <div class="button-list">
+        <button mat-raised-button color="accent" (click)="this.modalOpenCropImage = false;">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    </div>   
+</app-crop-modal>
+
+<!-- <pre>{{profileForm.value | json}}</pre> -->
+
+
+  

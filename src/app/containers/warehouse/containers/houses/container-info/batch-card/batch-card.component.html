@@ -1,0 +1,35 @@
+<form *ngIf="batchInfos" [formGroup]="updateBatchForm">
+    <div class="item-header">
+        <div class="item-picture">
+                <div class="description" >#</div>
+            </div>
+            <div class="item-col-1">
+                  <div class="product-name">Batch#</div>
+           </div>
+            <div class="item-col">
+                <div class="description">Batch Qty</div>
+            </div>
+    
+            <div class="item-col" style="padding-right:2%;">
+                <div class="description">Actual</div>
+            </div>
+    </div>
+    <div class="item-header" *ngFor="let batch of batchInfos;index as i;" formArrayName="batches">
+            <div class="item-picture">
+                <!-- <img src="assets/images/bottle.png"> -->
+                <div class="description" >{{i+1}}.</div>
+            </div>
+            <div class="item-col-1">
+                  <div class="description" >{{batch.batch_number}}</div>
+           </div>
+            <div class="item-col">
+                <div class="description">{{batch.quantity | number}}</div>
+            </div>
+    
+            <div class="item-col" style="padding-right:2%;" [formGroupName]="i">
+                <div class="description" *ngIf="batch.actual_quantity != null">{{batch.quantity | number}}</div>
+                <div class="description" *ngIf="(batch?.actual_quantity == null) && (!editMode)">{{N/A}}</div>
+                <input *ngIf="editMode" type="number" class="description" formControlName="actual_quantity" required>
+            </div>
+    </div>
+</form>

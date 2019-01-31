@@ -1,0 +1,33 @@
+<mat-card>
+  <div class="subject-content" >
+      <div>
+          <div class="subject-name">
+            <ng-content></ng-content>
+            <h5 (click)="navigateByUrl(url)">{{name}}</h5>
+          </div>
+
+          <div class="time" (click)="navigateByUrl(url)">
+              <span class="meeting-time">Meeting Time: {{meetingDate}} {{meetingTime}} {{meetingFrequency}}</span>
+              <span class="created-time">{{createdTime | local | amDateFormat : 'MM/DD/YYYY h:mm a'}}</span>
+          </div>
+
+            <span class="attachment-files-count" *ngIf="attachmentFilesCount != 0">
+                <img class="note-img" src="assets/images/icons/folder.png" style="width:20px;height:23px" alt="">
+                <span class="count">{{attachmentFilesCount}}</span>
+            </span>       
+            
+            <span class="attachment-files-count" *ngIf="attachmentFilesCount == 0">
+                <img class="note-img" src="assets/images/testimg/gray-folder.png" style="width:20px;height:23px" alt="">
+                <!-- <span class="count">{{attachmentFilesCount}}</span> -->
+            </span>   
+        <!-- <span *ngIf="unreadRecord > 0" class="unread">
+                <img class="note-img" src="assets/images/testimg/unread.png" style="width:20px;height:23px" alt="">
+                <span class="count">{{unreadRecord}}</span>
+        </span>       -->
+          <span *ngIf="unreadRecord > 0" class="unread">{{unreadRecord}}</span>
+          
+      </div>
+  </div>
+
+  <ng-content></ng-content>
+</mat-card>

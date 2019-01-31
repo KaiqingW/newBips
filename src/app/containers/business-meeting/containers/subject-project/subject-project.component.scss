@@ -1,0 +1,91 @@
+.whole-project {
+    height: 95%;
+    overflow: hidden;
+    overflow-y: scroll;
+    .project-card-margin{
+        margin-bottom: 5px;
+    }
+    .date {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .bar {
+        display: inline-block;
+        width: 100%;
+        .bar-content {
+            width: 95%;
+            text-align: right;
+        }
+        .total-days {
+            width: 13%;
+            float: right;
+            font-size: 12px;
+        }
+    }
+    .discussion {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 20px;
+        padding-top: 4px;
+    }
+
+    .status {
+        margin-top: 2px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 22px;
+        padding-top: 2px;
+    }
+
+    .blank-discussion-board {
+        text-align: center;
+        height: 15px;
+    }
+
+    .status-card-margin {
+        // height: 50%;
+        .reply-card-margin {
+            margin-left: 10%;
+            width: 90%;
+        }
+    }
+    
+}
+
+.operation-bar {
+    height: 55px;
+    position: fixed;
+    width:100%; 
+    bottom:10px;
+    // background-color:#fff;
+    text-align: center;
+    .meeting-button{
+        // width:70%;
+        box-sizing: border-box;
+        bottom:10px;
+        padding:10px 10px;
+        // background-color:#eeeeee;
+        // color:gray;
+        color: #fff;
+        background-color: #15305A;
+        margin-left: 5%;
+        margin-right: 5%;
+        border-radius:10px;
+        text-decoration: none;
+    }
+
+    .new-meeting-button {
+        width:70%;        
+    }
+}
+
+.blank-dev {
+    height: 20%;
+}

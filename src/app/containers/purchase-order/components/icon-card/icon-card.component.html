@@ -1,0 +1,16 @@
+<div class="container_info">
+    <div style="display:flex;flex-direction: row;" *ngFor="let item of items">
+        <div class="box" *ngFor="let container_info of item.container_information ">
+            <div class="row1">
+                <img class="big_icon" *ngIf="item?.product?.images && item?.product?.images?.length < 1" src="assets/images/icons/no-img.jpg" (click)="navToItem(item)">
+                <img class="big_icon" *ngIf="item?.product?.images && item?.product?.images.length > 0" [src]="item?.product?.images[0]?.url"
+                    (click)="navToItem(item)">
+                <img style="width:24px;height:24px;" [src]="getPic(container_info.type, item.shipping_method)" alt="ground-shipping.png">
+
+            </div>
+            <div class="row2">
+                <span>{{container_info.quantity | number}}</span>
+            </div>
+        </div>
+    </div>
+</div>

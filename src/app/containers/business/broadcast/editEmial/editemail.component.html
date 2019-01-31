@@ -1,0 +1,41 @@
+this is send emial component
+
+<form [formGroup]="broadcastForm">
+    <mat-form-field class="example-full-width">  
+        <!-- <mat-chip-list #chipList class=" email-height">
+            <mat-chip *ngFor="let email of contactsList" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(email)">
+                {{email}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Press Enter or Comma to add another user"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    formControlName="emails"
+                    disabled/>
+        </mat-chip-list>          -->
+        <textarea matInput placeholder="TO" [value]="contactsList" disabled></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width ">           
+        <input type="input" matInput placeholder="From"  required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width ">           
+        <input type="input" matInput placeholder="Subject"  formControlName="subject" required>
+    </mat-form-field>
+    <!-- <mat-form-field class="example-full-width ">           
+        <textarea  type="input" matInput placeholder="Content"  formControlName="content" required>
+        </textarea>
+    </mat-form-field> -->
+
+
+
+    <div class="customer-container">
+        <div class="customer-header">
+            <a class="add-product" (click)="promoteProduct()">Promote Product</a>
+        </div>
+        <textarea class="customer-content" name="post-text" cols="44" rows="15" data-min-length="" formControlName="content" [(ngModel)]="innerContent"></textarea>
+    </div>
+    
+</form>

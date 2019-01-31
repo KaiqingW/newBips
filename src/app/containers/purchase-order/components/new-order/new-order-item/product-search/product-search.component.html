@@ -1,0 +1,49 @@
+<div style="width:100%;text-align: center;height:10%;">
+    <!-- <mat-form-field class="search-field">
+        <input class="input" matInput placeholder="Search by Product Name" aria-label="product name" [formControl]="searchCtrl">
+    </mat-form-field> -->
+    <product-search-bar [options]="options" (onSearch)="onGetSearch($event)" [defaultOption]="defaultOption" [searchPlaceholder]="searchPlaceholder" [optionPlaceholder]="optionPlaceholder"></product-search-bar>
+</div>
+
+<div class="content" (scroll)="onMouseWheel($event)">
+    <div class="product-info-location" *ngIf="productList?.length > 0">
+        <mat-card *ngFor="let product of productList;let i = index;" [class.selected]="product == selectedProduct">
+            <div class="product-header">
+                <div class="product-picture">
+                    <img *ngIf="product.images.length < 1" src="assets/images/icons/no-img.jpg">
+                    <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].url">
+                </div>
+
+                <div class="item-name">
+                    <!-- <span class="product-name" (click)="onNavToDetail($event, product.id)"> -->
+                    <span class="product-name">
+                        <b>{{product.name}}</b>
+                    </span>
+                    <br>
+                    <span class="description">Item#:{{product.headline}}</span>
+                    <!-- <span class="description" routerLink="{{product.id}}">{{product.category}}</span> -->
+                    <!-- <span class="description" routerLink="{{product.id}}">{{product.as_showcase}}</span> -->
+                </div>
+
+                <div class="available">
+                    <span class="available-quantity">Avl:{{product.total_amount | number}}</span>
+                    <button (click)="onNavToDetail($event, product.id)">Detail</button>
+                    <button (click)="selectProduct(product)">Add</button>
+                </div>
+            </div>
+
+        </mat-card>
+        <div style="height:100px;"></div>
+    </div>
+
+    <div class="product-info-location" *ngIf="productList?.length == 0">
+        <div class="product-info-loop">
+            <mat-card>
+                No product in this warehouse.
+                <!-- <button mat-raised-button color="primary" (click)="onNavigate()">Add Product</button> -->
+            </mat-card>
+        </div>
+    </div>
+    <div class="banner"></div>
+</div>
+<app-spinner *ngIf="isLoading"></app-spinner>

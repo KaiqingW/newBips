@@ -1,0 +1,269 @@
+<div *ngIf="show" style="font-size: 14px; padding: 5px; margin: 8px 6px 0 6px; color:red; border: solid 0.5px red; border-radius: 2px">
+    Over the maximum number !
+ </div>
+
+
+<mat-card *ngFor="let company of companies; let i = index">
+    <h3>{{i+1}}. Sold by {{company.name}}</h3>
+  <!-- <h3>Shop from {{i+1}} of {{companies.length}} Sellers</h3>
+  <div style="margin:2vw 0 0 4vw; font-size: 14px;">
+    Sold by {{company.name}}
+  </div> -->
+
+  <div *ngFor="let warehouse of company.shop_order_warehouses; let j = index">
+        <div style="margin:2vw 0">
+          <i class="material-icons" style="font-size: 18px;">place</i>
+          <small style="margin-bottom: 15px;">Dispatching from {{warehouse.address.city}}, {{warehouse.address.zipcode}}</small>
+        </div>
+  
+        <mat-card  *ngFor="let item of warehouse.products; let k = index">
+            <div class="item-container">
+                <div>
+                    <div class="item-img" (click)="onNavToDetail(item.company_id, item.company_product_id)" >
+                        <img src="{{item.image}}" class="product_image" />
+                    </div>
+                    <div class="item-content">
+                        <span class="item-name" (click)="onNavToDetail(item.company_id, item.company_product_id)"><b>{{item.name | short:70}}</b></span><br>
+                        <span *ngIf="item.maxPrice && item.maxPrice != item.unit_price"><s>${{item.maxPrice/100}}</s>
+                        </span> <label style="color:#B12704 !important">$</label><span style="color:#B12704 !important">{{item.unit_price/100}}</span>&nbsp;&nbsp;&nbsp; <span style="color:#008a00!important">In Stock</span>
+                    </div>
+                </div>
+                <div class="action-area">
+                    <input id="{{'input'+i+j+k}}" style="width: 20%;" placeholder={{item.quantity}} onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                    onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
+                    <button class="update-action" (click)="updateCart(company.id, company.total_price, warehouse.id, item, i, j, k)">Update</button>
+                    <button  (click)="removeItemFromCart(company.id, warehouse.id, item.id)">Remove</button>
+                </div>
+            </div>   
+        </mat-card>
+    </div>
+
+
+  <!-- <div *ngFor="let warehouse of company.shop_order_warehouses; let j = index">
+      <div style="margin:2vw 0">
+        <i class="material-icons" style="font-size: 18px;">place</i>
+        <small style="margin-bottom: 15px;">Dispatching from {{warehouse.address.city}}, {{warehouse.address.zipcode}}</small>
+      </div>
+
+    <mat-card style="display: flex; align-items: flex-start;" *ngFor="let item of warehouse.products; let k = index">
+        <div (click)="onNavToDetail(item.company_id, item.company_product_id)" style="padding-right: 12px; flex-grow: 1;">
+            <img src="{{item.image}}" class="product_image" />
+        </div>
+        <div (click)="onNavToDetail(item.company_id, item.company_product_id)" style="flex-grow: 1; min-width: 30%; font-size: 14px;">
+            <span>{{item.name}}</span>
+        </div>
+        <div style="text-align: right; flex-grow: 1;">
+            <div style="color:red;">$</div>
+            <div *ngIf="item.maxPrice && item.maxPrice != item.unit_price" style="color:#cccccc;">
+            <s>$</s>
+            </div>
+        </div>
+        <div style="text-align: right; flex-grow: 1;">
+            <div style="color:red;">{{item.unit_price/100}}</div>
+            <div *ngIf="item.maxPrice && item.maxPrice != item.unit_price" style="color:#cccccc;">
+            <s>{{item.maxPrice/100}}</s>
+            </div>
+        </div>
+        <div style="text-align: right; padding: 0 5px;flex-grow: 1;">
+            <p>x</p>
+        </div>
+      <div style="flex-grow: 1;" (click)="removeProductFromCart(item)">
+          <button style="width: 3vw;">-</button>
+        </div>
+      <div style="text-align: right; color:red; padding: 0 5px;flex-grow: 1;">
+            <input id="{{'input'+i+j+k}}" style="width: 100%;" placeholder={{item.quantity}} onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+            onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
+      </div>
+      <div style="flex-grow: 1;">
+            <button style="margin-left: 2vw;" (click)="updateCart(company.id, company.total_price, warehouse.id, item, i, j, k)">Update</button>
+            <button style="margin-top: 3vw;" (click)="removeItemFromCart(company.id, warehouse.id, item.id)">Remove</button>
+      </div>
+
+      <div style="flex-grow: 1;" (click)="addProductToCart(item)">
+          <button style="width: 3vw;">+</button>
+        </div>
+      <div style="text-align: right; color:red; padding: 0 5px;">
+              <p>{{item.totalCost | currency:'USD':true}}</p>
+          </div>
+    </mat-card>
+  </div> -->
+  <div style="text-align: right;">
+    <h4 style="margin: 5px 0;">
+      Total:
+      <span style="color:red; padding: 12px 0" id="total">$ {{company.total_price/100}}</span>
+    </h4>
+  </div>
+</mat-card>
+
+<!-- <mat-card style="display: flex; align-items: flex-start;" *ngFor="let item of cartItems">
+  <div style="padding-right: 12px; flex-grow: 1;">
+    <img src="{{item.url}}" class="product_image" />
+  </div>
+  <div style="flex-grow: 1; min-width: 30%;">
+    <span>{{item.name}}</span>
+  </div>
+
+  <div style="text-align: right; color:red; padding: 0 5px;flex-grow: 1;">
+    <p>{{item.price | currency:'USD':true}}</p>
+  </div>
+  <div style="text-align: right; padding-right: 5px;flex-grow: 1;">
+    <p>x</p>
+  </div>
+  <div style="flex-grow: 1;" (click)="removeProductFromCart(item)">
+    <button style="width: 3vw;">-</button>
+  </div>
+  <div style="text-align: right; color:red; padding: 0 5px;flex-grow: 1;">
+    <input style="width: 100%;" placeholder={{item.quantity}} (focusout)="onKey($event, item)">
+  </div>
+  <div style="flex-grow: 1;" (click)="addProductToCart(item)">
+    <button style="width: 3vw;">+</button>
+  </div> -->
+<!-- <div style="text-align: right; color:red; padding: 0 5px;">
+        <p>{{item.totalCost | currency:'USD':true}}</p>
+    </div> -->
+<!-- </mat-card> -->
+
+<!-- <mat-card>
+  <h4 style="padding: 12px;">Delivery Options</h4>
+  <div class="row delivery-option" *ngFor="let option of deliveryOptions | async">
+    <div style="display: flex; justify-content: space-between;">
+      <div style="font-weight: bold;">
+        <div style="display: inline-block;">
+          <input type="radio" name="delivery_option" id="{{option.name}}" [checked]="option.id === (cart | async).deliveryOptionId"
+            (click)="setDeliveryOption(option)">
+        </div>
+        <div style="display: inline-block;">
+          <label class="text--bold js-option-name" for="{{option.name}}" (click)="setDeliveryOption(option)">{{option.name}}</label>
+        </div>
+      </div>
+      <div class="small-2 columns">
+        <p style="color: red;">{{option.price | currency:'USD':true}}</p>
+      </div>
+    </div>
+    <div style="padding: 12px;">
+      <p>{{option.description}}</p>
+    </div>
+  </div>
+</mat-card> -->
+
+<!-- <mat-card>
+  <div class="medium-4 columns">
+    <h2>
+      <i class="material-icons">shopping_basket</i>
+      <span>Checkout</span>
+    </h2>
+  </div>
+  <div style="padding: 10px 0;">
+    <span>Promotional Code:</span>
+    <input style="width: 20%; border: 1px solid lightgrey;" [(ngModel)]="code">
+    <button (click)="check(code)">Apply</button>
+    <div *ngIf="invalidCode" style="color:red; padding: 6px 0">Invalid Code</div>
+  </div>
+  <div style="text-align: right;">
+    <h4 style="margin: 5px 0;">
+      Items Total
+      <span style="color:red; padding: 12px 0">{{(cart | async).grossTotal-(cart | async).deliveryTotal | currency:'USD':true}}</span>
+    </h4>
+    <h4 *ngIf="show" style="margin: 5px 0;">
+      Discount
+      <span style="color:red; padding: 12px 0">{{((cart | async).grossTotal-(cart | async).deliveryTotal)*0.1 | currency:'USD':true}}</span>
+    </h4>
+    <h4 *ngIf="(cart | async).deliveryTotal" style="margin: 5px 0;">
+      Shipping Fee
+      <span style="color:red; padding: 12px 0">{{(cart | async).deliveryTotal| currency:'USD':true}}</span>
+    </h4>
+    <h4 *ngIf="!show && (cart | async).deliveryTotal" style="margin: 5px 0;">
+      Final Total
+      <span style="color:red; padding: 12px 0" id="total">{{(cart | async).grossTotal | currency:'USD':true}}</span>
+    </h4>
+    <h4 *ngIf="show" style="margin: 5px 0;">
+      Final Total
+      <span style="color:red; padding: 12px 0" id="total">{{(cart | async).grossTotal*0.9+(cart | async).deliveryTotal*0.1 | currency:'USD':true}}</span>
+    </h4>
+    <h5 style="color:red;" *ngIf="(cart | async).deliveryOptionId === undefined">Please select a delivery option...</h5> -->
+<!-- <a class="success button large"
+          *ngIf="(cart | async).deliveryOptionId !== undefined"
+          routerLink="/confirmed">Purchase Order</a> -->
+<!-- </div>
+</mat-card> -->
+
+<mat-card *ngIf="companies?.length > 0">
+  <div class="medium-4 columns">
+    <h2>
+      <i class="material-icons">shopping_basket</i>
+      <span>Checkout</span>
+    </h2>
+  </div>
+  <!-- <div style="padding: 10px 0;">
+    <span>Promotional Code:</span>
+    <input style="width: 20%; border: 1px solid lightgrey;" [(ngModel)]="code">
+    <button (click)="check(code)">Apply</button>
+    <div *ngIf="invalidCode" style="color:red; padding: 6px 0">Invalid Code</div>
+  </div> -->
+  <div style="text-align: right;">
+    <h4 style="margin: 5px 0;">
+      Items Total:
+      <span style="color:red; padding: 12px 0" id="total">$ {{totalPrice/100}}</span>
+    </h4>
+    <h4 *ngIf="showDic" style="margin: 5px 0;">
+      Discount:
+      <span style="color:red; padding: 12px 0">- $ {{totalPrice/1000}}</span>
+    </h4>
+    <h4 *ngIf="showDic" style="margin: 5px 0;">
+      Final Total:
+      <span style="color:red; padding: 12px 0" id="total">$ {{totalPrice/100 - totalPrice/1000}}</span>
+    </h4>
+  </div>
+</mat-card>
+
+<mat-card *ngIf="companies?.length > 0" >
+  <!-- <div> -->
+  <!-- <div id = "paypal-button-container" *ngIf="(cart | async).deliveryOptionId !== undefined" ></div> -->
+  <!-- <div id="paypal-button-container"></div>
+  </div> -->
+
+    <div *ngIf="companies?.length > 0 && compPriceLimitAlert">
+      <div *ngFor="let priceLimit of shopPriceLimit; let i = index" style="color: red; padding-bottom: 15px">
+        ** At least ${{priceLimit.priceLimit/100}} to place an order from {{priceLimit.compName}}.
+      </div>
+    </div>
+
+    <div *ngIf="companies?.length > 0">
+        <div routerLink="/shop/addr">
+          <button mat-menu-item class="header_yellow" [disabled]="companies?.length <= 0 || compPriceLimitAlert">
+            Proceed to Checkout
+          </button>
+        </div>
+      
+        <div routerLink="/shop">
+          <button mat-menu-item class="header_green">
+            Back to Shopping
+          </button>
+        </div>
+        <div *ngIf="companies?.length > 0" style="text-align: center;">or</div>
+        <div *ngIf="companies?.length > 0">
+          <button mat-menu-item class="header_grey" (click)="emptyCart()" [attr.disabled]="itemCount === 0 ? true : null">
+            Empty Shopping Cart
+          </button>
+        </div>
+    </div>
+  
+</mat-card>
+
+<!-- show when shopping car empty -->
+<div class="empty-cart" *ngIf="companies?.length == 0" style="text-align: center">
+    
+    <img style="width:60%" src="assets/images/testimg/empty_cart1.png">
+    <h4 style="font-size: 16px;  margin-top:20px;">Unfortunately, Your Cart is empty.</h4>
+    <p style="margin-top:4px;">
+      Please Add Something in you Cart!
+    </p>
+    <div routerLink="/shop" style="margin-top:20px;">
+      <button mat-menu-item class="header_green" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">
+        <b>Back to Shopping</b>
+      </button>
+    </div>
+</div>
+
+
+<app-spinner *ngIf="isLoading"></app-spinner>

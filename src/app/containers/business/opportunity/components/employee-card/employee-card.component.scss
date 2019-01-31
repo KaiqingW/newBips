@@ -1,0 +1,44 @@
+:host{
+    .card-body{
+        margin-top:10px;
+        padding:10px 0px 5px 5px;
+        height: 48px;
+        width:100%;
+        .user-avatar{
+            width:15%;
+            height: 42px;
+            display:inline-block;
+            vertical-align: middle;
+            float: left;
+            text-align: center;
+            company-logo{
+                width:40px;
+                height:40px;
+            }
+        }
+        .user-info{
+            // width:60%;
+            display:inline-block;
+            .first-line{
+
+            }
+            .sec-line{
+                font-size:13px;
+                color:gray;
+                margin-top:5px;
+            }
+        }
+        .total-number{
+            display:inline-block;
+            width:16px;
+            float:right;
+            text-align: center;
+            padding:2px;
+            border:1px solid gray;
+            border-radius: 50px;
+            color:red;
+            font-size:13px;
+            margin-right:10px;
+        }
+    }
+}

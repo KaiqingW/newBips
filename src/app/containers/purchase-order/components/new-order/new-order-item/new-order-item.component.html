@@ -1,0 +1,120 @@
+<div class="container">
+    <div class="product-info">
+        <div class="product-header">
+            <div class="bg-write">
+                <img src="assets/images/universe.png" style="height: 60px; width: 100%; opacity: 1.0;">
+            </div>
+            <div class="bg-blue">
+                <div class="product-picture">
+                    <img *ngIf="(!product) || product.images.length == 0" src="assets/images/bottle.png">
+                    <img *ngIf="product && (product.images.length > 0)" [src]="product.images[0].url">
+                </div>
+                <div>
+                    <b>{{itemNum}}</b>
+                </div>
+                <div>
+                    <b>{{description}}</b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-product-search *ngIf="!product" (sendProduct)="onReceivedProduct($event)" [companyId]="company_id"></app-product-search>
+
+    <form style="width:100%" [formGroup]="order_item" *ngIf="product">
+        <mat-card>
+            <div class="row">
+                <!-- <div class="items-list" style="display: hidde">
+                    <div class="selected item-content">Item #</div>
+                    <input class="item-content" placeholder="Required" formControlName="sales_item_number" readonly [(ngModel)]="itemNum" required>
+                </div> -->
+                <div class="items-list">
+                    <div class="selected item-content">Shipping Method</div>
+                    <select [ngClass]="{ 'has-danger':order_item.controls.shipping_method.invalid}" formControlName="shipping_method" name="" id="" required>
+                        <option value=''></option>
+                        <option selected="selected" value="ocean">Ocean</option>
+                        <option value="air">Air</option>
+                    </select>
+                </div>
+
+                <div class="items-list">
+                    <div class="selected item-content">Order QTY</div>
+                    <input class="item-content" [ngClass]="{ 'has-danger':order_item.controls.quantity.invalid}" placeholder="Required" type="number" formControlName="quantity" required>
+                </div>
+
+                <div class="items-list">
+                    <div class="selected item-content">Unit Price</div>
+                    <input class="item-content" [ngClass]="{ 'has-danger':order_item.controls.unit_price.invalid}" placeholder="Required" type="number" formControlName="unit_price" required>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="items-list">
+                    <div class="selected item-content">Case Qty</div>
+                    <input class="item-content" [ngClass]="{ 'has-danger':order_item.controls.case_quantity.invalid}" placeholder="Required" type="number" [(ngModel)]="case_quantity" formControlName="case_quantity"
+                        required>
+                </div>
+
+                <div class="items-list">
+                    <div class="selected item-content">Case/Plt</div>
+                    <input class="item-content" [ngClass]="{ 'has-danger':order_item.controls.cases_per_plate.invalid}" placeholder="Required" type="number" [(ngModel)]="cases_per_plate" formControlName="cases_per_plate"
+                        required>
+                </div>
+
+                <div class="items-list">
+                    <div class="selected item-content">Pes/Plt</div>
+                    <input readonly class="item-content" type="number" [value]="cases_per_plate*case_quantity" required>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div *ngIf="(company_defined_columns_obj | json) != '{}'" formGroupName="company_defined_columns">
+                    <div *ngFor="let definedCol of company_defined_columns" class="items-list">
+                        <div class="selected item-content">{{definedCol.column_name}}</div>
+
+                        <div *ngIf="definedCol.column_name == 'color'">
+                            <input class="item-content" placeholder="Required" type="text" list="colors" formControlName={{definedCol.column_name}} required>
+                            <datalist id="colors">
+                                <option [value]="color" *ngFor="let color of colors">{{color}}</option>
+                            </datalist>
+                        </div>
+
+                        <div *ngIf="definedCol.column_name == 'material'">
+                            <input class="item-content" placeholder="Required" type="text" formControlName="material" list="material" required>
+                            <datalist id="material">
+                                <option [value]="material" *ngFor="let material of materials">{{material}}</option>
+                            </datalist>
+                        </div>
+
+                        <div *ngIf="(definedCol.column_name != 'material' ) && ( definedCol.column_name != 'color')">
+                            <input class="item-content" placeholder="Required" type="text" formControlName={{definedCol.column_name}} required>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+
+        <!-- <mat-card>
+            <div class="selected item-content">Description</div>
+            <div class="text-left">
+                <textarea rows="4" placeholder="Description is Required" formControlName="description" required></textarea>
+            </div>
+        </mat-card> -->
+
+        <mat-card>
+            <div class="selected item-content">Requirement</div>
+            <div class="text-left">
+                <textarea rows="4" placeholder="Requirement is optional" formControlName="requirement"></textarea>
+            </div>
+        </mat-card>
+
+    </form>
+
+</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

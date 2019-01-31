@@ -1,0 +1,328 @@
+<mat-sidenav-container class="nav-container">
+        <mat-sidenav #sidenav mode="over" [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')">
+    
+            <div mat-menu-item class="header_gold">
+                Today's Deals
+            </div>
+            <div mat-menu-item class="header_yellow">
+                Your Browsing History
+            </div>
+            <button mat-menu-item style="width: 100%;">
+                <mat-icon>dialpad</mat-icon>
+                <a style="text-decoration: none" href='shop#viewed' (click)="sidenav.close()">Recently Viewed</a>
+                <!-- <a [routerLink]="['.']" fragment='viewed'>Recently Viewed</a> -->
+            </button>
+            <div mat-menu-item class="header_orange">
+                Help & Settings
+            </div>
+            <button routerLink="/setting/profile" mat-menu-item style="width: 100%;">
+                <mat-icon>person</mat-icon>
+                <span>Edit Account</span>
+            </button>
+            <button routerLink="/shop-order/orders" mat-menu-item>
+                <mat-icon>history</mat-icon>
+                <span>Order History</span>
+            </button>
+            <button mat-menu-item disabled style="width: 100%;">
+                <mat-icon>language</mat-icon>
+                <span>English</span>
+            </button>
+            <button mat-menu-item disabled>
+                <mat-icon>public</mat-icon>
+                <span>United States</span>
+            </button>
+            <button mat-menu-item style="width: 100%;" (click)="logout()">
+                <mat-icon>verified_user</mat-icon>
+                <span>Logout</span>
+            </button>
+            <!-- <button mat-menu-item>
+                <mat-icon>notifications_off</mat-icon>
+                <span>Disable alerts</span>
+            </button> -->
+        </mat-sidenav>
+    
+        <mat-sidenav-content>
+            <mat-toolbar style="background-color:#15305A; border-bottom: 3px solid #ddd;">
+                <div *ngIf="!if_login" style="" routerLink="/auth/signin">
+                    <!-- <i class="material-icons" style="font-size:28px; color:white; padding: 10px 10px 0 0;">account_circle</i> -->
+                    <img src="assets/images/banner/logo_icon.png" style="width: 28px; border-radius: 50%; padding: 2px; margin-top: 9px; background-color: aliceblue;">
+                </div>
+                <div *ngIf="if_login" style="" (click)="sidenav.toggle()">
+                    <!-- <i class="material-icons" style="font-size:28px; color:white; padding: 10px 10px 0 0;">account_circle</i> -->
+                    <img src="assets/images/banner/logo_icon.png" style="width: 28px; border-radius: 50%; padding: 2px; margin-top: 9px; background-color: aliceblue;">
+                </div>
+                <!-- <i routerLink="/" class="material-icons" style="font-size:28px; color:white;">home</i> -->
+                <!-- <span style="width: 65%"></span> -->
+                <!-- <a routerLink="/auth/login" class="authlink" (click)="sidenav.close()" flex>SIGN IN</a>&nbsp; -->
+                <!-- <i class="material-icons" style="font-size:28px; color:white;" flex>account_circle</i> -->
+                <span style="width: 80%"></span>
+                <div *ngIf="user_name" style="font-size: 16px; padding-right: 20px; color: white;">Hello, {{user_name}}</div>
+                <i (click)="toShoppingCart()" class="material-icons" style="font-size:28px; color: white;" flex>shopping_cart</i>
+                <b *ngIf="cartNum" class="cartMark">{{cartNum}}</b>
+            </mat-toolbar>
+    
+            <shop-search-bar (sendClear)="onGetClear($event)" (sendFilterObject)="onGetFilterObj($event)" (sendTerm)="onGetTerm($event)"></shop-search-bar>
+    
+            <mat-card id="wrap">
+                <div class="container">
+                    <!-- <div class="banner">
+                        <span class="news-img"><img src="assets/images/banner/1.jpg" class="img-circle" /></span><span class="news-img"><img src="assets/images/banner/4.jpg" class="img-circle" /></span><span class="news-img"><img src="assets/images/banner/5.jpg" class="img-circle" /></span><span class="news-img"><img src="assets/images/banner/6.jpg" class="img-circle" /></span>
+                    </div> -->
+                    <div id="frame">
+                        <div id="photos" class="play">
+                            <img src="assets/images/banner/1.jpg">
+                            <img src="assets/images/banner/3.jpg">
+                            <img src="assets/images/banner/2.jpg">
+                            <img src="assets/images/banner/5.jpg">
+                            <img src="assets/images/banner/6.jpg">
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <mat-card style="padding-bottom: 0px; margin-top: 4px;" *ngIf="productListRecommended" class="panel-card company-products">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <h4>Recommended</h4>
+                    <div (click)=setAllCategory() class="txt" style="color: #0066c0; font-size: 14px;">All >></div>
+                </div>
+                <div class="panel-card-body" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+                    <div class="product-modal-box icon-hover" *ngFor="let product of productListRecommended; let i = index;" [class.selected]="product == selectedProduct"
+                        (click)="selectProduct(product)">
+    
+                        <div class="product-modal" (click)="onNavToDetail($event, product.id, product.company.id, product.company_product_id)">
+                            <img *ngIf="!product.image || product.image.length < 1" src="assets/images/bottle.png">
+                            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+                            <div *ngIf="product.name" class="product-name">
+                                <span style="font-size: 12px;">
+                                    <b>{{product.name}}</b>
+                                </span>
+                                <br>
+                            </div>
+                            <div style="margin: 6px auto; text-align: center; font-size: 12px; color: red;">
+                                <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price/100}} - </span>
+                                $
+                                <span *ngIf="product.retail_prices.length > 0">{{product.retail_prices[0].price/100}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <mat-card style="padding-bottom: 0px; margin-top: 4px;" *ngIf="productListOnSale" class="panel-card company-products">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <h4>On Sale</h4>
+                    <div (click)=setAllCategory() class="txt" style="color: #0066c0; font-size: 14px;">All >></div>
+                </div>
+                <div class="panel-card-body" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+                    <div class="product-modal-box icon-hover" *ngFor="let product of productListOnSale; let i = index;" [class.selected]="product == selectedProduct"
+                        (click)="selectProduct(product)">
+    
+                        <div class="product-modal" (click)="onNavToDetail($event, product.id, product.company.id, product.company_product_id)">
+                            <img *ngIf="!product.image || product.image.length < 1" src="assets/images/bottle.png">
+                            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+                            <div *ngIf="product.name" class="product-name">
+                                <span style="font-size: 12px;">
+                                    <b>{{product.name}}</b>
+                                </span>
+                                <br>
+                            </div>
+                            <div style="margin: 6px auto; text-align: center; font-size: 12px; color: red;">
+                                <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price/100}} - </span>
+                                $
+                                <span *ngIf="product.retail_prices.length > 0">{{product.retail_prices[0].price/100}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <mat-card style="padding-bottom: 0px; margin-top: 4px;" *ngIf="productListNewArrival" class="panel-card company-products">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <h4>New Arrivals</h4>
+                    <div (click)=setAllCategory() class="txt" style="color: #0066c0; font-size: 14px;">All >></div>
+                </div>
+                <div class="panel-card-body" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+                    <div class="product-modal-box icon-hover" *ngFor="let product of productListNewArrival; let i = index;" [class.selected]="product == selectedProduct"
+                        (click)="selectProduct(product)">
+    
+                        <div class="product-modal" (click)="onNavToDetail($event, product.id, product.company.id, product.company_product_id)">
+                            <img *ngIf="!product.image || product.image.length < 1" src="assets/images/bottle.png">
+                            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+                            <div *ngIf="product.name" class="product-name">
+                                <span style="font-size: 12px;">
+                                    <b>{{product.name}}</b>
+                                </span>
+                                <br>
+                            </div>
+                            <div style="margin: 6px auto; text-align: center; font-size: 12px; color: red;">
+                                <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price/100}} - </span>
+                                $
+                                <span *ngIf="product.retail_prices.length > 0">{{product.retail_prices[0].price/100}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            
+    
+            <!-- <mat-card style="padding-bottom: 0px; margin: 4px 0;" *ngIf="productList" class="panel-card company-products">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <h4>Direct Ship From China</h4>
+                    <div (click)=setAllCategory() class="txt" style="color: #0066c0; font-size: 14px;">All >></div>
+                </div>
+                <div class="panel-card-body" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">
+                    <div class="product-modal-box icon-hover" *ngFor="let product of productList3; let i = index;" [class.selected]="product == selectedProduct"
+                        (click)="selectProduct(product)">
+    
+                        <div class="product-modal" (click)="onNavToDetail($event, product.id, product.company.id, product.company_product_id)">
+                            <img *ngIf="!product.image || product.image.length < 1" src="assets/images/bottle.png">
+                            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+                            <div *ngIf="product.name" class="product-name">
+                                <span style="font-size: 12px;">
+                                    <b>{{product.name}}</b>
+                                </span>
+                                <br>
+                            </div>
+                            <div style="margin: 6px auto; text-align: center; font-size: 12px; color: red;">
+                                <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price/100}} - </span>
+                                $
+                                <span *ngIf="product.retail_prices.length > 0">{{product.retail_prices[0].price/100}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card> -->
+    
+            <!-- <mat-card *ngIf="productList" class="panel-card company-products">
+                <div class="panel-card-body">
+                    <div class="product-modal-box" *ngFor="let product of productList; let i = index;" [class.selected]="product == selectedProduct"
+                        (click)="selectProduct(product)">
+                        <div class="product-modal" (click)="onNavToDetail($event, product.id, product.company.id, product.company_product_id)">
+                            <img *ngIf="!product.image || product.image.length < 1" src="assets/images/bottle.png">
+                            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+                            <div *ngIf="product.name" class="product-name">
+                                <span>
+                                    <b>{{product.name}}</b>
+                                </span>
+                                <br>
+                            </div>
+                        </div>
+                        <div style="margin: 6px auto; text-align: center; font-size: 12px;">
+                            <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price/100}} - </span>
+                            $
+                            <span *ngIf="product.retail_prices.length > 0">{{product.retail_prices[0].price/100}}</span>
+                        </div> -->
+    
+            <!-- <div class="product-modal" (click)="onNavToDetail($event, product.company.id, product.company_product_id)">
+                            <img *ngIf="product.image.length < 1" src="assets/images/bottle.png">
+                            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+                            <div class="product-name">
+                                <span>
+                                    <b>{{product.name}}</b>
+                                </span>
+                                <br>
+                            </div>
+                        </div>
+                        <div style="margin: 6px auto; text-align: center; font-size: 12px;">
+                            <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price}} - </span>
+                            <span>${{product.retail_prices[0].price}}</span>
+                        </div>
+                        <div class="product-modal" (click)="onNavToDetail($event, product.company.id, product.company_product_id)">
+                            <img *ngIf="product.image.length < 1" src="assets/images/bottle.png">
+                            <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+                            <div class="product-name">
+                                <span>
+                                    <b>{{product.name}}</b>
+                                </span>
+                                <br>
+                            </div>
+                        </div>
+                        <div style="margin: 6px auto; text-align: center; font-size: 12px;">
+                            <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price}} - </span>
+                            <span>${{product.retail_prices[0].price}}</span>
+                        </div> -->
+    
+            <!-- </div>
+                </div>
+            </mat-card> -->
+    
+            <div id='viewed'>
+                <app-viewed-products></app-viewed-products>
+            </div>
+    
+    
+            <!-- <mat-card class="panel-card company-products">
+                <div class="panel-card-body">
+                    <div class="product-modal-box" *ngFor="let product of productList1; let i = index;" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+                        <div  class="product-modal">
+                            <img [src]="product.img_url">
+                            <div class="product-name">
+                                <span><b>{{product.name}}</b></span><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="panel-card company-products">
+                <div class="panel-card-body">
+                    <div class="product-modal-box" *ngFor="let product of productList1; let i = index;" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+                        <div  class="product-modal">
+                            <img [src]="product.img_url">
+                            <div class="product-name">
+                                <span><b>{{product.name}}</b></span><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card> -->
+    
+            <!-- <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top </button> -->
+    
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+    
+    <div id="wrap">
+        <div class="container">
+            <div class="banner">
+                <span class="news-img">
+                    <img src="assets/images/banner/1.jpg" class="img-circle" />
+                </span>
+                <span class="news-img">
+                    <img src="assets/images/banner/4.jpg" class="img-circle" />
+                </span>
+                <span class="news-img">
+                    <img src="assets/images/banner/5.jpg" class="img-circle" />
+                </span>
+                <span class="news-img">
+                    <img src="assets/images/banner/6.jpg" class="img-circle" />
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+    </div>
+    
+    <!-- <mat-form-field>
+        <mat-select placeholder="Category" [formControl]="searchCtrl">
+            <mat-option [value] = "">All</mat-option>
+            <mat-option *ngFor = "let category of categories" [value] = "category">
+                {{category}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> -->
+    
+    <!-- <mat-card class="panel-card company-products">
+        <div class="panel-card-body" *ngIf="productList">
+            <div class="product-modal-box" *ngFor="let product of productList; let i = index;" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+                <div  class="product-modal">
+                    <img [src]="product.img_url">
+                    <div class="product-name">
+                        <span><b>{{product.name}}</b></span><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card> -->
+  

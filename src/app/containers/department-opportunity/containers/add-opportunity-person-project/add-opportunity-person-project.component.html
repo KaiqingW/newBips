@@ -1,0 +1,125 @@
+<div class="add_note_subject_container">
+    <form [formGroup]="addProjectForm">
+        <div class="row title">
+            <b>Sales Name</b>             
+        </div>
+
+        <!-- seach by email, save name -->
+        <mat-form-field class="chip-list">
+            <mat-chip-list #chipList>
+                <mat-chip *ngFor="let user of userNameList" [selectable]="selectable"
+                        [removable]="removable" (remove)="remove(user)">
+                {{user}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Please input email to search"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)"
+                    [matAutocomplete]="auto" 
+                    [formControl]="emailCtrl" #personInput/>
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+                <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+
+                <mat-option class="user-content" *ngFor="let user of filteredEmails" [value]="user.first_name + ' ' + user.last_name" (click)="getSlectedUserInfo(user)">
+                
+                    <div class="company-logo">
+                        <avatar-logo
+                            [url]="user?.avatar_url" 
+                            [userFirstName]="user.first_name" 
+                            [userLastName]="user.last_name" 
+                            [userId]="user?.user_id">
+                        </avatar-logo>
+                    </div>
+                    <div class="user-name">
+                        <span><b>{{user.first_name}} {{user.last_name}}</b></span>
+                        <span class="user-email">{{user?.email}}</span>
+                    </div>
+                </mat-option>
+
+                <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+            </mat-autocomplete>
+        </mat-form-field>
+        <!-- end -->
+
+        <div class="row title">
+            <b>Description</b>
+        </div>
+    
+        <mat-card formArrayName="description">
+          
+          <div *ngFor="let subNote of addProjectForm['controls'].description['controls'];let i=index">
+              <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+              <span style="font-size: 13px; color: red;">Please upload image here</span>
+              
+              <div class="row" [formGroupName]="i"> 
+                  <div class="col-1" *ngIf="getImg(i)">
+                      <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                      <div *ngIf="modalOpen">
+                              <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                      </div>
+                  </div>
+                  <div class="col-3"> 
+                      <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                  </div>
+              </div>
+          </div>
+  
+          <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+      </mat-card>   
+
+        <div class="row title">
+            <b>Requirement</b>
+        </div>
+
+        <div class="row">
+            <div class="require-date">
+                Require Date
+                <input type="Date" [formControl]="requireDateCtrl" required/>
+                
+            </div>
+        </div>
+        <div class="duration-time">
+            Duration Time 
+            <input type="text" formControlName="duration_time" [(ngModel)]="newDurationTime" disabled required/>
+        </div>
+        <div class="update-frequency">
+            Update Frequency
+            <select [formControl]="updateFrequencyCtrl" required>
+                <option value="onetime">One Time</option>          
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="asoccurs">As Occurs</option>                
+            </select>
+        </div>
+
+        <div class="number-oppo">
+            # of Opportunity Required <br>
+            <input type="number" formControlName="total_required_opportunity_amount" required/>
+        </div>
+
+        <div class="min-oppo">
+            Min Value of Each Opportunity <br>
+            $<input type="number" formControlName="opportunity_value" required/> Per Year
+            <!-- <select formControlName="opportunity_value_type" required>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+            </select> -->
+        </div>
+
+    </form>   
+  </div>
+  
+  <div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+  </div>
+  
+  
+  
+  

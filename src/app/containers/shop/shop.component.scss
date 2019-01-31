@@ -1,0 +1,386 @@
+#wrap{
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+
+.container{
+    width: 100%;
+    overflow: hidden;
+}
+.banner{
+    width: 400%;
+    // display: inline-block;
+    // overflow: hidden;
+    animation: 12s move infinite ease-in;    
+    -webkit-animation: 12s move infinite ease-in;
+     
+}
+
+.news-img{
+    width: 100%;
+        img{
+            width: 100vw;
+            height: 50vw;
+        }
+}
+.cateogryForm{
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .field2{
+        width:30% !important;
+        padding: 0;
+        margin:5px;
+        font-size:11px;
+        box-sizing: border-box !important;
+    }
+    .field3{
+        width:60% !important;
+        padding: 0;
+        margin:5px;
+        font-size:14px;
+        box-sizing: border-box !important;
+    }
+}
+#frame {/*----------图片轮播相框容器----------*/
+    position: absolute; /*--绝对定位，方便子元素的定位*/
+    width: 100%;
+    height: 150px;
+    overflow: hidden;/*--相框作用，只显示一个图片---*/
+}
+#dis {/*--绝对定位方便li图片简介的自动分布定位---*/
+    position: absolute;
+    left: -50px;
+    top: -10px;
+    opacity: 0.5;
+}
+#dis li {
+    display: inline-block;
+    width: 200px;
+    height: 20px;
+    margin: 0 50px;
+    float: left;
+    text-align: center;
+    color: #fff;
+    border-radius: 10px;
+    background: #000;
+}
+#photos img {
+    float: left;
+    width:100vw;
+    height:150px;
+}
+#photos {/*---设置总的图片宽度--通过位移来达到轮播效果----*/
+    position: absolute;z-index:9px;
+    width: calc(100vw * 5);/*---修改图片数量的话需要修改下面的动画参数*/
+}
+.play{
+    animation: ma 20s ease-out infinite alternate;/**/
+}
+@keyframes ma {/*---每图片切换有两个阶段：位移切换和静置。中间的效果可以任意定制----*/
+    0%,20% {		margin-left: 0px;		}
+    25%,40% {		margin-left: -100vw;	}
+    45%,60% {		margin-left: -200vw;	}
+    65%,80% {		margin-left: -300vw;	}
+    85%,100% {		margin-left: -400vw;	}
+}
+.num{
+    position:absolute;z-index:10;
+    display:inline-block;
+    right:10px;top:165px;
+    border-radius:100%;
+    background:#f00;
+    width:25px;height:25px;
+    line-height:25px;
+    cursor:pointer;
+    color:#fff;
+    text-align:center;
+    opacity:0.8;
+}
+
+// .search-field{
+//     width:100%;
+//     padding-top:5px;
+//     box-sizing: border-box;
+//     .input{
+//         margin:0 !important;
+//         padding:0 !important;
+//     }
+//     .mat-form-field-wrapper{
+//         padding:5px 0 !important;
+//     }
+// }
+
+.num:hover{background:#00f;}
+.num:hover,#photos:hover{animation-play-state:paused;}
+.num:nth-child(2){margin-right:30px}
+.num:nth-child(3){margin-right:60px}
+.num:nth-child(4){margin-right:90px}
+.num:nth-child(5){margin-right:120px}
+#a1:hover ~ #photos{animation: ma1 .5s ease-out forwards;}
+#a2:hover ~ #photos{animation: ma2 .5s ease-out forwards;}
+#a3:hover ~ #photos{animation: ma3 .5s ease-out forwards;}
+#a4:hover ~ #photos{animation: ma4 .5s ease-out forwards;}
+#a5:hover ~ #photos {animation: ma5 .5s ease-out forwards;}
+@keyframes ma1 {0%{margin-left:-400vw;}100%{margin-left:-0px;}	}
+@keyframes ma2 {0%{margin-left:-400vw;}100%{margin-left:-100vw;}	}
+@keyframes ma3 {100%{margin-left:-200vw;}	}
+@keyframes ma4 {100%{margin-left:-300vw;}	}
+@keyframes ma5 {100%{margin-left:-400vw;}	}
+
+@keyframes move {
+    0% {
+        left: 0;
+    }
+    18% {
+        left: 0;
+    }
+    20% {
+        left: -100px;
+    }
+    38% {
+        left: -100px;
+    }
+    40% {
+        left: -200px;
+    }
+    58% {
+        left: -200px;
+    }
+    60% {
+        left: -300px;
+    }
+    78% {
+        left: -300px;
+    }
+    80% {
+        left: -400px;
+    }
+    100% {
+        left: -400px;
+    }
+}
+
+.company-products{
+    // height: 90%;
+    // overflow: scroll;
+    .panel-card-title{
+        font-size:14px;
+    }
+    .panel-card-body{
+        width:100%;
+        .product-modal-box{
+            display:inline-block;
+            margin:1.2%;
+            width:31%;
+            .product-modal{
+                width:100%;
+                    // border:1px solid lightgray;
+                    img{
+                        display:inline-block;
+                        width: 100%;
+                        height:28vw;
+                    }
+                    .product-name{
+                        margin-top:-20px;
+                        display:block;
+                        background-color: #000;
+                        height:20px;
+                        opacity: 0.58;
+                        color:#FFFFFF;
+                        font-size:12px;
+                        text-align: center;
+                        line-height: 20px;
+                        white-space: nowrap; 
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+            }
+        }
+    }
+}
+
+.panel-card-title{
+    font-weight: bold;
+    padding:4px 0px;
+    .detail{
+        font-weight:normal;
+        color:gray;
+        float:right;
+        font-weight:13px;
+    }
+}
+
+
+mat-form-field{
+    margin-left: 20px;
+}
+
+.nav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.header_orange{
+    background-color: rgba($color: #f98342, $alpha: 1.0)
+}
+
+.header_yellow{
+    background-color: rgba($color: #c1d137, $alpha: 1.0)
+}
+
+.header_gold{
+    background-color: rgba($color: #ffc439, $alpha: 1.0)
+}
+
+.header_green{
+    background-color: rgba($color: #1a5e6f, $alpha: 1.0)
+}
+
+.header_blue{
+    background-color: rgba($color: #42e6f9, $alpha: 1.0)
+}
+
+.authlink {
+    display: block;
+    text-decoration:none;
+    padding-left: 10px;
+    color: white;
+    outline: 0;
+    font-size: 15px;
+  }
+
+  /* Style the list */
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    color: #0275d8;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
+
+
+
+.menu {
+    display: block;
+    z-index: 999999;
+  }
+  .menu li {
+    display: inline-block;
+    position: relative;
+  }
+  .menu li.dropdown:hover > .submenu {
+    display: block;
+  }
+  .menu li a {
+    display: block;
+    padding: 12px 8px;
+    background: #ccc;
+  }
+  .menu li.dropdown > a::after {
+    content: "\e259";
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 8px;
+    font-size: 10px;
+  }
+  .menu li a::before {
+    content: "\e179";
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    margin-right: 8px;
+  }
+  .menu li a:hover {
+    background: grey;
+  }
+  
+  .menu .submenu {
+    display: none;
+  }
+  .submenu {
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    left: 0px;
+    list-style-type: none;
+    display: block;
+    width: 200px;
+    z-index: 9;
+  }
+  .submenu li {
+    display: block;
+  }
+  .submenu li a {
+    display: block;
+    background: #999;
+    color: #fff;
+    padding: 8px 6px;
+    margin-bottom: 1px;
+  }
+  .menu .submenu > li.dropdown:hover > .submenu {
+    display: block;
+  }
+  
+  .menu .submenu .submenu {
+    position: absolute;
+    left: 200px;
+    
+    top: 0px;
+  }
+  
+  .submenu li.dropdown > a:after {
+    content: "\e258";
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 8px;
+    font-size: 10px;
+  }
+
+  .cartMark{
+    position: absolute;
+    top:0;
+    right:0;
+    text-align: center;
+    font-size: 18px;
+    background-color:red;
+    color: white;
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }

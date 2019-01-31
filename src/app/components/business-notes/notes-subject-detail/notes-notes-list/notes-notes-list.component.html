@@ -1,0 +1,28 @@
+<div class="container">
+  <mat-card class="description" *ngIf="comment">
+
+          <div class="note-des">
+                  <div  class="row" style="margin-top:6px;">
+                          <div class="des-container">
+                                   <div class="col-1" *ngIf="body.img">
+                                          <img (click)="openModal()" [src]="body.img" style="width:75px;height:75px;margin-right:16px" alt="body.img">
+                                          <div *ngIf="modalOpen">
+                                                  <app-img-modal img [imgSrc]="body.img" (modalClose)="closeModal()"></app-img-modal>
+                                          </div>      
+                                   </div>
+                                  
+                                  <div class="col-3"> 
+                                          <b class="unread_mark" *ngIf="comment?.is_unread"></b>
+                                          <read-more style="text-align: left" [text]="body?.text"></read-more>
+                                  </div>
+                          </div>
+                         
+                  </div>      
+          </div>
+        <div class="time">
+                <img *ngIf="comment?.created.by.avatar_url" [src]="comment?.created.by.avatar_url" width="20px" style="border-radius:50%;">
+                <span *ngIf="!comment?.created.by.avatar_url" class="shorthand">{{comment.created.by.first_name?.charAt(0) | uppercase}}{{comment.created.by.last_name?.charAt(0) | uppercase}}</span>
+                <span>{{comment.created.by.first_name}} {{comment.created.by.last_name}} {{comment.created.at | local | amDateFormat : 'MM/DD/YYYY h:mm a' }}</span> 
+        </div> 
+  </mat-card>
+</div>

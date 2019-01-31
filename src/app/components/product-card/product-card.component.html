@@ -1,0 +1,16 @@
+<div class="product-header">
+    <div class="product-picture">
+        <img *ngIf="!imgUrl" src="assets/images/container.jpg">
+        <img *ngIf="imgUrl" [src]="imgUrl">
+    </div>
+
+    <div class="item-name">
+        <div class="product-name">{{title1}}</div>
+        <div class="description">{{des1}}</div>
+    </div>
+
+    <div class="item-number" style="padding-right:1%;">
+      <div class="product-name">{{title2}}</div>
+      <div class="description">{{des2 | date}}</div>
+    </div>
+</div>

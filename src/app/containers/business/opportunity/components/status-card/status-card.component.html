@@ -1,0 +1,43 @@
+<mat-card >
+        <div class="subject-content" >
+            <div>
+                <div class="avatar" *ngIf="createdUser">
+                    <company-logo [url]="createdUser?.by?.avatar_url" [comname]="createdUser?.by?.first_name" [userId]="createdUser?.by?.id" ></company-logo>                
+                </div>
+      
+                <div class="content">
+                    <div class="creater">
+                      <span class="name">{{createdUser?.by?.first_name}} {{createdUser?.by?.last_name}}</span>
+                      <span class="create-time">{{createdUser?.at}}</span>
+                      <!-- showReplyStatus is used for add status for project; replyPermission is used to check whether the logined user is the creater and owner
+                        showReplyComment is used for add comment for duscussion -->
+                      <!-- <span class="reply" *ngIf="showReplyStatus && replyPermission" routerLink="status/{{statusId}}/add-reply">Reply</span> -->
+                      <span *ngIf="replyPermission" class="reply" routerLink="comment/{{commentCId}}/add-reply">Reply</span>
+                      
+                    </div>
+                    <!-- <div class="discuss-body">
+                        <read-more style="text-align: left" [text]="content"></read-more>
+                    </div>               -->
+    
+                    <div  class="subject-container" *ngFor= "let content of subContent; let i = index">
+                        <div class="col-1" *ngIf="content.img">
+                            <img (click)="openSubjectModal()" [src]="content.img" style="width:75px;height:75px;;margin-right:16px" alt="content.img">
+                            <div *ngIf="subjectModalOpen">
+                                <app-img-modal img [imgSrc]="content.img" (modalClose)="closeModal()"></app-img-modal>
+                            </div>      
+                        </div>
+                        
+                        <div class="col-3"> 
+                            <div class="pre-container"></div>
+                            <read-more style="text-align: left" [text]="content.text"></read-more>
+                        </div>
+                        
+                    </div>  
+                </div>
+                <!-- <span *ngIf="unreadCount > 0" class="unread">{{unreadCount}}</span> -->
+                
+            </div>
+        </div> 
+    
+        <ng-content></ng-content>
+    </mat-card>

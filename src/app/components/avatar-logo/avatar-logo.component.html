@@ -1,0 +1,4 @@
+<div class="avatar-logo">
+    <img *ngIf="url" src={{url}}/>
+    <span *ngIf="!url" class="shorthand">{{userFirstName?.charAt(0)| uppercase}}{{userLastName?.charAt(0)| uppercase}}</span>
+  </div>

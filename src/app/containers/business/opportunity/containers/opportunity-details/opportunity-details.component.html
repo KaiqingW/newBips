@@ -1,0 +1,84 @@
+
+<div class="container" *ngIf="!firstLoading"> 
+    <div class="opportunity-title">
+        <h4>{{opportunityDetails?.name}}</h4>
+        <span>{{opportunityDetails?.company_name}}</span>
+    </div>
+    
+    <div class="item-info">
+        <mat-card>
+            <div class="item-image">
+                <img src="https://orcasmart-dev.s3.us-east-2.amazonaws.com/images/YpnQsbIcythBDOhOJzTi6LvUsMAOcbh4TD99ZSRv.jpeg">
+            </div>
+            <div class="item-description">
+                {{opportunityDetails?.description}}
+            </div>
+        </mat-card>
+    </div>
+
+    <div>
+        <mat-card>
+                <div class="opportunity-user">
+                        <div class="opportunity-owner">
+                            <div class="shared-profile-picture" >
+                                <app-profile-picture 
+                                    [url]="opportunityDetails?.created?.by?.avatar_url" 
+                                    [userFirstName]="opportunityDetails?.created?.by?.first_name" 
+                                    [userLastName]="opportunityDetails?.created?.by?.last_name" 
+                                    [userId]="opportunityDetails?.created?.by?.id">
+                                </app-profile-picture>
+                            </div>
+                        </div>
+                        <div class="shared_user">
+                            <div class="shared-user-picture" *ngFor="let user of opportunityDetails?.sharedWith">
+                                <app-profile-picture 
+                                    [url]="user?.avatar_url" 
+                                    [userFirstName]="user?.first_name" 
+                                    [userLastName]="user?.last_name" 
+                                    [userId]="user?.id">
+                                </app-profile-picture>
+                            </div>
+        
+                            <div class="add-shared-user-btn">
+                                <mat-icon mat-button class="share" (click)="toShareUserComponent()">person_add</mat-icon>
+                            </div>
+                               
+                        </div>
+        
+                    </div>
+        </mat-card>
+    </div>
+
+    <app-attachment [title]="'Documents'" (sendFormData)="onReceivedFormData($event)" [attachments]="opportunityDetails?.attachments"></app-attachment>
+ 
+    <div class="opportuntiy-status">
+            <panel-card class="opportunity-employees">
+                <panel-card-title>Discussion</panel-card-title>
+                <panel-card-body >
+                        <status-card [createdUser]="opportunityDetails?.discussion?.created" [content]="opportunityDetails?.discussion?.body" [commentId]="opportunityDetails?.discussion?.id" [replyPermission]="false" 
+                        routerLink='/company/{{currentLoginCompanyId}}/opportunity/opportunity-status/{{opportunityDetails?.discussion?.id}}'></status-card>
+                </panel-card-body>
+            </panel-card>
+    </div>
+    <div class="opportuntiy-status">
+            <panel-card class="opportunity-employees">
+                <panel-card-title>Status</panel-card-title>
+                <panel-card-body>
+                        <div *ngFor="let status of opportunityDetails?.status" routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-status/{{status?.id}}">
+                            <status-card [createdUser]="status?.created" [content]="status?.body" [commentId]="status?.id" [replyPermission]="false" ></status-card>
+                        </div>
+                </panel-card-body>
+            </panel-card>
+    </div>
+</div>
+
+
+<app-add-button *ngIf="!isLoading" routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-details/{{opportunity_id}}/add-status"></app-add-button>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="firstLoading">
+    <app-spinner></app-spinner>
+</div>

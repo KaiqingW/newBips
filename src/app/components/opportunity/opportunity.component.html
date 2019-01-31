@@ -1,0 +1,14 @@
+
+<router-outlet></router-outlet>
+<div>
+    <!-- <mat-card routerLink="1">
+        opportunity 8041
+    </mat-card> -->
+    <mat-card *ngFor="let requestInfo of requestInfoList"  routerLink="{{requestInfo.id}}">
+
+        {{requestInfo?.project_name}}
+    </mat-card>
+</div>
+<app-add-button  routerLink="add-opportunity"></app-add-button>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

@@ -1,0 +1,36 @@
+<div class="container" *ngFor="let order of orders;let i = index;" [class.selected]="order == selectedOrder" (click)="selectOrder(order)">
+    <div class="top-bar">
+        <div class="col-1">
+            <span class="label-name">Order Placed</span>
+            <span><b>{{order.updated.at | date : 'longDate'}}</b></span>
+        </div>
+        <div class="col-1">
+            <span>Total</span>
+            <span>{{order.total_price / 100 + order.total_shipping_fee / 100 | currency}}</span>
+        </div>
+        <div class="col-1">
+            <span>Order#:&nbsp;{{order.order_number}}</span>
+            <a class="light-color align-right" (click)="onNavToDetail($event, order.id)">Order Details</a>
+        </div>
+    </div>
+
+
+    <mat-card class="product-header">
+        <div *ngFor="let product of order.products">
+            <!-- <div class="action-btn">
+                <button>Track package</button>
+            </div>   -->
+            <div class="item-container">
+                <div class="product-img">
+                    <img  [src]="product.image" (click)="openModal(product.image)">
+                </div>
+                <div class="product-content">
+                    <span class="light-color">{{product?.name | short: 40}}</span><br>
+                    <span >Sold by: </span><br>
+                    <span class="money-light">{{product?.unit_price / 100 | currency}} x {{product?.quantity}}</span><br>
+                </div>
+            </div>
+           
+        </div>
+    </mat-card>
+</div>

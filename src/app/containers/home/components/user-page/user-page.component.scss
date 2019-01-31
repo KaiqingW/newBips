@@ -1,0 +1,13 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+current-user{
+    flex: 1;
+}
+
+business-dashboard{
+    flex: 5;
+}

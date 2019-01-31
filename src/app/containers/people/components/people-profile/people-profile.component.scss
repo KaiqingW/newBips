@@ -1,0 +1,245 @@
+mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}
+
+mat-card {
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+:host {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color:#F5F5F5;
+}
+
+.people-profile{
+    width: 100%;
+    position: relative;
+}
+
+ul { list-style: none;
+  
+    li {
+      display: inline-block;
+      background-color: #2874ed;
+      margin: 15px; // space between circles
+      border-radius: 50%;
+      
+      a {
+        color: white;
+        display: table-cell;
+        vertical-align: middle; 
+        text-align: center;
+        text-decoration: none;
+  
+        // icon size is controlled by class="icon-5x"
+        // below is to control the circle sizes
+        height: 30px;
+        width: 30px;   
+        
+        &:hover, &:active {
+          color: lightsalmon;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+mat-card.people-profile-card{
+    box-sizing: border-box;
+    height: 180px;
+    position: relative;
+    .subject-header-image{
+        margin-top: 8px;
+    }
+    .people-profile-info{
+        position: absolute;
+        width: 100%;
+        left: 0%;
+        text-align: center;
+        top: 82px;
+        display: block;
+        font-size: 16px;
+        font-weight: bolder;
+     }
+    .people-profile-subinfo{
+        position: absolute;
+        width: 100%;
+        left: 0%;
+        text-align: center;
+        top: 110px;
+        display: block;
+        font-size: 12px;
+    }
+    .people-icon{
+        margin-top: 125px;        
+        position: absolute;
+        display: block;
+        width: 100%;
+        left: 0%;
+        text-align: center;
+        a {
+            vertical-align: middle !important;
+        }
+    }
+    .material-icons{
+        font-size: 14px;
+        color: white;
+        border-radius: 50%;
+    }
+}
+
+.people-profile-info::ng-deep{
+    .active{
+        color: blue;
+    }
+    .inactive{
+        color: red;
+    }
+}
+
+.people-profile-card::ng-deep {
+    left: 0%;
+    display: relative;
+    app-profile-picture{
+        position: absolute;
+        left: 0; right:0;
+        margin: auto;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 64px;
+        height: 64px;
+    }
+    .shorthand{
+        font-size: 32px !important;
+    }
+}
+
+.people-profile-personal-card::ng-deep {
+    left: 10; 
+    display: relative;
+    app-profile-picture{
+        position: absolute;
+        margin-top: -10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 50px;
+        height: 50px;
+    }
+    .shorthand{
+        font-size: 32px !important;
+    }
+}
+
+.bar{
+    margin-top: 4px;
+    display: block;
+    border: 1px solid #cbcfd8;
+    border-width: 1px 0px 0px 0px;
+}
+mat-card.people-profile-personal-card{
+    position: relative;
+    line-height: 15px;
+    .people-profile-personal-bar{
+        font-size: 12px;
+        color: #cbcfd8;
+        #keyboard_arrow_right{
+            font-size: 10px;
+        }
+        .people-profile-personal-bar-details{
+            float: right;
+            font-size: 12px;
+        }
+    }
+    .people-profile-user-summary{
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .user-company-info{
+        margin-top: 20px;
+        margin-bottom: 15px;
+        .user-position{
+            left: 25%;
+            top:85px;
+            display: block;
+            position: absolute;
+            font-size: 16px;
+        }
+        .user-company{
+            left: 25%;
+            top: 85px;
+            display: block;
+            position: absolute;
+            font-size: 12px;
+            margin-top: 18px;
+        }
+    }
+}
+
+mat-card.people-profile-public-note{
+    position: relative;
+    line-height: 15px;
+    .people-profile-note-bar{
+        font-size: 12px;
+        color: #cbcfd8;
+        #keyboard_arrow_right{
+            font-size: 10px;
+        }
+        .people-profile-note-bar-details{
+            float: right;
+            font-size: 12px;
+        }
+    }
+    .notes{
+        font-size: 12px;
+        margin-top: 10px;
+        .note1{
+            margin-bottom: 5px;
+        }
+        .note2{
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.people-profile-user-summary{
+    panel-card-title{
+        font-size:14px;
+    }
+
+   
+
+        p{
+            margin-bottom:10px;
+        }
+
+        div{
+            height:27px;
+            line-height:27px;
+            padding:5px 0px;
+            mat-icon{
+                height:27px;
+                display:inline-block;
+                line-height:27px;
+                vertical-align: middle;
+                color:#006CD6;
+            }
+            span{
+                margin-left: 4px;
+                height:27px;
+                display:inline-block;
+                line-height:27px;
+                vertical-align: middle;
+            }
+        }
+    
+}

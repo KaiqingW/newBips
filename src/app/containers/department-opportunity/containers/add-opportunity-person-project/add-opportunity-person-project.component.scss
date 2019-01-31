@@ -1,0 +1,219 @@
+input,button{
+    display: inline-block;
+    width:100%;
+    height:100%;
+    padding:6px;
+    border-radius: 0;
+}
+b{
+    width:100%;
+    box-sizing: border-box;
+} 
+
+.add_more_btn{
+    background-color:#eee;
+}
+    
+.file_input{
+    padding:6px 0 !important;
+    width:50% !important;
+    
+}
+.title{
+    width:100%;
+    margin-top:6px;
+    padding:6px;
+    box-sizing: border-box;
+    background-color: #15305a !important;
+    color: white;
+    text-align: center;
+}
+mat-card{
+    margin:0;
+    padding: 6px;
+}
+
+.meeting-name {
+    margin-top: 3px;
+    padding-left: 8px;
+}
+
+.row{
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    .col-1{
+        display: flex;
+        flex:1;
+    }
+    .col-3{
+        display: flex;
+        flex:3;       
+        textarea{
+            width:100%;
+            padding:6px;
+            margin:0;
+            border:1px solid #aaa;
+            border-radius:0;
+        }
+    }
+}
+
+.target-date {
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    input {
+        width: 118px;
+        // margin-left: 44px;
+        padding-left: 10px;
+        height: 15px;
+    }
+}
+
+$width: 96%;
+
+.chip-list {
+    width: $width;
+    height: 65px;
+    margin-left: 2%;
+}
+
+.shared-user-list {
+    width: $width;
+    mat-chip {
+        display: inline-block;
+        padding: 0;
+    }
+    .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+        margin: 10px 5px 0 0;
+    }
+}
+
+.arrow-guide{
+    display:block;
+    background-color:#eee;
+    text-align: center;
+}
+
+.user-content{
+    display:block;
+    width:100% !important;
+    .company-logo{
+        // width:10%;
+        height: 40px;
+        display:inline-block;
+        vertical-align: middle;
+        avatar-logo{
+            width:40px;
+            height:40px;
+
+        }
+    }
+
+    .user-name{
+        vertical-align: middle;
+        text-align: left;
+        // margin-left: 5%;
+        font-size: 14px;
+        // line-height: 44px;
+        height: 44px;
+        display:inline-block;
+        // width:85%;
+        overflow: hidden;
+        .user-email{
+            color:gray;
+            font-size:14px;
+            // vertical-align: sub;
+            overflow: hidden;
+        }
+    }
+}
+
+.require-date {
+    margin-top: 5%;
+    margin-left: 10%;
+    input {
+        width: 134px;
+        margin-left: 44px;
+        height: 19px !important;
+    }
+}
+.duration-time {
+    margin-top: 5%;
+    margin-left: 10%;
+    input {
+        width: 134px;
+        margin-left: 38px;
+        height: 19px;
+    }
+}
+.update-frequency {
+    margin-top: 5%;
+    margin-left: 10%;
+    select {
+        width: 145px;
+        margin-left: 10px;
+        height: 30px !important;
+        
+    }
+}
+
+.number-oppo {
+    margin-top: 5%;
+    margin-left: 10%;
+    input {
+        width: 78%;
+        margin-left: 4%;
+    }
+}
+
+.min-oppo {
+    margin-top: 5%;
+    margin-left: 10%;
+    input {
+        width: 48%;
+        margin-left: 2%;
+    }
+    select {
+        height: 30px !important;
+    }
+}
+
+
+// :host {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     width: 96%;
+//     margin-left: 7px;
+// }
+
+// form {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     width: 100%;
+//     margin-top: 10px;
+// }
+
+// editor {
+//     // width: 100%;
+//     // margin-top: 10px;
+//     margin-top: -8px;
+//     width: 365px;
+    
+// }
+  
+// .example-full-width {
+//     width: 100%;
+// }
+
+// .editor-hint {
+//     font-size: 12px;
+//     margin-bottom: 10px;
+//     float: left;
+//     align-self: flex-start;
+// }
+
+  

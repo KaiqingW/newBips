@@ -1,0 +1,170 @@
+<div class="container">
+        <mat-card class="card-1" *ngIf="currentShippingInfo">
+                <div class="container-0">
+                        <h2 class="top-title">{{title}}                                        
+                        </h2>
+                        <div *ngIf="isAdmin && !editMode">
+                           <mat-icon (click)="changeEditMode()" style="color:green;  font-size: 30px;">edit</mat-icon>                
+                        </div>
+                        
+                </div>
+                <div class="container-1" *ngIf="!editMode">
+                        <div class="box">
+                                <div class="title">Shipping Quantity</div>
+                                <div class="text">{{currentShippingInfo.quantity | number}}</div>
+                        </div>
+
+                        <div class="box" *ngIf="currentShippingInfo.actual_quantity">
+                                <div class="title">Actual Received Quantity</div>
+                                <div class="text">{{currentShippingInfo.actual_quantity | number}}</div>
+                        </div>
+
+                        <div class="box">
+                                <div class="title" *ngIf="orderItemShippingType == 'air'">Flight #</div>
+                                <div class="title" *ngIf="orderItemShippingType != 'air'">Container #</div>
+                                <div class="text">{{currentShippingInfo.container_number}}</div>
+                        </div>
+
+                        <div class="box">
+                                <div class="title">{{currentShippingInfo.type == 2 ? 'Start Date' : 'Shipping Date'}}</div>
+                                <div class="text">{{currentShippingInfo.vessel_date | amDateFormat:'MM/DD/YYYY'}}</div>
+                        </div>
+
+                        <div class="box">
+                                <div class="title">{{currentShippingInfo.type == 2 ? 'End Date' : 'Arrival Date'}}</div>
+                                <div class="text">{{currentShippingInfo.eta_date | amDateFormat:'MM/DD/YYYY'}}</div>
+                        </div>
+
+                        <div class="box">
+                                <div class="title">Reference #</div>
+                                <div class="text">{{currentShippingInfo.glk_number}}</div>
+                        </div>
+                </div>
+                <form class="container-1" *ngIf="editMode && isAdmin" [formGroup]="editShippingForm">
+                                <div class="box">
+                                        <div class="title">Shipping Quantity</div>
+                                        <input type="number" formControlName="quantity" placeholder="Quantity" required>
+                                        <!-- <div class="text">{{currentShippingInfo.quantity | number}}</div> -->
+                                </div>
+        
+                                <div class="box" *ngIf="currentShippingInfo.actual_quantity">
+                                        <div class="title">Actual Received Quantity</div>
+                                        <div class="text">{{currentShippingInfo.actual_quantity | number}}</div>
+                                </div>
+        
+                                <div class="box">
+                                        <div class="title" *ngIf="orderItemShippingType == 'air'">Flight #</div>
+                                        <div class="title" *ngIf="orderItemShippingType != 'air'">Container #</div>
+                                        <input type="text" formControlName="container_number" [placeholder]="orderItemShippingType == 'air' ? 'Flight #':'Container #'" required>
+                                </div>
+        
+                                <div class="box">
+                                        <div class="title">{{currentShippingInfo.type == 2 ? 'Start Date' : 'Shipping Date'}}</div>
+                                        <input type="date" formControlName="vessel_date" required>
+                                </div>
+        
+                                <div class="box">
+                                        <div class="title">{{currentShippingInfo.type == 2 ? 'End Date' : 'Arrival Date'}}</div>
+                                        <input type="date" formControlName="eta_date" required>
+                                </div>
+        
+                                <div class="box">
+                                        <div class="title">Reference #</div>
+                                        <input type="text" formControlName="glk_number" placeholder="Reference Number" required>
+                                </div>
+                 </form>
+                <div class="container-2">
+                        <div class="box-2">
+                                <div class="title">Batch#</div>
+                                <div class="title">Quantity</div>
+                        </div>
+                        <div class="box-2" *ngFor="let batch of currentShippingInfo?.batches">
+                                <div class="text">{{batch.batch_number}}</div>
+                                <div class="text">{{batch.quantity | number}}</div>
+                        </div>
+                        <!-- <div class="box-2">
+                                <div class="text">Quantity with batch#</div>
+                                <div class="text">{{previousTotal | number}}</div>
+                        </div> -->
+                        <div class="box-2">
+                                <div class="text">Quantity without batch#</div>
+                                <div class="text">{{currentShippingInfo.quantity - previousTotal | number}}</div>
+                        </div>
+                </div>
+
+        </mat-card>
+
+        <mat-card [style.visibility]="editMode ? 'hidden' : 'visible'"  class="card-2" *ngIf="showAddBatch && (currentShippingInfo.type ===1)">
+                <h4>Want to update batch number ?</h4>
+                <h5 *ngIf="bacthErr" style="color:red">The total batch quantity is excess the shipping quantity.</h5>
+                <h5 *ngIf="showErr" style="color:red">There is a error in your batch information.</h5>
+                <form [formGroup]="updateBatchForm">
+                        <div formArrayName="batches" *ngFor="let contact of updateBatchForm['controls'].batches['controls']; let i=index">
+                                <div class="container-2" [formGroupName]="i">
+                                        <div class="box-2">
+                                                <div class="title"> Batch#</div>
+                                                <div class="title" style="position: relative;"> Quantity
+                                                        <i class="material-icons" (click)="removeBatch(i)" style="width:19px; height:19px;line-height: 19px;">
+                                                                remove_circle_outline
+                                                        </i>
+                                                </div>
+                                        </div>
+                                        <div class="box-2">
+                                                <input style="text-align: center;" formControlName="batch_num" type="text" required/>
+                                                <input style="text-align: center;" formControlName="qty" type="number" required/>
+                                        </div>
+                                </div>
+                        </div>
+                </form>
+                <i class="material-icons" (click)="addBatch()">
+                        add_circle
+                </i>
+        </mat-card>
+
+        <mat-card [style.visibility]="editMode ? 'hidden' : 'visible'" class="card-2" *ngIf="currentShippingInfo.type !==4">
+                <h4>{{select_arrival_title}} : {{sales_item_number}}</h4>
+                <form [formGroup]="arriveDateForm">
+                        <!-- <div class="inner-group">s
+                                <label> Select Arrive Date : </label>
+                                <input formControlName="actual_arrive_date" [min]="previous_vessel_date"  [ngModel]="actual_arrive_date| date:'yyyy-MM-dd'"  type="date" />    
+                            </div> -->
+
+                        <div class="inner-group">
+                                <label> Select Date : </label>
+                                <input formControlName="actual_arrive_date" type="date" />
+                        </div>
+
+                        <!-- <mat-form-field>
+                                <input matInput [matDatepicker]="picker" placeholder="Select Arrive Date" formControlName="actual_arrive_date" [min]="previous_vessel_date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field> -->
+                </form>
+        </mat-card>
+
+        <mat-card [style.visibility]="editMode ? 'hidden' : 'visible'"  class="card-2" *ngIf="currentShippingInfo.type ===4">
+                <h4 *ngIf="!currentShippingInfo.warehouses">{{select_arrival_title}} : {{sales_item_number}}</h4>
+                <h4 *ngIf="currentShippingInfo.warehouses.length >0">Assigned Warehouses</h4>
+                <div class="inner-group" *ngFor="let warehouse of currentShippingInfo.warehouses;let i = index;">
+                        <label>Warehouse Name : </label>
+                        <!-- <input readonly type="text" [value]="warehouse.name" required/> -->
+                        <span>{{warehouse.name}}</span>
+                </div>
+
+                <form [formGroup]="warehouseForm" *ngIf="!orderCustomerId && (currentShippingInfo.warehouses.length == 0)">
+                        <div class="inner-group">
+                                <label> Select Warehouse: </label>
+                                <select formControlName="warehouse_id" required>
+                                        <option value=""></option>
+                                        <option *ngFor="let warehouse of warehouses" [value]="warehouse.id">{{warehouse.name}}</option>
+                                </select>
+                        </div>
+                </form>
+        </mat-card>
+
+
+</div>
+
+<div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+</div>

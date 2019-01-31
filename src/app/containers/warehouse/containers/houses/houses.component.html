@@ -1,0 +1,91 @@
+<div #gmap id="goFS" style="width:100%;height:45%" class="map"></div>
+
+
+<div style="position:fixed;top:46.3%;background-color:#fafafa;width:100%;" *ngIf="!ifFullScreen">
+  <mat-card>
+    <b *ngIf="selectedWarehouseIndex">&nbsp;#{{selectedWarehouseIndex+1}} warehouse in {{total}}</b>
+    <b *ngIf="!selectedWarehouseIndex">&nbsp;{{total}} warehouses.</b>
+    <div class="btn-gp">
+      <!-- <button mat-button (click)="setGoogleMap()">Reset</button> -->
+      <button mat-button (click)="reset()">Reset</button>
+      <button mat-button (click)="goFullScreen()">Full Screen</button>
+    </div>
+  </mat-card>
+</div>
+
+<div style="position:fixed;bottom:0;background-color:#fafafa;width:100%;" *ngIf="ifFullScreen">
+
+  <mat-card>
+    <!-- Your are selecting the warehouse <b>&nbsp;#{{selectedWarehouseIndex+1}}</b> . -->
+    <div class="btn-gp-2">
+      <!-- <button (click)="setGoogleMap()">Reset</button> -->
+      <button mat-button (click)="reset()">Reset</button>
+      <button (click)="miniMap()">Minimize</button>
+    </div>
+  </mat-card>
+
+</div>
+
+<div class="warehouse-location" *ngIf="!ifFullScreen" (scroll)="onMouseWheel($event)">
+
+  <mat-card class="warehouse" style="position:relative;" *ngFor="let warehouse of warehouses;let i = index" (click)="selectWarehouse(warehouse, i)"
+    [class.selected]="warehouse == selectedWarehouse" id={{i}}>
+    <!-- <span [class.selectedIndex]="warehouse == selectedWarehouse" class="index">{{i+1}}</span> -->
+
+    <div class="img-warp" (click)="onNav($event, warehouse)">
+      <div class="item">
+        <img style="width:50px;height:50px;background-color:white;border-radius:5px;" src="assets/images/warehouse.png">
+      </div>
+      <!-- <div class="item">
+                <span>{{warehouse.name | short : 6}}</span>
+            </div> -->
+    </div>
+    <div class="info">
+      <!-- <div class="wrapper">
+                <span><b>Name:&nbsp;</b>{{warehouse.name}}</span>
+            </div> -->
+      <div class="address wrapper">
+        <b>Warehouse Name:&nbsp;</b>
+        <span>{{warehouse.name}}</span>
+      </div>
+      <div class="address wrapper">
+        <b>Address:&nbsp;</b>
+        <span>{{addressArr[i] | short : AddressTextLengthArr[i]}}</span>
+      </div>
+      <div class="wrapper">
+        <span class="description">
+          <b>Description:&nbsp;</b>{{warehouse.description | short : descriptionTextLengthArr[i]}}</span>
+      </div>
+    </div>
+
+    <div class="info-bar">
+      <div class="capacity-box" (click)="openWarehousePlan()">
+        <img src="assets/images/icons/pallete.png" style="padding:0 5px;display:inline-block;vertical-align:center;width:35px;height:35px;margin:0px;"
+          alt="">
+        <span class="capacity">
+          <span class="top">100</span>
+          <hr>
+          <span class="btm">10000000</span>
+        </span>
+      </div>
+      <div class="icons">
+        <a disableColor [data]="warehouse.phone_number" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" href="tel:{{warehouse.phone_number}}">
+          <mat-icon>phone</mat-icon>
+        </a>
+        <a disableColor [data]="warehouse.email" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" href="mailto:{{warehouse.email}}">
+          <mat-icon>email</mat-icon>
+        </a>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="empty-ban" style="height:80px;width:100%;"></div>
+</div>
+
+<app-img-modal *ngIf="showWarehousePlan" [imgSrc]="getPlanImg()" (modalClose)="closeModal()"></app-img-modal>
+
+<app-add-button *ngIf="(!isLoading && !ifFullScreen) && !showWarehousePlan" routerLink="addwarehouse"></app-add-button>
+
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>

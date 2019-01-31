@@ -1,0 +1,76 @@
+:host{
+    // display: flex;
+    // align-items: center;
+    background-color: #FFFFFF;
+    // margin-bottom: 10px;
+}
+
+.user-information-image::ng-deep {
+    app-profile-picture{
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 58px;
+        height: 58px;
+    }
+    .shorthand{
+        font-size: 32px !important;
+    }
+}
+.user-information-image{
+    position:relative;
+    z-index:2;
+    margin:0 auto;
+    margin-top:-29px;
+}
+.user-information{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.name-and-email{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.email{
+    font-size: 12px;
+    color: #767676;
+    letter-spacing: 0.5px;
+    font-weight: 100;
+}
+
+.profile-link{
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: flex-end;
+    a {
+        color: #B6B6B6;
+        font-size: 12px;
+        font-weight: 100;
+    }
+    mat-icon{
+        width: 12px;
+        height: 12px;
+        font-size: 12px;
+        color: #B6B6B6;
+    }
+}
+
+img{
+    z-index:0;
+    position:relative;
+}
+.comany-tile-background{
+    width:100%;
+}

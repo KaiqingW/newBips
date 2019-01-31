@@ -1,0 +1,36 @@
+$img_size: 30px;
+.big_icon {
+    width: $img_size;
+    height: $img_size;
+    background-color: #eeeeee;
+    border-radius: 35px;
+    opacity: 1.0;
+}
+
+.container_info {
+    padding-bottom:6px;
+    border-bottom:0.5px solid #d3d3d3;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: scroll;
+    flex-direction: row;
+    .box {
+        margin: 0 6px;
+        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+        .row1 {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .row2 {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            background-color: rgb(114, 214, 243);
+        }
+    }
+}

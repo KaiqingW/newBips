@@ -1,0 +1,130 @@
+<form novalidate [formGroup]="warehouseForm">
+
+  <div class="input-group" *ngIf="!northAmerica&&!showFullInputAddress && !fullAddress">
+    <mat-form-field>
+      <mat-select placeholder="Select Country" [formControl]="selecteCountryCtrl">
+        <mat-option [value]="country.code" *ngFor="let country of countries">{{country.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="!fullAddress && northAmerica">
+    <mat-form-field>
+      <input type="input" matInput placeholder="Zipcode" name="zipcode" [formControl]="zipcodeCtrl">
+    </mat-form-field>
+  </div>
+
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <!-- <label for="">name</label> -->
+      <input matInput type="text" required formControlName="name" placeholder="Warehouse Name" name="" value="">
+      <mat-error *ngIf="warehouseForm['controls'].name.invalid">{{getWarehouseErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <div formGroupName="address" class="addressGroup" *ngIf="fullAddress">
+    <div class="input-group">
+      <mat-form-field>
+        <input matInput type="text" required placeholder="Street1" formControlName="street1" name="" value="">
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Street2" formControlName="street2" name="" value="">
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field>
+        <input matInput type="text" required placeholder="City" formControlName="city" name="">
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field>
+        <input matInput type="text" required placeholder="State" formControlName="state">
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field>
+        <input matInput type="text" required placeholder="Zipcode" partten="[0-9]*" formControlName="zipcode">
+        <mat-error *ngIf="warehouseForm['controls'].address.invalid">{{getUnfoundZipcodeErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="input-group">
+      <mat-form-field>
+        <mat-select placeholder="Country" formControlName="country">
+          <mat-option *ngFor="let country of countries" [value]="country.code">
+            {{country.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="input-group-2" *ngIf="fullAddress">
+    <mat-form-field>
+      <mat-select formControlName="open_time" placeholder="Open Time">
+        <mat-option *ngFor="let time of business_time" [value]="time">
+          {{time}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="close_time" placeholder="Close Time">
+        <mat-option *ngFor="let time of business_time" [value]="time">
+          {{time}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <input matInput type="tel" required placeholder="Phone" formControlName="phone_number" name="" value="">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Alternative Phone Number" formControlName="alt_phone_number" name="" value="">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Email" formControlName="email" name="" value="">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Fax" formControlName="fax" name="" value="">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Contact Name" formControlName="contact_name" name="" value="">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <textarea matInput matTextareaAutosize placeholder="Description" formControlName="description" name="name" rows="8"></textarea>
+    </mat-form-field>
+  </div>
+
+
+  <div class="input-group" *ngIf="fullAddress">
+    <mat-form-field>
+      <input matInput type="number" placeholder="Capacity" formControlName="capacity" name="" value="">
+    </mat-form-field>
+  </div>
+</form>

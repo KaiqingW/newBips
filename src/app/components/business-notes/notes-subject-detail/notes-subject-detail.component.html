@@ -1,0 +1,52 @@
+<div class="container" *ngIf="currentNote">
+  <div class="description">
+          <div class="row title" style="margin-top:1px !important">
+              <b>Subject</b>
+          </div>
+          <div class="row">
+              <p class="subject">{{currentNote.name}}</p> 
+          </div>
+          
+          <div class="row title">
+                  <b>Description</b>                    
+          </div>
+          
+          <div  class="des-container" *ngFor= "let note of subNotes; let i = index">
+                  <div class="col-1" *ngIf="note.img">
+                           <img (click)="openModal(note)" [src]="note.img" style="width:75px;height:75px;;margin-right:16px" alt="note.img">
+                           <div *ngIf="modalOpen">
+                                  <app-img-modal img [imgSrc]="note.img" (modalClose)="closeModal()"></app-img-modal>
+                          </div>    
+                           
+                  </div>
+                  
+                  <div class="col-3"> 
+                      <div class="pre-container"></div>
+                      <read-more style="text-align: left" [text]="note.text"></read-more>
+                       <!-- <p style="text-align: left">{{note.text}}</p> -->
+                   </div>
+          </div>   
+          
+           <div class="time">
+                <img *ngIf="currentNote.created.by.avatar_url" [src]="currentNote.created.by.avatar_url" width="20px" style="border-radius:50%;">
+                <span *ngIf="!currentNote.created.by.avatar_url" class="shorthand">{{currentNote.created.by.first_name?.charAt(0) | uppercase}}{{currentNote.created.by.last_name?.charAt(0) | uppercase}}</span>
+                <span>{{currentNote.created.by.first_name}} {{currentNote.created.by.last_name}} {{currentNote.created.at | local | amDateFormat : 'MM/DD/YYYY h:mm a' }}</span> 
+          </div>  
+  </div>
+  <!-- <div class="options">
+          <div class="delete">
+              <div mat-button ><mat-icon>  delete</mat-icon>Delete (coming soon)</div>
+          </div>
+          <div  class="delete" >
+              <div mat-button ><mat-icon>person_add</mat-icon>  Invites (coming soon)</div>
+          </div>     
+  </div>   -->
+
+  <div style="padding-bottom:6px;padding-left:16px;"><b>{{comments?.length}}</b> comments under this Note</div>
+
+  <notes-notes-list *ngFor="let comment of currentNote.notes" [comment]="comment"></notes-notes-list> 
+
+  <app-add-button (click)="addCommentDialog()"></app-add-button> 
+
+</div>
+<div class="bottom-ban" style="height:50px"></div>

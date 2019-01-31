@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+$orca-blue: ( 50: #e1f5fe, 100: #b3e5fc, 200: #81d4fa, 300: #4fc3f7, 400: #455987, 500: #15305A, 600: #0D2241, 700: #081F42, 800: #00173A, 900: #000F27, contrast: ( 50: $black-87-opacity, 100: $black-87-opacity, 200: $black-87-opacity, 300: $black-87-opacity, 400: $black-87-opacity, 500: white, 600: white, 700: white, 800: white, 900: $white-87-opacity, A100: $black-87-opacity, A200: $black-87-opacity, A400: $black-87-opacity, A700: white, ));
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$orcasmart-primary: mat-palette($orca-blue, 500);
+$orcasmart-accent: mat-palette($mat-grey, 200);
+// The warn palette is optional (defaults to red).
+$orcasmart-warn: mat-palette($mat-red);
+// Create the theme object (a Sass map containing all of the palettes).
+$orcasmart-theme: mat-light-theme($orcasmart-primary, $orcasmart-accent, $orcasmart-warn);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($orcasmart-theme);
+//change angular material's mat-dialog-container postion by simon
+mat-dialog-container {
+    margin-top: -70%;
+    border-radius: 10px !important;
+    padding: 20px;
+}
+

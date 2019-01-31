@@ -1,0 +1,187 @@
+<div class="purchase-orders-container">
+
+    <div class="search-area">
+        <mat-form-field class="choice-field">
+            <mat-select placeholder="Search Type" [formControl]="choiceCtrl" [(ngModel)]="choiceValue">
+                <mat-option *ngFor="let choice of choices" [value]="choice">
+                    {{choice}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="search-field">
+            <input class="input" matInput [readonly]="choiceValue != choices[0] && choiceValue != choices[1] " [placeholder]="placeholder"
+                [formControl]="searchCtrl" aria-label="product name" [(ngModel)]="filterValue">
+            <!-- <input class="input" matInput [readonly]="choiceValue==choices[3]" [placeholder]="placeholder" [formControl]="searchCtrl"
+                    aria-label="product name" [matAutocomplete]="auto" [(ngModel)]="filterValue"> -->
+            <!-- <mat-autocomplete #auto="matAutocomplete">
+                    <div *ngIf="containers">
+                        <mat-option (click)="onSelectContiainer(container)" *ngFor="let container of containers" [value]="container.container_number">
+                            {{container.container_number}}
+                        </mat-option>
+                    </div>
+                    <div *ngIf=" (choiceCtrl.value == 'Container#') && (!containers || containers.length == 0) ">
+                        <mat-option>
+                            No Result
+                        </mat-option>
+                    </div>
+                </mat-autocomplete> -->
+        </mat-form-field>
+
+        <!-- <a class="filter-btn" (click)="showFilter()" *ngIf="!showFilterModal" [hidden]="choiceValue == 'Date'" [style.visibility]="choiceValue == 'Date' ? 'visible' : 'hidden' ">filter</a> -->
+        <a class="filter-btn" (click)="showFilter()" *ngIf="!showFilterModal">filter</a>
+        <a class="filter-btn" (click)="showFilter()" *ngIf="showFilterModal">
+            <mat-icon matSuffix>loop</mat-icon>
+        </a>
+    </div>
+
+    <mat-card *ngIf="showFilterModal" class="filter-div">
+        <div class="filter-container">
+            <div class="filter-header" *ngIf="choiceValue == 'Date'">
+                <a [ngClass]="{'filterActive': showPresetsModal ==true}" (click)="showPresetsModal = true">Presets</a>
+                <a [ngClass]="{'filterActive': showPresetsModal ==false}" (click)="showPresetsModal = false">Custom</a>
+            </div>
+            <div *ngIf="showPresetsModal && (choiceValue == choices[2])" class="filter-item">
+                <p>Filter By</p>
+                <!-- <a (click)="filterByDefault('po')">PO#</a> -->
+                <div class="col">
+                    <a (click)="filterByDefault('today')">Today</a>
+                    <a (click)="filterByDefault('yesterday')">Yesterday</a>
+                    <a (click)="filterByDefault('lastweek')">Last Week</a>
+                    <a (click)="filterByDefault('lastmonth')">Last Month</a>
+                </div>
+                <div class="col">
+                    <a (click)="filterByDefault('weektodate')">Week to Date</a>
+                    <a (click)="filterByDefault('monthtodate')">Month to Date</a>
+                    <a (click)="filterByDefault('quartertodate')">Quarter to Date</a>
+                    <a (click)="filterByDefault('yeartodate')">Year to Date</a>
+                </div>
+
+            </div>
+            <div *ngIf="!showPresetsModal && choiceValue == 'Date'">
+                <div class="filter-date">
+                    <p>Date Range</p>
+                    <mat-form-field color="accent">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" [(ngModel)]="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field color="accent">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="picker2" [(ngModel)]="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                    </mat-form-field>
+
+                    <div class="action-btn">
+                        <a (click)="showFilterModal = !showFilterModal">Cancel</a>
+                        <a (click)="filterByDefault('custom')">Submit</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </mat-card>
+
+
+
+    <!-- <mat-card *ngIf="!selectedContainer && !container_mode">
+            <div class="orders-header" id="orders-header">
+                <div class="orders-title">
+                    <b>Cus. PO #</b>
+                </div>
+                <div class="orders-title">
+                    <b>Date </b>
+                </div>
+                <div class="orders-title">
+                    <b>Total</b>
+                </div>
+                <div class="orders-title">
+                    <b>Balance</b>
+                </div>
+                <div class="orders-title">
+                    <b>Status</b>
+                </div>
+            </div>
+        </mat-card> -->
+
+    <mat-card *ngIf="!selectedContainer && !container_mode">
+        <div class="orders-header" id="orders-header">
+            <div style="width:8%;box-sizing: border-box;"></div>
+            <b>Cus. PO #</b>
+            <b>Date </b>
+            <b>Total</b>
+            <b>Balance</b>
+        </div>
+    </mat-card>
+
+    <div *ngIf="!selectedContainer && !container_mode" (scroll)="onMouseWheel($event)" id="content" class="product-info-loop">
+        <mat-card class="order-list-card" [style.height]="isExpand(order) ? 'auto' : 'auto'" *ngFor="let order of orders" [class.selected]="order == selectedOrder"
+            (click)="selectOrder(order)">
+            <div class="orders-container">
+                <div class="star-holder" (click)="updatePriority($event, order)">
+                    <mat-icon class="star" [style.color]="getColor(order)">star</mat-icon>
+                </div>
+                <b (click)="navToDetail(order.id)" (click)="setCust(order)">{{order?.purchase_order_number}}</b>
+                <b (click)="navToDetail(order.id)">{{order?.order_date | amDateFormat : 'MM/DD/YYYY'}}</b>
+                <b (click)="navToDetail(order.id)">{{order?.total_value | number}}</b>
+                <b (click)="navToDetail(order.id)">{{order?.balance_value | number}}</b>
+            </div>
+            <div style="background-color:#eee">
+                <orders-items-card *ngIf="(openOrder == order) && order?.items" (sendNav)="navToStatus($event, order.id)" [status]="status"
+                    [items]="openOrder.items" (sendNavToAttachementOrNote)="navToAttOrNote($event, order)" [company_id]="vendorCompanyId"
+                    [order_id]="order.id"></orders-items-card>
+            </div>
+
+            <!-- shared list -->
+            <div class="shared-image-list">
+                <div class="share-info-row">
+                    <div class="shared-images">
+                        <app-profile-picture [url]="order?.created?.by?.avatar_url" [userFirstName]="order?.created?.by?.first_name" [userLastName]="order?.created?.by?.last_name"
+                            [userId]="order?.created?.by?.id">
+                        </app-profile-picture>
+                        <div *ngFor="let sharedUser of order.shared_with" class="shared-profile-picture">
+                            <app-profile-picture [url]="sharedUser?.avatar_url" [userFirstName]="sharedUser?.first_name" [userLastName]="sharedUser?.last_name"
+                                [userId]="sharedUser?.id">
+                            </app-profile-picture>
+                        </div>
+                    </div>
+                </div>
+                <i class="material-icons icon" (click)="open($event, order)">
+                    {{ openOrder == '' || openOrder != order ? "keyboard_arrow_down" : "keyboard_arrow_up" }}
+                </i>
+            </div>
+
+        </mat-card>
+        <div class="banner"></div>
+    </div>
+
+
+    <app-container-info (toNextPage)="nextPage()" [lastPageUrl]="lastPageUrl" [nextPageUrl]="nextPageUrl" (toPrevPage)="previousPage()"
+        (onSendOrder)="onGetOrderNumber($event)" (toWheel)="onGetWheel($event)" *ngIf="container_mode" (toGetItems)="onGetItems($event)"
+        [status]="status" [containers]="containers" [currentPage]="currentPage" [lastPageNumber]="lastPageNumber"></app-container-info>
+  
+</div>
+
+<div class="position-bottom">
+    <mat-card>
+        <i class="material-icons" (click)="firstPage()">first_page</i>
+        <i *ngIf="lastPageUrl" class="material-icons keyboard_left" (click)="previousPage()"> keyboard_arrow_left</i>
+        <i *ngIf="!lastPageUrl" class="material-icons keyboard_left" style="color:lightgray"> keyboard_arrow_left</i>
+        <mat-form-field class="example-full-width page-number">
+            <input matInput style="text-align: center" placeholder="Page" [value]="getPage()" #pageNumber>
+        </mat-form-field>
+        <i *ngIf="nextPageUrl" class="material-icons keyboard_right" (click)="nextPage()"> keyboard_arrow_right</i>
+        <i *ngIf="!nextPageUrl" class="material-icons keyboard_right" style="color:lightgray"> keyboard_arrow_right</i>
+        <i class="material-icons" (click)="lastPage()">last_page</i>
+
+        <!-- <button mat-button color="primary" (click)="exactPage(pageNumber.value)">Go</button> -->
+    </mat-card>
+</div>
+
+<app-add-button *ngIf="showAddBtn" routerLink="/company/{{id}}/purchase-order/orders/new" (click)="resetOrderForm()"></app-add-button>
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<!-- <div class="bottom-ban" style="height:50px"></div> -->

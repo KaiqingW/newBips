@@ -1,0 +1,85 @@
+<mat-form-field class="chip-list">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let email of emailList" [selectable]="selectable"
+              [removable]="removable" (remove)="remove(email)">
+        {{email}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Please input to search"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+            [matAutocomplete]="auto" 
+            [formControl]="emailCtrl" #personInput/>
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+        <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+        <mat-option *ngFor="let email of filteredEmails" [value]="email.email">
+                <span *ngIf="email?.avatar_url"><img  [src]="email?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{email?.email}}</span>
+                <span *ngIf="!email?.avatar_url"><img  src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{email?.email}}</span>
+        </mat-option>
+        <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+      
+    </mat-autocomplete>
+</mat-form-field>
+<div>
+    <button mat-raised-button color="primary" (click)="onSave(personInput.value)" [disabled]="!(emailList.length>0)">Add Employee</button>
+</div>
+
+<div class="current-employee-title"><h3>Current Employee</h3></div>
+<mat-card *ngFor="let employee of companyEmployee" class="company-content">
+        <div class="company-logo">
+            <company-logo [url]="employee?.avatar_url" [comname]="getFullName(employee?.first_name, employee?.last_name)"
+            [userId]="employee?.id"></company-logo>
+        </div>
+        <div class="company-name">
+            <span><b>{{employee.first_name}} {{employee.last_name}}</b></span><br>
+            <span class="company-address">{{employee?.email}}</span>
+        </div>
+
+        <!-- 0 is user
+        1 is Admin
+        2 is manager
+        1 has most highest permission
+
+        right now both 1 and 2 can promote, demote, delete employee, editted by yali -->
+        <div *ngIf="currentCompanyUserLevel == 1 || currentCompanyUserLevel == 2" class="user-level ">
+            <div class="join-btn" *ngIf="employee.is_admin == 0" >
+                <span (click)="promoteEmployee(employee)">User</span>
+            </div>
+            <div class="join-btn" *ngIf="employee.is_admin == 0" >
+                <span (click)="deleteEmployee(employee)">X</span>
+            </div>
+
+            <div class="join-btn" (click)="demoteEmployee(employee)" *ngIf="employee.is_admin == 2" >
+                <span >Admin</span>
+            </div>
+
+            <div class="join-btn" (click)="deleteEmployee(employee)" *ngIf="employee.is_admin == 2" >
+                <span>X</span>
+            </div>
+           
+        </div>
+
+        <!-- <div *ngIf="currentCompanyUserLevel == 2" class="user-level ">
+            <div class="join-btn" *ngIf="employee.is_admin == 0" >
+                <span (click)="deleteEmployee(employee)">X</span>
+            </div>
+
+        </div> -->
+
+</mat-card>
+
+<div class="" *ngIf="showSendEmailModal">
+    <p>
+        this user not in the system, Do you want system notice this user via this email
+    </p>
+    <div>
+        <a>No</a> <a>Yes</a>
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

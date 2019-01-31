@@ -1,0 +1,16 @@
+
+   <div *ngIf="!isLoading">
+        <div *ngFor="let status of settingStatusList" routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-setting/status/{{status?.id}}">
+            <status-card [createdUser]="status?.created" [content]="status?.body" [commentId]="status?.id" [replyPermission]="false" ></status-card>
+        </div>
+
+        <div class="add-comment-div">
+            <a routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-setting/add-status">Add new Discusstion</a>
+        </div>
+   </div>
+
+
+
+    <div *ngIf="isLoading">
+        <app-spinner></app-spinner>
+    </div>

@@ -1,0 +1,73 @@
+
+mat-card{
+    padding:9px 4px 9px 8px;
+    height:40px;
+    align-items: center;
+    .company-content{
+        line-height: 44px;  
+        text-align: center;
+        .selectbox{
+            float: left;
+            display:inline-block;
+            width:10%;
+        }
+        .company-logo{
+            width:12%;
+            height: 44px;
+            display:inline-block;
+            vertical-align: middle;
+            float: left;
+            company-logo{
+                width:40px;
+                height:40px;
+            }
+        }
+        .company-name{
+            display:inline-block;
+            vertical-align: middle;
+            width:60%;
+            height: 44px;
+            overflow: hidden;
+            float: left;
+            padding:0 0 0 4%;
+            // h5{
+            //     text-align: left;
+            //     height: 24px;
+            //     line-height: 24px;
+            //     overflow: hidden;
+            //     text-overflow: ellipsis;
+            //     white-space: nowrap; 
+            // }
+            span{
+                font-size:14px;
+                margin-top:-2px;
+                display: block;
+                height: 18px;
+                line-height: 18px;
+                color:gray;
+                text-align: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+            }
+        }
+        .contacts{
+            border-top:0.5px solid lightgray;
+            float:right;
+            padding:6px 2px ;
+            width:100%;
+            height: 30px;
+            margin-left:-6px;
+            .contact{
+                line-height: 30px;
+                display:inline-block;
+                float:right;
+                margin-left:5px;
+                company-logo{
+                    width:30px;
+                    height:30px;
+                }
+            }
+        }
+    }
+}

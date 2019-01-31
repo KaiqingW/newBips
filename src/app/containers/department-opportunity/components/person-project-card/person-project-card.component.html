@@ -1,0 +1,61 @@
+<mat-card>
+    <div class="project-content">
+        <div *ngIf="requireDate && updateFrequency">
+            <span class="require-date">Require Date: {{requireDate | amDateFormat : 'MM/DD/YYYY'}}</span>
+            <span class="report-frequency">Report Frequency: {{updateFrequency}}</span>
+        </div>
+        <div class="content">
+            <div class="sales">
+                <avatar-logo
+                    [url]="sales?.avatar_url" 
+                    [userFirstName]="sales?.first_name" 
+                    [userLastName]="sales?.last_name" 
+                    [userId]="sales?.user_id">
+                </avatar-logo>
+            </div>
+            <div class="name">
+                <b>{{name}}</b>
+            </div>
+            <div class="bar">
+                <ng-content></ng-content>    
+            </div>
+        </div>    
+        <div class="oppo-value">
+            Min Value of Each Opportunity : ${{opportunityValue | number}} Per {{opportunityValueType}}
+        </div>  
+    </div>
+    <!-- <hr> -->
+    <!-- <div class="project-user">
+        <div class="user-list">
+            <div class="owner-list" *ngFor="let owner of owners">
+                <div class="owner">
+                    <avatar-logo
+                        [url]="owner?.avatar_url" 
+                        [userFirstName]="owner?.first_name" 
+                        [userLastName]="owner?.last_name" 
+                        [userId]="owner?.user_id">
+                    </avatar-logo>
+                </div>
+            </div> -->
+
+            <!-- not show next-meet-shared-user now -->
+            <!-- <div class="next-meet-shared-user" [ngClass]="{'new-location' : superPermission}">
+                <div *ngFor="let share of nextMeetingSubjectSharedUserList">
+                    <div class="share">
+                        <avatar-logo
+                            [url]="share?.avatar_url" 
+                            [userFirstName]="share?.first_name" 
+                            [userLastName]="share?.last_name" 
+                            [userId]="share?.user_id">
+                        </avatar-logo>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="assign-button" *ngIf="superPermission" routerLink="project/{{projectId}}/assign-owner">
+                <button><mat-icon>person_add</mat-icon></button>                    
+            </div> -->
+        <!-- </div>
+    </div> -->
+    <span *ngIf="unreadCount > 0" class="unread">{{unreadCount}}</span>
+    
+</mat-card>

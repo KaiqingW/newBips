@@ -1,0 +1,101 @@
+<div class="add_note_subject_container">
+    <form [formGroup]="addSubjectForm">
+        <div class="row title">
+            <b>Meeting Name</b>             
+        </div>
+        <div class="row" *ngIf="!prevNoteId">
+            <input type="text" placeholder="Meeting Name is required !" required formControlName="name" >
+        </div>
+        <div class="row" *ngIf="prevNoteId">
+            <input type="text" required formControlName="name" [(ngModel)]="prevNoteSubjectName">
+        </div>
+        <div class="row title">
+            <b>Description</b>
+        </div>
+    
+        <mat-card formArrayName="description">
+    
+            <div *ngFor="let subNote of addSubjectForm['controls'].description['controls'];let i=index">
+                <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+                <div class="row" [formGroupName]="i"> 
+                    <div class="col-1" *ngIf="getImg(i)">
+                        <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                        <div *ngIf="modalOpen">
+                                <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                        </div>
+                    </div>
+                    <div class="col-3"> 
+                        <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                    </div>
+                </div>
+                <!-- <button class="add_more_btn" *ngIf="addSubjectForm['controls'].description['controls'].length" style="background-color:red !important; color:white;" (click)="onDelete(i)">Delete current text</button>    -->
+                <!-- <br>
+                <br>
+                <hr>             -->
+            </div>
+
+            <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+        </mat-card>    
+        <div class="meeting-info">
+            <div class="meeting-date">
+                Meeting Date
+                <input type="Date" placeholder="Meeting Date" formControlName="meeting_date" required>
+            </div>
+            <div class="meeting-time">
+                Meeting Time
+                <select formControlName="meeting_time" required >
+                    <option *ngFor="let time of meetingTime" value="{{time}}">{{time}}</option>
+                </select>
+                <!-- <input type="time" placeholder="Meeting Time" formControlName="meeting_time" min="9:00" max="18:00" required> -->
+            </div>
+            <div class="meeting-frequency">
+                Meeting Frequency
+                <select formControlName="meeting_frequency" required>
+                    <option value="onetime">One Time</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="biweekly">Biweekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                </select>
+            </div>
+        </div>       
+    </form>   
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<!-- <form [formGroup]="noteForm" novalidate  >
+    <mat-form-field class="example-full-width">
+        <input id="subject_name" matInput placeholder="Meeting Name" 
+        [matAutocomplete]="auto" formControlName="subject" maxlength="27"
+         #subjectInput/>
+        <mat-hint *ngIf="getMaxInputErrorMessage()" >{{getMaxInputErrorMessage()}}</mat-hint>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject.name">
+                <span>{{ subject.name }}</span>
+            </mat-option>
+        </mat-autocomplete>        
+    </mat-form-field>
+
+    <editor id="quill" (onContentChanged)="logChange($event)"></editor>
+    <div class="meeting-date">
+        Meeting Date
+        <input type="Date" placeholder="Meeting Date">
+    </div>
+    <div class="meeting-frequency">
+        Meeting Frequency
+        <select>
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Biweekly">Biweekly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Quarterly">Quarterly</option>
+        </select>
+    </div>
+</form>
+
+
+ -->

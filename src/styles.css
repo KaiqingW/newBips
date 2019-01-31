@@ -1,0 +1,93 @@
+@import '../node_modules/quill/dist/quill.snow.css';
+/* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: "Roboto", "Helvetica", "Helvetica Neue", Arial, sans-serif;
+    height: 100%;
+}
+
+.orca_title_md {
+    font-size: 18px;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.orca_title_sm {
+    font-size: 16px;
+    margin: 5px 0;
+    /* font-weight: bold; */
+}
+
+.orca_font_md {
+    font-size: 16px;
+}
+
+.orca_font_sm {
+    font-size: 13px;
+}
+
+.orca_card {
+    background: white;
+    border-radius: 2px;
+    padding: 9px 10px !important;
+    margin-bottom: 4px;
+}
+
+.orca_btn_bar {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: flex-end;
+}
+
+.orca_title_content_row{
+    width: 100%;
+    line-height: 15px;
+}
+
+.orca_title_h_blue {
+    position: relative;
+    display: inline-block;
+    padding: 3.5px;
+    border-radius: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #15305a;
+    color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+    border: 1px solid #eeeeee;
+    width: 123px;
+    font-size: 14px;
+}
+
+.orca_content_h_white {
+    display: inline-block;
+    background-color: #ffffff;
+    padding: 3.5px;
+    border-radius: 1px;
+    border: 1px solid #eeeeee;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    width: 206px;
+}
+
+.orca_textarea {
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+    overflow: scroll;
+    height: 135px;
+}

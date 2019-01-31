@@ -1,0 +1,64 @@
+<div class="purchase-orders-container" *ngIf="order">
+    <mat-card class="orca_card selected-top" *ngIf="!openOrder">
+        <div *ngIf="order" class="orders-container">
+            <div class="row">
+                <div class="orders-list" style="text-align:left;">
+                    <strong>Cus. PO # : </strong> {{order.purchase_order_number}}
+                </div>
+                <div class="orders-list" style="text-align:right;">
+                    <strong>S.O.# :</strong> {{order.sales_order_number}}
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="orders-list" style="text-align:left;">
+                    <b>Order Date : </b>{{order.order_date | amDateFormat : 'MM/DD/YYYY' }}
+                </div>
+                <div class="orders-list" style="text-align:right;" *ngIf="order.request_date">
+                    <b>Request Date : </b> {{order.request_date  | amDateFormat : 'MM/DD/YYYY' }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="orders-list" style="width:85% !important">
+                    <strong>Destination : </strong> {{order.destination}}
+                </div>
+                <div class="orders-list" style="text-align:right;">
+                    <b>Customer : </b> {{order.customer?.name ? order.customer.name : 'Self'}}
+                </div>
+                <!-- <div class="btn-primary">100</div> -->
+            </div>
+
+        </div>
+    </mat-card>
+
+    <!-- shared list -->
+    <mat-card class="shared-image-list has-margin" *ngIf="!openOrder">
+        <div class="share-info-row">
+            <div (click)="addSharedUser()" class="invite">
+                <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">person_add</mat-icon>&nbsp;Share</div>
+            <div class="shared-images">
+                <app-profile-picture [url]="order?.created?.by?.avatar_url" [userFirstName]="order?.created?.by?.first_name" [userLastName]="order?.created?.by?.last_name"
+                    [userId]="order?.created?.by?.id">
+                </app-profile-picture>
+                <div *ngFor="let sharedUser of sharedUserList" class="shared-profile-picture">
+                    <app-profile-picture [url]="sharedUser?.avatar_url" [userFirstName]="sharedUser?.first_name" [userLastName]="sharedUser?.last_name"
+                        [userId]="sharedUser?.id">
+                    </app-profile-picture>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <orders-items-card (sendNavToAttachementOrNote)="onGetNavToAttachementOrNote($event)" [company_id]="vendorId ? vendorId :companyId" [order_id]="orderId" (sendNav)="navToItem($event)" [items]="items"
+        [status]="status"></orders-items-card>
+
+    <button *ngIf="!openOrder && !vendorId && !orderClosed" mat-raised-button color="warn" class="logout-btn" (click)="closeOrder()">Close Order</button>
+
+    <div class="empty-ban" *ngIf="!openOrder"></div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

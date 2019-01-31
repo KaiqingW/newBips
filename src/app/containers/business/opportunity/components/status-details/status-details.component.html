@@ -1,0 +1,26 @@
+
+<div *ngIf="!isLoading" class="container">
+    <div class="status-content">
+            <status-content [name]="statusDetails?.body" [description]="statusDetails?.body" [createdTime]="statusDetails?.created?.at"></status-content>
+    </div>
+
+    <div class="comments" >
+        <div class="status-card" *ngFor="let comment of statusDetails?.comments">
+            <status-card  [createdUser]="comment?.created" [content]="comment?.body" [commentId]="comment?.id" [replyPermission]="true" >
+                    <div class="reply-card-margin" *ngFor="let reply of comment?.replies">
+                        <status-card [createdUser]="reply?.created" [content]="reply?.body" [commentId]="reply?.id" [replyPermission]="false" ></status-card>
+                    </div>
+            </status-card>
+        </div>
+       
+    </div>
+</div>
+
+<div *ngIf="!isLoading" class="add-comment-div">
+    <a *ngIf="statusId" routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-status/{{statusDetails?.id}}/comment">Add Comment</a>
+    <a *ngIf="opportunitySettingStatusId" routerLink="/company/{{currentLoginCompanyId}}/opportunity/opportunity-setting/status/{{statusDetails?.id}}/comment">Add Comment</a>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

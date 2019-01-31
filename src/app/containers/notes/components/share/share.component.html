@@ -1,0 +1,47 @@
+
+ <mat-form-field class="chip-list">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let email of emailList" [selectable]="selectable"
+              [removable]="removable" (remove)="remove(email)">
+        {{email}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Press Enter or Comma to add another user"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+            [matAutocomplete]="auto" 
+            [formControl]="emailCtrl" #personInput/>
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" 
+                  (optionSelected)="selectOption($event)">
+      <mat-option *ngFor="let email of filteredEmails | async" [value]="email.email">
+        <span>{{ email.email }}</span>
+      </mat-option>
+    </mat-autocomplete>   
+  </mat-form-field>
+
+  <div class="shared-user-list">
+      <p>Shared with</p>    
+      <div class="shared-user-container">
+        <mat-chip selected="true" color="accent" *ngFor="let user of sharedUserList">
+          <div class="shared-user">
+            <app-profile-picture 
+              [url]="user?.avatar_url" 
+              [userFirstName]="user?.first_name"
+              [userLastName]="user?.last_name"
+              [userId]="user?.id">
+            </app-profile-picture>
+            <span class="shared-user-email">{{user?.email}}</span>
+            <mat-icon matChipRemove *ngIf="removable" (click)="removeSharedUser(user)">cancel</mat-icon>
+          </div>     
+        </mat-chip>
+      </div>
+    </div>
+
+  <div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+  </div>
+
+

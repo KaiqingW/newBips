@@ -1,0 +1,74 @@
+
+    <mat-card>
+        <div class="paymentterm">
+            <h4>Payment Term  <mat-icon (click)="addPeyterm()">add</mat-icon></h4>
+            <div class="list">
+                <span *ngFor="let value of paytermList">{{value?.payterm}} <mat-icon (click)="deleteQuoteSetting(value.id)"  class=" delete">delete</mat-icon><mat-icon class=" edit">edit</mat-icon></span>
+            </div>
+        </div>
+    </mat-card>
+    
+    <mat-card>
+        <div class="shipvia">
+            <h4>Ship Via <mat-icon (click)="addShipVia()">add</mat-icon></h4> 
+            <div class="list">
+                <span *ngFor="let value of shipviaList">{{value?.ship_via}} <mat-icon (click)="deleteQuoteSetting(value.id)" class=" delete" >delete</mat-icon><mat-icon class=" edit">edit</mat-icon></span>
+            </div>
+        </div>
+    </mat-card>
+    
+    <mat-card>
+        <div class="permission">
+            <h4>Permission <mat-icon (click)="addPermission()">add</mat-icon></h4>
+            <div class="list">
+                <span *ngFor="let value of permissionList">{{value?.approved_permission}} <mat-icon (click)="deleteQuoteSetting(value.id)" class=" delete">delete</mat-icon><mat-icon class=" edit">edit</mat-icon></span>
+            </div>
+        </div>
+    </mat-card>
+
+    <form class="default-form" *ngIf="!addQuoteSettingModal" [formGroup]="quoteSettingForm"></form>
+
+
+    <div class="add-quote-setting-modal" *ngIf="addQuoteSettingModal">
+        <mat-card>
+            <h4>Quote Setting</h4>
+            <form class="default-form"  [formGroup]="quoteSettingForm">
+                <mat-form-field  *ngIf="addPaytermControl">
+                    <input  type="input" matInput  placeholder="Payterm" name="email" formControlName="payterm"  >
+                </mat-form-field>   
+        
+                <mat-form-field  *ngIf="addShipViaControl">
+                    <input  type="input" matInput  placeholder="Ship Via" name="email" formControlName="ship_via"  >
+                </mat-form-field>  
+        
+                <!-- <mat-form-field  *ngIf="addPermissionControl">
+                    <input  type="input" matInput  placeholder="Permission" name="email" formControlName="permission"  >
+                </mat-form-field> -->
+
+                <mat-form-field *ngIf="addPermissionControl">
+                    <input  type="input" matInput  placeholder="Input Email to Search"  name="email" [matAutocomplete]="auto" [formControl]="inputValueCtrl">
+                    <mat-autocomplete #auto= matAutocomplete>
+                    <mat-option *ngFor="let user of employeeEmailList" [value]="user?.email" (click)="assignedUserSlected(user)">
+                            <span *ngIf="user?.avatar_url"><img  [src]="user?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
+                            <span *ngIf="!user?.avatar_url"><img  src="assets/images/testimg/useravatar2.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
+                    </mat-option>
+                    </mat-autocomplete>
+            </mat-form-field>
+            </form>
+
+            <div class="action-btn">
+                <button mat-button color="primary" (click)="closeQuoteSettingModal()" >Cancel</button>
+                <button mat-button color="primary" (click)="onSave()">Comfirm</button>
+            </div>
+        </mat-card>
+    </div >
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+        
+    
+
+    <!-- <pre>{{quoteSettingForm.value | json}}</pre> -->
+
+

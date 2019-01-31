@@ -1,0 +1,262 @@
+<mat-card *ngIf="addProductForm && category_array?.length == 0">
+  Please add product categories before creating a new product.
+  <br> Click
+  <a [routerLink]="['/company' , company_id , 'company-setting', 'product-category']">here</a> to add new Category.
+</mat-card>
+
+<form novalidate *ngIf="addProductForm && category_array.length > 0" [formGroup]="addProductForm">
+  <app-upload-img [company_id]="company_id" (imgChange)="onReceiveImgs($event)"></app-upload-img>
+
+  <div class="input-group-2">
+    <mat-radio-group formControlName="as_showcase" required>
+      <mat-radio-button value="0">Private</mat-radio-button>
+      <mat-radio-button value="1">VIP</mat-radio-button>
+      <mat-radio-button value="3">Public</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <!-- <div *ngIf="showCustomerInput" class="input-group">
+    <mat-form-field>
+      <input matInput type="text" required formControlName="name" placeholder="Customer Company" name="" value="">
+    </mat-form-field>
+  </div> -->
+  <mat-form-field *ngIf="showCustomerInput" class="input-group-2">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let customer of customerList" [selectable]="selectable" [removable]="removable" (remove)="remove(customer, 'customer')">
+        {{customer.name}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Please provide Customer name" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addCustomer($event)" [matAutocomplete]="auto2" [formControl]="customerCtrl"
+        #personInput/>
+    </mat-chip-list>
+    <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectOption($event)">
+      <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+      <mat-option *ngFor="let customer of filteredCustomers" [value]="customer" (click)="getSelectedCustomerInfo(customer)">
+        <span *ngIf="customer?.logo_url">
+          <img [src]="customer?.logo_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{customer.name}}</span>
+        <span *ngIf="!customer?.logo_url">
+          <img src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{customer?.name}}</span>
+      </mat-option>
+      <mat-option *ngIf=" filteredCustomers && filteredCustomers.length == 0" [value]="customer">
+        <span>
+          <img src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> No Results</span>
+      </mat-option>
+      <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <div class="input-group-2 err" *ngIf="customerIdErr">
+    Please provide customer name
+  </div>
+
+  <mat-form-field class="input-group-2">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let vender of venderList" [selectable]="selectable" [removable]="removable" (remove)="remove(vender, 'vender')">
+        {{vender.name}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Please provide vender name" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" [matAutocomplete]="auto" [formControl]="venderCtrl"
+        #personInput/>
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+      <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+      <mat-option *ngFor="let vender of filteredVenders" [value]="vender" (click)="getSelectedVenderInfo(vender)">
+        <span *ngIf="vender?.logo_url">
+          <img [src]="vender?.logo_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{vender.name}}</span>
+        <span *ngIf="!vender?.logo_url">
+          <img src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{vender?.name}}</span>
+      </mat-option>
+      <mat-option *ngIf=" filteredVenders &&filteredVenders.length == 0" [value]="vender">
+        <span>
+          <img src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> No Results</span>
+      </mat-option>
+      <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+    </mat-autocomplete>
+  </mat-form-field>
+
+
+  <div class="input-group" *ngIf="vender_company_addresses && vender_company_addresses.length > 0">
+    <mat-form-field>
+      <mat-select formControlName="vender_address_id" placeholder="Please provide vender address.">
+        <mat-option *ngFor="let address of vender_company_addresses" [value]="address.id">
+          {{address.street1 + ',' + address.city + ',' + address.zipcode}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field>
+      <input matInput type="text" required formControlName="name" placeholder="Product Name" name="" value="">
+      <!-- <mat-error *ngIf="warehouseForm['controls'].name.invalid">{{getWarehouseErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field>
+      <input matInput type="text" formControlName="manufacturer_item_number" placeholder="Manufacturer Item Name" name="" value="">
+      <!-- <mat-error *ngIf="warehouseForm['controls'].name.invalid">{{getWarehouseErrorMessage()}}</mat-error> -->
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field>
+      <input matInput type="text" (change)="checkProductItemNum()" required placeholder="Item#" formControlName="headline" name=""
+        value="">
+    </mat-form-field>
+    <div *ngIf="itemNumErr">
+        <span  style="color:red;">{{itemNumErr}}</span>
+    </div>
+  </div>
+
+  <div *ngIf="categories && categories.length > 0">
+    <div class="input-group" formArrayName="categories" *ngFor="let categoryField of addProductForm.get('categories').controls;let i = index;">
+      <mat-form-field class="field1" [formGroupName]="i">
+        <mat-select formControlName="category" placeholder={{getCategoryPlaceholder(i)}}>
+          <mat-option *ngFor="let category of category_array[i]" [value]="category.id" (click)="onAddMoreCategory(category.children, i)">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <!-- <inventory-cateogry [categories]="categories" (sendCategory)="onGetCategory($event)"></inventory-cateogry> -->
+
+  <!-- <div class="category_box">
+    <div class="left-title">Category:</div>
+    <div class="right-title" *ngIf="selected_category">Selected : {{selected_category}}</div>
+
+    <app-list-tree (sendCategory)="onReceiveCate($event)" (sendRadio)="onGetRadio($event)" [list]="categories"></app-list-tree>
+  </div> -->
+
+  <div class="input-group-3">
+    <mat-form-field class="input1">
+      <mat-select required placeholder="Unit Price Type" formControlName="unit_price_type">
+        <mat-optgroup *ngFor="let group of unit_price_type_group" [label]="group.name" [disabled]="group.disabled">
+          <mat-option *ngFor="let subGroup of group.subGroup" [value]="subGroup">
+            {{subGroup}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="input2">
+      <input matInput type="number" required formControlName="est_cost" placeholder="Unit Cost" name="" value="">
+    </mat-form-field>
+
+    <!-- <mat-form-field class="input3">
+      <mat-select required placeholder="Unit" formControlName="unit">
+        <mat-option *ngFor="let unit of units" [value]="unit">
+          {{unit}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+
+  <!-- <div class="input-group">
+    <mat-form-field>
+      <input matInput type="number" required formControlName="qty_in_20_container" placeholder="Qty / 20' container" name="" value="">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field>
+      <input matInput type="number" required formControlName="qty_in_40_container" placeholder="Qty / 40' container" name="" value="">
+    </mat-form-field>
+  </div> -->
+
+  <div class="input-group">
+    <mat-form-field class="field1">
+      <mat-select formControlName="shipping_packaging_type" placeholder="Shipping Packaging Information.">
+        <mat-option *ngFor="let type of shipping_packaging_type" [value]="type" (click)="onSelectPackagingType(type)">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[0]) || (show_packaging_type == shipping_packaging_type[1])">
+    <mat-form-field class="field1">
+      <mat-select formControlName="pallet_size" placeholder="Pallet Size">
+        <mat-option *ngFor="let size of pallet_sizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[1]) || (show_packaging_type == shipping_packaging_type[2])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="pcs_per_case" placeholder="Pieces / Case" name="">
+    </mat-form-field>
+  </div>
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[0])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="pcs_per_layer" placeholder="Pieces / Layer" name="">
+    </mat-form-field>
+  </div>
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[1])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="cases_per_layer" placeholder="Cases / Layer" name="">
+    </mat-form-field>
+  </div>
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[0]) || (show_packaging_type == shipping_packaging_type[1])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="layer_per_pallet" placeholder="Layers / Pallet" name="">
+    </mat-form-field>
+  </div>
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[2])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="cases_per_20_container" placeholder="Cases / 20 Container" name="">
+    </mat-form-field>
+  </div>
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[2])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="cases_per_40_container" placeholder="Cases / 40' Container" name="">
+    </mat-form-field>
+  </div>
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[0]) || (show_packaging_type == shipping_packaging_type[1])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="pallets_per_20_container" placeholder="Pallets / 20' Container" name="">
+    </mat-form-field>
+  </div>
+  <div class="input-group" *ngIf="(show_packaging_type == shipping_packaging_type[0]) || (show_packaging_type == shipping_packaging_type[1])">
+    <mat-form-field>
+      <input matInput type="number" formControlName="pallets_per_40_container" placeholder="Pallets / 40' Container" name="">
+    </mat-form-field>
+  </div>
+
+
+  <div class="input-group">
+    <mat-form-field>
+      <textarea matInput type="text" placeholder="Description" formControlName="description" name="" value=""></textarea>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="(company_defined_columns_obj | json) != '{}'" formGroupName="company_defined_columns">
+    <div class="input-group" *ngFor="let definedCol of company_defined_columns">
+      <mat-form-field>
+        <input matInput type="text" placeholder={{definedCol.column_name}} formControlName={{definedCol.column_name}} name="" value="">
+      </mat-form-field>
+    </div>
+  </div>
+
+</form>
+
+<!-- <div>
+  <table class="sjs-table">
+    <tr *ngFor="let row of data">
+      <td *ngFor="let val of row">
+        {{val}}
+      </td>
+    </tr>
+  </table>
+</div> -->
+<!-- <input type="file" (change)="onFileChange($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"> -->
+
+<app-spinner *ngIf="isLoading"></app-spinner>
+<!-- <pre>{{addProductForm.value | json}}</pre> -->

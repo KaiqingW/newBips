@@ -1,0 +1,34 @@
+
+<mat-card  class="company-content">
+        <!-- <div class="company-logo">
+            <company-logo [url]="company.logo_url"></company-logo>
+        </div> -->
+        <div class="create-company-name">
+                <span><b>{{companyName}}</b></span><br>
+        </div>
+        <div class="create-btn">
+            <button  mat-raised-button color="primary" (click)="createCompany()">Create  It</button>
+        </div>
+</mat-card>
+
+
+<div *ngIf="companies$">
+    <div class="below-company" *ngIf="!companies$?.length">
+        <span>Nothing Match</span>
+    </div>
+    <div class="below-company" *ngIf="companies$?.length">
+        <span>Your Company maybe in below list</span>
+    </div>
+    <mat-card *ngFor = "let company of companies$" class="company-content">
+            <div class="company-logo">
+                <company-logo [url]="company.logo_url"></company-logo>
+            </div>
+            <div class="company-name">
+                    <span><b>{{company.name}}</b></span><br>
+                    <span class="company-address">{{company.address}}</span>
+            </div>
+            <!-- <div class="join-btn">
+                <button mat-raised-button color="primary">Join</button>
+            </div> -->
+    </mat-card>
+</div>

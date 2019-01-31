@@ -1,0 +1,73 @@
+<div class="whole-subject" *ngIf="subject">
+    <div class="subject-card-margin">
+        <subject-content [name]="subject?.name" [description]="subject?.description" [createdTime]="subject?.created?.at">
+        </subject-content>
+    </div>
+</div>
+
+<div class="users" *ngIf="subject">
+  <div class="current-users-title"><h3>Creater</h3></div>
+  <mat-card class="user-content">
+      <div class="company-logo">
+          <avatar-logo
+            [url]="subject?.created?.by?.avatar_url" 
+            [userFirstName]="subject?.created?.by?.first_name" 
+            [userLastName]="subject?.created?.by?.last_name" 
+            [userId]="subject?.created?.by?.user_id">
+        </avatar-logo>
+          <!-- <avatar-logo
+              [url]="subject?.created?.by?.avatar_url" 
+              [userFirstName]="subject?.created?.by?.first_name" 
+              [userLastName]="subject?.created?.by?.last_name" 
+              [userId]="subject?.created?.by?.user_id">
+          </avatar-logo> -->
+          <!-- <company-logo [url]="user?.avatar_url" [comname]="user.first_name"></company-logo> -->
+      </div>
+      <div class="user-name">
+          <span><b>{{subject?.created?.by?.first_name}} {{subject?.created?.by?.last_name}}</b></span><br>
+          <span class="user-email">{{subject?.created?.by?.email}}</span>
+      </div>
+
+  </mat-card>
+
+  <div class="current-users-title" *ngIf="subject?.sharedWithAdmin.length > 0"><h3>Shared Admin Users</h3></div>
+  <mat-card *ngFor="let user of subject?.sharedWithAdmin" class="user-content">
+      <div class="company-logo">
+          <avatar-logo
+              [url]="user?.avatar_url" 
+              [userFirstName]="user.first_name" 
+              [userLastName]="user.last_name" 
+              [userId]="user?.user_id">
+          </avatar-logo>
+          <!-- <company-logo [url]="user?.avatar_url" [comname]="user.first_name"></company-logo> -->
+      </div>
+      <div class="user-name">
+          <span><b>{{user.first_name}} {{user.last_name}}</b></span><br>
+          <span class="user-email">{{user?.email}}</span>
+      </div>
+
+  </mat-card>
+
+  <div class="current-users-title" *ngIf="subject?.sharedWith.length > 0"><h3>Shared Normal Users</h3></div>  
+  <mat-card *ngFor="let user of subject?.sharedWith" class="user-content">
+          <div class="company-logo">
+              <avatar-logo
+                  [url]="user?.avatar_url" 
+                  [userFirstName]="user.first_name" 
+                  [userLastName]="user.last_name" 
+                  [userId]="user?.user_id">
+              </avatar-logo>
+              <!-- <company-logo [url]="user?.avatar_url" [comname]="user.first_name"></company-logo> -->
+          </div>
+          <div class="user-name">
+              <span><b>{{user.first_name}} {{user.last_name}}</b></span><br>
+              <span class="user-email">{{user?.email}}</span>
+          </div>
+
+  </mat-card>
+</div>
+
+
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>

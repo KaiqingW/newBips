@@ -1,0 +1,19 @@
+<div *ngIf="costAnalysisList">
+    <mat-card *ngFor = "let item of costAnalysisList" routerLink = "/company/{{this.currentLoginCompanyId}}/cost-analysis/{{item?.id}}">
+        <div class="item-container">
+                <div class="item-logo">
+                    <company-logo [url]="item?.avatar_url" [comname] = "item?.product_name" ></company-logo>
+                </div>
+                <div class="item-name">
+                    <span>{{item?.product_name}}</span>
+                 </div>
+                <div class="item-price">
+                    <span> ${{item?.total}}</span> 
+                </div>
+        </div>
+        
+    </mat-card>
+</div>
+
+<app-add-button  routerLink="/company/{{this.currentLoginCompanyId}}/cost-analysis/add"></app-add-button>
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

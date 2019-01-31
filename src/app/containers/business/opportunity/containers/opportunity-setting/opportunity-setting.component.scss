@@ -1,0 +1,116 @@
+:host{
+
+}
+
+mat-card{
+    padding: 0px 0px;
+}
+
+.opportunity-name{
+    margin-top:15px;
+    text-align: center;
+}
+
+.comapny-workflow{
+    width:100%;
+    // border:1px solid #e5e5e5;
+    margin-top:10px;
+    height:90px;
+
+    .workflow-images{
+        width:25%;
+        height:90px;
+        margin-left: 2%;
+        display:inline-block;
+        line-height: 90px;
+        div{
+            width:80px;
+            img{
+                width:100%;
+            }
+        }
+    }
+
+    .company-description{
+        display: inline-block;
+        width:70%;
+        float:right;
+        text-align:left;
+        height:90px;
+        font-size:13px;
+        overflow:hidden;
+    }
+
+}
+
+.opportunity-user{
+    display:inline-block;
+    width:100%;
+    .opportunity-owner{
+        
+        float:left;
+        padding:6px 2px 0px 2px; ;
+        width:10%;
+        height: 26px;
+        .shared-profile-picture{
+            display:inline-block;
+            height:30px;
+            width:30px;
+            app-profile-picture{
+                margin-left: 2px;
+            }
+        }
+        
+    }
+    .shared_user{
+        float:right;
+        padding:6px 2px ;
+        width:70%;
+        height: 26px;
+        margin-left:-6px;
+        text-align: right;
+            .shared-user-picture{
+                display:inline-block;
+                height:30px;
+                width:30px;
+                app-profile-picture{
+                    margin-left: 2px;
+                }
+            }
+            .add-shared-user-btn{
+                display:inline-block;
+                height:30px;
+                width:30px;
+                line-height: 30px;
+            }
+    }
+}
+
+.opportunity-employee-list{
+    width:100%;
+    .opportunity-employee-header-container{
+        font-size: 14px;
+        padding:5px 10px;
+        span{
+            display: inline-block;
+            // font-size:14px;
+            // padding:5px 10px;
+
+        }
+        a{
+            display: inline-block;
+            float:right;
+            text-decoration: none;
+            text-align: right;
+            font-size:14px;
+            // padding:5px 10px;
+            // margin-right:12px;
+        }
+    }
+
+    mat-card{
+        margin-top:-10px;
+        margin-bottom:14px;
+    }
+}
+

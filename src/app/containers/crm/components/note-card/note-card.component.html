@@ -1,0 +1,58 @@
+<mat-card *ngIf="value.length===0">
+    <div class="subject-content" >
+        <div>
+            <div class="no-content" >
+                 Please click to add Notes!
+            </div>
+        </div>
+    </div> 
+
+</mat-card>
+<div *ngIf="value.length!==0">
+        <mat-card *ngFor="let item of value">
+                <div class="subject-content" >
+                    <div >
+                        <div *ngIf="item?.created" class="avatar">
+                            <avatar-logo
+                                [url]="item?.created?.by?.avatar_url" 
+                                [userFirstName]="item?.created?.by?.first_name" 
+                                [userLastName]="item?.created?.by?.last_name" 
+                                [userId]="item?.created?.by?.user_id">
+                            </avatar-logo>
+                        </div> 
+              
+                        <div class="content">
+                            <div class="creater" *ngIf="item?.created">
+                              <span class="name">{{item?.created?.by?.first_name}} {{item?.created?.by?.last_name}}</span>
+                              <span class="create-time">{{item?.created?.at}}</span>
+                            </div>
+                            <!-- <div class="subject-name">
+                                {{item?.name | short : 20}}
+                            </div> -->
+                            
+                            <div  class="subject-container">
+                                    <div class="col-1" *ngIf=" getImgFromContent(item)">
+                                        <img (click)="openSubjectModal()" [src]="getImgFromContent(item)" style="width:75px;height:75px;;margin-right:16px" alt="getImgFromContent(value)">
+                                        <!-- <div *ngIf="subjectModalOpen">
+                                            <app-img-modal img [imgSrc]="content.img" (modalClose)="closeModal()"></app-img-modal>
+                                        </div>       -->
+                                    </div>
+                                    
+                                    <div class="col-3"> 
+                                        <div class="pre-container"></div>
+                                        <read-more style="text-align: left" [text]="getContentFromText(item)"></read-more>
+                                        <!-- {{getContentFromText(item) |short : 30}} -->
+                                    </div>
+                                    
+                            </div>
+            
+                        </div>
+                        <!-- <span *ngIf="unreadRecord > 0" class="unread">{{unreadRecord}}</span> -->
+                        
+                    </div>
+                </div> 
+            
+            </mat-card>
+</div>
+
+  

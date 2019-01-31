@@ -1,0 +1,12 @@
+<div class="search-bar">
+    <mat-form-field class="search-field">
+        <input class="input" matInput [placeholder]="placeholder" [matAutocomplete]="auto" aria-label="placeholder" [formControl]="searchCtrl">
+        <mat-autocomplete #auto=matAutocomplete>
+            <mat-option *ngFor="let product of products" [value]="product?.name" (click)="productSelect(product)">
+                <span>
+                    <img *ngIf="product?.images[0]" [src]="product?.images[0].url" height="30" style="display:inline-block;margin-bottom: -8px"> {{product?.name}}
+                </span>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>

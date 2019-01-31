@@ -1,0 +1,39 @@
+<mat-card>
+    <div class="subject-content" >
+        <div>
+            <div class="avatar" *ngIf="createdUser">
+                <avatar-logo
+                    [url]="createdUser?.by?.avatar_url" 
+                    [userFirstName]="createdUser?.by?.first_name" 
+                    [userLastName]="createdUser?.by?.last_name" 
+                    [userId]="createdUser?.by?.user_id">
+                </avatar-logo>
+            </div>
+  
+            <div class="content">
+                <div class="creater" *ngIf="createdUser">
+                  <span class="name">{{createdUser?.by?.first_name}} {{createdUser?.by?.last_name}}</span>
+                  <span class="create-time">{{createdUser?.at | local | amDateFormat : 'MM/DD/YYYY h:mm a'}}</span>
+                </div>
+                
+                <div  class="subject-container" *ngFor= "let content of subContent; let i = index">
+                        <!-- <div class="col-1" *ngIf="content.img">
+                            <img (click)="openSubjectModal()" [src]="content.img" style="width:75px;height:75px;;margin-right:16px" alt="content.img">
+                            <div *ngIf="subjectModalOpen">
+                                <app-img-modal img [imgSrc]="content.img" (modalClose)="closeModal()"></app-img-modal>
+                            </div>      
+                        </div> -->
+                        
+                        <div class="col-3"> 
+                            <div class="pre-container"></div>
+                            <read-more style="text-align: left" [text]="content.text"></read-more>
+                        </div>
+                        
+                    </div>  
+            </div>
+            <span *ngIf="unreadRecord > 0" class="unread">{{unreadRecord}}</span>
+            
+        </div>
+    </div> 
+</mat-card>
+  

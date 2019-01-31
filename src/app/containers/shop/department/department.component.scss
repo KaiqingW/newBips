@@ -1,0 +1,100 @@
+.main-wrapper {
+    margin: 0 auto;
+    overflow: scroll;
+}
+
+.company-products {
+    // height: 90%;
+    // overflow: scroll;
+    .panel-card-title {
+        font-size: 14px;
+    }
+    .panel-card-body {
+        width: 100%;
+        .product-modal-box {
+            display: inline-block;
+            margin: 1.2%;
+            width: 30.9%;
+            .product-modal {
+                width: 100%; // border:1px solid lightgray;
+                img {
+                    display: inline-block;
+                    width: 99.2%;
+                    height: 28vw; // max-height: 260px;
+                    // min-height: 130px;
+                    margin: 1px 1px -3px 1px;
+                    border-radius: 10%;
+                    box-shadow: 8px 8px 6px -6px #ddd;
+                }
+                .product-name {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis; // border-top: 1px gray dashed;
+                    // padding: 12px 12px 0 12px;
+                    display: block;
+                    height: 20px;
+                    opacity: 0.58;
+                    color: #0066c0;
+                    font-size: 12px;
+                    line-height: 20px;
+                    text-align: center;
+                }
+                .product-price {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis; // border-top: 1px gray dashed;
+                    // padding: 12px 12px 0 12px;
+                    display: block;
+                    height: 20px;
+                    opacity: 0.58;
+                    font-size: 12px;
+                    line-height: 20px;
+                    color: red;
+                    font-size: 12px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+.panel-card-title {
+    font-weight: bold;
+    padding: 4px 0px;
+    .detail {
+        font-weight: normal;
+        color: gray;
+        float: right;
+        font-weight: 13px;
+    }
+}
+
+mat-form-field {
+    margin-left: 20px;
+}
+
+.nav-content {
+    margin: 0 auto !important;
+    max-width: 1200px !important;
+    min-width: 700px !important;
+    overflow: visible !important;
+}
+
+.copyright {
+    display: flex;
+    color: lightgrey;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.page:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.txt:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -1,0 +1,30 @@
+form{
+    margin-top:20px;
+    width:100%;
+    text-align: center;
+    mat-form-field{
+        width:95%;
+    }
+}
+
+.header_gold{
+    background-color: rgba($color: #e29b00, $alpha: 1.0);
+    text-align: center;
+    width: 80%;
+    margin: 6px auto;
+    border-radius: 6px;
+}
+.header_yellow{
+    background-color: rgba($color: #ffc439, $alpha: 1.0);
+    text-align: center;
+    width: 80%;
+    margin: 6px auto;
+    border-radius: 6px;
+}
+.header_green{
+    background-color: rgba($color: #c1d137, $alpha: 1.0);
+    text-align: center;
+    width: 80%;
+    margin: 6px auto;
+    border-radius: 6px;
+}

@@ -1,0 +1,197 @@
+<div *ngIf="!isLoading">
+    <div class="company-title-background">
+        <img src="assets/images/company-bg.png">
+
+    </div>
+
+    <div class="company-title">
+        <div class="company-logo">
+            <img *ngIf="!companyInfo.logo_url" src="assets/images/testimg/company-logo.jpg">
+            <img *ngIf="companyInfo.logo_url" src="{{companyInfo.logo_url}}">
+        </div>
+        <div class="company_name">
+            <b>{{companyInfo.name}}</b>
+        </div>
+        <div *ngIf="companyInfo.address" class="company-address">
+            <span>{{companyInfo.address.street1}}</span>
+            <span *ngIf="companyInfo.address.street2">{{companyInfo.address.street1}}</span>
+            <span>{{companyInfo.address.state}}</span>
+            <span>{{companyInfo.address.zipcode}}</span>
+
+        </div>
+
+        <div class="action-icon">
+            <a href="tel:{{companyInfo.phone}}">
+                <mat-icon>phone</mat-icon>
+                <span class="icon-lable">Call</span>
+            </a>
+            <a href="mailto:{{companyInfo.email}}">
+                <mat-icon>email</mat-icon>
+                <span class="icon-lable">Email</span>
+            </a>
+            <!-- <a>
+                <mat-icon>chat_bubble</mat-icon>
+                <span class="icon-lable">Note</span>
+            </a> -->
+            <a>
+                <mat-icon>location_on</mat-icon>
+                <span class="icon-lable">Locations</span>
+            </a>
+            <!-- <a>
+                <mat-icon>description</mat-icon>
+                <span class="icon-lable">Quote</span>
+            </a> -->
+        </div>
+    </div>
+
+    <mat-card class="panel-card company-services">
+        <div class="company-contact-box" (click)="aboutUs()">
+            <div class="company-logo">
+                <img src="assets/images/testimg/aboutUs.png">
+            </div>
+            <span class="contact-name">About Us</span>
+        </div>
+
+        <div class="company-contact-box">
+            <div class="company-logo">
+                <img src="assets/images/testimg/unread.png">
+            </div>
+            <span class="contact-name">Service</span>
+        </div>
+
+        <div class="company-contact-box">
+            <div class="company-logo">
+                <img src="assets/images/testimg/market.png">
+            </div>
+            <span class="contact-name">Market We Serve</span>
+        </div>
+
+        <div class="company-contact-box">
+            <div class="company-logo">
+                <img src="assets/images/testimg/news.png">
+            </div>
+            <span class="contact-name">News</span>
+        </div>
+        <div class="company-contact-box">
+            <div class="company-logo">
+                <img src="assets/images/testimg/CRM_1.png">
+            </div>
+            <span class="contact-name">(Scroll Test)</span>
+        </div>
+
+    </mat-card>
+
+    <mat-card *ngIf="showAboutUs" class="panel-card company-description" style="padding-bottom: 40px;">
+        <div class="panel-card-title">About Us</div>
+        <div>
+            <span style="font-size: 14px; line-height: 2;">{{companyInfo.description }}</span>
+        </div>
+        <!-- <div>
+            <span>{{companyInfo.description | slice:0:170 }}</span>
+            <span>{{companyInfo.description | slice:171:170 }}</span>
+            <span *ngIf="moreOrLess">...</span>
+        </div>
+        <button *ngIf="moreOrLess" class="right-button">
+            <div *ngIf="showMore" style="display: flex; align-items: center;">
+                <span>Show More</span>
+                <i class="material-icons">
+                    arrow_drop_down
+                </i>
+            </div>
+            <div *ngIf="!showMore">
+                <span *ngIf="!showMore">Show Less</span>
+                <i class="material-icons">
+                    arrow_drop_up
+                </i>
+            </div>
+        </button> -->
+
+        <!-- <div class="right" routerLink="/lead/company-info/1">Detail >></div> -->
+    </mat-card>
+
+    <mat-card class="panel-card company-products" style="padding-bottom: 30px;">
+        <div class="panel-card-title">Showcase</div>
+        <div class="panel-card-body" *ngIf="!currentVenderCompanyId">
+            <div class="product-modal-box" *ngFor="let product of productList; let i = index">
+                <div *ngIf="i < 12" class="product-modal" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/{{product.id}}">
+                    <img *ngIf="product.images.length < 1" src="assets/images/bottle.png">
+                    <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].url">
+                    <div class="product-name">
+                        <span>
+                            <b>{{product.name}}</b>
+                        </span>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <button class="right" routerLink="showcaseList">
+                View All >>
+            </button>
+        </div>
+        <div class="panel-card-body" *ngIf="currentVenderCompanyId">
+            <div class="product-modal-box" *ngFor="let product of productList; let i = index">
+                <div *ngIf="i < 12" class="product-modal" routerLink="/company/{{currentVenderCompanyId}}/inventory/product/{{product.id}}">
+                    <img *ngIf="product.images.length < 1" src="assets/images/bottle.png">
+                    <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].url">
+                    <div class="product-name">
+                        <span>
+                            <b>{{product.name}}</b>
+                        </span>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="right" routerLink="showcaseList">
+                View All >>
+            </div>
+        </div>
+    </mat-card>
+
+    <!-- <mat-card class="panel-card company-contacts">
+        <div class="panel-card-title">Contacts</div> -->
+    <!-- <div class="panel-card-body">
+            <div class="company-contact-box" *ngFor="let contact of companyInfo.employees">
+                <div *ngIf="!contact.avatar_url" class="company-logo" routerLink="/people/profile/{{contact.id}}"><img src="assets/images/testimg/useravatar2.png"></div>
+                <div *ngIf="contact.avatar_url" class="company-logo" routerLink="/people/profile/{{contact.id}}"><img src={{contact.avatar_url}}></div>
+                <span class="contact-name">{{contact.first_name}}</span>
+            </div>
+        </div> -->
+    <!-- <div class="panel-card-body" style="display: flex;">
+            <div class="company-contact-box">
+                <div *ngIf="!companyInfo.logo_url" class="company-logo">
+                    <img src="assets/images/testimg/useravatar2.png">
+                </div>
+                <div *ngIf="companyInfo.logo_url" class="company-logo">
+                    <img src={{companyInfo.logo_url}}>
+                </div> -->
+    <!-- <span class="contact-name">{{companyInfo.name}}</span> -->
+    <!-- </div>
+            <div style="padding-left: 20px;">
+                <div class="contact-name">{{companyInfo.name}}</div>
+                <div class="contact-name">
+                    <a href="tel:{{companyInfo.phone}}">{{companyInfo.phone}}</a>
+                </div>
+                <div class="contact-name">
+                    <a href="mailto:{{companyInfo.email}}">
+                        {{companyInfo.email}}</a>
+                </div>
+                <div class="contact-name">
+                    <a href="http://{{companyInfo.website}}" target="_blank">
+                        {{companyInfo.website}}</a>
+                </div>
+            </div>
+        </div>
+    </mat-card> -->
+
+    <!-- <mat-card class="panel-card company-certification">
+        <div class="panel-card-title">Certification</div>
+        <div class="panel-card-body">
+            <img src="assets/images/testimg/i930.png">
+            <img src="assets/images/testimg/i931.png">
+            <img src="assets/images/testimg/i932.png">
+        </div>
+    </mat-card> -->
+</div>
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

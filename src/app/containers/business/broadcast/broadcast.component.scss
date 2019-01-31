@@ -1,0 +1,291 @@
+:host{
+
+}
+
+.container{
+    height:100%; 
+    overflow-y:scroll;
+}
+
+a{
+    position:relative;
+    text-decoration: none;
+    color:#000000;
+    width:22.2%;
+    height:20px;
+    display:inline-block;
+    padding:4% 5%;
+    text-align: center;
+    background-color: #E0EAF1;
+    border-bottom: solid 2px #000000;
+}
+.active{
+    background-color: rgb(255, 255, 255);
+    color:#000000;
+    border-bottom: none;
+}
+.broad-container{
+    margin-bottom:120px;
+    mat-card{
+        padding:9px 4px 9px 8px;
+        height:40px;
+        align-items: center;
+        .company-content{
+            line-height: 44px;  
+            text-align: center;
+            .selectbox{
+                float: left;
+                display:inline-block;
+                width:10%;
+            }
+            .company-logo{
+                width:12%;
+                height: 44px;
+                display:inline-block;
+                vertical-align: middle;
+                float: left;
+                company-logo{
+                    width:40px;
+                    height:40px;
+                }
+            }
+            .company-name{
+                display:inline-block;
+                vertical-align: middle;
+                width:60%;
+                height: 44px;
+                overflow: hidden;
+                float: left;
+                padding:0 0 0 4%;
+                // h5{
+                //     text-align: left;
+                //     height: 24px;
+                //     line-height: 24px;
+                //     overflow: hidden;
+                //     text-overflow: ellipsis;
+                //     white-space: nowrap; 
+                // }
+                span{
+                    display:block;
+                    font-size:14px;
+                    margin-top:-2px;
+                    display: block;
+                    height: 18px;
+                    line-height: 18px;
+                    color:gray;
+                    text-align: left;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap; 
+                }
+            }
+            .contacts{
+                border-top:0.5px solid lightgray;
+                float:right;
+                padding:6px 2px ;
+                width:100%;
+                height: 30px;
+                margin-left:-6px;
+                .contact{
+                    line-height: 30px;
+                    display:inline-block;
+                    float:right;
+                    margin-left:5px;
+                    company-logo{
+                        width:30px;
+                        height:30px;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+
+.broadcast-bottom{
+    width:100%;
+    // height:50px;
+    // border:1px solid red;
+    text-align: center;
+    position:fixed;
+    bottom:0px;
+    // background-color:#143258;
+    // color:#ffffff;
+    mat-card{
+        width:100%;
+        padding: 7px 6px;
+        display:inline-block;
+        .keyboard_left{
+            width:15%;
+        }
+        .keyboard_right{
+            width:15%;
+        }
+        .page-number{
+            width:20%;
+        }
+    }
+}
+
+.formmat-modal{
+    position: fixed;
+    padding:0px !important;
+    display: block;
+    width: auto;
+    width:100%;
+    height:100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.288);
+    z-index: 10;
+    mat-card{
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width:75%;
+        // height:400px;
+        transform: translate(-50%, -50%);
+        padding:20px;
+        border-radius:5px;
+        h4{
+            text-align: center;
+        }
+        form{
+            mat-chip-list /deep/ div{
+                height:30px;
+                overflow: hidden;
+                // text-overflow: ellipsis;
+                overflow-y: scroll;
+            }
+          
+            text-align: center;
+            .product{
+                width:100%;
+            }
+            .rate{
+                width:49%;
+            }
+            .quantity{
+                width:49%;
+            }
+            mat-form-field{
+                width:100%;
+            }
+        }
+        .form-btn{
+            text-align: center;
+        }
+        .address-card{
+            padding:4px 6px;
+            border: 1px solid lightgray;
+            margin-top:5px;
+            border-radius: 5px;
+            font-size:12px;
+            text-align: center;
+
+        }
+        .action-btn{
+            width:100%;
+            text-align: center;
+        }
+    }
+}
+
+$width:90%;
+.chip-list {
+    width: $width;
+}
+
+.shared-user-list {
+    width: $width;
+    mat-chip {
+        display: inline-block;
+        padding: 0;
+    }
+    .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+        margin: 10px 5px 0 0;
+    }
+}
+
+
+.add-product-modal{
+    position: fixed;
+    padding:0px !important;
+    display: block;
+    width: auto;
+    width:100%;
+    height:100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.288);
+    z-index: 10;
+    mat-card{
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        width:75%;
+        transform: translate(-50%, -50%);
+        padding:20px;
+        border-radius:5px;
+        h4{
+            text-align: center;
+        }
+        form{
+          
+            text-align: center;
+            .product{
+                width:100%;
+                input{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap; 
+                }
+            }
+            .warehouse{
+                width:100%;
+            }
+            .rate{
+                width:49%;
+            }
+            .quantity{
+                width:49%;
+            }
+            mat-form-field{
+                display:inline-block;
+            }
+        }
+        .address-card{
+            padding:4px 6px;
+            border: 1px solid lightgray;
+            margin-top:5px;
+            border-radius: 5px;
+            font-size:12px;
+            text-align: center;
+
+        }
+        .action-btn{
+            width:100%;
+            text-align: center;
+        }
+    }
+}
+
+.email-blast-list{
+    width:100%;
+    height:20px;
+    span{
+        float:left;
+        width:180px;
+        height:20;
+        line-height:20px;
+        font-size:12px;
+        color:#15305a;
+    }
+}

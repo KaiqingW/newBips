@@ -1,0 +1,128 @@
+.container{
+    text-transform:capitalize;
+    background-color: #eee;
+    font-size:15px;
+}
+mat-card{
+    margin-bottom:5px;
+    padding:0 10px;
+}
+
+
+.description{
+    width:100%;
+    background-color:white;
+    b{
+        width:100%;
+        box-sizing: border-box;
+    } 
+    mat-card{
+        padding:6px;
+    }
+    .note-title{
+        width:100%;
+        margin:6px;
+    }
+    .note-des{
+        width:100%;
+        margin:6px;
+    }
+    .title{
+        width:100%;
+        margin-top:6px;
+        padding:6px;
+        box-sizing: border-box;
+        background-color: #15305a !important;
+        color: white;
+        text-align: center;
+    }
+    .row{
+        display:flex;
+        width:100%;
+        flex-direction: row;
+        font-size: 15px;
+        align-items: center;
+        text-align: center;
+        margin-top:0;
+    }
+    
+    .subject{
+        padding:5px 16px;
+        text-align: center;
+    }
+    
+    .time{
+        color: #b7b7b7;
+        font-size: 12px;
+        width:100%;
+        text-align: right;
+        padding-right:16px;
+        box-sizing: border-box;
+        padding-bottom:8px;
+        padding-top:8px;
+    }
+
+    .des-container{
+        padding:8px 16px 0 16px;
+        display: flex;
+        flex-direction: row;
+        width:100%;
+        box-sizing:border-box;
+        position: relative;
+
+        .col-1{
+            display: flex;
+            // width:100px;
+            flex:1;
+        }
+        .col-3{
+            display:flex;
+            // width:250px;
+            flex:4;
+        }
+
+    }
+}
+
+.options{
+    background: white;
+    width:100%;
+    display: flex;
+    flex-direction:row;
+    padding:0 !important;
+    text-align: center;
+    height:35px;
+    margin-bottom: 5px;
+    .delete {
+        display: flex;
+        width:50%;
+        min-height:35px;
+        
+        box-sizing: border-box;
+        div{
+            height: 100%;
+            width:100%;
+            border-radius: 0 !important;
+            border:1px solid #eee;
+        }
+    }
+    .share {
+        display: flex;
+        width:50%;
+        box-sizing: border-box;
+    }
+    button{
+        width:100%;
+        line-height:35px;
+    }
+}
+
+.shorthand{
+    font-size: 12px;
+    font-weight: 500;
+    color: #BBBBBB;
+    background-color: #F5F5F5;
+    border: 1px solid #D3D3D3;
+    border-radius: 45%;
+    padding: 4px;
+}

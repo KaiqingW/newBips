@@ -1,0 +1,352 @@
+mat-card {
+    padding:9px 4px 0px 8px;
+    
+}
+
+.whole-project {
+    height: 95%;
+    overflow: hidden;
+    overflow-y: scroll;
+    .project-card-margin{
+        margin-bottom: 5px;
+    }
+    .date {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .bar {
+        display: inline-block;
+        width: 100%;
+        margin-top: -3%;
+        .bar-content {
+            width: 95%;
+            text-align: right;
+        }
+        .total-days {
+            width: 13%;
+            float: right;
+            font-size: 12px;
+        }
+    }
+    .discussion {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 20px;
+        padding-top: 4px;
+    }
+
+    .process {        
+        .process-content {
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            width:98%;
+            margin-left: 1%;
+            // height: 40px;
+            height: 53px;
+            
+            .selected {
+                // background-color: #4682B4 !important;
+                color: white;
+                .each-process-name {
+                    background-color: green !important;
+                    
+                }
+                // border-radius: 5px;
+            }
+            .each-process {
+                display: inline-block;
+                width: 74px;
+                height: 40px;
+                margin-right: -4%;
+                
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                // white-space: nowrap; 
+                .each-process-name {
+                    // border:1px solid lightgray;                    
+                    width: 56px;
+                    height: 22px;
+                    float: left;
+                    padding-top: 10%;
+                    text-align: center;
+                    margin-top: 10px;
+                    font-size: 13px;
+                    font-weight: bold;
+                    border-radius: 5px;
+        
+                    // border-radius: 5px;
+                    // overflow: hidden;
+                    // text-overflow: ellipsis;
+                    // white-space: nowrap; 
+                }
+            }
+            .current-process {
+                display: inline-block;
+                width: 69px;
+                height: 40px;
+                margin-right: -3.5%;
+                margin-left: -1.5%;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                // white-space: nowrap; 
+                .each-process-name {
+                    // border:1px solid lightgray;                    
+                    width: 56px;
+                    height: 22px;
+                    float: left;
+                    padding-top: 10%;
+                    text-align: center;
+                    margin-top: 10px;
+                    font-size: 13px;
+                    font-weight: bold;
+                    border-radius: 5px;
+        
+                    // border-radius: 5px;
+                    // overflow: hidden;
+                    // text-overflow: ellipsis;
+                    // white-space: nowrap; 
+                }
+                // .point-next {
+                //     float: right;
+                //     margin-right: 5%;
+                // }
+                // .current-process {
+                //     background-color: green;
+                //     margin-top: -34px;
+                // }
+                .process-status {                    
+                    position: relative;
+                    top: -31px;
+                    font-size: 11px;
+                    color: #000 !important;
+                    margin-left: 10%;
+                }
+            }
+            .all-process {
+                display: inline-block;
+                width: 80px;
+                height: 40px;
+                // margin-right: -3%;
+                
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                // white-space: nowrap; 
+                .each-process-name {
+                    // border:1px solid lightgray;                    
+                    width: 80px;
+                    height: 22px;
+                    float: left;
+                    padding-top: 8%;
+                    text-align: center;
+                    margin-top: 10px;
+                    font-size: 13px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    // background-color: #15305A;
+                    color: #fff;
+        
+                    // border-radius: 5px;
+                    // overflow: hidden;
+                    // text-overflow: ellipsis;
+                    // white-space: nowrap; 
+                }
+            }
+        }
+    }
+
+    // .all-process-button {
+    //     color: #fff;
+    //     background-color: #15305A;
+    //     border-radius: 5px;
+    //     height: 25px;
+    //     width: 50%;
+    //     margin-left: 2%;
+    //     padding-top: 2%;
+    //     text-align: center;
+    // }
+
+    .status {
+        margin-top: 2px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #15305A;
+        text-align: center;
+        height: 22px;
+        padding-top: 2px;
+    }
+
+    .process-status-approve {
+        display: inline-block;
+        width: 100%;
+        height: 52px;
+        
+        .process-name {
+            // width: 40%;
+            width: 100%;
+            display: inline-block;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 2%;
+            .process-name-status {
+                font-weight: bold;
+                font-size: 24px;
+                
+                // background-color: lightgreen;
+                // border-radius: 5px;
+                // padding-top: 5px;
+                // padding-bottom: 5px;
+                // font-size: 14px;
+                // padding-left: 10%;
+                // padding-right: 10%;
+                // float: right;
+                // margin-right: 5%;
+                // line-height: 30px;
+                // margin-top: -2%;
+            }
+            // .product-header {
+            //     width: 100%;
+            //     height: 100%;
+            //     display: flex;
+            //     flex-direction: row;
+            //     align-items: center;
+            //     .product-picture {
+            //         width: 15%;
+            //         height: 100%;
+            //         display: inline-block;
+            //         position: relative;
+            //         // min-height: 60px;
+            //         min-height: 40px;
+                    
+            //         img {
+            //             top: 50%;
+            //             transform: translateY(-50%);
+            //             position: absolute;
+            //             width: 45px;
+            //             height: 45px;
+            //             background-color: #eeeeee;
+            //             border-radius: 40px;
+            //             opacity: 1.0;
+            //         }
+            //     }
+            //     .item-name {
+            //         width: 58%;
+            //         box-sizing: border-box;
+            //         display: inline-block;
+            //         box-sizing: border-box;
+            //         line-height: 20px;
+            //         height: 100%;
+            //     }
+            //     .available {
+            //         text-align: right;
+            //         display: inline-block;
+            //         height: 100%;
+            //         margin-top: 5px;
+            //         box-sizing: border-box;
+            //         .available-quantity {
+            //             width: 100%;
+            //             text-align: center;
+            //         }
+            //     }
+            // }
+            
+        }
+        .action-button {
+            // width: 50%;
+            width: 96%;
+            text-align: center;
+            display: inline-block;
+            padding-top: 2%;
+            // .approve-button {
+            //     background-color: green;
+            //     color: #fff;
+            //     border-radius: 5px;
+            //     padding-top: 5px;
+            //     padding-bottom: 5px;
+            //     text-align: center;
+            //     margin-bottom: 3%;
+            //     padding-left: 15%;
+            //     padding-right: 15%;
+            // }
+            // .denied-button {
+            //     background-color: red;
+            //     color: #fff;
+            //     border-radius: 5px;
+            //     padding-top: 5px;
+            //     padding-bottom: 5px;
+            //     text-align: center;
+            //     padding-left: 15%;
+            //     padding-right: 15%;
+            // }
+            .process-name-status {
+                font-weight: bold;
+                font-size: 24px;
+            }
+        
+        }
+    }
+
+    .blank-discussion-board {
+        text-align: center;
+        height: 15px;
+    }
+
+    .status-card-margin {
+        // height: 50%;
+        .reply-card-margin {
+            margin-left: 10%;
+            width: 90%;
+        }
+    }
+    
+}
+
+.operation-bar {
+    height: 55px;
+    position: fixed;
+    width:100%; 
+    bottom:10px;
+    // background-color:#fff;
+    text-align: center;
+    .meeting-button{
+        width:80%;
+        box-sizing: border-box;
+        bottom:10px;
+        padding:10px 10px;
+        // background-color:#eeeeee;
+        // color:gray;
+        color: #fff;
+        background-color: #15305A;
+        margin-left: 3%;
+        margin-right: 5%;
+        border-radius:10px;
+        text-decoration: none;
+    }
+    .waiting-approval-button{
+        width:80%;
+        box-sizing: border-box;
+        bottom:10px;
+        padding:10px 10px;
+        // background-color:#eeeeee;
+        // color:gray;
+        color: #fff;
+        background-color: gray;
+        margin-left: 3%;
+        margin-right: 5%;
+        border-radius:10px;
+        text-decoration: none;
+    }
+
+    // .new-meeting-button {
+    //     width:80%;        
+    // }
+}
+
+.blank-dev {
+    height: 20%;
+}

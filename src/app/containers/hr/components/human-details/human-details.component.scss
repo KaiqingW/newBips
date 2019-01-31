@@ -1,0 +1,193 @@
+
+.human-title{
+    display:block;
+    background-color:#FFFFFF;
+    padding-bottom:5px;
+    margin-bottom:10px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    img{
+        z-index:0;
+        position:relative;
+    }
+    .human-tile-background{
+        width:100%;
+    }
+
+    company-logo{
+        position:relative;
+        z-index:2;
+        margin:0 auto;
+        margin-top:-30px;
+        width:60px;
+        height:60px;
+    }
+    .human-name{
+        width:100%;
+        text-align: center;
+    }
+
+    .action-icon{
+        text-align: center;
+        a {
+            margin: 10px 15px;
+            display:inline-block;
+            width:30px;
+            height:30px;
+            background-color:#006CD6;
+            border-radius:50px;
+            text-align: center;
+            line-height: 30px;
+            text-decoration: none;
+            .icon-lable{
+                display: block;
+                margin-top:-6px;
+                color:gray;
+                font-size:13px;
+                text-align: center; 
+            }
+
+        }
+        mat-icon{
+            color:white;
+            line-height: 30px;
+            font-size:15px;
+        }
+    }
+}
+
+.user-performance{
+    width:100%;
+    .per-item{
+        width:100%;
+        padding: 6px 0px;
+        span{
+            font-size:13px;
+            display:inline-block;
+            width:48%;
+        }
+        .item-left{
+            text-align:left;
+            .danger{
+                color:red;
+            }
+
+        }
+        .item-middle{
+            text-align:center;
+        }
+        .item-right{
+            text-align:right;
+            .success{
+                color:green;
+            }
+        }
+
+    }
+    .item-bottom{
+        border-bottom: 0.5px solid #e5e5e5;
+    }
+    .display-chart{
+        width:100%;
+        img{
+            width:100%;
+        }
+    }
+}
+
+.user-activities{
+    width:100%;
+    .per-item{
+        width:100%;
+        padding: 6px 0px;
+        
+        span{
+            font-size:13px;
+            display:inline-block;
+            width:48%;
+        }
+        .item-left{
+            text-align:left;
+        }
+        .danger{
+            color:red;
+        }
+        .success{
+            color:green;
+        }
+        .item-middle{
+            text-align:center;
+        }
+        .item-right{
+            text-align:right;
+        }
+
+    }
+    .item-bottom{
+        border-bottom: 0.5px solid #e5e5e5;
+    }
+    .display-chart{
+        width:100%;
+        img{
+            width:100%;
+        }
+    }
+}
+
+.comission-expense{
+    mat-card{
+        padding:6px 2px;
+        margin: 3px 0px;
+    }
+    .per-item{
+        width:100%;
+        padding:2px;
+        height:20px;
+
+        span{
+            font-size:13px;
+            display:inline-block;
+            overflow:hidden;
+        }
+        div{
+            float:left;
+            font-size:13px;
+            display:inline-block;
+            line-height: 20px;
+        }
+        .item-left{
+            text-align:left;
+            width:18%;
+            line-height: 20px;
+        }
+        .item-middle{
+            width:41%;
+
+        }
+        .comission-title{
+            background-color:#143258;
+            color:#ffffff;
+            padding:2px 4px;
+            border:0.5px solid #e5e5e5;
+        }
+        .comission-value{
+            // background-color:#143258;
+            // color:#ffffff;
+            border:0.5px solid #e5e5e5;
+            padding:2px 4px;
+        }
+        .item-right{
+            width:39%;
+        }
+        .danger{
+            color:red;
+        }
+        .success{
+            color:green;
+        }
+       
+    
+    }
+    .item-bottom{
+        border-bottom: 0.5px solid #e5e5e5;
+    }
+}

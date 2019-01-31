@@ -1,0 +1,53 @@
+<div class="people-profile" *ngIf="!isLoading">
+  <mat-card class="people-profile-card">
+    <mat-card-header>
+      <div mat-card-avatar class="subject-header-image">
+        <app-profile-picture
+          [url]="user?.avatar_url"
+          [userFirstName]="user?.first_name"
+          [userLastName]="user?.last_name"
+          [userId]="user?.id">
+        </app-profile-picture>
+      </div>
+      <mat-card-title class="people-profile-info">{{user?.first_name}} {{user?.middle_name}} {{user?.middle_name}} {{user?.last_name}}</mat-card-title>
+      <mat-card-subtitle class="people-profile-subinfo">{{user?.headline}}</mat-card-subtitle>
+      <div class="people-icon">
+        <ul>
+          <li><a href="tel:{{user?.phone_number}}"><i class="material-icons md-18">call</i></a></li>
+          <li><a href="mailto:{{user?.email}}"><i class="material-icons md-18">email</i></a></li>
+          <li><a href="sms://{{user?.phone_number}}"><i class="material-icons md-18">chat</i></a></li>
+          <!-- <li><a routerLink="/setting/profile"><i class="material-icons md-18">edit</i></a></li> -->
+          
+        </ul>
+      </div>
+    </mat-card-header>
+  </mat-card>
+  <mat-card class="people-profile-personal-card">
+    <div class= "people-profile-personal-bar">Personal Information <span class="people-profile-personal-bar-details">Details <i class="material-icons" id="keyboard_arrow_right">keyboard_arrow_right</i></span></div>
+    <div class="bar"></div>
+    <div class="people-profile-user-summary">
+        <div><mat-icon>email</mat-icon> Email: &nbsp; {{user?.email}}</div>
+        <div><mat-icon>phone</mat-icon><span>Phone: &nbsp; {{user?.phone_number}}</span></div>
+        <div><mat-icon>person</mat-icon> Gender: &nbsp; {{user?.gender}}</div>
+        {{user?.phone_number}}
+        <a href="sms:+6612345678?body=this is the text message to send">Send Text Message to Us</a>
+    </div>
+    <div>
+      <div mat-card-avatar class="user-company-info" *ngIf="user?.employed_company"> 
+        <logo  [url]="user?.employed_company.logo_url" [companyName]="user?.employed_company.name" [width]="50" [height]="50" [fontSize]="16"></logo>
+        <app-profile-picture
+          [url]="user?.employed_company.logo_url" 
+
+          [userFirstName]="user?.employed_company.name">
+        </app-profile-picture>
+      <mat-card-title class="user-position">{{user?.position}}</mat-card-title>
+      <mat-card-subtitle class="user-company">{{user?.employed_company.name}}</mat-card-subtitle>
+      </div>
+    </div>
+  </mat-card>
+
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

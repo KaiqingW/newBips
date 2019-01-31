@@ -1,0 +1,43 @@
+<div class="users" *ngIf="process">
+
+<div class="current-users-title" *ngIf="process?.process_approvals.length > 0"><h3>Approval</h3></div>
+<mat-card *ngFor="let user of process?.process_approvals" class="user-content">
+    <div class="company-logo">
+        <avatar-logo
+            [url]="user?.avatar_url" 
+            [userFirstName]="user.first_name" 
+            [userLastName]="user.last_name" 
+            [userId]="user?.user_id">
+        </avatar-logo>
+        <!-- <company-logo [url]="user?.avatar_url" [comname]="user.first_name"></company-logo> -->
+    </div>
+    <div class="user-name">
+        <span><b>{{user.first_name}} {{user.last_name}}</b></span><br>
+        <span class="user-email">{{user?.email}}</span>
+    </div>
+
+</mat-card>
+
+<div class="current-users-title" *ngIf="process?.process_administrators.length > 0"><h3>Work</h3></div>  
+<mat-card *ngFor="let user of process?.process_administrators" class="user-content">
+        <div class="company-logo">
+            <avatar-logo
+                [url]="user?.avatar_url" 
+                [userFirstName]="user.first_name" 
+                [userLastName]="user.last_name" 
+                [userId]="user?.user_id">
+            </avatar-logo>
+            <!-- <company-logo [url]="user?.avatar_url" [comname]="user.first_name"></company-logo> -->
+        </div>
+        <div class="user-name">
+            <span><b>{{user.first_name}} {{user.last_name}}</b></span><br>
+            <span class="user-email">{{user?.email}}</span>
+        </div>
+
+</mat-card>
+</div>
+
+
+<div *ngIf="isLoading">
+<app-spinner></app-spinner>
+</div>

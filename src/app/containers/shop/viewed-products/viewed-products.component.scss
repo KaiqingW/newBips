@@ -1,0 +1,85 @@
+.company-products{
+    // height: 90%;
+    // overflow: scroll;
+    .panel-card-title{
+        font-size:14px;
+    }
+    .panel-card-body{
+        width:100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        .product-modal-box{
+            display:inline-block;
+            margin:1.2%;
+            width:30%;
+            .product-modal{
+                width:100%;
+                    border:1px solid lightgray;
+                    img{
+                        display:inline-block;
+                        width: 100%;
+                        height:28vw;
+                    }
+                    .product-name{
+                        overflow: hidden;
+                        margin-top:-20px;
+                        display:block;
+                        background-color: #000;
+                        height:20px;
+                        opacity: 0.58;
+                        color:#FFFFFF;
+                        font-size:12px;
+                        text-align: center;
+                        line-height: 20px;
+                    }
+            }
+        }
+    }
+}
+
+.panel-card-title{
+    font-weight: bold;
+    padding:4px 0px;
+    .detail{
+        font-weight:normal;
+        color:gray;
+        float:right;
+        font-weight:13px;
+    }
+}
+
+
+mat-form-field{
+    margin-left: 20px;
+}
+
+.nav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.header_orange{
+    background-color: rgba($color: #f98342, $alpha: 1.0)
+}
+
+.header_yellow{
+    background-color: rgba($color: #c1d137, $alpha: 1.0)
+}
+
+.header_gold{
+    background-color: rgba($color: #ffc439, $alpha: 1.0)
+}
+
+.header_green{
+    background-color: rgba($color: #1a5e6f, $alpha: 1.0)
+}
+
+.header_blue{
+    background-color: rgba($color: #42e6f9, $alpha: 1.0)
+}
+

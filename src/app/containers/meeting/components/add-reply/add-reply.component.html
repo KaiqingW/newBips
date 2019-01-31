@@ -1,0 +1,91 @@
+<mat-card *ngIf="noteComment">  
+<mat-card-header>
+  <div mat-card-avatar class="header-image"> 
+      <app-profile-picture 
+          [url]="noteComment?.created.by.avatar_url" 
+          [userFirstName]="noteComment?.created.by.first_name"
+          [userLastName]="noteComment?.created.by.last_name"
+          [userId]="noteComment?.created.by.id">
+      </app-profile-picture>
+  </div>
+  <mat-card-title>{{noteComment?.created.by.first_name}} {{noteComment?.created.by.last_name}}</mat-card-title>
+  <mat-card-subtitle>{{noteComment?.created.at | amTimeAgo}}</mat-card-subtitle>   
+  
+  </mat-card-header>                 
+  <!-- <div class="note-name" [innerHTML]="noteComment?.body"></div>   -->
+  <mat-card-subtitle  class="des-container" *ngFor= "let note of noteComment?.body; let i = index">
+    <div class="col-1" *ngIf="note.img">
+        <img (click)="openModal()" [src]="note.img" style="width:75px;height:75px;;margin-right:16px" alt="note.img">
+        <div *ngIf="modalOpen">
+            <app-img-modal img [imgSrc]="note.img" (modalClose)="closeModal()"></app-img-modal>
+        </div>      
+    </div>    
+    <div class="col-3"> 
+        <div class="pre-container"></div>
+        <!-- <p style="text-align: left">{{note.text}}</p> -->
+        <read-more style="text-align: left" [text]="note.text"></read-more>
+        
+    </div>   
+  </mat-card-subtitle>  
+</mat-card>
+
+<!-- <form [formGroup]="commentForm" novalidate>
+<editor id="quill" (onContentChanged)="logChange($event)"></editor>
+</form> -->
+
+<div class="add_note_subject_container">
+<form [formGroup]="addCommentForm">       
+  <div class="row title">
+      <b>Comment</b>
+  </div>
+
+  <mat-card formArrayName="description">
+
+      <div *ngFor="let subNote of addCommentForm['controls'].description['controls'];let i=index">
+          <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+          <div class="row" [formGroupName]="i"> 
+              <div class="col-1" *ngIf="getImg(i)">
+                  <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                  <div *ngIf="modalOpen">
+                          <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                  </div>
+              </div>
+              <div class="col-3"> 
+                  <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+              </div>
+          </div>
+          <!-- <button class="add_more_btn" *ngIf="addCommentForm['controls'].description['controls'].length" style="background-color:red !important; color:white;" (click)="onDelete(i)">Delete current text</button> -->
+          <!-- <br>
+          <br>
+          <hr>   -->
+      </div>
+  
+      <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+  </mat-card>    
+  <div class="complete" *ngIf="isOwner">
+      Complete
+      <select formControlName="complete" required>
+          <option value="0.2">20%</option>
+          <option value="0.4">40%</option>
+          <option value="0.6">60%</option>
+          <option value="0.8">80%</option>
+          <option value="1.0">100%</option>
+      </select>
+    </div>
+</form>   
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<!-- <div class="complete" *ngIf="subjectNote?.owner != null">
+Complete
+<select>
+  <option value="0.2">20%</option>
+  <option value="0.4">40%</option>
+  <option value="0.6">60%</option>
+  <option value="0.8">80%</option>
+  <option value="1.0">100%</option>
+</select>
+</div> -->

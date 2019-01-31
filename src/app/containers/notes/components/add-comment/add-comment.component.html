@@ -1,0 +1,36 @@
+
+ <mat-card *ngIf="subjectNote">  
+        <mat-card-header>
+            <div mat-card-avatar class="header-image"> 
+                <app-profile-picture 
+                    [url]="subjectNote?.created.by.avatar_url" 
+                    [userFirstName]="subjectNote?.created.by.first_name"
+                    [userLastName]="subjectNote?.created.by.last_name"
+                    [userId]="subjectNote?.created.by.id">
+                </app-profile-picture>
+            </div>
+            <mat-card-title>{{subjectNote?.created.by.first_name}} {{subjectNote?.created.by.last_name}}</mat-card-title>
+            <mat-card-subtitle>{{subjectNote?.created.at | amTimeAgo}}</mat-card-subtitle>    
+        </mat-card-header>                 
+        <div class="note-name" [innerHTML]="subjectNote?.body"></div>  
+</mat-card>
+
+<mat-card *ngIf="noteComment">  
+    <mat-card-header>
+        <div mat-card-avatar class="header-image"> 
+            <app-profile-picture 
+                [url]="noteComment?.created.by.avatar_url" 
+                [userFirstName]="noteComment?.created.by.first_name"
+                [userLastName]="noteComment?.created.by.last_name"
+                [userId]="noteComment?.created.by.id">
+            </app-profile-picture>
+        </div>
+        <mat-card-title>{{noteComment?.created.by.first_name}} {{noteComment?.created.by.last_name}}</mat-card-title>
+        <mat-card-subtitle>{{noteComment?.created.at | amTimeAgo}}</mat-card-subtitle>    
+    </mat-card-header>                 
+    <div class="note-name" [innerHTML]="noteComment?.body"></div>  
+</mat-card>
+
+<form [formGroup]="commentForm" novalidate>
+    <editor id="quill" (onContentChanged)="logChange($event)"></editor>
+</form>

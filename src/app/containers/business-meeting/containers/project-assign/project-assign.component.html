@@ -1,0 +1,135 @@
+<mat-form-field class="chip-list">
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let email of emailList" [selectable]="selectable"
+            [removable]="removable" (remove)="remove(email)">
+      {{email}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="Please input email to search"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+          [matAutocomplete]="auto" 
+          [formControl]="emailCtrl" #personInput/>
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+      <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+      <mat-option *ngFor="let email of filteredEmails" [value]="email.email">
+              <span *ngIf="email?.avatar_url"><img  [src]="email?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{email?.email}}</span>
+              <span *ngIf="!email?.avatar_url"><img  src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{email?.email}}</span>
+      </mat-option>
+      <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+  </mat-autocomplete>
+</mat-form-field>
+    
+<!-- <div class="shared-user-list">
+    <p>Shared with</p>    
+    <div class="shared-user-container">
+      <mat-chip selected="true" color="accent" *ngFor="let user of sharedUserList">
+        <div class="shared-user">
+          <app-profile-picture 
+            [url]="user?.avatar_url" 
+            [userFirstName]="user?.first_name"
+            [userLastName]="user?.last_name"
+            [userId]="user?.id">
+          </app-profile-picture>
+          <span class="shared-user-email">{{user?.email}}</span>
+          <mat-icon matChipRemove *ngIf="removable" (click)="removeSharedUser(user)">cancel</mat-icon>
+        </div>     
+      </mat-chip>
+    </div>
+  </div> -->
+
+<mat-icon *ngIf="project && isDisabled" (click)="enable()" style="position: relative; color:green; right:-150px;">edit</mat-icon>                
+  
+<form class="note-complete-time" [formGroup]="assignForm">
+    <div class="row">
+      <div class="require-date">
+          Require Date
+          <input *ngIf="project" type="Date" [formControl]="requireDateCtrl" [(ngModel)]="project.require_date" required/>
+          
+      </div>
+    </div>
+    <div class="duration-time">
+        Duration Time 
+        <input *ngIf="project" type="text" formControlName="duration_time" [(ngModel)]="newDurationTime" disabled required/>
+    </div>
+    <div class="update-frequency">
+      Update Frequency
+      <select *ngIf="project" [formControl]="updateFrequencyCtrl" [(ngModel)]="project.update_frequency" required>
+        <option value="onetime">One Time</option>          
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="biweekly">Biweekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="quarterly">Quarterly</option>
+    </select>
+    </div>
+</form>
+
+<!-- check whether have already input email, input require date when first assign owners
+or input email, require date alreadt have value from ngModel when second assign owners
+or just click edit to change the require date -->
+<div>
+    <button mat-raised-button color="primary" (click)="onSave(); editProject()" 
+    [disabled]="!(((emailList.length>0) && this.requireDateCtrl.valid && this.updateFrequencyCtrl.valid) || ((emailList.length>0) && project.require_date && project.update_frequency) || showSubmitButton)">Submit</button>
+</div>
+
+<div class="current-users-title"><h3>Assigned Owners</h3></div>
+<mat-card *ngFor="let user of project?.owners" class="user-content">
+        <div class="company-logo">
+            <avatar-logo
+                [url]="user?.avatar_url" 
+                [userFirstName]="user.first_name" 
+                [userLastName]="user.last_name" 
+                [userId]="user?.user_id">
+            </avatar-logo>
+            <!-- <company-logo [url]="user?.avatar_url" [comname]="user.first_name"></company-logo> -->
+        </div>
+        <div class="user-name">
+            <span><b>{{user.first_name}} {{user.last_name}}</b></span><br>
+            <span class="user-email">{{user?.email}}</span>
+        </div>
+</mat-card>
+
+<!-- <div class="shared-user-list">
+  <p>Assigned Owners</p>    
+  <div class="shared-user-container">
+    <mat-chip selected="true" color="accent" *ngFor="let user of project?.owners">
+      <div class="shared-user">
+        <app-profile-picture 
+          [url]="user?.avatar_url" 
+          [userFirstName]="user?.first_name"
+          [userLastName]="user?.last_name"
+          [userId]="user?.id">
+        </app-profile-picture>
+        <span class="shared-user-email">{{user?.email}}</span>
+        <mat-icon matChipRemove *ngIf="removable" (click)="removeSharedUser(user)">cancel</mat-icon>
+      </div>     
+    </mat-chip>
+  </div>
+</div> -->
+
+
+  <div class="add-product-modal" *ngIf="checkEmailandMessage">
+      <mat-card>
+          <h4>Notify {{emailList[i]}}</h4>
+          <mat-checkbox class="example-margin" [(ngModel)]="sendEmailCheck">Send Email</mat-checkbox> <br>
+          <mat-checkbox class="example-margin" [(ngModel)]="sendMessageCheck">Send Message</mat-checkbox>
+
+          <div class="action-btn">
+              <button mat-button color="primary" (click)="cancelNotifyMethod()">Cancel</button>
+              <button mat-button color="primary" (click)="conformNotifyMethod()">Comfirm</button>
+          </div>
+      </mat-card>
+  </div>
+
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
+  
+  
+  
+  
+  

@@ -1,0 +1,359 @@
+<b class="reddot" id="cart_number">{{cartNum}}</b>
+<div *ngIf="product" class="bg-blue">
+    <div class="product-name">
+        <b>{{product.name}}</b>
+    </div>
+
+    <div class="sold-by">
+        <span>Sold by </span>
+        <span>
+            <b>{{companyName}}</b>
+        </span>
+    </div>
+
+    <div class="product-picture">
+        <img *ngIf="product.images.length == 0" src="assets/images/no-img-available.svg.png">
+        <img *ngIf="product.images.length > 0" [src]="product.images[0].url" (click)="openModal(product.images[0].url)">
+    </div>
+
+    <div class="description-bar">
+            <div class="title">
+                <b>Description</b>
+            </div>
+            <div class="description">{{product.description}}</div>
+        </div>
+
+    <div class="multi-pictures-loop" *ngIf="product.images.length > 1">
+        <div class="picture" *ngFor="let picture of product.images">
+            <img [src]="picture.url" (click)="openModal(picture.url)">
+        </div>
+    </div>
+</div>
+
+
+<!-- <mat-card *ngIf="product">
+    <div class="price-table">
+        <div class="col-1">
+            <div>Quantity</div>
+            <div>Price</div>
+        </div>
+        <div class="col-2">
+            <div class="sub-col" *ngFor="let range of priceRange;let i = index;">
+                <div>{{getRange(range, i)}}</div>
+                <div style="color:rgb(197, 0, 0);">${{range.price/100 | number}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="qtyAlert" style="margin: 6px; border: 0.5px red solid; border-radius: 2px; display: flex; flex-direction: row; align-items: center;">
+        <i class="material-icons" style="color: #ffc439; padding: 0 4px 4px 4px; font-size: 18px;">warning</i>
+        <span style="color: red; padding: 4px; align-self: flex-start;">This seller has only {{maxQty}} of these available.</span>
+    </div>
+
+    <div *ngIf="totalQty && totalQty > 0" class="price-wrap">
+        <div class="total-price">
+            <span>
+                Unit Price:
+            </span>
+            <span *ngIf="price" class="price">
+                $ {{price/100}}
+            </span>
+        </div>
+    </div>
+
+    <div style="position: absolute; top:55px; left:42%;">
+        <mat-form-field style="position: absolute; z-index: 1;">
+            <mat-select [(value)]=Qty #qty>
+                <mat-option value="1">
+                    1
+                </mat-option>
+                <mat-option value="2">
+                    2
+                </mat-option>
+                <mat-option value="3">
+                    3
+                </mat-option>
+                <mat-option value="4">
+                    4
+                </mat-option>
+                <mat-option value="5">
+                    5
+                </mat-option>
+                <mat-option value="6">
+                    6
+                </mat-option>
+                <mat-option value="7">
+                    7
+                </mat-option>
+                <mat-option value="8">
+                    8
+                </mat-option>
+                <mat-option value="9">
+                    9
+                </mat-option>
+                <mat-option>
+                    10+
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field style="position: absolute; width: 130px; z-index: 2;">
+            <input matInput value={{Qty}} (keyup)="onKey($event)" type="text" max="{{totalQty}}" autofocus onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="totalQty && totalQty > 0" class="stock">
+        In Stock
+    </div>
+
+    <div *ngIf="!isLoading">
+        <div *ngIf="totalQty == 0 && !totalQty || !warehouses" class="nostock">
+            Out of Stock
+        </div>
+    </div>
+
+</mat-card> -->
+<mat-card>
+    <div style="display: flex; margin:0 auto; text-align: center;justify-content: space-evenly;">
+        <div>
+            <div style="margin-top: 15px">Qty</div>
+            <div style="margin-top: 5px">Price</div>
+        </div>
+        <div *ngFor="let range of priceRange">
+            <div style="margin-top: 15px">{{range.min_qty}}-{{range.max_qty}}</div>
+            <div style="margin-top: 5px">${{range.price/100}}</div>
+        </div>
+    </div>
+    <div *ngIf="qtyAlert" style="margin: 6px; border: 0.5px red solid; border-radius: 2px; display: flex; flex-direction: row; align-items: center;">
+        <i class="material-icons" style="color: #ffc439; padding: 0 4px 4px 4px; font-size: 18px;">warning</i>
+        <span style="color: red; padding: 4px; align-self: flex-start;">This seller has only {{maxQty}} of these available.</span>
+    </div>
+    <div *ngIf="totalQty && totalQty > 0" class="price-wrap">
+        <div>
+            <span>
+                Price:
+            </span>
+            <span *ngIf="price" class="price">
+                $ {{price/100}}
+            </span>
+        </div>
+
+        <div style="position: absolute; top:55px; left:42%;">
+            <mat-form-field style="position: absolute; z-index: 1;">
+                <mat-select [(value)]=Qty #qty>
+                    <mat-option value="1">
+                        1
+                    </mat-option>
+                    <mat-option value="2">
+                        2
+                    </mat-option>
+                    <mat-option value="3">
+                        3
+                    </mat-option>
+                    <mat-option value="4">
+                        4
+                    </mat-option>
+                    <mat-option value="5">
+                        5
+                    </mat-option>
+                    <mat-option value="6">
+                        6
+                    </mat-option>
+                    <mat-option value="7">
+                        7
+                    </mat-option>
+                    <mat-option value="8">
+                        8
+                    </mat-option>
+                    <mat-option value="9">
+                        9
+                    </mat-option>
+                    <mat-option>
+                        10
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="position: absolute; width: 130px; z-index: 2;">
+                <input matInput value={{Qty}} (keyup)="onKey($event)" type="text" max="{{totalQty}}" autofocus onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                    onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
+            </mat-form-field>
+        </div>
+
+        <!-- <ng-container *ngIf="!qty.value">
+            <input type="text" value="text">
+        </ng-container> -->
+
+    </div>
+
+    <div *ngIf="totalQty && totalQty > 0" class="stock">
+        In Stock
+    </div>
+    <div *ngIf="!isLoading">
+        <div *ngIf="totalQty == 0 && !totalQty || !warehouses" class="nostock">
+            Out of Stock
+        </div>
+    </div>
+    <!-- <div class="category" *ngFor="let warehouse of warehouses; let i = index;">
+            <div>
+                <span class="item-title">Warehouse {{i+1}}</span>
+                <span class="item-content">{{warehouse.address.zipcode}}, {{warehouse.address.city}}</span>
+            </div>
+            <div>
+                <span class="item-title">Available QTY: </span>
+                <span class="item-content">{{warehouse.amount}}</span>
+            </div>
+        </div> -->
+</mat-card>
+<!-- <mat-card *ngIf="product">
+        <div class="warehouse-location">
+            <div class="multi-pictures">
+                <b>Choose a Warehouse:</b>
+            </div>
+
+            <div class="multi-pictures-loop" *ngIf="product.warehouses.length ==0">
+                No warehouse has this product!
+            </div>
+
+            <div class="warehouse-loop" *ngIf="product.warehouses.length > 0">
+                <div class="warehouse" (click)="switchShowMap()">
+                    <div class="warehouse-bg" >
+                            <img style="z-index:2;position: relative;border-radius:5px;" src="assets/images/on-road.png">
+                    </div>
+
+                    <div class="warehouse-name-span">
+                        <span>Show Map</span>
+                    </div>
+                    <div class="quantity">
+                            <span class="quantity-content" ><b>{{warehouses.length | number}} WHSE</b></span>
+                    </div>
+                </div>
+
+
+                <div style="width:80%;height:100%;overflow-x:auto;overflow-y: hidden;">
+                    <div class="warehouse" *ngFor="let warehouse of product.warehouses;let i =index" (click)="selectWarehouse(warehouse, i)"
+                        [class.selected]="warehouse == selectedWarehouse">
+                        <div class="warehouse-bg">
+                            <img src="assets/images/warehouse.png">
+                        </div>
+                        <div class="warehouse-name-span">
+                            <span>{{warehouse.name | short : 8}}</span>
+                        </div>
+                        <div class="quantity">
+                            <span class="quantity-content">
+                                <b>{{warehouse.amount | number}}</b>
+                            </span>
+                        </div>
+                        <div class="quantity">
+                            <span class="quantity-content">
+                                Qty:<input id="{{'input'+i}}" [value]="qtyArr[i]" matInput (keyup)="onKey($event, i)" autofocus>
+                            </span>
+                        </div>
+                        <div class="quantity" *ngIf="warehouse.distance">
+                            <span class="quantity-content">
+                                <b>{{getDistance(warehouse)}}</b>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </mat-card>
+    
+    <mat-card *ngIf="showMap">
+        <div>
+            <div class="summary">
+                <b>Your Destination:
+                    <input class="input" style="border-radius: 0;width:80%;display: inline-block;" [(ngModel)]="searchAddress" matInput placeholder="Enter your destination."
+                        aria-label="product name">
+                    <button style="position: absolute;right:5%;border-radius:0;" (click)="onSearch()">Search</button>
+                </b>
+            </div>
+        </div>
+        <div style="font-size: 12px;padding: 6px">* The shipping fee and delivery time may vary depending on the different warehouses</div>
+    </mat-card>
+
+    <div [class.noWarehouses]="!showMap" #gmap id="goFS" style="width:100%;height:56.75vw;margin:5px 0;" class="map"></div>
+
+    <button [class.noWarehouses]="!showMap" [class.reset-btn]="showMap" mat-button (click)="reset()">Reset</button>
+
+    <div [class.hasWarehouses]="showMap" style="position: relative;top:-68vw;"> -->
+
+
+
+
+
+<!-- <div>
+            <button mat-menu-item class="header_yellow" (click)="calcShipping('NY','11801','US','NY','12529','US','12.5')">
+                Shipping Fee
+            </button>
+        </div> -->
+
+<mat-card *ngIf="product?.sales_pitch_subjects && product?.sales_pitch_subjects.length > 0">
+    <div style="margin: 10px;">
+        <div *ngFor="let salesPitch of product.sales_pitch_subjects" style="margin-bottom: 10px;">
+            <div style="font-size: 24px; font-weight: bold;">
+                {{salesPitch.pitch_subject_name}}
+            </div>
+            <div *ngFor="let salesPitchItem of salesPitch.sales_pitches" style="padding: 5px 24px;">
+                <div *ngIf="salesPitchItem.image">
+                    <img style="width:70px; height: 70px; padding: 3px; border-radius: 10px;" [src]="salesPitchItem.image.url">
+                </div>
+                <div [innerHTML]="salesPitchItem.body"></div>
+            </div>
+        </div>
+    </div>
+</mat-card>
+
+<mat-card *ngIf="!isLoading">
+    <div *ngIf="totalQty == 0 && !totalQty || warehouses">
+        <button mat-menu-item class="header_yellow" (click)="addToCart()">
+            Add to cart
+        </button>
+    </div>
+
+    <div routerLink="/shop">
+        <button mat-menu-item class="header_green">
+            <strong>Continue Shopping</strong>
+        </button>
+    </div>
+
+    <div routerLink="/shop/shopping-cart">
+        <button mat-menu-item class="header_gold">
+                <strong>Checkout</strong>
+        </button>
+    </div>
+</mat-card>
+
+<mat-card *ngIf="product">
+    <div class="summary">
+        <b>Specification</b>
+        <span class="showMoreBtn" (click)="switchShowBtn()">
+            {{showNum == 2 ? "More" : "Less"}}
+        </span>
+    </div>
+    <div class="category">
+        <span class="item-title">Category</span>
+        <span class="item-content" *ngIf="product?.category?.name">{{product.category.name}}</span>
+    </div>
+    <div class="category" *ngFor="let defColumn of product.company_defined_columns | shortObj : showNum">
+        <span class="item-title">{{defColumn.name}}</span>
+        <span class="item-content" *ngIf="defColumn.value">{{defColumn.value}}</span>
+        <span class="item-content" *ngIf="!defColumn.value">N/A</span>
+    </div>
+</mat-card>
+
+
+<div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
+        <div *ngIf="selectedAttachment" class="attachment-product-content">
+            <p>Comment: {{selectedAttachment.comment}}</p>
+            <div class="div1">{{selectedAttachment.created.at}}</div>
+            <div class="div2">Created By:{{selectedAttachment.created.by.first_name}} {{selectedAttachment.created.by.last_name}}</div>
+        </div>
+    </app-img-modal>
+</div>
+
+<app-viewed-products></app-viewed-products>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

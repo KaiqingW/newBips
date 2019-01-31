@@ -1,0 +1,65 @@
+<div class="container" (scroll)="onMouseWheel($event)">
+    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject">My Meeting</a>
+    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/shared-subject">Shared</a>
+    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/finished-subject">Finished</a>
+
+    <wide-select-bar style="width:100%;" (sendSelect)="onGetSelect($event)" [selects]="selects" [placeholder]="placeholder" [default]="default"></wide-select-bar>
+
+    <div *ngIf="subjectList && subjectList?.length > 0 && !isLoading; else no_subject_found">
+
+        <div class="subject-card-margin" *ngFor="let subject of subjectList; let i=index">
+            <subject-card [name]="subject?.name" [meetingDate]="subject?.meeting_date" [meetingFrequency]="subject?.meeting_frequency"
+                [meetingTime]="subject?.meeting_time" [unreadRecord]="subject?.unread_count" [createdTime]="subject?.created?.at" [attachmentFilesCount]="subject?.attachments_files_count"
+                [url]="subject?.id">
+                <hr>
+                <div class="subject-list" routerLink="{{subject?.id}}">
+                    <div class="subject_creater">
+                        <avatar-logo [url]="subject?.created?.by?.avatar_url" [userFirstName]="subject?.created?.by?.first_name" [userLastName]="subject?.created?.by?.last_name"
+                            [userId]="subject?.created?.by?.user_id">
+                        </avatar-logo>
+                    </div>
+
+                    <div class="separate">|</div>
+
+                    <div class="shared-contacts-admin">
+                        <div *ngIf="subject?.sharedWithAdmin.length > 0">
+                            <div class="contact-admin" *ngFor="let share of subject?.sharedWithAdmin | showMore : maxAdmin">
+                                <avatar-logo [url]="share?.avatar_url" [userFirstName]="share?.first_name" [userLastName]="share?.last_name" [userId]="share?.user_id">
+                                </avatar-logo>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shared-contacts">
+                        <div *ngIf="subject?.sharedWith.length > 0">
+                            <div class="contact" *ngFor="let share of subject?.sharedWith | showMore : maxShare[i]">
+                                <avatar-logo [url]="share?.avatar_url" [userFirstName]="share?.first_name" [userLastName]="share?.last_name" [userId]="share?.user_id">
+                                </avatar-logo>
+                            </div>
+                        </div>
+                    </div>
+
+                    <mat-icon *ngIf="subject?.sharedWithAdmin.length > maxAdmin || subject?.sharedWith.length > maxShare[i]" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/{{subject?.id}}/all-shared-user"
+                        style="font-size: 30px; float: right; margin-right: 10px;">more_horiz</mat-icon>
+                </div>
+            </subject-card>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #no_subject_found>
+    <div class="no-subject" *ngIf="!isLoading">
+        <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
+        <p>No Meeting Found</p>
+    </div>
+</ng-template>
+
+<!-- <app-add-button *ngIf="!isLoading"></app-add-button> -->
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="isDataLoading">
+    <app-spinner></app-spinner>
+</div>

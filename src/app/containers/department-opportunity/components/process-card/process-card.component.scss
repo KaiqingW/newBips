@@ -1,0 +1,34 @@
+:host{   
+    mat-card{
+        padding:9px 4px 9px 8px;
+        height:55px;        
+    }
+    .subject-content{
+        height: 25px;
+        .subject-name{
+            display:inline-block;
+            vertical-align: middle;
+            width:100%;
+            height: 30px;
+            overflow: hidden;
+            h5{
+                text-align: center;
+                height: 24px;
+                line-height: 24px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap; 
+                width: 93%;
+                margin-left: 7%;
+            }
+            hr {
+                border-top:0.5px solid lightgray;
+                
+            }
+        }
+    }    
+}
+ng-content{
+    width:101%;
+    margin-left:-6px;
+}

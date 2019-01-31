@@ -1,0 +1,20 @@
+<mat-card class="orca_card" *ngIf="description">
+    <div class="orca_title_sm">
+        <b>Product Description</b>
+    </div>
+    <div class="description orca_font_sm">
+        {{description}}
+    </div>
+</mat-card>
+
+<mat-card class="orca_card" *ngIf="!description">
+    <div class="orca_title_sm">
+        <b>Product Description</b>
+    </div>
+    <form [formGroup]="desForm" style="width:100%;">
+        <textarea class="orca_textarea" formControlName="description" required></textarea>
+    </form>
+    <div class="orca_btn_bar">
+        <button mat-raised-button mat-button color="primary" (click)="onSave()">Save</button>
+    </div>
+</mat-card>

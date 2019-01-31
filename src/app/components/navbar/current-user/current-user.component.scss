@@ -1,0 +1,39 @@
+
+:host{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+    padding: 15px;
+    padding-top: 30px;
+    box-sizing: border-box;
+    background-color: #F5F5F5;
+}
+
+.current-user-image::ng-deep{
+    app-profile-picture{
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+    }
+    .profile-picture-box{
+        width: 64px;
+        height: 64px;
+    }
+    .shorthand{
+        font-size: 32px !important;
+    }
+}
+
+.email{
+    color: #000000;
+}
+
+mat-icon{
+    color: #000000;
+}
+
+.user-information{
+    display: flex;
+    align-items: center;
+}

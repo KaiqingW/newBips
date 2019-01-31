@@ -1,0 +1,23 @@
+mat-card{
+    padding:12px 6px;
+    margin:6px 0;
+}
+hr{
+    margin:10px 0;
+}
+:host{
+    font-size: 14px;
+    line-height: 14px;
+    .row{
+        min-height:20px;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        width:100%;
+        .col-1{
+            display: flex;
+            flex:1;
+            flex-direction: row;
+        }
+    }
+}

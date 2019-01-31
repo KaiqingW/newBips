@@ -1,0 +1,8 @@
+<search-bar [products]="selectedProducts" [placeholder]="'Search Product By Name'" (sendTerm)="searchProduct($event)"></search-bar>
+<mat-card class="count-bar">
+    <div>
+        <span>You have selected {{selectedProducts.length}} products.</span>
+        <button mat-raised-button color="primary" (click)="addQty()" [disabled]="!(selectedProducts?.length>0) ">Update Qty</button>
+    </div>
+</mat-card>
+<list-product-card (sendProduct)="onGetSelectProduct($event)" [selectedProducts]="selectedProducts" [productList]="products"></list-product-card>

@@ -1,0 +1,77 @@
+<div class="prev-project" *ngIf="project">
+    <div class="project-card-margin">
+        <subject-content [name]="project?.name" [description]="project?.description" [createdTime]="project?.created?.at">
+            <!-- <mat-icon *ngIf="createrPermission" (click)="deleteProject()" style="position: absolute; color:brown; right:5px; top:7px">delete</mat-icon>                 -->
+        </subject-content>
+    </div>   
+</div>
+
+<div class="next-meeting" *ngIf="project">
+    <b>{{project?.next_meeting_subjects.length}} Next Meetings</b>
+</div>
+
+<div *ngIf="project && project?.next_meeting_subjects.length > 0 && !isLoading; else no_subject_found">    
+    <div class="subject-card-margin" *ngFor="let subject of project?.next_meeting_subjects; let i=index">
+        <subject-card [name]="subject?.name" [meetingDate]="subject?.meeting_date"
+            [meetingTime]="subject?.meeting_time" [unreadRecord]="subject?.unread_count" 
+            [createdTime]="subject?.created?.at" [url]="subject?.id" [attachmentFilesCount]="subject?.attachments_files_count">
+            <!-- <mat-icon class="star" *ngIf="subject?.mark==1" (click)="cancelMarkSubject(subject?.id)" style="position: absolute; color: gold; top:4px">star</mat-icon>                 -->
+            <!-- <mat-icon class="star" *ngIf="subject?.mark==0" (click)="markSubject(subject?.id)" style="position: absolute; color: lightgray; top:4px">star_border</mat-icon>                 -->
+            
+            <hr>
+            <div class="subject-list" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/{{subject.id}}">
+                <div class="subject_creater">
+                    <avatar-logo
+                        [url]="subject?.created?.by?.avatar_url" 
+                        [userFirstName]="subject?.created?.by?.first_name" 
+                        [userLastName]="subject?.created?.by?.last_name" 
+                        [userId]="subject?.created?.by?.user_id">
+                    </avatar-logo>
+                </div>
+                <div class="shared-contacts-admin">
+                    <div  *ngIf="subject?.sharedWithAdmin.length > 0">
+                        <div class="contact-admin" *ngFor="let share of subject?.sharedWithAdmin | showMore : maxAdmin">
+                            <avatar-logo
+                                [url]="share?.avatar_url" 
+                                [userFirstName]="share?.first_name" 
+                                [userLastName]="share?.last_name" 
+                                [userId]="share?.user_id">
+                            </avatar-logo>
+                        </div>
+                    </div>
+                </div>
+                <div class="separate">|</div>
+                
+                <div class="shared-contacts">
+                    <div  *ngIf="subject?.sharedWith.length > 0">
+                        <div class="contact" *ngFor="let share of subject?.sharedWith | showMore : maxShare[i]">
+                            <avatar-logo
+                                [url]="share?.avatar_url" 
+                                [userFirstName]="share?.first_name" 
+                                [userLastName]="share?.last_name" 
+                                [userId]="share?.user_id">
+                            </avatar-logo>
+                        </div>
+                    </div>
+                </div>
+
+                <mat-icon *ngIf="subject?.sharedWithAdmin.length > maxAdmin || subject?.sharedWith.length > maxShare[i]" 
+                        routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/{{subject?.id}}/all-shared-user"
+                        style="font-size: 30px; float: right; margin-right: 10px;" >more_horiz</mat-icon>
+            </div>
+        </subject-card>
+    </div>
+</div>
+
+<div class="blank-dev"></div>
+
+<ng-template #no_subject_found>
+    <div class="no-subject" *ngIf="!isLoading">
+        <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
+        <p>No Meeting Found</p>
+    </div>
+</ng-template>
+
+<app-add-button *ngIf="!isLoading && ownerPermission" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/project/{{project?.id}}/generate-new-meeting-subject"></app-add-button>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

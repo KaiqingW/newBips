@@ -1,0 +1,83 @@
+<div *ngIf="subject">            
+  <div class="subject-card-margin">
+      <opportunity-subject-content [name]="" [description]="subject?.description" [createdTime]="subject?.created?.at">            
+      </opportunity-subject-content>
+  </div>
+</div>
+
+<opportunity-attachment (sendFormData)="onReceivedFormData($event)" [canUpload]="false" [title]="'Attachment'" [attachments]="subject?.attachments"></opportunity-attachment>  
+
+<a *ngIf="departmentOpportunityId" routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/main-opportunity-subject/{{departmentOpportunityId}}/shared-opportunity-list">
+  Customers
+  <!-- <span *ngIf="subjectListUnread" class="mysubject-unread">{{subjectListUnread}}</span> -->
+</a>
+
+<a *ngIf="departmentOpportunityId" routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/main-opportunity-subject/{{departmentOpportunityId}}/shared-project-list">
+  Opportunities
+  <!-- <span *ngIf="subjectListUnread" class="mysubject-unread">{{subjectListUnread}}</span> -->
+</a>
+
+
+<div *ngIf="sharedOpportunities && sharedOpportunities.length > 0 && !isLoading; else no_subject_found">    
+  <div class="subject-card-margin" *ngFor="let subject of sharedOpportunities; let i=index">
+      <opportunity-subject-card [name]="subject?.name" [meetingDate]="subject?.meeting_date"
+          [meetingTime]="subject?.meeting_time" [unreadRecord]="subject?.unread_count" 
+          [createdTime]="subject?.created?.at" [url]="subject?.id" [prevProjectId]="subject?.prev_meeting_project_id">
+          <!-- <mat-icon class="star" *ngIf="subject?.mark==1" (click)="cancelMarkSubject(subject?.id)" style="position: absolute; color: gold; top:4px">star</mat-icon>                 -->
+          <!-- <mat-icon class="star" *ngIf="subject?.mark==0" (click)="markSubject(subject?.id)" style="position: absolute; color: lightgray; top:4px">star_border</mat-icon>                 -->
+          
+          <hr>
+          <div class="subject-list" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{projectId}}/sales-opportunity-subject/{{subject.id}}">
+              <div class="subject_creater">
+                  <avatar-logo
+                      [url]="subject?.created?.by?.avatar_url" 
+                      [userFirstName]="subject?.created?.by?.first_name" 
+                      [userLastName]="subject?.created?.by?.last_name" 
+                      [userId]="subject?.created?.by?.user_id">
+                  </avatar-logo>
+              </div>
+              <div class="shared-contacts-admin">
+                  <div  *ngIf="subject?.sharedWithAdmin.length > 0">
+                      <div class="contact-admin" *ngFor="let share of subject?.sharedWithAdmin | showMore : maxAdmin">
+                          <avatar-logo
+                              [url]="share?.avatar_url" 
+                              [userFirstName]="share?.first_name" 
+                              [userLastName]="share?.last_name" 
+                              [userId]="share?.user_id">
+                          </avatar-logo>
+                      </div>
+                  </div>
+              </div>
+              <!-- <div class="separate">|</div>
+              
+              <div class="shared-contacts">
+                  <div  *ngIf="subject?.sharedWith.length > 0">
+                      <div class="contact" *ngFor="let share of subject?.sharedWith | showMore : maxShare[i]">
+                          <avatar-logo
+                              [url]="share?.avatar_url" 
+                              [userFirstName]="share?.first_name" 
+                              [userLastName]="share?.last_name" 
+                              [userId]="share?.user_id">
+                          </avatar-logo>
+                      </div>
+                  </div>
+              </div> -->
+
+              <!-- <mat-icon *ngIf="subject?.sharedWithAdmin.length > maxAdmin || subject?.sharedWith.length > maxShare[i]" 
+                      routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject/{{subject?.id}}/all-shared-user"
+                      style="font-size: 30px; margin-top: 5px; float: right; margin-right: 10px;" >more_horiz</mat-icon> -->
+          </div>
+      </opportunity-subject-card>
+  </div>
+</div>
+
+<ng-template #no_subject_found>
+  <div class="no-subject" *ngIf="!isLoading">
+      <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
+      <p>No Customer Found</p>
+  </div>
+</ng-template>
+
+<div class="blank-dev"></div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

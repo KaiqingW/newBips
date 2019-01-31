@@ -1,0 +1,41 @@
+<status-card [createdUser]="status?.created" [content]="status?.body" [showReplyStatus]="false" [showReplyComment]="false" [statusId]="" [unreadCount]=""></status-card>
+
+<div class="add_note_subject_container">
+    <form [formGroup]="addReplyForm">       
+        <div class="row title">
+            <b>Reply</b>
+        </div>
+    
+        <mat-card formArrayName="body">
+    
+            <div *ngFor="let subNote of addReplyForm['controls'].body['controls'];let i=index">
+                <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+                <!-- <span style="font-size: 13px; color: red;">Please upload image here</span> -->
+                
+                <div class="row" [formGroupName]="i"> 
+                    <div class="col-1" *ngIf="getImg(i)">
+                        <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                        <div *ngIf="modalOpen">
+                                <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                        </div>
+                    </div>
+                    <div class="col-3"> 
+                        <textarea placeholder="Description is required !" style="width:100%;height:200.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                    </div>
+                </div>
+                <!-- <button class="add_more_btn" *ngIf="addReplyForm['controls'].body['controls'].length" style="background-color:red !important; color:white;" (click)="onDelete(i)">Delete current text</button> -->
+                <!-- <br>
+                <br>
+                <hr>   -->
+            </div>
+        
+            <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+        </mat-card>    
+    </form>   
+</div>
+
+<!-- <wide-select-bar style="width:100%;" (sendSelect)="onGetSelect($event)" [selects]="selects" [placeholder]="placeholder" [default]="default"></wide-select-bar> -->
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

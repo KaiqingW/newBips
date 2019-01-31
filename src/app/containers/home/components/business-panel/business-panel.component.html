@@ -1,0 +1,60 @@
+<div class="container" >
+    <div class="without-company" *ngIf="!companies">
+        <span class="no-company-notification">You haven’t joined any company yet</span>
+        <button routerLink="/search-company" mat-raised-button color="primary" type="submit" class="login-to-business-btn">
+            CREATE NEW COMPANY
+        </button> 
+    </div>
+    
+    <mat-card class="with-company" *ngIf="companies && companies.length > 1">
+        <div class="company-field" *ngFor = "let company of companies; let i = index"  (click)="selectCompany(company.id,company)" [class.selected]="selected_company_id == company.id">
+            <div  class="company-information-container" >
+                <div class="logo-container">
+                    <logo  [url]="company.logo_url" [companyName]="company.name" [width]="52" [height]="52" [fontSize]="20"></logo>
+                </div>
+                
+                <div class="company-name">{{company.name | short: 10}}</div>
+            </div>
+        </div>  
+    </mat-card>  
+
+    <div *ngIf="data && selected_company" [class.topPadding]="companies.length == 1">
+        <div  class="company_container">
+            <div class="main-logo">
+                <logo  [url]="selected_company.logo_url" [companyName]="selected_company.name" [width]="62" [height]="62" [fontSize]="20"></logo>
+            </div>
+            
+            <div class="main-name"  >
+            
+                <b>{{selected_company.name }}</b>
+            </div>
+
+            <!-- <div class="main-name">            
+                <b>{{data.name}}</b>
+            </div> -->
+
+            <mat-form-field class="field">
+                    <input matInput [(ngModel)]="password" type="password" placeholder="Password">
+            </mat-form-field>
+            
+            <div class="full-width">
+                <span *ngIf="data?.showError" style="color:red; font-size:12px;">Password Error, Try again</span>
+            </div>
+            <div class="full-width">   
+                <button class="btn" style="border-radius: 10px" mat-raised-button color="primary" (click)="testFuntion()">Login</button>
+            </div>
+        </div>
+     
+    </div>
+        
+      
+
+
+    <div class="company-login-container" *ngIf="companies" [class.middle]="companies.length == 0">
+            <a class="create-new-company-link" style="border-radius: 10px" mat-raised-button color="primary" type="submit" routerLink="/search-company" >CREATE NEW COMPANY</a>
+    </div> 
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

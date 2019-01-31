@@ -1,0 +1,273 @@
+<div *ngIf="!isLoading">
+  <div class="subject" *ngIf="subject">
+    <div #nameInput>
+      <mat-card class="subject-card">
+        <div class="subject-name">
+          <p>{{transform(subject?.name)}} </p> <mat-icon *ngIf="subject?.created.by?.id == currentUser?.id" style="position: absolute; color:brown; right:0px" (click)="deleteSubject()">delete</mat-icon>
+        </div>
+        <!-- <div class="subject-description">
+          <read-more [text]="subject?.description"></read-more>
+        </div> -->
+        <hr>
+        <div  class="subject-container" *ngFor= "let note of subNotes; let i = index">
+            <div class="col-1" *ngIf="note.img">
+                <img (click)="openSubjectModal()" [src]="note.img" style="width:75px;height:75px;;margin-right:16px" alt="note.img">
+                <div *ngIf="subjectModalOpen">
+                    <app-img-modal img [imgSrc]="note.img" (modalClose)="closeModal()"></app-img-modal>
+                </div>      
+            </div>
+            
+            <div class="col-3"> 
+                <div class="pre-container"></div>
+                <read-more style="text-align: left" [text]="note.text"></read-more>
+            </div>
+          
+        </div>  
+        <div class="subject-create-time" >{{subject.created.at| local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</div>
+      </mat-card>
+
+        <!-- <mat-card> -->
+          <!-- <div mat-card-avatar class="header-image">
+            <app-profile-picture [url]="subject?.created.by.avatar_url" [userFirstName]="subject?.created.by.first_name" [userLastName]="subject?.created.by.last_name" [userId]="subject?.created.by.id">
+            </app-profile-picture>
+          </div>
+
+          <mat-card-title>{{subject?.created.by.first_name}} {{subject?.created.by.last_name}}</mat-card-title>
+          <mat-card-subtitle>{{subject.created.at| local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</mat-card-subtitle> -->
+
+          <!-- shared list -->
+          <div class="shared-image-list">
+
+            <div class="share-info-row">
+              <div class="shared-owner-creater" *ngIf="createrFlag">
+                <div class="shared-profile-picture">
+                  <app-profile-picture 
+                      [url]="subject.created.by.avatar_url" 
+                      [userFirstName]="subject.created.by.first_name" 
+                      [userLastName]="subject.created.by.last_name" 
+                      [userId]="subject.created.by.id">
+                  </app-profile-picture>
+                </div>
+              </div>
+
+              <div class="shared-owner" *ngIf="!createrFlag">
+                <div class="shared-profile-picture">
+                  <app-profile-picture 
+                      [url]="subject.created.by.avatar_url" 
+                      [userFirstName]="subject.created.by.first_name" 
+                      [userLastName]="subject.created.by.last_name" 
+                      [userId]="subject.created.by.id">
+                  </app-profile-picture>
+                </div>
+              </div>
+
+              <div class="shared-images"> 
+                <div *ngFor="let sharedUser of shareInfo; let ii = index" class="shared-profile-picture">
+                  <app-profile-picture 
+                      [url]="sharedUser?.avatar_url" 
+                      [userFirstName]="sharedUser?.first_name" 
+                      [userLastName]="sharedUser?.last_name" 
+                      [userId]="sharedUser?.id">
+                  </app-profile-picture>
+                </div>
+              </div>
+
+              <div class="shared-button">
+                <mat-icon *ngIf="createrFlag" mat-button class="share" routerLink="share">person_add</mat-icon>
+              </div>
+              
+              <!-- <div class="shared-icon">
+                <button mat-icon-button (click)="showMore()">
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <button mat-button class="share" routerLink="share"><mat-icon>person_add</mat-icon></button>
+              </div> -->
+            </div>
+
+          </div>
+
+        <!-- </mat-card> -->
+
+
+      <!-- </mat-card> -->
+
+      <!-- <div class="options">
+        <button  class="delete" (click)="deleteSubject()" [disabled]="isShared"><mat-icon>  delete</mat-icon>Delete</button>
+        <button mat-button class="share" routerLink="share"><mat-icon>person_add</mat-icon>  Invites</button>
+      </div> -->
+    <app-attachment (sendFormData)="onReceivedFormData($event)" [title]="'Attachment'" [attachments]="subject?.attachments"></app-attachment>
+    
+    </div>
+    <!-- <div class="meeting-attachment">
+      <a href="https://orcasmart-dev.s3.us-east-2.amazonaws.com/images/Oxof3CHEDZE51oEaguLVN0pX9JxCsjUM4pDHDwdC.png"><img src="assets/images/testimg/meeting-bar.png"></a>
+    </div> -->
+
+    
+    <div class="discussion">
+      <b>{{discussionProject?.comments.length}} Comments Under Discussion Board</b>
+    </div>
+    <div class="discussion-body">
+      <mat-card *ngIf ="!discussionProject?.comments[0]?.body">
+          <div class="discussion-info" routerLink="note/{{discussionProject?.id}}">
+              <!-- <div class="note-name" *ngIf ="discussionProject?.comments[0]?.body" [innerHTML]="discussionProject?.comments[0]?.body" routerLink="note/{{discussionProject?.id}}"></div> -->
+              <div class="note-name">Please Click to Write Discussions</div>            
+          </div>
+      </mat-card>
+      <mat-card *ngIf ="discussionProject?.comments[0]?.body" routerLink="note/{{discussionProject?.id}}">
+          <mat-card-header>
+              <div mat-card-avatar class="header-image"> 
+                  <app-profile-picture 
+                      [url]="discussionProject?.comments[0]?.created.by.avatar_url" 
+                      [userFirstName]="discussionProject?.comments[0]?.created.by.first_name"
+                      [userLastName]="discussionProject?.comments[0]?.created.by.last_name"
+                      [userId]="discussionProject?.comments[0]?.created.by.id">
+                  </app-profile-picture>
+              </div>
+              <!-- <mat-card-title>{{comment?.created.by.first_name}} {{comment?.created.by.last_name}} <span *ngIf="comment.replied.to">@ {{comment?.replied.to.first_name}} {{comment?.replied.to.last_name}}</span> <span class="comment-time-updated">{{comment?.updated.at | local | amTimeAgo:true}}</span> </mat-card-title> -->
+              <mat-card-title>{{discussionProject?.comments[0]?.created.by.first_name}} {{discussionProject?.comments[0]?.created.by.last_name}}  <span class="comment-time-updated">{{discussionProject?.comments[0]?.updated.at | local | amTimeAgo:true}}</span> </mat-card-title>
+              <mat-card-subtitle  class="des-container" *ngFor= "let note of subDiscussioin; let i = index">
+                <!-- <div class="col-1" *ngIf="note.img">
+                    <img (click)="openDiscussionModal()" [src]="note.img" style="width:75px;height:75px;margin-right:16px" alt="note.img">
+                    <div *ngIf="discussionModalOpen">
+                        <app-img-modal img [imgSrc]="note.img" (modalClose)="closeModal()"></app-img-modal>
+                    </div>      
+                </div> -->
+                
+                <div class="col-3"> 
+                    <div class="pre-container"></div>
+                    <!-- <p style="text-align: left">{{note.text}}</p> -->
+                    <read-more style="text-align: left" [text]="note.text"></read-more>
+                    
+                </div>
+              
+            </mat-card-subtitle>
+              <!-- <mat-card-subtitle class="comment-body" [innerHTML]="discussionProject?.comments[0]?.body"></mat-card-subtitle> -->
+              <!-- <mat-card-subtitle *ngIf="comment.unread_records[0]" class="comment-body comment-blod" [innerHTML]="comment?.body"></mat-card-subtitle> -->
+
+          </mat-card-header> 
+
+          <!-- <div class="icon">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_horiz</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                  <button mat-menu-item >
+                      <span>Read More</span>
+                  </button>
+              </mat-menu>
+          </div> -->
+        <span *ngIf="discussionProject?.unread_records[0]" class="discussion-unread">{{discussionProject?.unread_records.length}}</span>
+      
+      </mat-card>    
+    </div>
+
+    <div class="notes-number">
+      <b>{{subject?.notes.length}} Projects Under This Meeting</b>
+    </div>
+
+    <div class="note-body">
+      <mat-card class="note-card" *ngFor="let note of subject?.notes; let i = index">
+        <!-- <mat-card-header routerLink="note/{{note.id}}">
+          <div mat-card-avatar class="header-image">
+            <app-profile-picture [url]="note?.created.by.avatar_url" [userFirstName]="note?.created.by.first_name" [userLastName]="note?.created.by.last_name" [userId]="note?.created.by.id">
+            </app-profile-picture>
+          </div>
+          <mat-card-title>{{note?.created.by.first_name}} {{note?.created.by.last_name}} </mat-card-title>
+        </mat-card-header> -->
+        <div class="note-info">
+          <div class="note-name" [innerHTML]="note?.name" routerLink="note/{{note.id}}"></div>
+          <div class="note-status" *ngIf="note?.type=='project'">
+            <div class="status-bar">
+                <progress-bar [possibility]="note?.complete"></progress-bar> 
+                <deadline-bar *ngIf="note?.duration_time > 0 &&!(leftTime ==0)" class="left-days" [leftTime]="note.left_time" [durationTime]="note?.duration_time"></deadline-bar>                    
+            </div>
+          </div>       
+        </div>
+
+        <div class="project-owner-time">
+          <div class="shared-owner">
+            <div class="shared-profile-picture" *ngFor="let owner of note.owner">
+              <app-profile-picture 
+                  [url]="owner.avatar_url" 
+                  [userFirstName]="owner.first_name" 
+                  [userLastName]="owner.last_name" 
+                  [userId]="owner.id">
+              </app-profile-picture>
+            </div>
+          </div>
+          <div class="note-time-updated" *ngIf="note?.owner != null">
+            <!-- <p>{{note?.comments.length}} comments <b>·</b> {{note?.updated.at | local | amTimeAgo}}</p> -->
+            <!-- <p>Assign Date: 2018-06-11</p> -->
+          </div>
+          <div class="shared-user-creater" *ngIf="note.next_meeting_subject != null && createrFlag">
+            <div class="shared-profile-picture" *ngFor="let user of note.next_subject_share">
+              <app-profile-picture 
+                  [url]="user.avatar_url" 
+                  [userFirstName]="user.first_name" 
+                  [userLastName]="user.last_name" 
+                  [userId]="user.id">
+              </app-profile-picture>
+            </div>         
+          </div>
+          <div class="shared-user" *ngIf="note.next_meeting_subject != null && !createrFlag">
+            <div class="shared-profile-picture" *ngFor="let user of note.next_subject_share">
+              <app-profile-picture 
+                  [url]="user.avatar_url" 
+                  [userFirstName]="user.first_name" 
+                  [userLastName]="user.last_name" 
+                  [userId]="user.id">
+              </app-profile-picture>
+            </div>            
+          </div>
+
+          <div class="shared-button" *ngIf="note.next_meeting_subject != null && createrFlag && note?.type=='project'">
+              <button mat-button class="share" (click)="assignNote(note.id)"><mat-icon>person_add</mat-icon></button>
+          </div>
+          <div class="shared-button-owner" *ngIf="note?.owner != null && note.next_meeting_subject == null && createrFlag && note?.type=='project'">
+              <button mat-button class="share" (click)="assignNote(note.id)"><mat-icon>person_add</mat-icon></button>
+          </div>
+          <div class="shared-button-absolute" *ngIf="note?.owner == null && note.next_meeting_subject == null && createrFlag && note?.type=='project'">
+            <button mat-button class="share" (click)="assignNote(note.id)"><mat-icon>person_add</mat-icon></button>
+          </div>
+
+        </div>
+        
+        <span *ngIf="note.unread_records[0]" class="note-unread">{{note.unread_records.length}}</span>
+
+        <!-- <div class="icon">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_horiz</mat-icon>
+                  </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="deleteNote(note.id)" [disabled]="isShared">
+                          <span>Delete</span>
+                      </button>
+            <button mat-menu-item disabled routerLink="share">
+                          <span>Share</span>
+                      </button>
+            <button mat-menu-item>
+                          <span routerLink="note/{{note.id}}">Reply</span>
+                      </button>
+          </mat-menu>
+        </div> -->
+      </mat-card>
+    </div>
+
+    <div class="operation-bar" *ngIf="subject.prev_meeting_note != null && upperNoteFlag">
+        <div class="prev-meeting" (click)="getUpperMeetingNote(subject.prev_meeting_note)">
+            <div class="add-comment-btn">Upper Meeting Note</div>
+        </div>
+    </div>
+    
+  </div>
+</div>
+<app-add-button *ngIf="!isLoading && createrFlag" routerLink="create/{{subject.id}}"></app-add-button>
+<!-- <app-add-button *ngIf="!isLoading && createrFlag && !discussionFlag" (click)="openAddNoteDialog()"></app-add-button> -->
+
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
+
+<!-- <div *ngIf="projectModalOpen">
+    <app-img-modal [imgSrc]="imgSrc" (modalClose)="closeModal()"></app-img-modal>
+</div> -->

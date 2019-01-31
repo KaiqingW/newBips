@@ -1,0 +1,33 @@
+.content {
+    width: 100%;
+    height: 50%;
+    display: block;
+    box-sizing: border-box;
+}
+
+.product-card-title {
+    display: flex;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    a {
+        box-sizing: border-box;
+        height: 40px;
+        width: 50%;
+        line-height: 40px;
+        color: #717171;
+        font-size: 14px;
+        text-align: center;
+    }
+    .product-btn {
+        background-color: #FFFFFF;
+        border-bottom: solid 2px #FFFFFF;
+    }
+}
+
+.prodcutTypeSelected {
+    background-color: #E0EAF1 !important;
+    color: black;
+    border-bottom: solid 2px #000000 !important;
+}

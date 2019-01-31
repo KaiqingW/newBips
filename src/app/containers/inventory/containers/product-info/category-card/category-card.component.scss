@@ -1,0 +1,21 @@
+
+
+
+mat-card{
+    box-sizing: border-box;
+    width:100%;
+    .category {
+        display: flex !important;
+        box-sizing: border-box !important;
+        width: 96% !important;
+        flex-wrap: wrap !important;
+    }
+    .item-title {
+        width: auto !important;
+        padding: 1% 5% !important;
+        text-transform: capitalize;
+    }
+}
+
+
+

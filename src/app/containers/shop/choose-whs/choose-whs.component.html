@@ -1,0 +1,138 @@
+<mat-card *ngIf="shipAddr">
+    <h3>Ship to:</h3>
+    <div>{{shipAddr.first_name}} {{shipAddr.last_name}}
+        <br /> {{shipAddr.street1}}, {{shipAddr.street2}}
+        <br /> {{shipAddr.city}} {{shipAddr.state}} {{shipAddr.zipcode}}
+    </div>
+</mat-card>
+<mat-card *ngFor="let company of companies; let i = index">
+    <!-- <h3 style="padding-left: 10px;">Shop from {{i+1}} of {{companies.length}} Sellers</h3> -->
+    <div>
+        <h3>Sold by {{company.name}}</h3>
+    </div>
+    <div *ngFor="let warehouse of company.shop_order_warehouses; let j = index">
+        <hr style="border: #f1f1f1 solid 1px; margin: 5px 0;">
+
+        <i class="material-icons" style="font-size: 18px;">
+            place
+        </i>
+        <small style="margin-bottom: 15px;">Dispatching from {{warehouse.address.city}}, {{warehouse.address.zipcode}}</small>
+        <div *ngIf="warehouse.pkgNumb" style="font-size: 14px; padding: 5px; margin: 8px 6px 0 6px; color:red; border: solid 0.5px red; border-radius: 2px">Because of the UPS shipping policy, your order will be split into {{warehouse.pkgNumb + 1}} packages.</div>
+
+        <hr style="border: #f1f1f1 solid 1px; margin: 5px 0;">
+
+        <div *ngFor="let item of warehouse.products; let k = index">
+            <div style="display: flex; align-items: flex-start;">
+                <div style="padding-right: 12px; flex-grow: 1;">
+                    <img src="{{item.image}}" class="product_image" />
+                </div>
+                <div style="flex-grow: 1; min-width: 30%; font-size: 14px;">
+                    <span>{{item.name}}</span>
+                    <!-- <div style="margin-top: 5px;">
+                        <span style="margin-right: 20px; text-align: left; color:red; flex-grow: 1;">
+                            <input id="{{'input'+i+j+k}}" style="width: 20%;" placeholder={{item.quantity}} onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                                onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">
+                        </span>
+                        <button style="margin-right: 20px; text-align: right;" (click)="updateCart(company.id, company.total_price, warehouse, item, i, j, k)">Update</button>
+                    </div> -->
+                </div>
+                <div style="text-align: right; color:red; flex-grow: 1;">
+                    <p>$</p>
+                </div>
+                <div style="margin-right: 10px; text-align: right; color:red; flex-grow: 1;">
+                    <p>{{item.unit_price/100}}</p>
+                </div>
+            </div>
+
+            <div>
+                <app-warehouse *ngIf="item.company_id" (refreshCart)="onRereshCart($event)" [companyId]="item?.company_id" [productId]="item?.company_product_id"
+                    [itemQty]="item?.quantity" [shopOrderId]="orderid" [shopCompany]="company" [shopWhsId]="warehouse.id" [shopProductId]="item.id"
+                    [cartPrice]="item.unit_price" [totalPrice]="totalPrice" [compTotalPrice]="company.total_price"></app-warehouse>
+            </div>
+            <hr style="border: #f1f1f1 solid 1px; margin: 5px 0;">
+        </div>
+        <div>
+            <div style="padding: 6px; text-align: left;">
+                <input type="radio" name="{{warehouse.id}}" (click)="calcShipping('01', warehouse, warehouse.address.state, warehouse.address.zipcode, warehouse.address.country)">UPS Next Day Air
+                <br />
+                <input type="radio" name="{{warehouse.id}}" (click)="calcShipping('02', warehouse, warehouse.address.state, warehouse.address.zipcode, warehouse.address.country)">UPS 2nd Day Air
+                <br />
+                <input type="radio" name="{{warehouse.id}}" (click)="calcShipping('03', warehouse, warehouse.address.state, warehouse.address.zipcode, warehouse.address.country)">UPS Ground
+                <br />
+            </div>
+            <div *ngIf="warehouse.shipping_fee" style="text-align: right;">
+                <h4 style="margin: 12px 8px 6px 0;">
+                    Shipping Fee:
+                    <span style="color:red; padding: 12px 0">$ {{warehouse.shipping_fee/100}}</span>
+                </h4>
+            </div>
+            <!-- <button mat-menu-item class="header_yellow" (click)="calcShipping(warehouse.address.state, warehouse.address.zipcode, warehouse.address.country,'12.5')">
+                Calculate Shipping Fee
+            </button> -->
+        </div>
+    </div>
+    <!-- <div style="text-align: right;">
+        <h4 style="margin: 12px 8px 6px 0;">
+            Total:
+            <span style="color:red; padding: 12px 0">$ {{company.total_price/100}}</span>
+        </h4>
+    </div> -->
+
+</mat-card>
+
+<mat-card *ngIf="companies?.length > 0">
+    <div class="medium-4 columns">
+        <h2>
+            <i class="material-icons">shopping_basket</i>
+            <span>Checkout</span>
+        </h2>
+    </div>
+    <div style="padding: 10px;">
+        <span>Promotional Code:</span>
+        <input style="width: 20%; border: 1px solid lightgrey;" [(ngModel)]="code">
+        <button (click)="check(code)">Apply</button>
+        <div *ngIf="invalidCode" style="color:red; padding: 6px 0">Invalid Code</div>
+    </div>
+    <div style="text-align: right;">
+        <h4 style="margin: 5px 0;">
+            Items Total:
+            <span style="color:red; padding: 12px 0">$ {{itemsTotalPrice}}</span>
+        </h4>
+        <div *ngFor="let discount of compTotalPriceArr; let i = index">
+            <h4 *ngIf="discount.discount" style="margin: 5px 0;">
+                Discount ({{discount.name}}):
+                <span style="color:red; padding: 12px 0">- $ {{discount.discount_total_product_price/100}}</span>
+            </h4>
+        </div>
+        <hr *ngIf="showDic" style="border: #f1f1f1 solid 1px; margin: 5px 0;">
+        <h4 *ngIf="showDic" style="margin: 5px 0;">
+            Discount Items Total:
+            <span style="color:red; padding: 12px 0" id="total">$ {{totaldiscountPrice}}</span>
+        </h4>
+        <h4 *ngIf="totalShipFee" style="margin: 5px 0;">
+            Total Shipping Fee:
+            <span style="color:red; padding: 12px 0">$ {{totalShipFee/100}}</span>
+        </h4>
+        <h4 *ngIf="paypaltotalprice" style="margin: 5px 0;">
+            Final Total:
+            <span style="color:red; padding: 12px 0" id="total">$ {{paypaltotalprice}}</span>
+        </h4>
+    </div>
+
+</mat-card>
+
+<!-- <div id="total">
+    {{paypaltotalprice}}
+</div> -->
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<div style="margin-top: 25px" routerLink="/shop/shopping-cart">
+    <button mat-menu-item class="header_green">
+        Back to Cart
+    </button>
+</div>
+
+<div style="color:red; padding: 12px 0">
+    <!-- <div id="paypal-button-container" *ngIf="(cart | async).deliveryOptionId !== undefined"></div> -->
+    <div id="paypal-button-container"></div>
+</div>

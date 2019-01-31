@@ -1,0 +1,74 @@
+<div class="add_note_subject_container">
+    <form [formGroup]="addSubjectForm">
+        <div class="row title" *ngIf="prevProjectId">
+            <b>Previous Project Name</b>             
+        </div>
+        <div class="row" *ngIf="prevProjectId">
+            <input type="text" value="{{prevProjectSubjectName}}" disabled>
+        </div>
+
+        <div class="row title">
+            <b>New Meeting Name</b>             
+        </div>
+        <div class="row">
+            <input type="text" placeholder="New Meeting Name is required !" required formControlName="name" >
+        </div>
+        <!-- <div class="row" *ngIf="prevProjectId">
+            <input type="text" required formControlName="name" [(ngModel)]="prevProjectSubjectName">
+        </div> -->
+        <div class="row title">
+            <b>Description</b>
+        </div>
+    
+        <mat-card formArrayName="description">
+    
+            <div *ngFor="let subNote of addSubjectForm['controls'].description['controls'];let i=index">
+                
+                <input id="uploadImageOnly" class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+                <span style="font-size: 13px; color: red;">Please only upload image here</span>
+                
+                <div class="row" [formGroupName]="i"> 
+                    <div class="col-1" *ngIf="getImg(i)">
+                        <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                        <div *ngIf="modalOpen">
+                                <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                        </div>
+                    </div>
+                    <div class="col-3"> 
+                        <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+        </mat-card>    
+        <div class="meeting-info">
+            <div class="meeting-date">
+                Meeting Date
+                <input type="Date" placeholder="Meeting Date" formControlName="meeting_date" >
+            </div>
+            <div class="meeting-time">
+                Meeting Time EST
+                <select formControlName="meeting_time"  >
+                    <option *ngFor="let time of meetingTime" value="{{time}}">{{time}}</option>
+                </select>
+                <!-- <input type="time" placeholder="Meeting Time" formControlName="meeting_time" min="9:00" max="18:00" required> -->
+            </div>
+            <div class="meeting-frequency">
+                Meeting Frequency
+                <select formControlName="meeting_frequency" >
+                    <option value="onetime">One Time</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="biweekly">Biweekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                </select>
+            </div>
+        </div>       
+    </form>   
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

@@ -1,0 +1,80 @@
+<project-card-brief [createdUser]="briefProject?.created" [content]="briefProject?.name"></project-card-brief>
+
+<div class="add_note_subject_container">
+    <form [formGroup]="addCommentForm">       
+        <div class="row title">
+            <b>Comment</b>
+        </div>
+    
+        <mat-card formArrayName="body">
+    
+            <div *ngFor="let subNote of addCommentForm['controls'].body['controls'];let i=index">
+
+                <input class="file_input"  accept="image/*" type="file" (change)="onFileSelected($event, i)" #fileInput>
+                <span style="font-size: 13px; color: red;">Please only upload image here</span>
+                
+                <div class="row" [formGroupName]="i"> 
+                    <div class="col-1" *ngIf="getImg(i)">
+                        <img [src]="getImg(i)" (click)="openModal()" style="width:93.14px;height:93.14px;margin-right:12px;" alt="">
+                        <div *ngIf="modalOpen">
+                                <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
+                        </div>
+                    </div>
+                    <div class="col-3"> 
+                        <textarea placeholder="Description is required !" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                    </div>
+                </div>
+                <!-- <button class="add_more_btn" *ngIf="addCommentForm['controls'].body['controls'].length" style="background-color:red !important; color:white;" (click)="onDelete(i)">Delete current text</button> -->
+                <!-- <br>
+                <br>
+                <hr>   -->
+            </div>
+        
+            <!-- <button class="add_more_btn" (click)="onAddMore()">Add More</button>     -->
+        </mat-card>    
+    </form>   
+</div>
+
+<div class="send-email-message">
+    <div class="select-info"><b>Please select Email or Text Message</b></div>
+    <mat-card>
+        <mat-checkbox class="example-margin" [(ngModel)]="sendEmailCheck">Email</mat-checkbox> 
+        <mat-checkbox class="example-margin" [(ngModel)]="sendMessageCheck">Text Message</mat-checkbox>
+        
+    </mat-card>
+
+    <textarea [(ngModel)]="messageContent" placeholder="Please input the content of your message here !" style="width:100%;height:50.14px;padding:6px;"></textarea>
+
+    <div class="select-info"><b>Please select people who you want to send email and text message!</b></div>
+
+    <mat-card class="user-list">
+        <h4>Notify</h4>
+        <mat-checkbox class="example-margin" (click)="selectUser(createdUser)"><div class="creater"><b>{{createdUser?.first_name}} {{createdUser?.last_name}}  </b> {{createdUser?.email}}</div></mat-checkbox> <br>          
+        
+        <!-- if add-comment is used for subject discussion, then show the shared admin user list -->        
+        <div *ngIf="commentType == 'subject'">
+            <div *ngFor="let user of sharedUserAdminList">
+                <mat-checkbox class="example-margin" (click)="selectUser(user)"><b>{{user?.first_name}} {{user?.last_name}}  </b> {{user?.email}}</mat-checkbox> <br>           
+            </div>
+        </div>
+
+        <!-- if add-comment is used for subject discussion, then show the shared user list -->
+        <div *ngIf="commentType == 'subject'">
+            <div *ngFor="let user of sharedUserList">
+                <mat-checkbox class="example-margin" (click)="selectUser(user)"><b>{{user?.first_name}} {{user?.last_name}}  </b> {{user?.email}}</mat-checkbox> <br>           
+            </div>
+        </div>
+
+        <div *ngIf="commentType == 'project'">
+            <div *ngFor="let user of subjectSharedAdminAndProjectOwners">
+                <mat-checkbox class="example-margin" (click)="selectUser(user)"><b>{{user?.first_name}} {{user?.last_name}}  </b> {{user?.email}}</mat-checkbox> <br>           
+            </div>
+        </div>
+
+    </mat-card>
+    
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

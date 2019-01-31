@@ -1,0 +1,45 @@
+<mat-card>
+    <h3>Warehouse : {{warehouse.name}}</h3>
+    <hr>
+    <div *ngIf="warehouse.products">
+        <div class="row">
+            There are
+            <b class="price">{{warehouse.products.length}}</b> {{warehouse.products.length == 1 ? 'product' : 'products'}} in this warehouse
+            need to be shipped.
+        </div>
+        <div class="row">
+            <b>Shipping Fee From Warehouse&nbsp;:&nbsp;</b>
+            <span class="price"> {{ warehouse.shipping_fee / 100 | currency}}
+            </span>
+        </div>
+        <div class="row">
+            <b>Shipping Status&nbsp;:&nbsp;</b>
+            <app-select-bar [selects]="selects" [default]="default" [placeholder]="placeholder" (sendSelect)="onGetSelect($event)"></app-select-bar>
+        </div>
+    </div>
+    <!-- <div *ngFor="let product of warehouse.products">
+        <div class="row-2">
+            <div class="row">
+
+                <div class="row">
+                    <b>Product Name&nbsp;:&nbsp;</b>
+                    <span>{{product.name}}</span>
+                </div>
+                <div class="row">
+                    <b>Quantity&nbsp;:&nbsp;</b>
+                    <span>{{product.quantity | number}}</span>
+                </div>
+                <div class="row">
+                    <b>Unit Price&nbsp;:&nbsp;</b>
+                    <span class="price">{{product.unit_price / 100 | currency}}</span>
+                </div>
+                <div class="row">
+                    <b>Unit Weight&nbsp;:&nbsp;</b>
+                    <span>{{product.unit_weight}}</span>
+                </div>
+
+            </div>
+
+        </div>
+    </div> -->
+</mat-card>

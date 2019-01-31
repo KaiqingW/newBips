@@ -1,0 +1,10 @@
+<div class="content" >
+
+    <app-calendar [shippings]="this_month_shipping" (changeDate)="onGetDate($event)" (changeMonth)="onChangeMonth($event)"></app-calendar>
+    <div style="height:5vw;"></div>
+    
+    <div *ngFor="let shipping of selected_day_shippings">
+            <app-product-card  [routerLink]="['orderItem', shipping.order_item_id, 'container', shipping.container_number]" [title1]="'Container#'" [title2]="'EST Date'" [des1]="shipping.container_number" [des2]="shipping.eta_date"></app-product-card>
+    </div>
+
+</div>

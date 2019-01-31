@@ -1,0 +1,191 @@
+<div *ngIf="Potential$">
+    <div class="company-title">
+        <img class="comany-tile-background"  src="/assets/images/testimg/orb3.png">
+        <company-logo [url]="Potential$?.logo_url" [comname]="Potential$?.name"  routerLink="company-edit"></company-logo>
+        <div class="company_name">
+            <b>{{Potential$?.name}}</b>
+        </div>
+        <div class="company-address">
+            <span>{{Potential$?.address}}</span>
+        </div>
+
+        <div class="action-icon">
+            <a disableColor [data]="Potential$?.telephone_number" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" href="tel:{{Potential$?.telephone_number}}"><mat-icon>phone</mat-icon><span class="icon-lable">Call</span></a>
+            <a disableColor [data]="Potential$?.email" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" href="mailto:{{Potential$?.email}}"><mat-icon>email</mat-icon><span class="icon-lable">Email</span></a>
+            <a routerLink="shared"> <mat-icon>thumbs_up_down</mat-icon><span class="icon-lable">Invite</span></a>
+            <a (click)="convertPotential()"> <mat-icon>trending_up</mat-icon><span class="icon-lable convert">Convert</span></a>
+            <a disableColor [data]="Potential$?.website" [styleProperty]="'background-color'" [styleValue]="'#8ebeec'" href="http://{{Potential$?.website}}" target="_blank"> <mat-icon>laptop</mat-icon><span class="icon-lable">www</span></a>
+            <a (click)="showMap()"> <mat-icon>pin_drop</mat-icon><span class="icon-lable">Map</span></a>
+        </div>
+    </div>
+
+    <div class="shared-user" *ngIf="Potential$?.shared_with.length > 0">
+        <div class="contact" *ngFor="let contact of Potential$?.shared_with">
+            <company-logo [url]="contact?.avatar_url" [comname] = "getFullName(contact?.first_name, contact?.last_name)" [userId]="contact?.id" ></company-logo>
+        </div>
+    </div>
+
+    <div *ngIf="isShowMap">
+        <div #crmgmap style="width:100%;height:200px"></div>
+        <!-- <div class="manage-address">
+            <a routerLink="addresses/address">Manage Addresses</a>
+            <mat-card *ngFor = "let address of companyAddresses">
+                <span>{{address?.street1}},&nbsp;{{address?.street2}}</span>
+                <span>{{address?.city}},&nbsp;{{address?.state}},&nbsp;{{address?.zipcode}}&ngsp;{{address?.country}}</span>
+            </mat-card>
+        </div> -->
+    </div>
+
+    <panel-card class="company-description">
+        <panel-card-title>Company Overview  <panel-more-button routerLink="company-info">Detail ></panel-more-button></panel-card-title>
+        <panel-card-body>{{Potential$?.description | short : 150}}</panel-card-body>
+    </panel-card>
+
+    <!-- <panel-card class="company-products">
+        <panel-card-title>Products Intersted</panel-card-title>
+        <panel-card-body>
+            <div class="product-modal-box" *ngFor="let product of Potential$?.products">
+                <product-modal [Url]="product.img_url" [Name]="product.name" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/{{product.id}}"></product-modal> 
+            </div>
+        </panel-card-body>
+    </panel-card> -->
+
+    <!-- Lisa 5/31/2018 -->
+    <panel-card class="company-products">
+        <panel-card-title>Products Intersted</panel-card-title>
+        <panel-card-body>
+
+            <div class="product-card-title">
+                    <a [class.prodcutTypeSelected]="prodcutSelectedType =='Interested'" class="product-btn"  (click)="showProductInterested()" >Interested</a>
+                    <a [class.prodcutTypeSelected]="prodcutSelectedType =='Attachment'" class="product-btn"  (click)="showProductAttachment()">Opportunity</a>
+                    <a [class.prodcutTypeSelected]="prodcutSelectedType =='Purchased'" class="product-btn"   (click)="showPurchaseGoods()">Purchased</a>
+            </div>
+            <div *ngIf="isPurchaseGoods" class="product-body">
+                    <!-- <div  class="inside-add-btn"><a class="pull-right">+</a></div> -->
+                    <div class="product-body-content">
+                        <div class="function-icon-name"  *ngFor="let product of fakeProductLists">
+                            <logo [url]="fakeProductUrl" [companyName]="product?.name" [type]="1" [width]="46" [height]="46" [fontSize]="18" routerLink="/company/{{this.currentLoginCompanyId}}/inventory/product/{{product.id}}"></logo>
+                            <span>{{product.name | short : 6}}</span>
+                        </div>
+                    </div>
+            </div>
+
+            <div *ngIf="isProductInterested" class="product-body">
+                    <div  class="inside-add-btn"><a class="pull-right" (click)="addInterestedProductDialog()">+</a></div>
+                    <div class="product-body-content">
+                        <div class="function-icon-name"  *ngFor="let product of Potential$?.products_interested">
+                            <logo *ngIf="product?.images.length ==0" [url]="fakeProductUrl" [companyName]="product?.name" [type]="1" [width]="46" [height]="46" [fontSize]="18" routerLink="/company/{{this.currentLoginCompanyId}}/inventory/product/{{product.id}}"></logo>
+                            <logo *ngIf="product?.images.length > 0" [url]="product?.images[0].url" [companyName]="product?.name" [type]="1" [width]="46" [height]="46" [fontSize]="18" routerLink="/company/{{this.currentLoginCompanyId}}/inventory/product/{{product.id}}"></logo>
+                            <span>{{product.name | short : 6}}</span>
+                        </div>
+                    </div>
+            </div>
+
+            <div *ngIf="isProductAttachment" class="product-body">
+                    <div  class="inside-add-btn"><a class="pull-right" (click)="addOpportunityDialog()">+</a></div>
+                    <div class="product-body-content">
+                        <div  class="attachment" *ngFor="let attachment of Potential$?.product_attachments">
+                                <div class="each-item" (click)="onClickProductAttachment(attachment)">
+                                    <img class="note-img"  [src]="getIconImg(attachment)"  alt="">
+                                </div>
+                                <div  class="each-item">
+                                    <span>{{attachment.name | short : 6}}</span>
+                                </div>   
+                        </div> 
+
+                    </div>
+                    <div *ngIf="attachmentProductModalOpen">
+                            <app-img-modal *ngIf="show == 'image'" [imgSrc]="attachmentProductUrl" (modalClose)="closeModal()">
+                            <div class="attachment-product-content">
+                                <p>Description: {{attachmentProductContent}}</p>
+                                <div>{{attachemntProductCreateAt}}</div>
+                            </div>
+                            </app-img-modal>
+                    </div>
+            </div>
+        </panel-card-body>
+    </panel-card>
+    <!-- Lisa 5/31/2018 -->
+
+    <panel-card class="company-activities">
+        <panel-card-title>Activities</panel-card-title>
+        <panel-card-body>
+            <div class="item">
+                <img src="assets/images/testimg/notes-icon.png" routerLink="notes/notesSubject">
+                <span *ngIf="Potential$?.notes_count" class="count">{{Potential$?.notes_count}}</span>
+            </div>
+
+            <div class="item">
+                <img src="assets/images/testimg/quotes.png" routerLink="salesentity/quote/draft">
+                <span *ngIf="Potential$?.quotes_count" class="count">{{Potential$?.quotes_count}}</span>
+            </div>
+
+            <!-- <div class="item">
+                <img src="assets/images/testimg/opportunity-icon.png" routerLink="opportunities">
+                <span class="no-content"></span>
+            </div>
+             -->
+            <div class="item">
+                <customer-assign [currentLoginCompanyId]="currentLoginCompanyId" [customerId]="potentialId" [value]="Potential$"></customer-assign>
+            </div>
+
+        </panel-card-body>
+    </panel-card>
+
+    <panel-card class="company-activities">
+        <panel-card-title>Notes</panel-card-title>
+        <panel-card-body>
+            <note-card [value]="Potential$?.last_note" routerLink="notes/notesSubject"></note-card>
+        </panel-card-body>
+    </panel-card>
+
+    <panel-card class="company-contacts">
+        <panel-card-title>Contacts<panel-more-button routerLink="add-contact"><a class="add-btn">+</a></panel-more-button></panel-card-title>
+        <panel-card-body>
+            <div class="company-contact-box" *ngFor="let contact of companyContacts">
+                <company-logo [url]="contact.avatar_url" [comname]="contact?.first_name" routerLink="/company/{{currentLoginCompanyId}}/crm/customer/{{potentialId}}/contacts/{{contact?.id}}"></company-logo>
+                <span class="contact-name">{{contact.first_name}}</span>
+            </div>
+        </panel-card-body>
+    </panel-card>
+
+    <panel-card class="company-contacts">
+        <panel-card-title>Address <panel-more-button routerLink="addresses/address" ><i class="material-icons">edit</i></panel-more-button></panel-card-title>
+        <panel-card-body>
+            <div class="company-contacts-container">
+                <div class="manage-address">
+                    <mat-card *ngFor = "let address of companyAddresses">
+                        <span>{{address?.street1}},&nbsp;{{address?.street2}}</span>
+                        <span>{{address?.city}},&nbsp;{{address?.state}},&nbsp;{{address?.zipcode}}&ngsp;{{address?.country}}</span>
+                    </mat-card>
+                </div>
+            </div>
+        </panel-card-body>
+    </panel-card>
+
+    <!-- <panel-card class="company-certification">
+            <panel-card-title>Documents <panel-more-button (click)="addAttachementDialog()">Add</panel-more-button></panel-card-title>
+            <panel-card-body>
+                    <div class="attachment" *ngFor="let attachment of Potential$?.attachments;let i = index;">
+                            <div class="each-item" (click)="onClickAttachment(attachment, i)">
+                                <img class="note-img"  [src]="getIconImg(attachment)" style="width:34px;height:34px" alt="">
+                            </div>
+    
+                            <div *ngIf="modalOpen && i == selectedAttachmentIndex">
+                                <app-img-modal *ngIf="show == 'image'" img [imgSrc]="getIconImg(attachment)" (modalClose)="closeModal()"></app-img-modal>
+                            </div>
+                            <div  class="each-item">
+                                <b>{{attachment.name | short : 8}}</b>
+                            </div>    
+                                    
+                        </div>  
+            </panel-card-body>
+    </panel-card> -->
+    <app-attachment [title]="'Documents'" (sendFormData)="onReceivedFormData($event)" [attachments]="Potential$?.attachments"></app-attachment>
+    <!-- leaving a whitespace -->
+    <div style="height:85px;"></div>
+</div>
+
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+

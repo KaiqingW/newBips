@@ -1,0 +1,25 @@
+<div *ngIf="projectDiscussion">
+    <div class="project-card-margin">
+        <opportunity-subject-content [name]="projectDiscussion?.name" [description]="projectDiscussion?.description" [createdTime]="projectDiscussion?.created?.at"></opportunity-subject-content>
+    </div>
+
+    <div class="comment">
+        <b>Comments</b>
+    </div>
+
+    <div class="status-card-margin" *ngFor="let comment of projectDiscussion?.project_discussion_comments">
+        <status-card [createdUser]="comment?.created" [content]="comment?.body" [showReplyStatus]="false" [showReplyComment]="true" [statusId]="comment.id" [unreadCount]="comment?.unread_count">
+            <div class="reply-card-margin" *ngFor="let reply of comment.replies">
+                <status-card [createdUser]="reply?.created" [content]="reply?.body" [showReplyStatus]="false" [showReplyComment]="false" [statusId]="" [unreadCount]="reply?.unread_count"></status-card>
+            </div>
+        </status-card>
+    
+    </div>
+</div>
+
+<div class="blank-dev"></div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+
+<app-add-button *ngIf="!isLoading" routerLink="add-comment"></app-add-button>
+

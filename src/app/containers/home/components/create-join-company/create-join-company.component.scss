@@ -1,0 +1,147 @@
+:host{
+    width:100%;
+
+}
+.search-box{
+    margin:2% 10px;
+    width: 100%;
+    display:inline-block;
+}
+input{ 
+    vertical-align: middle;
+    display:inline-block;
+    height: 30px;
+    width: 72%;
+}
+
+.search-button{
+    vertical-align: middle;
+    display:inline-block;
+    width:18%;
+    height: 30px;
+    background-color:#143258;
+    line-height: 30px;
+    text-align: center;
+    color:white;
+    padding:2px 4px;
+}
+
+.create-new-company{
+    position: position;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: url('/assets/images/satellite.png') no-repeat;
+    background-size: contain;
+    background-position: center;
+    
+    span{
+        margin-top:4px;
+        width:60%;
+        height: 40px;
+        background-color:#143258;
+        color:#FFFFFF;
+        border-radius: 4px;
+        text-align: center;
+        line-height: 40px;
+    }
+}
+
+.below-company{
+    margin: 10px;
+}
+
+.create-new-company-show{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;;
+    width: 100%;
+    background: url('/assets/images/satellite.png') no-repeat;
+    background-size: contain;
+    background-position: center;
+    
+    span{
+        margin-top:4px;
+        width:60%;
+        height: 40px;
+        background-color:#143258;
+        color:#FFFFFF;
+        border-radius: 4px;
+        text-align: center;
+        line-height: 40px;
+    }
+}
+
+mat-card {
+    width:100%;
+    padding: 10px 6px;
+}
+
+.company-content{
+    width: 100%;
+    // line-height: 44px;
+    .company-logo{
+        width:12%;
+        height: 44px;
+        display:inline-block;
+        vertical-align: middle;
+        company-logo{
+            width:40px;
+            height:40px;
+        }
+    }
+
+    .company-name{
+        vertical-align: middle;
+        text-align: left;
+        margin-left:4px;
+        // line-height: 44px;
+        height: 44px;
+        display:inline-block;
+        width:52%;
+        overflow: hidden;
+        .company-address{
+            color:gray;
+            font-size:12px;
+            vertical-align: sub;
+            overflow: hidden;
+        }
+    }
+    .create-company-name{
+        vertical-align: middle;
+        text-align: left;
+        margin-left:4px;
+        display:inline-block;
+        width:63%;
+       
+    }
+
+    .join-btn{
+        text-align: center;
+        width:20%;
+        background-color: #143258;
+        display:inline-block;
+        color:#FFFFFF;
+        border-radius: 4px;
+        height:33px;
+        line-height: 33px;
+        vertical-align: middle;
+    }
+    .create-btn{
+        text-align: center;
+        width:30%;
+        display:inline-block;
+        color:#FFFFFF;
+        border-radius: 4px;
+        height:33px;
+        line-height: 33px;
+        vertical-align: middle;
+    }
+
+}

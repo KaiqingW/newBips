@@ -1,0 +1,21 @@
+<img class="comany-tile-background"  src="/assets/images/testimg/orb3.png">
+<div class="user-information">
+    <div class="user-information-image">
+        <app-profile-picture 
+            [url]="auth.currentUser?.avatar_url" 
+            [userFirstName]="auth.currentUser?.first_name"
+            [userLastName]="auth.currentUser?.last_name"
+            [userId]="auth.currentUser?.id">
+        </app-profile-picture>
+    </div>
+
+    <div class="name-and-email">
+        <span class="name">{{ auth.currentUser.first_name + ' ' + auth.currentUser.last_name}}</span>
+        <span class="email">{{ auth.currentUser.email }}</span>
+    </div>
+</div>
+<!-- <div class="profile-link" routerLink="/people/profile/{{auth.currentUser?.id}}">
+    <a>Profile Page</a>
+    <mat-icon>keyboard_arrow_right</mat-icon>
+</div> -->
+

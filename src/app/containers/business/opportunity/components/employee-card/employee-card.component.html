@@ -1,0 +1,20 @@
+
+<div class="card-body">
+    <div class="user-avatar">
+        <company-logo [url]="url" [comname] = "userName(first_name, last_name)"></company-logo>
+    </div>
+
+    <div class="user-info">
+        <div class="first-line">
+            <span>{{first_name}} {{last_name}}</span>
+        </div>
+        <div class="sec-line">
+            {{email}}
+        </div>
+    </div>
+
+    <div class="total-number">
+        {{totalNumber}}
+    </div>
+
+</div>

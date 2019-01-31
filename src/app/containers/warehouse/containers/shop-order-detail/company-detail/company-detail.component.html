@@ -1,0 +1,47 @@
+<div class="product-card-title">
+    <div *ngFor="let warehouse of company.shop_order_warehouses" class="btn" [class.warehouseSelected]="selectedWarehouse == warehouse"
+        (click)="changeWarehouse(warehouse)">{{warehouse.name}}</div>
+</div>
+
+<app-shop-order-update-status (sentSelect)="onGetSelect($event)" [warehouse]="selectedWarehouse"></app-shop-order-update-status>
+
+<mat-card *ngFor="let warehouse of company.shop_order_warehouses">
+    <h3>Product Information</h3>
+    <hr>
+    <div *ngFor="let product of warehouse.products">
+        <div class="row-2">
+            <div class="row">
+                <img *ngIf="product.image" [src]="product.image" [alt]="product.name">
+            </div>
+            <div class="row">
+                <div class="row">
+                    <b>Product Name&nbsp;:&nbsp;</b>
+                    <span>{{product.name}}</span>
+                </div>
+                <div class="row">
+                    <b>Unit Price&nbsp;:&nbsp;</b>
+                    <span class="price">{{product.unit_price / 100 | currency}}</span>
+                </div>
+                <div class="row">
+                    <b>Unit Weight&nbsp;:&nbsp;</b>
+                    <span>{{product.unit_weight}}</span>
+                </div>
+                <div class="row">
+                    <b>Total Order Quantity&nbsp;:&nbsp;</b>
+                    <span>{{product.quantity | number}}</span>
+                </div>
+                <div class="row">
+                    <b>Need To Sent&nbsp;:&nbsp;</b>
+                    <span class="price" *ngIf="all_sended_products">{{getSendQty(product) | number}}</span>
+                </div>
+                <div class="row"  *ngIf="all_sended_products && getSendQty(product) < product.quantity">
+                    <b>Ready to Sent&nbsp;:&nbsp;</b>
+                    <input type="number" (input)="sendProductQty($event.target.value, product)">
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>
+<!-- <div>
+    <button routerLink="processing">Send Products</button>
+</div> -->

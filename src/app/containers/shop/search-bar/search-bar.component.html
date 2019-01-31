@@ -1,0 +1,186 @@
+<mat-card class="search-area" style="padding: 0px;">
+
+    <button class="filter-btn border-radius-left" (click)="showFilter()" *ngIf="!showFilterModal">{{showCategory}}
+        <i class="material-icons" style="padding-top: 6px;">
+            arrow_drop_down
+        </i>
+    </button>
+    <a class="filter-btn border-radius-left" (click)="showFilter()" *ngIf="showFilterModal">
+        <!-- <mat-icon matSuffix>loop</mat-icon> -->
+        <i class="material-icons" style="padding-top: 6px;">
+            arrow_drop_up
+        </i>
+    </a>
+    <div class="search-field" style="width: 920px;padding: 0;">
+        <!-- <input class="input" matInput placeholder="Search by Product Name" aria-label="product name" [formControl]="searchCtrl"> -->
+        <input style="padding: 10px; border: none; width: 100%;" [(ngModel)]="productName" type="text" placeholder="Search by Product Name">
+    </div>
+    <button class="filter-btn border-radius-right" (click)="searchByProdName()">
+        <i class="material-icons" style="padding: 5px;">search</i>
+        <!-- <span>Search</span> -->
+    </button>
+</mat-card>
+
+<mat-card *ngIf="showFilterModal" class="filter-div">
+    <div class="filter-container">
+        <p>Filter By</p>
+        <form class="categoryForm" [formGroup]="categoryForm">
+            <mat-form-field class="field2">
+                <mat-select formControlName="first_category" placeholder="First Category" required>
+                    <mat-option *ngFor="let cate of categories" [value]="cate">
+                        {{cate.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="categoryForm.value.first_category && categoryForm.value.first_category.children.length > 0" class="field2">
+                <mat-select formControlName="second_category" placeholder="Second Category (Optional)">
+                    <mat-option *ngFor="let cate of categoryForm.value.first_category.children" [value]="cate">
+                        {{cate.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="categoryForm.value.second_category && categoryForm.value.second_category?.children.length > 0" class="field2">
+                <mat-select formControlName="third_category" placeholder="Third Category (Optional)">
+                    <mat-option *ngFor="let cate of categoryForm.value.second_category.children" [value]="cate">
+                        {{cate.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+        <a class="filter-btn" (click)="confirmCate()">
+            <button>
+                Confirm
+            </button>
+        </a>
+        <!-- <span style="width: 50%;">    </span> -->
+        <a class="filter-btn" style="float:right" (click)="clear()">
+            <button>
+                Shop All Departments
+            </button>
+        </a>
+    </div>
+</mat-card>
+
+<mat-card class="carousel-card">
+    <div class="carousel">
+        <div *ngFor="let category of carousel_categories" (click)="setFirstCategory(category)">
+            <div class="carousel-img-box">
+                <img [src]="category?.img" style="width:15vw;height: 15vw; border-radius: 12%;">
+            </div>
+            <div style="text-align: center;" *ngIf="category.title">
+                <b>{{category.title}}</b>
+            </div>
+        </div>
+        <!-- <div (click)="setFirstCategory('Toys, Kids and Baby')">
+            <div>
+                <img src="https://orcasmart.s3.us-east-2.amazonaws.com/images/272.Toys%20Depot/2019-01-08%2020%3A01%3A57/blob" style="width:20vw;height: 20vw; border-radius: 12%;">
+            </div>
+            <div style="text-align: center;">Toys</div>
+        </div>
+        <div (click)="setFirstCategory('Clothing, Shoes, Jewelry and Watches')">
+            <div >
+                <img src="https://orcasmart.s3.us-east-2.amazonaws.com/images/262.snow%20club%20china/2019-01-04%2013%3A08%3A09/blob" style="width:20vw;height: 20vw; border-radius: 12%;">
+            </div>
+            <div style="text-align: center;">Clothing</div>
+        </div>
+        <div (click)="setFirstCategory('Electronics')">
+            <div style="width: 23vw; height: 20vw; margin: 10px 0;">
+                <img src="assets/images/icons/e-icon.jpg" style="width:20vw;height: 20vw; border-radius: 12%;">
+            </div>
+            <div style="text-align: center;">Electronics</div>
+        </div>
+        <div (click)="setFirstCategory('Automotive and Industrial')">
+            <div style="width: 23vw; height: 20vw; margin: 10px 0;">
+                <img src="https://orcasmart.s3.us-east-2.amazonaws.com/images/274.Moredou_shop/2019-01-09%2003%3A46%3A16/blob"
+                    style="width:20vw;height: 20vw; border-radius: 12%;">
+            </div>
+            <div style="text-align: center;">Automotive</div>
+        </div>
+        <div (click)="setFirstCategory('Beauty, Health and Personal Care')">
+            <div style="width: 23vw; height: 20vw; margin: 10px 0;">
+                <img src="https://orcasmart.s3.us-east-2.amazonaws.com/images/274.Moredou_shop/2019-01-09%2003%3A53%3A46/blob"
+                    style="width:20vw;height: 20vw; border-radius: 12%;">
+            </div>
+            <div style="text-align: center;">Health</div>
+        </div>
+        <div (click)="setFirstCategory('Clothing, Shoes, Jewelry and Watches')">
+            <div style="width: 23vw; height: 20vw; margin: 10px 0;">
+                <img src="https://orcasmart.s3.us-east-2.amazonaws.com/images/262.snow%20club%20china/2018-12-30%2014%3A52%3A46/blob" style="width:20vw;height: 20vw; border-radius: 12%;">
+            </div>
+            <div style="text-align: center;">Beauty</div>
+        </div> -->
+    </div>
+</mat-card>
+
+<!-- <mat-card style="padding: 10px 0px; font-size: 12px; margin-top: 4px;">
+    <div style="display: flex; justify-content: space-evenly;">
+        <div>
+            <div style="background-color: salmon; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">B</div>
+            </div>
+            <div style="text-align: center;">Baby</div>
+        </div>
+        <div>
+            <div style="background-color: #fac872; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">B</div>
+            </div>
+            <div style="text-align: center;">Beauty</div>
+        </div>
+        <div>
+            <div style="background-color: #79c359; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">B</div>
+            </div>
+            <div style="text-align: center;">Books</div>
+        </div>
+        <div>
+            <div style="background-color: #66c2d0; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">B</div>
+            </div>
+            <div style="text-align: center;">Bottles</div>
+        </div>
+        <div>
+            <div style="background-color: #5481b7; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">C</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="position: absolute; right: 28px;">Clothing</div>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: space-evenly;">
+        <div>
+            <div style="background-color: #ce7da7; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">E</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="position: absolute; left: 21px;">Electronics</div>
+            </div>
+        </div>
+        <div>
+            <div style="background-color: #ec6f29; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">F</div>
+            </div>
+            <div style="text-align: center;">Food</div>
+        </div>
+        <div>
+            <div style="background-color: #a59ece; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">H</div>
+            </div>
+            <div style="text-align: center;">Health</div>
+        </div>
+        <div>
+            <div style="background-color: #b7e2a5; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">H</div>
+            </div>
+            <div style="text-align: center;">Home</div>
+        </div>
+        <div>
+            <div style="background-color: #ca6060; width: 10vw; height: 10vw; border-radius: 50%; margin: 10px 0;">
+                <div style="color: white; text-align: center; font-size: 20px; padding: 9px; margin: 0 auto;">S</div>
+            </div>
+            <div style="text-align: center;">Sports</div>
+        </div>
+    </div>
+</mat-card> -->

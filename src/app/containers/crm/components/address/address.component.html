@@ -1,0 +1,19 @@
+<mat-card *ngFor="let address of companyAddresses" >
+    <div class="address-content"  >
+        <div class="address-stype" *ngIf="address?.type =='billing'">Billing Address</div>
+        <div class="address-stype" *ngIf="address?.type =='shipping'">Shipping Address</div>
+        <div class="address-stype" *ngIf="address?.type =='office'">Header Quarter</div>
+        <div>{{address?.street1}}, &nbsp;{{address?.street2}}</div>
+        <div>{{address?.city}}, &nbsp;{{address?.state}}, &nbsp;{{address?.zipcode}}</div>
+        
+    </div>
+    <div class="edit-icon" routerLink="../edit-address/{{address?.id}}">
+            <i class="material-icons" >edit</i>
+    </div>
+</mat-card>
+<div style="height:80px;">
+
+</div>
+
+<app-add-button *ngIf="!isLoading" routerLink="../add-address"></app-add-button>
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

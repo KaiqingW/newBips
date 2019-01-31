@@ -1,0 +1,47 @@
+
+<div *ngIf="!errorRoute&&!isLoading" class="container">
+    <div class="content">
+        Verify that othe vendor name, quote number, and the total price.
+    </div>
+        
+    <div class="pay-attention">
+        <label><b>Vendor Name : </b></label> <span> GloapkUSA crop</span><br>
+        <label><b>Customer Name : </b></label> <span>{{salesentity?.customer_name}}</span><br>
+        <label><b>Quote Number : </b></label> <span>{{salesentity?.sales_entity_number}}</span><br>
+        <label><b>Total Price : </b></label> <span>${{fixNumberQty(salesentity?.total, 2)}}</span><br>
+        <label><b>Status : </b></label> <span>{{salesentity?.customer_approve}}</span>
+    </div>
+
+
+    <div *ngIf="salesentity?.customer_approve == 'Approved'" style="color:red">
+        You haved do a decision
+    </div>
+
+    <div class="action-btn" *ngIf="salesentity?.customer_approve == 'Waiting Approve'">
+        <button  mat-raised-button color="primary" (click)="agreeWithQuote(comments.value)">Agree</button>
+        <button  mat-raised-button color="warn" (click)="disagreeWithQuote(comments.value)">Disagree</button>
+
+        <div class="customer-comments">
+            <label>Comments: </label>
+            <textarea #comments placeholder="You can write comments for vender."></textarea>
+        </div>
+    </div>
+
+
+
+    <div class="customer-comments"   *ngIf="salesentity?.customer_approve == 'Approved'||salesentity?.customer_approve == 'Decline'">
+        <label>Comments: </label>
+        <textarea placeholder="You can write comments for vender." [value]="salesentity?.customer_comments" disabled></textarea>
+    </div>
+    
+</div>
+
+<div class="not-found" *ngIf="errorRoute && !isLoading">
+    <img style="width:100%" src="assets/images/testimg/404-page.jpg">
+    <button mat-raised-button color="primary" routerLink="/home">Login to Check</button>
+</div>
+
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

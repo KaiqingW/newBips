@@ -1,0 +1,39 @@
+:host{
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20%;
+    overflow: hidden;
+    border: 1px solid #D3D3D3;
+    background-color: #F5F5F5;
+}
+
+img{
+    max-width: 80%;
+    max-height: 80%;
+    vertical-align: text-bottom;
+}
+
+.shorthand{
+    font-weight: 500;
+    color: #BBBBBB;
+}
+
+.background{
+    margin-top: -20px;
+    display: block;
+    background-color: #000;
+    height: 20px;
+    opacity: 0.58;
+    color: #FFFFFF;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    span{
+        display:inline-block;
+        height:20px;
+        line-height: 20px;
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,49 @@
+<div class="company-info">  
+    <div class="company-title-background">
+        <img src="assets/images/company-bg.png">
+    </div>
+
+    <div class="company-title">
+        <div class="company-logo">
+            <img *ngIf="!vendorInfo?.logo_url" src="assets/images/testimg/company-logo.jpg">
+            <img *ngIf="vendorInfo?.logo_url" src="{{vendorInfo?.logo_url}}">
+        </div>
+
+        <div class="company_name">
+            <b>{{vendorInfo?.name}}</b>
+        </div>
+
+        <div class="action-icon">
+                <a ><mat-icon>phone</mat-icon><span class="icon-lable">Call</span></a>
+                <a href="mailto:{{vendorInfo?.email}}"><mat-icon>email</mat-icon><span class="icon-lable">Email</span></a>
+                <a  href="http://{{vendorInfo?.website}}" target="_blank"> <mat-icon>laptop</mat-icon><span class="icon-lable">www</span></a>
+                <a > <mat-icon>pin_drop</mat-icon><span class="icon-lable">Map</span></a>
+            </div>
+    </div>
+
+    <div class="products-container">
+        <panel-card class="company-products-real">
+            <panel-card-title>Products</panel-card-title>
+                <div class="product-modal-box" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/{{product?.id}}"  *ngFor="let product of productList">
+                    <div  class="product-modal" >
+                        <img *ngIf="!product?.images[0]" src="assets/images/bottle.png">
+                        <img *ngIf="product?.images[0]" src="{{product?.images[0]?.url}}">
+        
+                        <div class="product-name">
+                            <span>{{product?.name}}</span><br>
+                        </div>
+                    </div>
+                </div>
+            <panel-card-body>
+                
+            </panel-card-body>
+        </panel-card>
+    </div>
+        
+
+</div>
+
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

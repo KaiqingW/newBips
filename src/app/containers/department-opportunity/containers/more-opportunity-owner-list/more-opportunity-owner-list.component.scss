@@ -1,0 +1,62 @@
+$width: 90%;
+
+.whole-project {
+    // height: 95%;
+    overflow: hidden;
+    overflow-y: scroll;
+    .project-card-margin{
+        margin-bottom: 5px;
+    }   
+}
+
+.users {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+
+    .current-users-title{
+        margin-top:20px;
+    }
+
+    mat-card{
+        padding:10px ;
+        // height:45px;
+        margin-top:5px;
+    }
+
+    .user-content{
+        display:block;
+        width:$width;
+        .company-logo{
+            width:12%;
+            height: 44px;
+            display:inline-block;
+            vertical-align: middle;
+            avatar-logo{
+                width:40px;
+                height:40px;
+
+            }
+        }
+
+        .user-name{
+            vertical-align: middle;
+            text-align: left;
+            margin-left:4px;
+            // line-height: 44px;
+            height: 44px;
+            display:inline-block;
+            width:58%;
+            overflow: hidden;
+            .user-email{
+                color:gray;
+                font-size:12px;
+                vertical-align: sub;
+                overflow: hidden;
+            }
+        }
+        
+    }
+}

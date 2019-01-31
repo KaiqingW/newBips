@@ -1,0 +1,30 @@
+
+<!-- tranfer data from search -->
+<mat-card *ngIf="TcompanyName">
+    <div class="create-company-page">
+        <form [formGroup]="companyForm">
+            <mat-form-field  class="example-full-width">
+                    <input  type="text" matInput  placeholder="Company Name" value="{{TcompanyName}}" #companyName >
+            </mat-form-field>
+        </form>
+        <button mat-raised-button color="primary" (click)="getCompanyName(companyName.value)">Next</button>
+    </div>
+</mat-card>
+<!-- input data  -->
+<mat-card *ngIf="!TcompanyName">
+    <div class="create-company-page">
+        <form [formGroup]="companyForm">
+            <mat-form-field  class="example-full-width">
+                    <input  type="text" matInput  placeholder="Company Name" #companyName >
+            </mat-form-field>
+        </form>
+        <button mat-raised-button color="primary" (click)="getCompanyName(companyName.value)">Next</button>
+    </div>
+</mat-card>
+
+<div class="create-company-terms">
+        <p>By clicking above button you agree to our <a>Terms of Use</a> and <a>Privacy Statement</a>.</p>
+        <!-- <span routerLink="/create-company">Create New Company</span> -->
+</div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

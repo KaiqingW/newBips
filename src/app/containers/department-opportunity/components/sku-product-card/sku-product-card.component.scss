@@ -1,0 +1,40 @@
+.project-content{
+    // height: 50px;       
+    font-size:13px;
+    margin-top: -1%;
+    .require-date {
+        float: left;
+    }
+    .report-frequency {
+        float: right;
+    }
+    
+    .content{
+        display:inline-block;
+        width:100%;
+        // height: 30px;
+        // overflow: hidden;
+        
+        .product-image {
+            display: block;
+            width: 11%;
+            float: left;
+            
+        }
+        .name{
+            // padding-top: 4%;
+            display: block;
+            // width: 70%;
+            // width: 92%;     
+            width: 72%;                
+            
+            text-align: left;
+            float: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; 
+            margin-top: 1.5%;
+        }
+        
+    }
+}   

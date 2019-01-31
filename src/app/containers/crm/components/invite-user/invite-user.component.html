@@ -1,0 +1,82 @@
+<div *ngIf="!isLoading">
+  <mat-card>
+      <mat-form-field class="chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let email of emailList" [selectable]="selectable"
+                  [removable]="removable" (remove)="remove(email)">
+            {{email}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Input to search employee"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)"
+                [matAutocomplete]="auto" 
+                [formControl]="emailCtrl" #personInput/>
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" 
+                      (optionSelected)="selectOption($event)">
+          <mat-option *ngFor="let email of filteredEmails" [value]="email.email">
+            <span *ngIf="email?.avatar_url"><img  [src]="email?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> &nbsp;{{ email?.email }}</span>
+            <span *ngIf="!email?.avatar_url"><img  src="assets/images/testimg/company-icon.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{email?.email}}</span>
+          </mat-option>
+        </mat-autocomplete>   
+      </mat-form-field>
+      <div class="share-user-container">
+          <button mat-raised-button color="primary" (click)="onSave(personInput)" [disabled]="!(emailList.length>0) ">Invite</button>
+      </div>
+
+      <span style="color:red; margin-top:-10px; margin-bottom:10px;" *ngIf="errorInput">Please input email!</span>
+      <span style="color:red; margin-top:-10px; margin-bottom:10px;" *ngIf="userShared">Email has invited!</span>
+  </mat-card>
+
+  <mat-card *ngIf="sharedUserList.length>0">
+    <div class="shared-user-list" >
+      <!-- <span>Shared with:</span>-->
+      <div class="shared-user-container">
+          <div class="shared-user" *ngFor="let user of sharedUserList">
+            <app-profile-picture 
+              [url]="user?.avatar_url" 
+              [userFirstName]="user?.first_name"
+              [userLastName]="user?.last_name"
+              [userId]="user?.id">
+            </app-profile-picture>
+            <!-- <span class="shared-user-email">{{user?.email}}</span> -->
+            <mat-icon class="delete-shared-user" (click)="destroySharedUser(user)">clear</mat-icon>
+          </div>     
+      </div>
+    </div>
+  </mat-card>
+
+
+  <div class="company-user-list">
+    <p>Company Employee</p>    
+    <div class="employee-container">
+      <mat-card selected="true" color="accent" *ngFor="let user of employeeList">
+        <div class="employee">
+          <div class="employee-avatar">
+              <app-profile-picture 
+              [url]="user?.avatar_url" 
+              [userFirstName]="user?.first_name"
+              [userLastName]="user?.last_name"
+              [userId]="user?.id">
+            </app-profile-picture>
+          </div>
+          
+          <div class="employee-info">
+              <span class="employee-name">{{user?.first_name}} {{user?.last_name}}</span>
+              <span class="employee-email">{{user?.email}}</span>
+          </div>
+
+          <div class="select-btn">
+              <span class="select-employee" (click)="selectedToSharedList(user)">Select</span>
+          </div>
+        </div>     
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

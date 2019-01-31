@@ -1,0 +1,9 @@
+<!-- <guest-page *ngIf="!(auth$ | async).orcaAuthenticated"></guest-page>
+<user-page *ngIf="(auth$ | async).orcaAuthenticated" [auth]="auth$ | async"></user-page>
+<app-sidebar *ngIf="(auth$ | async).orcaAuthenticated" [auth]="auth$ | async"></app-sidebar> -->
+<div>
+    <app-sidebar></app-sidebar>
+</div>
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

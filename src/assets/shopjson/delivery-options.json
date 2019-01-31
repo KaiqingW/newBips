@@ -1,0 +1,20 @@
+[
+  {
+    "id": "c7f6535c-c56b-4e57-94dc-0e95b936b00b",
+    "name": "UPS Next Day Air",
+    "description": "The quickest of the normal delivery service",
+    "price": 19.99
+  },
+  {
+    "id": "caa93bc4-d69a-4788-aff6-4a6fb538ace8",
+    "name": "UPS 2nd Day Air",
+    "description": "Standard shipping can take up to 4 days",
+    "price": 9.99
+  },
+  {
+    "id": "c272fc43-28e4-4ffd-ae61-0cfdec565f6f",
+    "name": "UPS Ground",
+    "description": "Pick it up tomorrow from you local post office",
+    "price": 5.99
+  }
+]

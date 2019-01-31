@@ -1,0 +1,280 @@
+<div *ngIf="!isLoading">
+    <div class="container"> 
+        <div class="entity-header">
+            <div class="pull-right" style="font-size:13px;">
+                <span > From: {{salesEntity}}</span><br>
+                <span>{{salesEntity}} No.: {{currentQuote?.sales_entity_number}} </span><br>
+                <span>{{salesEntity}} Date: {{currentQuote?.sales_entity_number}}</span><br>
+                <span>Rep: {{currentQuote?.created?.by?.first_name}} {{currentQuote?.created?.by?.last_name}}</span><br>
+                <span>Email: {{currentQuote?.created?.by?.email}}</span><br>
+                <span>Customer No.: {{currentCustomer?.id}}</span>
+                <!-- <div>
+                    <span class="data">Date</span><span class="invoice-number">{{salesEntity}}#</span>
+                    <span class="data" #date>10/12/2015</span><span class="invoice-number">{{currentQuote?.sales_entity_number}}</span>
+                </div> -->
+            </div>
+            <div class="pull-left">
+                <div *ngIf="currentCompany" #company>
+                   <!-- <span class="company-name">{{currentCompany?.name}}</span> <br> -->
+                   <img src="assets/images/testimg/glopak_logo.png" style="width:100%; max-width:300px;">
+                   <span class="company-address"> {{currentCompany?.address?.street1}}, </span><br>
+                   <span class="company-address">{{currentCompany?.address?.city}}, {{currentCompany.address?.state}}, {{currentCompany.address?.zipcode}}</span>
+                   <span class="company-address">{{currentCompany?.phone}}</span>
+                   <span class="company-address">{{currentCompany?.website}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- customer contact info -->
+        <div class="account-contact" *ngIf="currentCustomer && currentQuote?.account_contact">
+            <div class="line-container"><label class="info-label">Account: </label><span class="info-content">{{currentCustomer?.name | short: 16}}</span> <label class="info-label">Phone : </label><span class="info-content">{{currentQuote?.account_contact?.phone}}</span></div>
+            <div class="line-container"><label  class="info-label">Contact: </label><span class="info-content">{{currentQuote?.account_contact?.first_name}} {{currentQuote?.account_contact?.last_name}}</span> <label  class="info-label">Email : </label><span class="info-content" style="font-size:11px;">{{currentQuote?.account_contact?.email}}</span></div>
+        </div>
+        <!-- customer address -->
+        <div class="addresses">
+            <div *ngIf="currentCustomer" class="shipping-address">
+                Ship To:<br>
+                <div #shipTo>
+                    <b>{{currentCustomer?.name | short: 20}}</b><br>
+                    {{currentQuote.shipping_address?.street1}}<br>
+                    {{currentQuote.shipping_address?.city}},
+                    {{currentQuote.shipping_address?.state}}, {{currentQuote.shipping_address?.zipcode}}
+                </div>
+            </div>
+            <div *ngIf="currentCustomer"  class="billing-address">
+                Bill To: <br>
+                <div #billTo>
+                    <b>{{currentCustomer?.name | short: 20}}</b><br>
+                    {{currentQuote.billing_address?.street1}}<br>
+                    {{currentQuote.billing_address?.city}},
+                    {{currentQuote.billing_address?.state}}, {{currentQuote.billing_address?.zipcode}}
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-info">
+            <div class="form-title">
+                <div><span>PayTerms</span><span>Ship Via</span><span>OrderType</span><span>FOB</span></div>
+            </div>
+            <div class="form-title-body">
+                <span class="no-content">{{currentQuote?.payment_terms}}</span>
+                <span class="no-content">{{currentQuote?.shipping_method}}</span>
+                <span class="no-content">{{currentQuote?.order_type}}</span>
+                <span class="no-content">{{currentQuote?.fob ? currentQuote?.fob : "fob"}}</span>
+            </div>
+        </div>
+<!-- 
+        <div class="product-list">
+            <table id = "table_pdf" class="mat-table mat-elevation-z8" *ngIf="currentQuote">
+                <thead>
+                    <tr class="mat-header-row">
+                    <th class="mat-header-cell"> Item </th>
+                    <th class="mat-header-cell"> Qty </th>
+                    <th class="mat-header-cell"> Rate </th>
+                    <th class="mat-header-cell"> Amount </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="mat-row" *ngFor="let product of currentQuote.products; let i = index" [ngClass]="{'even-line': i%2==0, 'odd-line':i%2 !==0}">
+                        <td class="name-display-with"> {{product?.name  | short : 12}} </td>
+                        <td > {{product?.quantity}} </td>
+                        <td > ${{product?.rate}} </td>
+                        <td > ${{product?.quantity * product?.rate}} </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+            <div class="total-container"><span class="total-value"><b>Total:</b> ${{quoteTotalValue}}</span></div>
+        </div> -->
+
+        <div class="product-list1">
+                <div class="product-list-header">
+                    <div class="header-container">
+                        <span class="item">Item</span><span class="quantity">Quantity</span><span class="rate">Rate</span><span class="amount">Amount</span>
+                    </div>
+                </div>
+                <div class="product-list-body">
+                    <div class="body-container">
+                        <div class="product-item" *ngFor="let item of currentQuote.products; let i = index">
+                            <div  class="container">
+                                <div *ngIf="!item?.img_url" class="item-image pull-left">
+                                    <img src="assets/images/bottle.png">
+                                </div>
+                                <div *ngIf="item?.img_url" class="item-image pull-left">
+                                    <img  [src]="item?.img_url">
+                                </div>
+
+                                <div class="item-content"   [ngClass]="{'odd-line':i%2==0, 'even-line':i%2==1}" >
+                                    <div class="item-info" >
+                                        <span class="item">{{item?.name}}</span><span class="quantity"  >{{item?.quantity}}</span><span [ngClass]="{'need-required': item?.rate*1.1 < item?.original_rate}" class="rate">${{fixNumberQty(item?.rate,4)}}</span><span class="amount">${{fixNumberQty(item?.quantity*item?.rate,2)}}</span>
+                                    </div>
+                                    <div class="item-description">
+                                        <span>{{item?.description | short:48}} </span>
+                                    </div>
+                                    <div class="item-warehouse">
+                                        <span>{{item?.warehouse}}</span>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <span class="total-number" >Total: ${{fixNumberQty(quoteTotalValue, 2)}}</span>
+
+                <div>
+                    <span>Order Confirmation requires approval within 72 hours.</span>
+                    <span>Pallet case counts are subject to change.</span>
+                    <span>Shipping Costs are Estimates, actual Cost will be invoiced.</span>
+                    <span>A convenience fee of 2% will be charged for non-cash remittances.</span>
+                    <span>Subject to the attached Terms & Conditions of Sale.</span>
+                    <span>For Remittance Options see attached.</span>
+                </div>
+
+                <div style="margin:5px 0px; border:1px solid lightgray; padding:5px;">
+                    <label>Comments:</label>
+                    <p style="text-indent:20px;">{{currentQuote?.description}}</p>
+                </div>
+
+                <div *ngIf="currentQuote?.last_note &&!vendorCompanyId" style="border: 1px solid lightgray; padding: 5px; margin:10px 0px;" routerLink="notes/{{currentQuote?.last_note?.id}}" >
+                    <label>Notes: </label>
+                    <div *ngIf="currentQuote?.last_note.notes.length">
+                        <div *ngFor="let note of getNoteContent(currentQuote?.last_note?.notes[0]?.body)">
+                            <p [innerHTML]="note?.text" style="text-indent:20px; height:16px; overflow:hidden"></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!currentQuote?.last_note.notes.length">
+                        <div *ngFor="let note of getNoteContent(currentQuote?.last_note?.description)">
+                            <p [innerHTML]="note?.text" style="text-indent:20px; height:16px; overflow:hidden"></p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div *ngIf="declineReason">
+                    <label>Decline Reason</label>
+                    <div>
+                        <p  style="text-indent:20px; height:16px; overflow:hidden">{{this.commentNoteForm?.value.body[0].test}}</p>
+                    </div>
+                </div>
+        </div>
+
+
+<!--show signature area from manager's sign -->
+        <div *ngIf="currentQuote?.singnature && !vendorCompanyId" class="signature-container">
+            <div class="personal-signature" *ngIf="currentQuote">
+                Signature: 
+                <span style="border-bottom:1px solid black; display:inline-block"><img [src]="currentQuote?.singnature"></span>
+            </div>
+            <div class="signature-date">
+                <span>Date: 06/28/2018</span>
+            </div>
+        </div>
+<!-- show signature form customer  signature -->
+        <div *ngIf="currentQuote?.account_signature" class="signature-container">
+            <div class="personal-signature" *ngIf="currentQuote">
+                Customer Signature: 
+                <span style="border-bottom:1px solid black; display:inline-block"><img [src]="currentQuote?.account_signature"></span>
+            </div>
+            <div class="signature-date">
+                <span>Date: 06/28/2018</span>
+            </div>
+        </div>
+
+<!-- customer signature area and action btn, need customer to sign -->
+        <div *ngIf="vendorCompanyId && !currentQuote.account_signature" class="final-div">
+            <div class="sigenature-pad" onmousedown='mydragg.startMoving(this,"container",event);' onmouseup='mydragg.stopMoving("container");'>
+                <signature-pad  [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+            </div>
+            <div class="sig-div">
+                <a (click)="sigModel()">Signature</a>:________________________________________
+            </div>
+            <br><br>
+            <button mat-raised-button color="primary" class="hidden-print" (click)="customerApproveQuoteAndSigned()" [disabled]="!signatureUrl">Agree</button>
+            <button mat-raised-button color="warn" class="hidden-print" (click)="customerDeclineQuote('Decline')">Disagree</button>
+            <button mat-raised-button color="primary"  (click)="printFunction()"> Download </button>
+        </div>
+
+        <div *ngIf="vendorCompanyId && currentQuote.account_signature" class="final-div">
+            <button mat-raised-button color="primary"  (click)="printFunction()"> Download </button>
+        </div>
+        
+    </div>
+    <!--pdf edit by lisa -->
+    <!-- <div class="convert-btn">
+        <button class="right"  mat-raised-button color="primary" (click)="downloadPDF()">Export to PDF</button>
+    </div> -->
+
+    <!-- hidden the edit button -->
+    <!-- <i *ngIf="!currentQuote?.singnature" style="font-size:16px; color:green; float: right; padding:3px 5px;" class="material-icons" routerLink="edit">edit</i> -->
+    
+    <!-- manager action area for quote, customer will not see this area -->
+    <div *ngIf="!isLoading && currentLoginUserId==1 && !currentQuote?.singnature && currentQuote?.approve_status=='NeedApproved'" class="final-div">
+        <div class="sigenature-pad" onmousedown='mydragg.startMoving(this,"container",event);' onmouseup='mydragg.stopMoving("container");'>
+            <signature-pad  [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+        </div>
+        <div class="sig-div">
+            <a (click)="sigModel()">Signature</a>:________________________________________
+        </div>
+        <br><br>
+
+        <button mat-raised-button color="primary" class="hidden-print" (click)="approveQuoteAndSigned()" [disabled]="!signatureUrl">Approve</button>
+        <button mat-raised-button color="warn" class="hidden-print" (click)="requestApproved('Decline')">Decline</button>
+        <button mat-raised-button color="primary" class="hidden-print" (click)="printFunction()"> Download</button>
+    </div>
+    <div *ngIf="!isLoading && currentLoginUserId==1 && currentQuote?.singnature && currentQuote?.approve_status=='Send'" class="final-div">
+        <button mat-raised-button color="primary" class="hidden-print" (click)="printFunction()"> Download</button>
+    </div>
+
+    <div class="hidden-print" *ngIf="salesEntity == 'Quote'">
+        <button mat-raised-button color="primary" *ngIf="!currentQuoteStatus&&!sendOrRequest&&currentLoginUserId!==1" (click)="requestApproved('NeedApproved')">Request Approve</button>
+        <button mat-raised-button color="primary" *ngIf="currentQuoteStatus == 'WaitingSend'&&sendOrRequest&&currentLoginUserId!==1" (click)="requestApproved('Send')">Send</button>
+        <button mat-raised-button color="primary" *ngIf="!currentQuoteStatus && sendOrRequest&&currentLoginUserId!==1" (click)="requestApproved('Send')">Send</button>
+        <!-- <button *ngIf="currentQuoteStatus== 'Send'&&currentLoginUserId!==1" mat-raised-button color="primary"  (click)="printFunction()"> Download </button> -->
+        <button *ngIf="currentLoginUserId!==1&& !vendorCompanyId" mat-raised-button color="primary"  (click)="printFunction()"> Download</button>
+        <button *ngIf="currentLoginUserId!==1&& !vendorCompanyId"  mat-raised-button color="primary" (click)="generateSalesOrder()"> Generate SalesOrder</button>
+    </div>
+
+    <div class="hidden-print" *ngIf="salesEntity == 'SalesOrder'">
+        <!-- <button mat-raised-button color="primary" *ngIf="!currentQuoteStatus&&!sendOrRequest&&currentLoginUserId!==1" (click)="requestApproved('NeedApproved')">Request Approve</button> -->
+        <!-- <button mat-raised-button color="primary" *ngIf="currentQuoteStatus == 'WaitingSend'&&sendOrRequest&&currentLoginUserId!==1" (click)="requestApproved('Send')">Send</button> -->
+        <button mat-raised-button color="primary" *ngIf="!currentQuoteStatus && sendOrRequest&&currentLoginUserId!==1" (click)="requestApproved('NeedApproved')">Send</button>
+        <!-- <button *ngIf="currentQuoteStatus== 'Send'&&currentLoginUserId!==1" mat-raised-button color="primary"  (click)="printFunction()"> Download </button> -->
+        <button *ngIf="currentLoginUserId!==1" mat-raised-button color="primary"  (click)="printFunction()"> Download </button>
+    </div>
+    
+    <div style="width:100%; height:50px;"></div>
+</div>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+
+
+<div *ngIf="isLoading" class="final-div" style="display:none" >
+    <div class="sigenature-pad" onmousedown='mydragg.startMoving(this,"container",event);' onmouseup='mydragg.stopMoving("container");'>
+        <signature-pad  [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+    </div>
+    <div class="sig-div">
+        <a (click)="sigModel()">Signature</a>:________________________________
+    </div>
+    <br>
+</div>
+
+<div class="show-decline-modal" *ngIf="showDeclineCommentModal">
+    <mat-card>
+        <h4 style="text-align: left">Decline Comments:</h4>
+        <form [formGroup]="commentNoteForm">
+            <div formGroupName="body">
+                <div *ngFor="let subNote of commentNoteForm['controls'].body['controls'];let i=index" >
+                    <div class="row" [formGroupName]="i"> 
+                        <div class="col-3"> 
+                            <textarea placeholder="Please input some comments!" style="width:100%;height:87.14px;padding:6px;" name="" id="" formControlName="text" required ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    
+        <div style="text-align:center">
+            <button mat-button color="primary" (click)="cancelDeclineModal()">Cancel</button> 
+            <button mat-button color="primary" (click)="submitDeclineComment(commentNoteForm.value)">Submit</button>
+        </div>
+    </mat-card>
+</div>

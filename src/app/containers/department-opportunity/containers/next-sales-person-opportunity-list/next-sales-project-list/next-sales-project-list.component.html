@@ -1,0 +1,57 @@
+<div class="prev-project" *ngIf="project">
+  <div class="project-card-margin">
+      <crm-oppo-subject-content [name]="project?.name" [description]="project?.description" [createdTime]="project?.created?.at">
+          <!-- <mat-icon (click)="showDescription()" style="position: absolute; color:green; right:15px; top:2px; font-size: 30px;">description</mat-icon>                 -->
+          
+      </crm-oppo-subject-content>
+  </div>   
+</div>
+
+<div class="oppo-process-bar" *ngIf="project">        
+    <oppo-progress-bar [completedOpportunityAmount]="project?.completed_opportunity_amount" [totalRequiredOpportunityAmount]="project?.total_required_opportunity_amount"></oppo-progress-bar>     
+    <left-day-bar [requireDate]="project?.require_date" [durationTime]="project?.duration_time"></left-day-bar>
+    <oppo-dollar-progress-bar [completedOpportunityDollarAmount]="project?.completed_opportunity_dollar_amount" [totalRequiredOpportunityDollarAmount]="project?.total_required_opportunity_amount * project?.opportunity_value"></oppo-dollar-progress-bar> 
+    
+</div>
+<div style="text-align: center; font-size: 14px; ">Min Value of Each Opportunity : ${{project?.opportunity_value | number}} Per {{project?.opportunity_value_type}}</div>
+
+<!-- <opportunity-attachment (sendFormData)="onReceivedFormData($event)" [canUpload]="false" [prevProjectId]="" [title]="'Attachment'" [attachments]="project?.subject?.attachments"></opportunity-attachment> -->
+
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{projectId}}/sales-opportunity-list">
+  Customers
+  <!-- <span *ngIf="subjectListUnread" class="mysubject-unread">{{subjectListUnread}}</span> -->
+</a>
+<a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{projectId}}/sales-project-list">
+  Opportunities
+  <span *ngIf="projectListTotalUnread" class="mysubject-unread">{{projectListTotalUnread}}</span>
+</a>
+
+<div *ngIf="projectList && projectList.length > 0 && !isLoading;">
+  
+  <div class="project-card-margin" *ngFor="let project of projectList">
+      <crm-project-card [projectId]="project?.id" [name]="project?.name" [productItemNumber]="project?.product_item_number" [complete]="project?.complete" [nextMeetingSubject]="project?.next_meeting_subject" [prevSalesProjectId]="project?.subject?.prev_meeting_project_id"
+                  [unreadCount]="project?.unread_count" [owners]="project?.owners" [superPermission]="superPermission" [requireDate]="project?.require_date" [updateFrequency]="project?.update_frequency" [currentProcessId]="project?.current_process?.id" [currentProcessStatus]="project?.current_process_status" [subjectId]="project?.subject?.id" [productImageUrl]="project?.product_image_url">
+          <!-- <progress-bar [possibility]="project?.complete"></progress-bar>  -->
+          <!-- <left-day-bar [requireDate]="project?.require_date" [durationTime]="project?.duration_time"></left-day-bar> -->
+          <!-- <img src="assets/images/testimg/quotes.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' || project?.current_process?.process_name == 'QUOTE'" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{project?.subject?.customer_company_id}}/salesentity/quote/draft" style="width:24px;">
+          <img src="assets/images/testimg/grey_quote.png" *ngIf="project?.current_process?.process_name != 'SKU Creation' && project?.current_process?.process_name != 'QUOTE'" style="width:24px;"> -->
+
+          <!-- right now only add quote at QUOTE step -->
+          <img src="assets/images/testimg/add_quote.png" *ngIf="project?.current_process?.process_name == 'QUOTE'" routerLink="/company/{{currentLoginCompanyId}}/crm/lead/{{project?.subject?.customer_company_id}}/salesentity/quote/draft" style="width:24px;">
+          <img src="assets/images/testimg/grey_add_quote.png" *ngIf="project?.current_process?.process_name != 'QUOTE'" style="width:24px;">
+          
+          <!-- <img src="assets/images/testimg/add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status == 'waitting'" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/chooseAddType" [queryParams]="{crmOpportunityProjectId : project.id}" style="position: absolute; right:42px; width:25px;"> -->
+          <img src="assets/images/testimg/add_inventory.png" *ngIf="project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status == 'waitting'" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{prevSalesProjectId}}/sales-opportunity-subject/{{project?.subject?.id}}/crm-opportunity-project/{{project?.id}}/choose-search-inventory-or-add-sku" [queryParams]="{crmOpportunityProjectId : project.id}" style="position: absolute; right:42px; width:25px;">          
+          <img src="assets/images/testimg/grey_add_inventory.png" *ngIf="project?.current_process?.process_name != 'SKU Creation' || (project?.current_process?.process_name == 'SKU Creation' && project?.sku_process_status != 'waitting')" style="position: absolute; right:42px; width:25px;">
+      </crm-project-card>
+  </div>
+</div>
+
+<!-- <ng-template #no_subject_found>
+  <div class="no-subject" *ngIf="!isLoading">
+      <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
+      <p>No Opportunity Found</p>
+  </div>
+</ng-template> -->
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

@@ -1,0 +1,112 @@
+<div *ngIf="alreadySetting">
+    <div class="container">
+        <mat-card >
+            <div class="opportunity-name">
+                <h3>{{companyOpportunity?.company_name}}</h3>
+            </div>
+            <div class="comapny-workflow">
+                <div class="workflow-images">
+                    <div *ngFor="let img of companyOpportunity?.images">
+                        <img [src]="img?.url">
+                    </div>
+                    
+                </div>
+                <div class="company-description">
+                    {{companyOpportunity?.description}}
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="opportunity-user">
+                <div class="opportunity-owner">
+                    <div class="shared-profile-picture" >
+                        <app-profile-picture 
+                            [url]="companyOpportunity?.created?.by?.avatar_url" 
+                            [userFirstName]="companyOpportunity?.created?.by?.first_name" 
+                            [userLastName]="companyOpportunity?.created?.by?.last_name" 
+                            [userId]="companyOpportunity?.created?.by?.user_id">
+                        </app-profile-picture>
+                    </div>
+                </div>
+                <div class="shared_user">
+                    <div class="shared-user-picture" *ngFor="let user of companyOpportunity?.opportunitySettingShares">
+                        <app-profile-picture 
+                            [url]="user.avatar_url" 
+                            [userFirstName]="user.first_name" 
+                            [userLastName]="user.last_name" 
+                            [userId]="user?.user_id">
+                        </app-profile-picture>
+                    </div>
+
+                    <div class="add-shared-user-btn">
+                        <mat-icon mat-button class="share" (click)="toShareUserComponent()">person_add</mat-icon>
+                    </div>
+                       
+                </div>
+
+            </div>
+        </mat-card>
+
+
+        <app-attachment [title]="'Documents'" (sendFormData)="onReceivedFormData($event)" [attachments]="companyOpportunity?.attachments"></app-attachment>
+    
+        <!-- <div class="discussion-board">
+            <mat-card>
+            </mat-card>
+        </div> -->
+        
+<!-- opportunity setting discussion -->
+        <!-- <div class="opportuntiy-status">
+            <panel-card class="opportunity-employees">
+                <panel-card-title>Discussion</panel-card-title>
+                <panel-card-body >
+                    <status-card [createdUser]="companyOpportunity?.discussion?.created" [content]="companyOpportunity?.discussion?.body" [commentId]="companyOpportunity?.discussion?.id" [replyPermission]="false" 
+                    routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/opportunity-setting/status"></status-card>
+                </panel-card-body>
+            </panel-card>
+        </div> -->
+
+<!-- opportunity employee component -->
+        <!-- <panel-card class="opportunity-employees">
+            <panel-card-title>Employees <panel-more-button routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/add-opportunity-employee" ><b style="font-size:17px; margin-left:-16px; color:black">+</b></panel-more-button></panel-card-title>
+            <panel-card-body>
+                <mat-card *ngFor="let employee of companyOpportunity?.opportunityEmployees" routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/opportunity-employee/{{employee?.id}}">
+                    <employee-card [url]="employee?.avatar_url" [first_name]="employee?.first_name" [last_name]="employee?.last_name"
+                    [position]="employee?.position" [email]="employee?.email"></employee-card>
+                </mat-card>
+            </panel-card-body>
+        </panel-card> -->
+        <div class="opportunity-employee-list">
+            <div class="opportunity-employee-header-container">
+                <span><b>Employee</b></span>
+                <a routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/add-opportunity-employee"><b>+</b></a>
+            </div>
+            
+            <mat-card *ngFor="let employee of companyOpportunity?.opportunityEmployees" routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/opportunity-employee/{{employee?.id}}">
+                <employee-card [url]="employee?.avatar_url" [first_name]="employee?.first_name" [last_name]="employee?.last_name"
+                [position]="employee?.position" [email]="employee?.email"></employee-card>
+            </mat-card>
+        </div>
+        
+        <div>
+            <a routerLink= "/company/{{this.currentLoginCompanyId}}/opportunity/all">
+                All Opportunities
+            </a>
+        </div>
+
+        <!-- <div class="opportunity-employees">
+
+            <mat-card *ngFor="let employee of companyOpportunity?.opportunityEmployees">
+                <employee-card [url]="employee?.avatar_url" [first_name]="employee?.first_name" [last_name]="employee?.last_name"
+                [position]="employee?.position" [email]="employee?.email"></employee-card>
+            </mat-card>
+        </div> -->
+    </div>
+</div>
+
+<!-- <app-add-button *ngIf="(!isLoading) && (!alreadySetting)" routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/add-opportunity-setting"></app-add-button> -->
+<app-add-button routerLink="/company/{{this.currentLoginCompanyId}}/opportunity/add-opportunity-setting"></app-add-button>
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>

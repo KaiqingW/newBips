@@ -1,0 +1,45 @@
+<!-- <mat-card class="warehouse-location">
+  <div class="warehouse-loop">
+
+      <div class="warehouse" *ngFor="let warehouse of warehouses" (click)="onChangeWarehouse(warehouse)">
+              <div class="warehouse-bg" *ngIf="!selectedWarehouse || (selectedWarehouse.id != warehouse.id)">
+                      <img  src="assets/images/warehouse.png">
+              </div>
+              <div class="warehouse-bg-blue" *ngIf="selectedWarehouse && (selectedWarehouse.id == warehouse.id)">
+                      <img style="z-index:1" src="assets/images/warehouse_white.png">
+              </div>
+
+              <div class="warehouse-name-span">
+                  <span  class="warehouse-name">{{warehouse.name}}</span>
+              </div>
+
+              <div class="quantity" *ngIf="selectedProduct">
+                <span class="quantity-content" >{{warehouse.amount | number}}</span>
+              </div>
+      </div>
+  </div>
+</mat-card> -->
+
+
+<mat-card *ngIf="viewedProductsList" class="panel-card company-products">
+  <h3 style="padding-bottom: 10px">Recently Viewed</h3>
+  <div class="panel-card-body">
+      <div class="product-modal-box" *ngFor="let product of viewedProductsList; let i = index;">
+          <div class="product-modal" (click)="onNavToDetail($event, product.id, product.company_id, product.company_product_id)">
+              <img *ngIf="!product.image || product.image.length < 1" src="assets/images/bottle.png">
+              <img *ngIf="product.image && product.image.length > 0" [src]="product.image">
+              <div *ngIf="product.name" class="product-name">
+                  <span>
+                      <b>{{product.name}}</b>
+                  </span>
+                  <br>
+              </div>
+          </div>
+          <div style="margin: 6px auto; text-align: center; font-size: 12px;">
+              <span *ngIf="product.retail_prices.length > 1">${{product.retail_prices[product.retail_prices.length-1].price/100}} - </span>
+              $
+              <span *ngIf="product.retail_prices.length > 0">{{product.retail_prices[0].price/100}}</span>
+          </div>
+      </div>
+  </div>
+</mat-card>

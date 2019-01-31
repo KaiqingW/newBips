@@ -1,0 +1,98 @@
+<div class="subject" *ngIf="subject">
+  <div #nameInput>
+    <mat-card class="subject-card">
+      <div class="subject-name">
+        <p>{{transform(subject?.name)}}</p>
+      </div>
+      <div class="subject-description">
+        <read-more [text]="subject?.description"></read-more>
+      </div>
+
+      <mat-card-header>
+        <div mat-card-avatar class="header-image">
+          <app-profile-picture [url]="subject?.created.by.avatar_url" [userFirstName]="subject?.created.by.first_name" [userLastName]="subject?.created.by.last_name" [userId]="subject?.created.by.id">
+          </app-profile-picture>
+        </div>
+
+        <mat-card-title>{{subject?.created.by.first_name}} {{subject?.created.by.last_name}}</mat-card-title>
+        <mat-card-subtitle>{{subject.created.at| local | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</mat-card-subtitle>
+
+        <!-- shared list -->
+        <mat-card-content class="shared-image-list">
+
+          <div class="share-info-row">
+            <div class="shared-images">
+              <div *ngFor="let sharedUser of shareInfo | showMore : maxShare; let ii = index" class="shared-profile-picture">
+                <app-profile-picture [url]="sharedUser?.avatar_url" [userFirstName]="sharedUser?.first_name" [userLastName]="sharedUser?.last_name" [userId]="sharedUser?.id">
+                </app-profile-picture>
+              </div>
+            </div>
+
+            <div class="shared-icon" *ngIf="shareInfo?.length > 3">
+              <button mat-icon-button (click)="showMore()">
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+            </div>
+          </div>
+
+        </mat-card-content>
+
+      </mat-card-header>
+
+
+    </mat-card>
+
+    <div class="options">
+      <button  class="delete" (click)="deleteSubject()" [disabled]="isShared"><mat-icon>  delete</mat-icon>Delete</button>
+      <button mat-button class="share" routerLink="share"><mat-icon>person_add</mat-icon>  Invites</button>
+    </div>
+  </div>
+  <div class="notes-number">
+    {{subject?.notes.length}} Notes Under This Subject
+  </div>
+
+  <div>
+    <mat-card *ngFor="let note of subject?.notes; let i = index">
+      <mat-card-header routerLink="note/{{note.id}}">
+        <div mat-card-avatar class="header-image">
+          <app-profile-picture [url]="note?.created.by.avatar_url" [userFirstName]="note?.created.by.first_name" [userLastName]="note?.created.by.last_name" [userId]="note?.created.by.id">
+          </app-profile-picture>
+        </div>
+        <mat-card-title>{{note?.created.by.first_name}} {{note?.created.by.last_name}} </mat-card-title>
+      </mat-card-header>
+      <div class="note-name" [innerHTML]="note?.body" routerLink="note/{{note.id}}"></div>
+      <div class="note-time-updated">
+        <p>{{note?.comments.length}} comments <b>·</b> {{note?.updated.at | local | amTimeAgo}}</p>
+      </div>
+
+      <span *ngIf="note.unread_records[0]" class="note-unread">{{note.unread_records.length}}</span>
+
+      <div class="icon">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_horiz</mat-icon>
+                </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="deleteNote(note.id)" [disabled]="isShared">
+                        <span>Delete</span>
+                    </button>
+          <button mat-menu-item disabled routerLink="share">
+                        <span>Share</span>
+                    </button>
+          <button mat-menu-item>
+                        <span routerLink="note/{{note.id}}">Reply</span>
+                    </button>
+        </mat-menu>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<app-add-button *ngIf="!isLoading" routerLink="create/{{subject.id}}"></app-add-button>
+
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
+
+<div *ngIf="modalOpen">
+    <app-img-modal [imgSrc]="imgSrc" (modalClose)="closeModal()"></app-img-modal>
+</div>

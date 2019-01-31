@@ -1,0 +1,16 @@
+
+<div class="progress" (click)="clickPossibility()">
+        <span class="progress-bar">
+            <span *ngIf="0.25 >= possibility " class="progress-in-danger" [style.width]="POSSIBILITY"></span>
+            <span *ngIf="0.50 >= possibility && possibility >0.25" class="progress-in-middle" [style.width]="POSSIBILITY"></span>
+            <span *ngIf="0.75 >= possibility && possibility >0.50" class="progress-in-primary" [style.width]="POSSIBILITY"></span>
+            <span *ngIf="possibility > 0.75" class="progress-in-success" [style.width]="POSSIBILITY"></span>
+        </span>
+        <span class="progress-label" *ngIf="!showSelect">{{POSSIBILITY}}</span>
+        <mat-select class="progress-label">
+        <mat-option *ngFor="let select of selects" [value]="select" (click)="selectPossibility(select)">
+            {{select}}
+        </mat-option>
+        </mat-select>
+</div>
+

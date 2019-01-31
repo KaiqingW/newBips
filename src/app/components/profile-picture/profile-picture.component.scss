@@ -1,0 +1,38 @@
+:host{
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #D3D3D3;
+    background-color: #F5F5F5;
+    box-sizing: border-box;
+}
+
+.profile-picture-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    box-sizing: border-box;
+
+    img{
+        width: 100%;
+    }
+
+    .shorthand{
+        font-size: 12px;
+        font-weight: 500;
+        color: #BBBBBB;
+        // color: #143258;
+        
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+<mat-form-field class="chip-list">
+  <mat-chip-list #chipList>
+      <mat-chip *ngFor="let item of productItemNumList" [selectable]="selectable"
+              [removable]="removable" (remove)="remove(item)">
+      {{item}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Please input Item# to search"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+          [matAutocomplete]="auto" 
+          [formControl]="emailCtrl" #personInput/>
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectOption($event)">
+      <i class="material-icons arrow-guide"> keyboard_arrow_down </i>
+
+      <mat-option class="user-content" *ngFor="let product of filteredProducts" [value]="product.headline" (click)="getSlectedProductInfo(product)">
+      
+          <div class="company-logo" *ngIf="product.images.length != 0">
+              <avatar-logo
+                  [url]="product.images[0].url" 
+                  [userFirstName]="" 
+                  [userLastName]="" 
+                  [userId]="">
+              </avatar-logo>
+          </div>
+          <div class="company-logo" *ngIf="product.images.length == 0">
+              <!-- <avatar-logo
+                  [url]="assets/images/bottle.png" 
+                  [userFirstName]="" 
+                  [userLastName]="" 
+                  [userId]="">
+              </avatar-logo> -->
+              <img style="width:38px; height:38px; border-radius:38px; border: 1px solid lightgrey;" src="assets/images/bottle.png">
+          </div>
+          <div class="user-name">
+              <span><b>Item#: {{product?.headline}}</b></span>
+              <!-- <span class="user-email">{{product.name}}</span> -->
+          </div>
+      </mat-option>
+
+      <i class="material-icons arrow-guide">keyboard_arrow_up</i>
+  </mat-autocomplete>
+</mat-form-field>

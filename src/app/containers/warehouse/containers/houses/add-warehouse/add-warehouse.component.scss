@@ -1,0 +1,30 @@
+form {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.addressGroup {
+    width: 100%;
+}
+
+.input-group {
+    width: 100%;
+    mat-form-field {
+        width: 90% !important;
+    }
+}
+
+.input-group-2 {
+    width: 100%;
+    box-sizing: border-box;
+
+    mat-form-field {
+        box-sizing: border-box;
+        width: 45% !important;
+    }
+}

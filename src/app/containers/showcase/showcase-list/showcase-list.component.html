@@ -1,0 +1,51 @@
+<!-- <mat-select formControlName="warehouse_id" placeholder="Warehouse Id" [(ngModel)]="selectedWarehouse" required *ngIf="warehouses"> 
+    <mat-option *ngFor="let warehouse of warehouses;let i = index" [value]="warehouse.id">
+        {{i +1}}.{{warehouse.name}},{{warehouse.address?.city}},{{warehouse.address?.state}}
+    </mat-option>
+</mat-select> -->
+<mat-form-field>
+    <mat-select placeholder="Category" [formControl]="searchCtrl"> 
+        <mat-option [value] = "">All</mat-option>
+        <mat-option *ngFor = "let category of categories" [value] = "category">
+            {{category}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-card class="panel-card company-products" (scroll)="onMouseWheel($event)">
+    <div class="panel-card-body" *ngIf="productList">
+        <!-- <div class="product-modal-box" *ngFor="let showcase of lead.showcases">
+            <div class="product-modal" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/{{showcase.id}}">
+                <img src="{{showcase.img_url}}">
+                <div class="product-name"> <span>{{showcase.name}}</span></div>
+            </div>
+        </div> -->
+        <div *ngIf="!currentVenderCompanyId">
+            <div class="product-modal-box" *ngFor="let product of productList; let i = index;" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+                <div  class="product-modal" routerLink="/company/{{currentLoginCompanyId}}/inventory/product/{{product.id}}">
+                    <img *ngIf="product.images.length < 1" src="assets/images/bottle.png">
+                    <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].url">
+                    <div class="product-name">
+                        <span><b>{{product.name}}</b></span><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentVenderCompanyId">
+                <div class="product-modal-box" *ngFor="let product of productList; let i = index;" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+                    <div  class="product-modal" routerLink="/company/{{currentVenderCompanyId}}/inventory/product/{{product.id}}">
+                        <img *ngIf="product.images.length < 1" src="assets/images/bottle.png">
+                        <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].url">
+                        <div class="product-name">
+                            <span><b>{{product.name}}</b></span><br>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <app-add-button *ngIf="!currentVenderCompanyId" routerLink="addShowcase"></app-add-button>
+        <!-- <app-add-button></app-add-button> -->
+    </div>
+</mat-card>
+
+<div *ngIf="isLoading"><app-spinner></app-spinner></div>

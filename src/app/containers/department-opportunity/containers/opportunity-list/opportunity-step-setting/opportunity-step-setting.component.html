@@ -1,0 +1,65 @@
+<opportunity-subject-content *ngIf="departmentOpportunitySubject" [name]="" [description]="departmentOpportunitySubject?.description" [createdTime]="departmentOpportunitySubject?.created?.at">            
+</opportunity-subject-content>
+<div class="steps-setting" *ngIf="departmentOpportunitySubject">
+    <div class="info">Please set up New Opportunity to Quotation Process and Rules.</div>
+
+    <div class="add-first-process-button">
+        <button  mat-raised-button color="primary" routerLink="add-opportunity-step"><b>Add Process</b></button>
+    </div>
+</div>
+
+<div class="process-list" *ngIf="departmentOpportunitySubject && departmentOpportunitySubject?.opportunity_processes.length > 0 && !isLoading;">
+    <div class="process-title">
+        <b> {{departmentOpportunitySubject?.opportunity_processes.length}} Processes Under The Opportunity</b>
+    </div>
+
+    <div class="subject-card-margin" *ngFor="let process of departmentOpportunitySubject?.opportunity_processes; let i=index">
+        <process-card [processName]="process?.process_name">
+
+            <div class="subject-list">
+                <div class="shared-contacts-admin">
+                    <div  *ngIf="process?.process_approvals.length > 0">
+                        <div class="contact-admin" *ngFor="let user of process?.process_approvals | showMore : maxApproval">
+                            <avatar-logo
+                                [url]="user?.avatar_url" 
+                                [userFirstName]="user?.first_name" 
+                                [userLastName]="user?.last_name" 
+                                [userId]="user?.user_id">
+                            </avatar-logo>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="separate" *ngIf="process?.process_approvals.length > 0">|</div>
+
+                <div class="shared-contacts">
+                    <div  *ngIf="process?.process_administrators.length > 0">
+                        <div class="contact" *ngFor="let user of process?.process_administrators | showMore : maxWork[i]">
+                            <avatar-logo
+                                [url]="user?.avatar_url" 
+                                [userFirstName]="user?.first_name" 
+                                [userLastName]="user?.last_name" 
+                                [userId]="user?.user_id">
+                            </avatar-logo>
+                        </div>
+                    </div>
+                </div>
+
+                <mat-icon *ngIf="process?.process_approvals.length > maxApproval || process?.process_administrators.length > maxWork[i]" routerLink="process/{{process?.id}}/all-process-administrator"
+                    style="font-size: 30px; float: right; margin-right: 50px; margin-top: 5px;">more_horiz</mat-icon>
+            
+                <div class="assign-button">
+                    <button routerLink="process/{{process?.id}}/add-process-administrator"><mat-icon>person_add</mat-icon></button>                    
+                </div>
+            </div>
+        </process-card>
+        <!-- <div class="arrow">
+                <mat-icon *ngIf="i+1 < departmentOpportunitySubject?.opportunity_processes.length" 
+                style="font-size: 30px;">arrow_downward</mat-icon>
+        </div> -->
+
+       
+        
+    </div>
+
+</div>

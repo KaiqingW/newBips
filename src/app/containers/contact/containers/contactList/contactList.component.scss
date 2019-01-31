@@ -1,0 +1,67 @@
+$width: 90%;
+
+:host {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+}
+
+mat-card{
+    padding:10px ;
+    height:45px;
+    margin-top:5px;
+}
+.mat-card-container{
+    background-color:#efefef;
+}
+.company-content{
+    display:block;
+    width:$width;
+    .company-logo{
+        width:12%;
+        height: 44px;
+        display:inline-block;
+        vertical-align: middle;
+        company-logo{
+            width:40px;
+            height:40px;
+
+        }
+    }
+
+    .company-name{
+        vertical-align: middle;
+        text-align: left;
+        margin-left:4px;
+        // line-height: 44px;
+        height: 44px;
+        display:inline-block;
+        width:58%;
+        overflow: hidden;
+        .company-address{
+            color:gray;
+            font-size:12px;
+            vertical-align: sub;
+            overflow: hidden;
+        }
+    }
+    .user-level{
+        width:25%;
+        display:inline-block;
+        text-align: right;
+        .join-btn{
+            font-size:12px;
+            width:48%;
+            text-align: center;
+            border:1px solid black;
+            display:inline-block;
+            color:#000000;
+            border-radius: 4px;
+            height:30px;
+            line-height: 30px;
+            vertical-align: middle;
+        } 
+    }
+}

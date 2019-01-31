@@ -1,0 +1,8 @@
+<div class="day-left">
+    <span class="progress-bar">
+        <span *ngIf="possibility >0.677 " class="progress-in-begin" [style.width]="POSSIBILITY"></span>
+        <span *ngIf="0.677 >= possibility && possibility >=0.33" class="progress-in-middle" [style.width]="POSSIBILITY"></span>
+        <span *ngIf="0.33 >possibility " class="progress-in-end" [style.width]="POSSIBILITY"></span>
+    </span>
+    <span class="progress-label">{{dayleft}} days left</span>
+</div>

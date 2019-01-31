@@ -1,0 +1,123 @@
+<mat-card class="warehouse-location">
+    <div class="warehouse-loop">
+        <div class="warehouse" (click)="reset()">
+            <div class="warehouse-bg" *ngIf="selectedWarehouse">
+                <!-- <div>All</div> -->
+                <img src="assets/images/warehouse.png">
+            </div>
+            <div class="warehouse-bg-blue" *ngIf="!selectedWarehouse">
+                <!-- <div style="color:#F5F5F5;">All</div> -->
+                <img src="assets/images/warehouse_white.png">
+            </div>
+            <div class="warehouse-name-span">
+                <!-- <span style="visibility: hidden;" class="warehouse-name">All</span> -->
+                <span class="warehouse-name">All</span>
+            </div>
+
+            <div class="quantity" *ngIf="selectedProduct">
+                <span class="quantity-content">{{total | number}}</span>
+            </div>
+        </div>
+        <div class="warehouse" *ngFor="let warehouse of warehouses" (click)="onChangeWarehouse(warehouse)">
+            <div class="warehouse-bg" *ngIf="!selectedWarehouse || (selectedWarehouse.id != warehouse.id)">
+                <div class="state" *ngIf="warehouse?.address?.state">{{warehouse.address.state}}</div>
+                <img src="assets/images/warehouse.png">
+            </div>
+            <div class="warehouse-bg-blue" *ngIf="selectedWarehouse && (selectedWarehouse.id == warehouse.id)">
+                <div class="state" [style.color]="'#F5F5F5'" *ngIf="warehouse?.address?.state">{{warehouse.address.state}}</div>
+                <img style="z-index:1" src="assets/images/warehouse_white.png">
+            </div>
+
+            <div class="warehouse-name-span">
+                <!-- <span *ngIf="warehouse.address" class="warehouse-name">{{warehouse.address.city}}</span> -->
+                <span class="warehouse-name">{{warehouse.address.city}}</span>
+            </div>
+
+            <div class="quantity" *ngIf="selectedProduct">
+                <span class="quantity-content">{{warehouse.amount | number}}</span>
+            </div>
+        </div>
+    </div>
+</mat-card>
+
+<!-- <div class="search-bar">
+    <mat-form-field class="choice-field">
+        <mat-select placeholder="Search Type" [formControl]="choiceCtrl" [(ngModel)]="choiceValue">
+            <mat-option *ngFor="let choice of choices" [value]="choice">
+                {{choice}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="search-field">
+        <input class="input" matInput placeholder="Search by Product Name or Item# or Description." aria-label="product name" [formControl]="searchCtrl">
+    </mat-form-field>
+</div> -->
+<product-search-bar [options]="options" (onSearch)="onGetSearch($event)" [defaultOption]="defaultOption" [searchPlaceholder]="searchPlaceholder"
+    [optionPlaceholder]="optionPlaceholder"></product-search-bar>
+
+<div class="tab-bar">
+    <!-- <mat-tab-group>
+                <mat-tab label="All" (click)="getProducts()"></mat-tab>
+                <mat-tab label="Private" (click)="changeProduct(0)"></mat-tab>
+                <mat-tab label="VIP" (click)="changeProduct(1)"></mat-tab>
+                <mat-tab label="Public" (click)="changeProduct(2)"></mat-tab>
+        </mat-tab-group> -->
+
+    <div class="product-card-title">
+        <a [class.prodcutTypeSelected]="prodcutSelectedType =='all'" class="product-btn" (click)="getProducts()">All</a>
+        <a [class.prodcutTypeSelected]="prodcutSelectedType =='private'" class="product-btn" (click)="changeProduct(0)">Private</a>
+        <a [class.prodcutTypeSelected]="prodcutSelectedType =='company'" class="product-btn" (click)="changeProduct(1)">Company</a>
+        <a [class.prodcutTypeSelected]="prodcutSelectedType =='public'" class="product-btn" (click)="changeProduct(2)">Public</a>
+    </div>
+</div>
+
+<div class="content" id="content" (scroll)="onMouseWheel($event)">
+    <div class="product-info-location" *ngIf="productList">
+
+        <mat-card class="orca_card" *ngFor="let product of productList;let i = index;" [class.selected]="product == selectedProduct" (click)="selectProduct(product)">
+            <div *ngIf="((!product?.info_completed) && (product?.type != 2)) || product?.images?.length == 0" class="incompleted">
+                <b>Incompleted</b>
+            </div>
+
+            <div class="product-header">
+                <div class="product-picture">
+                    <img *ngIf="product.images.length < 1" src="assets/images/icons/no-img.jpg" (click)="onNavToDetail($event,product.id)">
+                    <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].url" (click)="onNavToDetail($event,product.id)">
+                </div>
+
+                <div class="item-name">
+                    <span class="product-name" (click)="onNavToDetail($event, product.id)">
+                        <b>{{product.name | short : 60}}</b>
+                    </span>
+                    <br>
+                    <span class="description">Item#:{{product.headline}}</span>
+                    <!-- <span class="description" routerLink="{{product.id}}">{{product.category}}</span> -->
+                    <!-- <span class="description" routerLink="{{product.id}}">{{product.as_showcase}}</span> -->
+                </div>
+
+                <div class="available" *ngIf="!selectedWarehouse">
+                    <span class="available-quantity">Avl:{{product.total_amount | number}}</span>
+                    <app-select-bar [selects]="selects" [placeholder]="placeholder" [default]="checkDefault(product)" (sendSelect)="onGetSelect($event, product.id)"></app-select-bar>
+                    <div class="ellipsis">
+                        <mat-icon (click)="openAddTransDialog(product.id, product.name)">more_horiz</mat-icon>
+                    </div>
+                </div>
+                <div class="available" *ngIf="selectedWarehouse">
+                    <span class="available-quantity">Avl:{{product.amount | number}}</span>
+                    <app-select-bar [selects]="selects" [placeholder]="placeholder" [default]="defaultSelect" (sendSelect)="onGetSelect($event, product.id)"></app-select-bar>
+                    <div class="ellipsis">
+                        <mat-icon (click)="openAddTransDialog(product.id)">more_horiz</mat-icon>
+                    </div>
+
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="banner"></div>
+</div>
+
+<div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+</div>
+<app-add-button routerLink="chooseAddType"></app-add-button>

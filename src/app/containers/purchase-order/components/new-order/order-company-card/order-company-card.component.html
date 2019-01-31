@@ -1,0 +1,16 @@
+
+<mat-card>
+        <div class="company-content" >
+                <div class="company-logo">
+                    <company-logo [url]="url" [comname] = "name" ></company-logo>
+                </div>
+    
+                <div class="combain">
+                    <h5>{{name}}</h5>
+                    <span>{{industry}}</span>
+                </div>
+                <button color="primary" mat-button (click)="confirm()">Select</button>
+        </div>
+        <ng-content></ng-content>
+</mat-card>
+    
