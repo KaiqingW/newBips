@@ -15,6 +15,7 @@ import { SpinnerModule } from 'app/components/spinner/spinner.module';
 import { MatButtonModule } from '@angular/material/button';
 import { NewsModule } from "app/components/news/news.module";
 import { WeatherModule } from "app/components/weather/weather.module";
+import { SidebarComponent } from './containers/sidebar/sidebar.component';
 
 import { BusinessMeetingService } from '../../core/services/business-meeting.service';
 import { OrdersService } from '../../core/services/orders.service';
@@ -24,7 +25,7 @@ import { DashBoardService } from 'app/core/services/dashboard.service';
 // import { CommonImageCropperModule } from 'app/components/image-cropper/image-cropper.module';
 
 @NgModule({
-    imports:[
+    imports: [
         CommonModule,
         FormsModule,
         DashboardRoutingModule,
@@ -40,11 +41,12 @@ import { DashBoardService } from 'app/core/services/dashboard.service';
         // CommonImageCropperModule
     ],
 
-    declarations:[
+    declarations: [
         SalesDashboardComponent,
+        SidebarComponent,
         DashboardComponent
     ],
-    providers:[
+    providers: [
         BusinessMeetingService,
         OrdersService,
         DialogService,
@@ -53,6 +55,6 @@ import { DashBoardService } from 'app/core/services/dashboard.service';
     ]
 })
 
-export class DashboardModule{
+export class DashboardModule {
 
 }

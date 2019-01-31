@@ -40,9 +40,9 @@ import { CropModalModule } from 'app/components/crop-modal/crop-modal.module';
 import { FileBoxModule } from 'app/components/file-box/file-box.module';
 import { ShortTextPipe } from './short-text.pipe';
 
+import { AuthService } from 'app/core/services/auth.service';
 import { MeetingService } from 'app/core/services/meeting.service';
 import { DialogAlertModule } from '../../components/dialog-alert/dialog-alert.module';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
@@ -84,9 +84,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     BusinessDashboardComponent,
     IconComponent,
     ShortTextPipe,
-    SidebarComponent
   ],
   providers:[
+    AuthService,
     CompanyService,
     DialogService,
     MeetingService

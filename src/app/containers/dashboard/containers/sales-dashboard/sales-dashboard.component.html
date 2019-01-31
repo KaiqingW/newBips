@@ -1,18 +1,20 @@
-<div *ngIf="!isLoading" >
+<div>
+    <app-sidebar></app-sidebar>
+</div>
+<div *ngIf="!isLoading">
     <div class="company-title">
-        <img class="comany-tile-background"  src="/assets/images/testimg/orb3.png">
+        <!-- <img class="comany-tile-background" src="/assets/images/testimg/orb3.png"> -->
         <!-- <weather [compzipcode] = compzipcode></weather> -->
         <!-- <div class="comany-tile-background"></div> -->
-        <company-logo *ngIf="currentUserName" 
-                [url]="currentUser?.avatar_url"
-                [comname]="currentUserName"
-                [userId]="currentUser?.id">
+        <company-logo *ngIf="currentUserName" [url]="currentUser?.avatar_url" [comname]="currentUserName" [userId]="currentUser?.id">
         </company-logo>
         <div style="text-align: center; margin-bottom: 5px; font-size:14px; margin-top:35px;">
-            <span routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>        
+            <span routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>
         </div>
         <div class="company_name">
-                <span><b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b></span>
+            <span>
+                <b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b>
+            </span>
         </div>
 
         <div class="company-position">
@@ -25,8 +27,10 @@
             <!-- <panel-more-button routerLink="company-info">Detail ></panel-more-button> -->
         </panel-card-title>
         <panel-card-body>
-            
-            <span class="left-arrow" ><i class="material-icons">&#xE314;</i></span>
+
+            <span class="left-arrow">
+                <i class="material-icons">&#xE314;</i>
+            </span>
 
             <div class="scroll-card" id="scrollCard">
                 <div class="tow-line" name="1">
@@ -54,8 +58,8 @@
                         <logo [url]="fakeUrl.pourl" [companyName]="'Order'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/purchase-order/orders"></logo>
                         <span>Order</span>
                     </div>
-                </div>            
-                
+                </div>
+
                 <div class="tow-line" name="4">
                     <div class="function-icon-name">
                         <logo [url]="fakeUrl.whurl" [companyName]="'Warehouse'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/warehouse/houses"></logo>
@@ -63,32 +67,40 @@
                     </div>
                     <div class="function-icon-name">
                         <span class="unread" *ngIf="businessMeetingUnread">{{businessMeetingUnread}}</span>
-                        <logo [url]="fakeUrl.businessMeeting" [companyName]="'Business Meeting'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject"></logo>
+                        <logo [url]="fakeUrl.businessMeeting" [companyName]="'Business Meeting'" [type]="1" [width]="50" [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject"></logo>
                         <span>Meeting</span>
                     </div>
                 </div>
 
                 <div class="tow-line" name="6">
                     <div class="function-icon-name">
-                        <!-- the company has not had sales department opportunity, and the current user is admin of the company, route to add-subject page -->                        
-                        <logo  *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin !== 0" [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/add-opportunity-subject"></logo>
-                        
-                        <!-- the company has not had sales department opportunity, but the current user is not admin of the company, show dialog -->                        
-                        <logo  *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin  == 0" [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" (click)="showOppoSetupAlertDialog()"></logo>
-                        
+                        <!-- the company has not had sales department opportunity, and the current user is admin of the company, route to add-subject page -->
+                        <logo *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin !== 0" [url]="fakeUrl.departmentOpportunity"
+                            [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/add-opportunity-subject"></logo>
+
+                        <!-- the company has not had sales department opportunity, but the current user is not admin of the company, show dialog -->
+                        <logo *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin  == 0" [url]="fakeUrl.departmentOpportunity"
+                            [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" (click)="showOppoSetupAlertDialog()"></logo>
+
                         <!-- the company has sales department opportunity, and the current user is the admin of the opportunity -->
                         <span class="unread" *ngIf="projectListTotalUnread > 0">{{projectListTotalUnread}}</span>
-                        
-                        <logo *ngIf="hasSalesDepartmentOpportunity && opportunityPermission == 'oppoAdmin'" [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}"></logo>
-                        
+
+                        <logo *ngIf="hasSalesDepartmentOpportunity && opportunityPermission == 'oppoAdmin'" [url]="fakeUrl.departmentOpportunity"
+                            [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}"></logo>
+
                         <!-- the company has sales department opportunity, and the current user is not admin of the opportunity
                         and the current user does  not have project in the opportunity, show dialog -->
-                        <logo  *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && !salesOpportunityProjectPermission" [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}/shared-opportunity-list"></logo>
-                            
+                        <logo *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && !salesOpportunityProjectPermission"
+                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}/shared-opportunity-list"></logo>
+
                         <!-- the company has sales department opportunity, and the current user is not admin of the opportunity
-                        and the current user have project in the opportunity, go the user's project page -->          
-                        <logo  *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && salesOpportunityProjectPermission" [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{salesOpportunityProjectId}}/sales-opportunity-list"></logo>
-                        
+                        and the current user have project in the opportunity, go the user's project page -->
+                        <logo *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && salesOpportunityProjectPermission"
+                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{salesOpportunityProjectId}}/sales-opportunity-list"></logo>
+
                         <span>Opportunity</span>
                     </div>
                     <div class="function-icon-name">
@@ -96,40 +108,42 @@
                         <span>Note</span>
                     </div>
                 </div>
-    
+
                 <div class="tow-line" name="6">
 
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.shopManagement" [companyName]="'shop-management'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/shop-management/main"></logo>
+                        <logo [url]="fakeUrl.shopManagement" [companyName]="'shop-management'" [type]="1" [width]="50" [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/shop-management/main"></logo>
                         <span>Shop</span>
                     </div>
                     <div class="function-icon-name">
                         <logo [url]="fakeUrl.scurl" [companyName]="'Showcase'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/showcase"></logo>
                         <span>Showcase</span>
                     </div>
-                        
+
                 </div>
-                 
+
                 <div class="tow-line" name="5" *ngIf="currentUserCompany?.is_admin !== 0">
-                        <div class="function-icon-name">
-                            <logo [url]="fakeUrl?.crmassignmenturl" [companyName]="'Assignment'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/crm-assignment/lead"></logo>
-                            <span>Assign</span>
-                        </div>
+                    <div class="function-icon-name">
+                        <logo [url]="fakeUrl?.crmassignmenturl" [companyName]="'Assignment'" [type]="1" [width]="50" [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/crm-assignment/lead"></logo>
+                        <span>Assign</span>
+                    </div>
 
-                        <div class="function-icon-name">
-                            <logo [url]="fakeUrl.broadcasturl" [companyName]="'Report'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/broadcast/lead"></logo>
-                            <span>Email Blast</span>
-                        </div>
+                    <div class="function-icon-name">
+                        <logo [url]="fakeUrl.broadcasturl" [companyName]="'Report'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/broadcast/lead"></logo>
+                        <span>Email Blast</span>
+                    </div>
                 </div>
 
-                <div class="tow-line" name="3" *ngIf="currentUserCompany?.is_admin !== 0">                                   
+                <div class="tow-line" name="3" *ngIf="currentUserCompany?.is_admin !== 0">
                     <div class="function-icon-name">
-                        <logo  [url]="fakeUrl.aeurl" [companyName]="'AddEmployee'" [type]="1" [width]="50" [height]="50" [fontSize]="18" (click)="goAddEmployeeO()"></logo>
+                        <logo [url]="fakeUrl.aeurl" [companyName]="'AddEmployee'" [type]="1" [width]="50" [height]="50" [fontSize]="18" (click)="goAddEmployeeO()"></logo>
                         <span>HR</span>
                     </div>
 
-                    <div class="function-icon-name">     
-                        <logo  [url]="fakeUrl.seturl" [companyName]="'Setting'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/company-setting"></logo>
+                    <div class="function-icon-name">
+                        <logo [url]="fakeUrl.seturl" [companyName]="'Setting'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/company-setting"></logo>
                         <span>Setting</span>
                     </div>
                 </div>
@@ -143,7 +157,7 @@
                     <div class="function-icon-name">
                         <logo [url]="fakeUrl.quoteCenterUrl" [companyName]="'Quotes'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/salesentity/quote/draft"></logo>
                         <span>Quotes</span>
-                    </div>  
+                    </div>
                 </div>
 
                 <div class="tow-line" name="6">
@@ -155,11 +169,11 @@
                     <div class="function-icon-name">
                         <logo [url]="fakeUrl.invoiceUrl" [companyName]="'Invoices'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/salesentity/invoice"></logo>
                         <span>Invoices</span>
-                    </div>  
+                    </div>
                 </div>
 
                 <!-- bwlow hide by yadong, maybe use later-->
-                
+
                 <!-- <div class="tow-line" name="6" *ngIf="currentUserCompany?.is_admin !== 0">
                         <div class="function-icon-name" >
                                 <logo [url]="fakeUrl.financialurl" [companyName]="'Finanical'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/financial/fdashboard"></logo>
@@ -199,132 +213,15 @@
                     </div>
                 </div> -->
             </div>
-            <span class="right-arrow"><i class="material-icons">&#xE315;</i></span>
+            <span class="right-arrow">
+                <i class="material-icons">&#xE315;</i>
+            </span>
         </panel-card-body>
     </panel-card>
 
-    <!-- <panel-card class="company-function">
-        <panel-card-title>News -->
-            <!-- <panel-more-button routerLink="company-info">Detail ></panel-more-button> -->
-        <!-- </panel-card-title>
-        
-    </panel-card> -->
-
-    <!-- <news></news> -->
-    <panel-card class="user-activities">
-        <panel-card-title>Activities<panel-more-button>Detail ></panel-more-button></panel-card-title>
-        <panel-card-body>
-            <!-- <div class="per-item item-bottom"><span class="item-left "><b># of call to Customer</b></span> <span class="item-right success">500</span></div>
-            <div class="per-item item-bottom"><span class="item-left"><b># of visit</b></span> <span class="item-right">510</span></div>
-            <div class="per-item item-bottom"><span class="item-left"><b># of New Customer</b></span> <span class="item-right danger">20</span></div> -->
-            <div class="per-item "><span class="item-left"><b># of new lead </b></span> <span class="item-right new-customer">{{dashboardData?.new_leads_count}}</span></div>
-            <div class="per-item "><span class="item-left"><b># of lead </b></span> <span class="item-right">{{dashboardData?.leads_count}}</span></div>
-            <div class="per-item "><span class="item-left"><b># of new potential </b></span> <span class="item-right new-customer">{{dashboardData?.new_potentials_count}}</span></div>
-            <div class="per-item "><span class="item-left"><b># of potential </b></span> <span class="item-right">{{dashboardData?.potentials_count}}</span></div>
-            <div class="per-item "><span class="item-left"><b># of new account </b></span> <span class="item-right new-customer">{{dashboardData?.new_accounts_count}}</span></div>
-            <div class="per-item "><span class="item-left"><b># of account </b></span> <span class="item-right">{{dashboardData?.accounts_count}}</span></div>
-
-        </panel-card-body>
-    </panel-card>
-    
-
-    <panel-card class="user-performance">
-            <panel-card-title>Performance<panel-more-button>Detail ></panel-more-button></panel-card-title>
-            <panel-card-body>
-                <div><button (click)="showChartFun()" mat-button color="primary">Chart</button><button (click)="showDataFun()" mat-button color="primary">Data</button></div>
-                <div *ngIf="showData">
-                    <div class="per-item item-bottom"><span class="item-left"><b>Quota :</b><span class="danger">$250,000.00</span> </span> <span class="item-right"> Achieve: <span class="success">$80,000.00</span></span></div>
-                    <div class="per-item item-bottom"><span class="item-left"><b>Revenue MTD :</b></span> <span class="item-right">$30,000.00</span></div>
-                    <div class="per-item item-bottom"><span class="item-left"><b>Profit (%) :</b></span> <span class="item-right">20%</span></div>
-                    <div class="per-item"><span class="item-left"><b>Attendance :</b></span> <span class="item-right"></span></div>
-                </div>
-                <div *ngIf="showChart" class="display-chart">
-                    <img src="assets/images/testimg/chart1.png">
-                </div>
-            </panel-card-body>
-    </panel-card>
-
-    <panel-card class="comission-expense">
-            <panel-card-title>Commision & Expense<panel-more-button>Detail ></panel-more-button></panel-card-title>
-            <panel-card-body>
-                <mat-card>
-                    <div class="per-item">
-                        <div class="item-left"><b>Apr. 2018</b></div>
-                        <div class="item-middle"><span class="comission-title">Comission</span><span class="comission-value">N/A</span></div>
-                        <div class="item-right"><span class="comission-title">Expense</span ><span class="comission-value">N/A</span></div>
-                    </div>
-                </mat-card>
-
-                <mat-card>
-                    <div class="per-item">
-                        <div class="item-left"><b>Mar. 2018</b></div>
-                        <div class="item-middle"><span class="comission-title">Comission</span><span class="comission-value">N/A</span></div>
-                        <div class="item-right"><span class="comission-title">Expense</span ><span class="comission-value">N/A</span></div>
-                    </div>
-                </mat-card>
-                <mat-card>
-                    <div class="per-item">
-                        <div class="item-left"><b>Feb. 2018</b></div>
-                        <div class="item-middle"><span class="comission-title">Comission</span><span class="comission-value">N/A</span></div>
-                        <div class="item-right"><span class="comission-title">Expense</span ><span class="comission-value">N/A</span></div>
-                    </div>
-                </mat-card>
-            </panel-card-body>
-    </panel-card>
-
-    <panel-card class="user-benefits">
-            <panel-card-title>Benefits<panel-more-button>Detail ></panel-more-button></panel-card-title>
-            <panel-card-body>
-                
-            </panel-card-body>
-    </panel-card>
-
-    <panel-card class="user-compensation">
-            <panel-card-title>Compensation Plan<panel-more-button>Detail ></panel-more-button></panel-card-title>
-            <panel-card-body>
-                
-            </panel-card-body>
-    </panel-card>
-
-    <panel-card class="user-offerletter">
-        <panel-card-title>Offer Letter<panel-more-button>Detail ></panel-more-button></panel-card-title>
-        <panel-card-body>
-            
-        </panel-card-body>
-    </panel-card>
-
-    <panel-card class="user-offerletter">
-        <panel-card-title>Employee Hand Book<panel-more-button>Detail ></panel-more-button></panel-card-title>
-        <panel-card-body>
-            
-        </panel-card-body>
-    </panel-card>
-
-    <panel-card class="user-offerletter">
-        <panel-card-title>Sales Quote<panel-more-button>Detail ></panel-more-button></panel-card-title>
-        <panel-card-body>
-            
-        </panel-card-body>
-    </panel-card>
-
-    <panel-card class="user-offerletter">
-        <panel-card-title>Responsibility<panel-more-button>Detail ></panel-more-button></panel-card-title>
-        <panel-card-body>
-            
-        </panel-card-body>
-    </panel-card>
-
-    <panel-card class="user-offerletter">
-        <panel-card-title>Incentive Plan<panel-more-button>Detail ></panel-more-button></panel-card-title>
-        <panel-card-body>
-            
-        </panel-card-body>
-    </panel-card>
-    <!-- <button (click)="refresh()">Try Reload</button> -->
 </div>
 
 <!-- <image-cropper (sendImgUrl)="onReceiveImgUrl($event)" ></image-cropper> -->
 <div *ngIf="isLoading">
     <app-spinner></app-spinner>
 </div>
-
