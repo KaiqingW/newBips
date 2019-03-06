@@ -38,7 +38,7 @@ export class SignupComponent {
 
     onSubmit() {
         if (this.myForm.controls.password.value == this.myForm.controls.confirmed_password.value) {
-            this.isLoading = true;
+            // this.isLoading = true;
 
             this.authService.signup({
                 'email': this.user.email,
@@ -54,13 +54,12 @@ export class SignupComponent {
                 },
                 err => {
                     this.dialogService.openAlertDialog(err.error.message);
-                    this.toasterService.showToaster(err.error.errors.email ? err.error.errors.email : err.error.message, '', 3000);
+                    this.toasterService.showToaster(err.error.errors ? err.error.errors.email : err.error.message, '', 3000);
                     this.isLoading = false;
                 }
             );
         } else {
             alert("Password and Confirmed Password should be consistent!");
-
         }
     }
 
