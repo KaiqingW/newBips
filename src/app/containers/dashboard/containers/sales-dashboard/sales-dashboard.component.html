@@ -1,180 +1,219 @@
-<div>
-    <app-sidebar></app-sidebar>
-</div>
-<div *ngIf="!isLoading">
-    <div class="company-title">
-        <!-- <img class="comany-tile-background" src="/assets/images/testimg/orb3.png"> -->
-        <!-- <weather [compzipcode] = compzipcode></weather> -->
-        <!-- <div class="comany-tile-background"></div> -->
-        <company-logo *ngIf="currentUserName" [url]="currentUser?.avatar_url" [comname]="currentUserName" [userId]="currentUser?.id">
-        </company-logo>
-        <div style="text-align: center; margin-bottom: 5px; font-size:14px; margin-top:35px;">
-            <span routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>
+
+<div style="display: flex; width: 1900px; height: 949px; flex-direction: row">
+    <app-sidebar style="width: 20%; height: 100%;"></app-sidebar>
+    
+    <div *ngIf="!isLoading" style="width: 80%;">
+        <div class="company-title">
+            <!-- <img class="comany-tile-background" src="/assets/images/testimg/orb3.png"> -->
+            <!-- <weather [compzipcode] = compzipcode></weather> -->
+            <!-- <div class="comany-tile-background"></div> -->
+            <company-logo *ngIf="currentUserName" [url]="currentUser?.avatar_url" [comname]="currentUserName"
+                [userId]="currentUser?.id">
+            </company-logo>
+            <div style="text-align: center; margin-bottom: 5px; font-size:14px;">
+                <span routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>
+            </div>
+            <div class="company_name">
+                <span>
+                    <b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b>
+                </span>
+            </div>
+
+            <div class="company-position">
+                <span> {{currentUserInCompany?.type}}</span>
+            </div>
         </div>
-        <div class="company_name">
-            <span>
-                <b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b>
-            </span>
-        </div>
 
-        <div class="company-position">
-            <span> {{currentUserInCompany?.type}}</span>
-        </div>
-    </div>
+        <panel-card class="company-function">
+            <panel-card-title>Core Function
+                <!-- <panel-more-button routerLink="company-info">Detail ></panel-more-button> -->
+            </panel-card-title>
+            <panel-card-body>
 
-    <panel-card class="company-function">
-        <panel-card-title>Core Function
-            <!-- <panel-more-button routerLink="company-info">Detail ></panel-more-button> -->
-        </panel-card-title>
-        <panel-card-body>
+                <span class="left-arrow">
+                    <i class="material-icons">&#xE314;</i>
+                </span>
 
-            <span class="left-arrow">
-                <i class="material-icons">&#xE314;</i>
-            </span>
-
-            <div class="scroll-card" id="scrollCard">
-                <div class="tow-line" name="1">
+                <div class="scroll-card tow-line" id="scrollCard">
+                    <!-- <div class="tow-line" name="1"> -->
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.crmurl" [companyName]="'CRM'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/crm/lead"></logo>
+                        <logo [url]="fakeUrl.crmurl" [companyName]="'CRM'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/crm/lead"></logo>
                         <span>CRM</span>
                     </div>
 
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.vrmurl3" [companyName]="'VRM'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor"></logo>
+                        <logo [url]="fakeUrl.vrmurl3" [companyName]="'VRM'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor"></logo>
                         <span>VRM</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
 
-                <div class="tow-line" name="2">
+                    <!-- <div class="tow-line" name="2"> -->
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.inurl" [companyName]="'Inventory'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/inventory/product"></logo>
+                        <logo [url]="fakeUrl.inurl" [companyName]="'Inventory'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/inventory/product"></logo>
                         <span>Inventory</span>
                     </div>
 
                     <div class="function-icon-name">
                         <!-- <span class="unread" *ngIf="pendingOrderNum">{{pendingOrderNum}}</span> -->
-                        <span routerLink="/company/{{currentLoginCompanyId}}/purchase-order/orders" class="pending-order" *ngIf="pendingOrderNum">{{pendingOrderNum}}</span>
-                        <logo [url]="fakeUrl.pourl" [companyName]="'Order'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/purchase-order/orders"></logo>
+                        <span routerLink="/company/{{currentLoginCompanyId}}/purchase-order/orders"
+                            class="pending-order" *ngIf="pendingOrderNum">{{pendingOrderNum}}</span>
+                        <logo [url]="fakeUrl.pourl" [companyName]="'Order'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/purchase-order/orders">
+                        </logo>
                         <span>Order</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <div class="tow-line" name="4">
+                    <!-- <div class="tow-line" name="4"> -->
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.whurl" [companyName]="'Warehouse'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/warehouse/houses"></logo>
+                        <logo [url]="fakeUrl.whurl" [companyName]="'Warehouse'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/warehouse/houses"></logo>
                         <span>Warehouse</span>
                     </div>
                     <div class="function-icon-name">
                         <span class="unread" *ngIf="businessMeetingUnread">{{businessMeetingUnread}}</span>
-                        <logo [url]="fakeUrl.businessMeeting" [companyName]="'Business Meeting'" [type]="1" [width]="50" [height]="50" [fontSize]="18"
+                        <logo [url]="fakeUrl.businessMeeting" [companyName]="'Business Meeting'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18"
                             routerLink="/company/{{currentLoginCompanyId}}/business-meeting/subject"></logo>
                         <span>Meeting</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <div class="tow-line" name="6">
+                    <!-- <div class="tow-line" name="6"> -->
                     <div class="function-icon-name">
                         <!-- the company has not had sales department opportunity, and the current user is admin of the company, route to add-subject page -->
-                        <logo *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin !== 0" [url]="fakeUrl.departmentOpportunity"
-                            [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/add-opportunity-subject"></logo>
+                        <logo *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin !== 0"
+                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1"
+                            [width]="50" [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/add-opportunity-subject">
+                        </logo>
 
                         <!-- the company has not had sales department opportunity, but the current user is not admin of the company, show dialog -->
-                        <logo *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin  == 0" [url]="fakeUrl.departmentOpportunity"
-                            [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" (click)="showOppoSetupAlertDialog()"></logo>
+                        <logo *ngIf="!hasSalesDepartmentOpportunity && currentUserCompany?.is_admin  == 0"
+                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1"
+                            [width]="50" [height]="50" [fontSize]="18" (click)="showOppoSetupAlertDialog()"></logo>
 
                         <!-- the company has sales department opportunity, and the current user is the admin of the opportunity -->
                         <span class="unread" *ngIf="projectListTotalUnread > 0">{{projectListTotalUnread}}</span>
 
-                        <logo *ngIf="hasSalesDepartmentOpportunity && opportunityPermission == 'oppoAdmin'" [url]="fakeUrl.departmentOpportunity"
-                            [companyName]="'Department Opportunity'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}"></logo>
+                        <logo *ngIf="hasSalesDepartmentOpportunity && opportunityPermission == 'oppoAdmin'"
+                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1"
+                            [width]="50" [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}">
+                        </logo>
 
                         <!-- the company has sales department opportunity, and the current user is not admin of the opportunity
                         and the current user does  not have project in the opportunity, show dialog -->
-                        <logo *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && !salesOpportunityProjectPermission"
-                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50"
-                            [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}/shared-opportunity-list"></logo>
+                        <logo
+                            *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && !salesOpportunityProjectPermission"
+                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1"
+                            [width]="50" [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-subject/{{departmentOpportunityId}}/shared-opportunity-list">
+                        </logo>
 
                         <!-- the company has sales department opportunity, and the current user is not admin of the opportunity
                         and the current user have project in the opportunity, go the user's project page -->
-                        <logo *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && salesOpportunityProjectPermission"
-                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1" [width]="50"
-                            [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{salesOpportunityProjectId}}/sales-opportunity-list"></logo>
+                        <logo
+                            *ngIf="hasSalesDepartmentOpportunity &&  opportunityPermission != 'oppoAdmin' && salesOpportunityProjectPermission"
+                            [url]="fakeUrl.departmentOpportunity" [companyName]="'Department Opportunity'" [type]="1"
+                            [width]="50" [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/department-opportunity/opportunity-person-project/{{salesOpportunityProjectId}}/sales-opportunity-list">
+                        </logo>
 
                         <span>Opportunity</span>
                     </div>
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.noteurl" [companyName]="'Note'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/notes/subject"></logo>
+                        <logo [url]="fakeUrl.noteurl" [companyName]="'Note'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/notes/subject"></logo>
                         <span>Note</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <div class="tow-line" name="6">
+                    <!-- <div class="tow-line" name="6"> -->
 
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.shopManagement" [companyName]="'shop-management'" [type]="1" [width]="50" [height]="50" [fontSize]="18"
+                        <logo [url]="fakeUrl.shopManagement" [companyName]="'shop-management'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18"
                             routerLink="/company/{{currentLoginCompanyId}}/shop-management/main"></logo>
                         <span>Shop</span>
                     </div>
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.scurl" [companyName]="'Showcase'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/showcase"></logo>
+                        <logo [url]="fakeUrl.scurl" [companyName]="'Showcase'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/showcase"></logo>
                         <span>Showcase</span>
                     </div>
 
-                </div>
+                    <!-- </div> -->
 
-                <div class="tow-line" name="5" *ngIf="currentUserCompany?.is_admin !== 0">
+                    <!-- <div class="tow-line" name="5" *ngIf="currentUserCompany?.is_admin !== 0"> -->
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl?.crmassignmenturl" [companyName]="'Assignment'" [type]="1" [width]="50" [height]="50" [fontSize]="18"
+                        <logo [url]="fakeUrl?.crmassignmenturl" [companyName]="'Assignment'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18"
                             routerLink="/company/{{currentLoginCompanyId}}/crm-assignment/lead"></logo>
                         <span>Assign</span>
                     </div>
 
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.broadcasturl" [companyName]="'Report'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/broadcast/lead"></logo>
+                        <logo [url]="fakeUrl.broadcasturl" [companyName]="'Report'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/broadcast/lead"></logo>
                         <span>Email Blast</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <div class="tow-line" name="3" *ngIf="currentUserCompany?.is_admin !== 0">
+                    <!-- <div class="tow-line" name="3" *ngIf="currentUserCompany?.is_admin !== 0"> -->
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.aeurl" [companyName]="'AddEmployee'" [type]="1" [width]="50" [height]="50" [fontSize]="18" (click)="goAddEmployeeO()"></logo>
+                        <logo [url]="fakeUrl.aeurl" [companyName]="'AddEmployee'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" (click)="goAddEmployeeO()"></logo>
                         <span>HR</span>
                     </div>
 
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.seturl" [companyName]="'Setting'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/company-setting"></logo>
+                        <logo [url]="fakeUrl.seturl" [companyName]="'Setting'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/company-setting"></logo>
                         <span>Setting</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <div class="tow-line" name="6">
+                    <!-- <div class="tow-line" name="6"> -->
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.appcenterurl" [companyName]="'Report'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/appcenter"></logo>
+                        <logo [url]="fakeUrl.appcenterurl" [companyName]="'Report'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/appcenter">
+                        </logo>
                         <span>App Center</span>
                     </div>
 
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.quoteCenterUrl" [companyName]="'Quotes'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/salesentity/quote/draft"></logo>
+                        <logo [url]="fakeUrl.quoteCenterUrl" [companyName]="'Quotes'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/salesentity/quote/draft"></logo>
                         <span>Quotes</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <div class="tow-line" name="6">
+                    <!-- <div class="tow-line" name="6"> -->
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.salesOrderUrl" [companyName]="'SalesOrders'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/salesentity/salesorder/new"></logo>
+                        <logo [url]="fakeUrl.salesOrderUrl" [companyName]="'SalesOrders'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/salesentity/salesorder/new"></logo>
                         <span>SalesOrders</span>
                     </div>
 
                     <div class="function-icon-name">
-                        <logo [url]="fakeUrl.invoiceUrl" [companyName]="'Invoices'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/salesentity/invoice"></logo>
+                        <logo [url]="fakeUrl.invoiceUrl" [companyName]="'Invoices'" [type]="1" [width]="50"
+                            [height]="50" [fontSize]="18"
+                            routerLink="/company/{{currentLoginCompanyId}}/salesentity/invoice"></logo>
                         <span>Invoices</span>
                     </div>
-                </div>
+                    <!-- </div> -->
 
-                <!-- bwlow hide by yadong, maybe use later-->
+                    <!-- bwlow hide by yadong, maybe use later-->
 
-                <!-- <div class="tow-line" name="6" *ngIf="currentUserCompany?.is_admin !== 0">
+                    <!-- <div class="tow-line" name="6" *ngIf="currentUserCompany?.is_admin !== 0">
                         <div class="function-icon-name" >
                                 <logo [url]="fakeUrl.financialurl" [companyName]="'Finanical'" [type]="1" [width]="50" [height]="50" [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/financial/fdashboard"></logo>
                             <span>Financial</span>
@@ -186,7 +225,7 @@
                         </div>
                 </div> -->
 
-                <!-- <div class="tow-line" name="6">
+                    <!-- <div class="tow-line" name="6">
                     <div class="function-icon-name">
                             <logo [url]="fakeUrl.reporturl" [companyName]="'Report'" [type]="1" [width]="50" [height]="50" [fontSize]="18" (click)="note()"></logo>
                         <span>Report</span>
@@ -212,15 +251,14 @@
                         <span>Cost Analysis</span>
                     </div>
                 </div> -->
-            </div>
-            <span class="right-arrow">
-                <i class="material-icons">&#xE315;</i>
-            </span>
-        </panel-card-body>
-    </panel-card>
-
+                </div>
+                <span class="right-arrow">
+                    <i class="material-icons">&#xE315;</i>
+                </span>
+            </panel-card-body>
+        </panel-card>
+    </div>
 </div>
-
 <!-- <image-cropper (sendImgUrl)="onReceiveImgUrl($event)" ></image-cropper> -->
 <div *ngIf="isLoading">
     <app-spinner></app-spinner>

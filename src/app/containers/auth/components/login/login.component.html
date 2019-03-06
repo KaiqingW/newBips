@@ -6,10 +6,10 @@
   <div class="movie-cover"></div>
 </div>
 
-<form novalidate (ngSubmit)="onSubmit()" style="width: 600px; background-color: #00000024;">
+<form novalidate (ngSubmit)="onSubmit()" style="width: 600px; background-color: #00000024; border-radius: 8%; z-index: 1">
   <div style="z-index: 0;">
     <div class="orcasmart-logo">
-      <img src="assets/images/logo/Orcasmart.png" width="70" />
+      <img src="assets/images/logo/Orcasmart.png" width="220" />
     </div>
     <h1>ORCASMART</h1>
   </div>
@@ -33,11 +33,11 @@
   </div>
 
   <div class="action-icon">
-    <div class="icon-item">
+    <div class="icon-item" (onclick)="redirect()">
       <a routerLink="/auth/pwd_reset">
         <mat-icon>lock</mat-icon>
       </a>
-      <div class="icon-lable" routerLink="/auth/pwd_reset">Forget Password</div>
+      <button mat-raised-button class="icon-lable"routerLink="/auth/pwd_reset">Forget Password</button>
     </div>
 
     <div class="icon-item">

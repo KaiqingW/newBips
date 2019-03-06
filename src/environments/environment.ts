@@ -14,7 +14,7 @@ export const environment = {
 
 
   // stable version: orcasmart.us
-  ORCA_API: 'http://18.224.214.144/', ORCA_SHOP_API: 'http://bips.orcasmart.us/',
+  ORCA_API: 'http://18.191.127.123/', ORCA_SHOP_API: 'http://bips.orcasmart.us/',
 
   //local host:
   //ORCA_API: 'http://127.0.0.1:8000/', ORCA_SHOP_API: 'http://localhost:4200/',

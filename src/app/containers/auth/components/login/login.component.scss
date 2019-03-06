@@ -18,7 +18,7 @@
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: -100;
+    // z-index: -100;
     transform: translateX(-50%) translateY(-50%);
     transition: 1s opacity;
     /* background: url(loginbg.png) no-repeat; */
@@ -52,6 +52,7 @@
     color: white;
     text-shadow: 2px 2px #545252;
     font-size: 40px;
+    margin-top: 30px;
   }
   
   .welcome {
@@ -59,9 +60,10 @@
     font-size: 18px;
   }
   
-  .logo {
-    width: 100px;
-    height: 70px;
+  .orcasmart-logo {
+    position: absolute;
+    top: 134px;
+    right: 45%;
   }
   
   .movie-fade {
@@ -72,7 +74,6 @@
     height: 100%;
     width: 100%;
   }
-  
   .movie-cover {
     // background: url(../../assets/imgs/overlay.png) repeat 50% 50%;
     position: absolute;
@@ -119,16 +120,17 @@ form {
 }
 
 mat-form-field{
-    width: 100%;
+    width: 60%;
 }
 .btn-gp{
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
     width: 100%;
+    justify-content: center;
     .submit-btn {
         box-sizing: border-box;
-        width: 50%;
+        width: 42%;
         margin: 40px 0 20px 0;
         height:36px;
     }
@@ -136,7 +138,7 @@ mat-form-field{
     .redirect-link{
         box-sizing: border-box;
         color: #15305A;
-        width: 50%;
+        width: 42%;
         margin: 40px 0 20px 0;
         height:36px;
 
@@ -159,6 +161,7 @@ mat-form-field{
             font-size:13px;
             width:100%;
             text-align: center; 
+            background-color: #00000024;
         }
     }
     a {

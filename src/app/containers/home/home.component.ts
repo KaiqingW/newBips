@@ -16,7 +16,7 @@ import * as fromAuthReducer from 'app/core/reducers/auth.reducer';
 export class HomeComponent implements OnInit {
 
   auth$: Observable<fromAuthReducer.State>;
-  isLoading;
+  isLoading = false;
   currentWholeUrl;
   constructor(
     private store: Store<StoreState>,

@@ -63,13 +63,14 @@ export class LoginComponent {
         return this.myForm.controls.email.hasError('required') ? 'You must enter a value' :
             this.myForm.controls.email.hasError('email') ? 'Not a valid email' :
             '';
-
     }
 
     getPasswordErrorMessage() {
         return this.myForm.controls.password.hasError('required') ? 'You must enter a value' :
             this.myForm.controls.password.hasError('minlength') ? 'Should be at least 6 characters' :
             '';
-
+    }
+    redirect() {
+      this.router.navigate(['/auth/pwd_reset']);
     }
 }
