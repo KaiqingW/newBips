@@ -112,7 +112,7 @@ export class SalesDashboardComponent implements OnInit {
         window.location.reload(true);
     }
     ngOnInit() {
-
+        console.log(this.dashboardData);
         // setTimeout(() => {
         //     const cancelClick = document.getElementById('header-cancel');
         //     cancelClick.addEventListener("click", ()=>{
@@ -296,7 +296,7 @@ export class SalesDashboardComponent implements OnInit {
         this.dashboardService.getDashBoardData(this.currentLoginCompanyId).subscribe(
             res=>{
                 this.dashboardData = res;
-                // console.log(res);
+                console.log(res);
             }
         )
     }
