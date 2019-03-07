@@ -1,0 +1,10 @@
+<mat-card class="orca_card">
+    <div class="orca_title_sm">
+        <b>Shipping Price Information</b>
+    </div>
+
+    <mat-button-toggle-group [value]="shipping_info" aria-label="Change Shipping Information">
+        <mat-button-toggle value="0" (click)="changeShipping(0)"> Not Free for Shipping </mat-button-toggle>
+        <mat-button-toggle value="1" (click)="changeShipping(1)"> Free Shipping </mat-button-toggle>
+    </mat-button-toggle-group>
+</mat-card>

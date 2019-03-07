@@ -68,9 +68,12 @@ export class InventoryService {
     return this.http.post(environment.ORCA_API + `company/${company_id}/inventory/product/${product_id}/retailprice`, priceObj);
   }
 
-
   public getRetailPriceTable(company_id, product_id): Observable<any> {
     return this.http.get(environment.ORCA_API + `company/${company_id}/inventory/product/${product_id}/retailprice`);
+  }
+
+  public editRetailPriceTable(company_id, product_id, priceObj): Observable<any> {
+    return this.http.patch(environment.ORCA_API + `company/${company_id}/inventory/product/${product_id}/retailprice`, priceObj);
   }
 
   public addCategory(company_id, category): Observable<any> {

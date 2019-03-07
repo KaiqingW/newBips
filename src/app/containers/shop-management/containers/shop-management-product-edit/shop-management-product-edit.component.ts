@@ -25,6 +25,7 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
     shopCategories;
     finishCount = 0;
     productSubscription: Subscription;
+    editMode: boolean = false;
 
     constructor(private inventorySerivce: InventoryService,
         private route: ActivatedRoute,
@@ -32,7 +33,8 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
         private router: Router,
         private inventoryService: InventoryService,
         private shopManagementService: ShopManagementService,
-        private dialogService: DialogService) {
+        private dialogService: DialogService,
+    ) {
 
     }
 
@@ -42,11 +44,23 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
         this.getProductDetail();
         this.getRetailPrices();
         this.getShopCatgory();
-
     }
 
     ngOnDestroy() {
 
+    }
+
+    onGetShippingInfo(shippingInfo) {
+        this.isLoading = true;
+        this.inventorySerivce.editProductAllInfo(this.company_id, this.product_id, shippingInfo).subscribe(
+            res => {
+                this.product = res;
+                this.isLoading = false;
+            },
+            (err) => {
+                this.isLoading = false;
+            }
+        )
     }
 
     getProductDetail() {
@@ -87,17 +101,21 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
     }
 
     getRetailPrices() {
-        this.inventorySerivce.getRetailPriceTable(this.company_id, this.product_id).subscribe(
-            (res) => {
+        if (!this.editMode) {
+            this.inventorySerivce.getRetailPriceTable(this.company_id, this.product_id).subscribe(
+                (res) => {
 
-                res.forEach(
-                    (priceObj) => {
-                        priceObj.price /= 100;
-                    }
-                )
-                this.retailPrices = res;
-            }
-        )
+                    res.forEach(
+                        (priceObj) => {
+                            priceObj.price /= 100;
+                        }
+                    )
+                    this.retailPrices = res;
+                }
+            )
+        } else {
+
+        }
     }
 
     closeModal() {
@@ -146,27 +164,52 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
         )
     }
 
+    onGetPatchTable(priceTable){
+        this.isLoading = true;
+        priceTable.prices.forEach(
+            (priceObj) => {
+                priceObj.price *= 100;
+            }
+        );
+        this.inventorySerivce.editRetailPriceTable(this.company_id, this.product_id, priceTable).subscribe(
+            res => {
+                res.forEach(
+                    (priceObj) => {
+                        priceObj.price /= 100;
+                    }
+                )
+                this.retailPrices = res;
+                this.isLoading = false;
+            },
+            (err) => {
+                this.isLoading = false;
+            }
+        )
+    }
+
     changeToOnline() {
-        this.checkProductBeforeChangeStatus();
+        let if_pass = this.checkProductBeforeChangeStatus();
+        if (!if_pass) return;
         let obj = { shop_status: 3 };
         this.updateProductInfo(obj);
     }
 
-    checkProductBeforeChangeStatus(){
+    checkProductBeforeChangeStatus() {
         if (this.product && !this.product.description) {
             this.dialogService.openAlertDialog("Please add product description!")
-            return;
+            return false;
         }
-        if(this.product && this.product.warehouses && this.product.warehouses.length < 1){
+        if (this.product && this.product.warehouses && this.product.warehouses.length < 1) {
             this.dialogService.openAlertDialog("The product is out of stock, please add product inventory in any warehouse!").subscribe(
                 res => {
-                    if(res){
+                    if (res) {
                         this.router.navigateByUrl(`/company/${this.company_id}/inventory/product`);
                     }
                 }
             )
-            return;
+            return false;
         }
+        return true;
     }
 
     changeToOffline() {
@@ -192,6 +235,10 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
         return (this.product && this.retailPrices && this.retailPrices.length > 0 && this.product.shop_first_category && this.product.images.length > 0);
     }
 
+    onGetEditMode(editMode) {
+        this.editMode = editMode;
+    }
+
     updateProductInfo(obj) {
         this.isLoading = true;
         this.shopService.updateProduct(this.company_id, this.product_id, obj).subscribe(
@@ -211,6 +258,7 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
                             product['price_table'] = res;
                             let obj = {
                                 name: product.name,
+                                headline: product.headline,
                                 description: product.description,
                                 image: this.processImg(product['images']),
                                 company_id: this.company_id,
@@ -218,9 +266,19 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
                                 first_category: product.shop_first_category,
                                 second_category: product.shop_second_category,
                                 third_category: product.shop_third_category,
+
+                                brand: product.brand,
+
+                                color: product.color,
+                                size: product.size,
+                                msrp: product.msrp,
+                                shipping_time: product.shipping_time,
+                                sku: product.sku,
+
                                 retail_prices: res,
+                                free_shipping: product.free_shipping,
                                 warehouses: this.processWarehouseAddressId(product.warehouses)
-                            }
+                            };
 
                             this.shopService.addProductFromCompanyToOrcashop(171, obj).subscribe(
                                 (res) => {
@@ -231,7 +289,6 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
                             )
                         }
                     )
-
 
                 }
             )

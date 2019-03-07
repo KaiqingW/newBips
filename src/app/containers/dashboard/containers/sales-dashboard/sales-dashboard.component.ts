@@ -6,7 +6,6 @@ import { BusinessMeetingService } from 'app/core/services/business-meeting.servi
 import { OrdersService } from '../../../../core/services/orders.service';
 import { DialogService } from 'app/core/services/dialog.service';
 import { DashBoardService } from 'app/core/services/dashboard.service';
-
 // import opportunity subject id, editted by yali
 import { DEPARTMENTOPPORTUNITYID } from 'app/core/data/department-opportunity-data';
 import { DepartmentOpportunityService } from 'app/core/services/department-opportunity.service';
@@ -106,6 +105,9 @@ export class SalesDashboardComponent implements OnInit {
         alert('comming soon!');
     }
 
+    onHome() {
+        this.router.navigateByUrl('home');
+      }
     refresh() {
         window.location.reload(true);
     }

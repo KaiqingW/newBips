@@ -1,9 +1,41 @@
-<mat-card class="orca_card" *ngIf="!firstCate">
+<mat-card class="orca_card" *ngIf="!firstCate || editMode">
     <div class="summary">
         <b>Product Information</b>
     </div>
 
     <form [formGroup]="categoryForm">
+
+        <div class="summary">
+            <mat-form-field class="field1">
+                <input matInput type="number" formControlName="msrp" placeholder="MSRP" required>
+            </mat-form-field>
+            <mat-form-field class="field1">
+                <input matInput type="text" formControlName="sku" placeholder="SKU" required>
+            </mat-form-field>
+        </div>
+
+        <div class="summary">
+            <mat-form-field class="field1">
+                <input matInput type="text" formControlName="color" placeholder="Color">
+            </mat-form-field>
+            <mat-form-field class="field1">
+                <input matInput type="text" formControlName="size" placeholder="Size">
+            </mat-form-field>
+        </div>
+
+        <div class="summary">
+            <!-- <mat-form-field class="field1">
+                <mat-select formControlName="shipping_time" placeholder="Shipping Time" required>
+                    <mat-option *ngFor="let day of days" [value]="day">
+                        {{day}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <mat-form-field class="field1">
+                <input matInput type="text" formControlName="brand" placeholder="Brand">
+            </mat-form-field>
+        </div>
+
         <div class="summary">
             <!-- <span>Unit Weight:</span> -->
             <mat-form-field class="field1">
@@ -29,7 +61,8 @@
             </mat-form-field>
         </div>
 
-        <div class="summary" *ngIf="categoryForm.value.first_category && categoryForm.value.first_category?.children?.length">
+        <div class="summary"
+            *ngIf="categoryForm.value.first_category && categoryForm.value.first_category?.children?.length">
             <!-- <span>Second Category:</span> -->
             <mat-form-field class="field2">
                 <mat-select formControlName="second_category" placeholder="Second category">
@@ -41,7 +74,8 @@
         </div>
 
         <!-- <div class="summary" *ngIf="categoryForm.value.second_category && categoryForm.value.second_category?.children.length > 0"> -->
-        <div class="summary" *ngIf="categoryForm.value.second_category && categoryForm.value.second_category?.children?.length">
+        <div class="summary"
+            *ngIf="categoryForm.value.second_category && categoryForm.value.second_category?.children?.length">
 
             <!-- <span>Third Category:</span> -->
             <mat-form-field class="field2">
@@ -54,15 +88,42 @@
         </div>
 
         <div class="btn-group">
+            <button mat-raised-button mat-button color="warn"
+                (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button>
             <button mat-raised-button mat-button color="primary" (click)="onSave()">Save</button>
         </div>
     </form>
 
 </mat-card>
 
-<mat-card class="orca_card" *ngIf="firstCate">
+<mat-card class="orca_card" *ngIf="firstCate && !editMode">
     <div class="summary orca_title_sm">
         <b>Product Information</b>
+    </div>
+
+    <div class="orca_title_content_row" *ngIf="product?.msrp">
+        <span class="orca_title_h_blue">MSRP</span>
+        <span class="orca_content_h_white">{{product.msrp / 100 | number}}</span>
+    </div>
+    <div class="orca_title_content_row" *ngIf="product?.sku">
+        <span class="orca_title_h_blue">SKU</span>
+        <span class="orca_content_h_white">{{product.sku}}</span>
+    </div>
+    <div class="orca_title_content_row" *ngIf="product?.shipping_time">
+        <span class="orca_title_h_blue">Shipping Time</span>
+        <span class="orca_content_h_white">{{product.shipping_time}}</span>
+    </div>
+    <div class="orca_title_content_row" *ngIf="product?.brand">
+        <span class="orca_title_h_blue">Band</span>
+        <span class="orca_content_h_white">{{product.brand}}</span>
+    </div>
+    <div class="orca_title_content_row" *ngIf="product?.size">
+        <span class="orca_title_h_blue">Size</span>
+        <span class="orca_content_h_white">{{product.size}}</span>
+    </div>
+    <div class="orca_title_content_row" *ngIf="product?.color">
+        <span class="orca_title_h_blue">Color</span>
+        <span class="orca_content_h_white">{{product.color}}</span>
     </div>
 
     <div class="orca_title_content_row" *ngIf="unit_weight">
@@ -81,5 +142,9 @@
     <div class="orca_title_content_row" *ngIf="thirdCate">
         <span class="orca_title_h_blue">Third Category</span>
         <span class="orca_content_h_white">{{thirdCate}}</span>
+    </div>
+    <div class="orca_btn_bar">
+        <button mat-raised-button mat-button color="warn"
+            (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button>
     </div>
 </mat-card>

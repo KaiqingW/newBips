@@ -31,6 +31,7 @@ import { SearchBarModule } from '../../components/search-bar/search-bar.module';
 import { UploadSingleImgModule } from '../../components/upload-single-img/upload-single-img.module';
 import { AddressCardModule } from '../../components/address-card/address-card.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { UpsService } from '../../core/services/ups.service';
 import { MomentModule } from 'angular2-moment/moment.module';
 import { LocalTimePipe } from './local-time.pipe';
@@ -52,6 +53,7 @@ import { SalesPitchComponent } from './containers/add-sales-pitch-subject/sales-
 import { ShopManagementService } from '../../core/services/shop-management.service';
 import { ShortTextPipe } from './short-text.pipe';
 import { ShopProductDescriptionComponent } from './containers/shop-management-product-edit/product-description/product-description.component';
+import { ShippingInfoComponent } from './containers/shop-management-product-edit/shipping-info/shipping-info.component';
 @NgModule({
   imports: [
     RouterModule.forChild(ShopManagementRoutes),
@@ -81,7 +83,8 @@ import { ShopProductDescriptionComponent } from './containers/shop-management-pr
     AddressCardModule,
     MatToolbarModule,
     MomentModule,
-    EditorModule
+    EditorModule,
+    MatButtonToggleModule
   ],
   declarations: [
     ShopManagementComponent,
@@ -101,7 +104,8 @@ import { ShopProductDescriptionComponent } from './containers/shop-management-pr
     SalesPitchSubjectComponent,
     SalesPitchComponent,
     ShortTextPipe,
-    ShopProductDescriptionComponent
+    ShopProductDescriptionComponent,
+    ShippingInfoComponent
   ],
   providers: [
     ToasterService,

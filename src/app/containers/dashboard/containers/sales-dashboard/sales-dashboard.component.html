@@ -1,30 +1,32 @@
-
-<div style="display: flex; width: 1900px; height: 949px; flex-direction: row">
-    <app-sidebar style="width: 20%; height: 100%;"></app-sidebar>
-    
-    <div *ngIf="!isLoading" style="width: 80%;">
-        <div class="company-title">
-            <!-- <img class="comany-tile-background" src="/assets/images/testimg/orb3.png"> -->
-            <!-- <weather [compzipcode] = compzipcode></weather> -->
-            <!-- <div class="comany-tile-background"></div> -->
-            <company-logo *ngIf="currentUserName" [url]="currentUser?.avatar_url" [comname]="currentUserName"
-                [userId]="currentUser?.id">
-            </company-logo>
-            <div style="text-align: center; margin-bottom: 5px; font-size:14px;">
-                <span routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>
-            </div>
-            <div class="company_name">
-                <span>
-                    <b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b>
-                </span>
-            </div>
-
-            <div class="company-position">
-                <span> {{currentUserInCompany?.type}}</span>
+<div style="display: flex; width: 1900px; height: 949px; flex-direction: column;">
+    <div *ngIf="!isLoading" style="width: 100%; display: flex">
+        <!-- <div class="company-title">
+             <img class="comany-tile-background" src="/assets/images/testimg/orb3.png"> 
+            <weather [compzipcode] = compzipcode></weather>
+            <div class="comany-tile-background"></div>
+        </div> -->
+        <div style="width: 20%">
+            <div class="company-title">
+                <button mat-raised-button color="warn" class="logout-btn" (click)="onHome()">Go Home</button>
+                <company-logo *ngIf="currentUserName" [url]="currentUser?.avatar_url" [comname]="currentUserName"
+                    [userId]="currentUser?.id">
+                </company-logo>
+                <div style="text-align: center; margin-bottom: 5px; font-size:14px;">
+                    <span
+                        routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>
+                </div>
+                <div class="company_name">
+                    <span>
+                        <b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b>
+                    </span>
+                </div>
+                <div class="company-position">
+                    <span> {{currentUserInCompany?.type}}</span>
+                </div>
             </div>
         </div>
+        <panel-card class="company-function" style="width: 80%">
 
-        <panel-card class="company-function">
             <panel-card-title>Core Function
                 <!-- <panel-more-button routerLink="company-info">Detail ></panel-more-button> -->
             </panel-card-title>
@@ -258,6 +260,7 @@
             </panel-card-body>
         </panel-card>
     </div>
+    <app-sidebar style="width: 20%; height: 100%;"></app-sidebar>
 </div>
 <!-- <image-cropper (sendImgUrl)="onReceiveImgUrl($event)" ></image-cropper> -->
 <div *ngIf="isLoading">

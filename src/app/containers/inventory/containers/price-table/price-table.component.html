@@ -1,66 +1,66 @@
 <mat-card class="orca_card" *ngIf="retailPrices?.length > 0">
-    <div class="summary"><b>Retail Price Table</b></div>
-          <div class="row price-table">
-            <div class="col-3">
-                <div class="price-label">Min Qty</div>
-            </div>
-            <div class="col-3">
-                <div class="price-label">Max Qty</div>
-              </div>
-            <div class="col-3">
-                <div class="price-label">Price</div>
-              </div>
-          </div>
-
-          <div class="row price-table" *ngFor="let table of retailPrices"> 
-              <div class="col-3">
-                <span>{{table.min_qty | number}}</span>
-              </div>
-              <div class="col-3">
-                  <span>{{table.max_qty | number}}</span>
-                </div>
-              <div class="col-3">
-                  <span>{{table.price | number}}</span>
-              </div> 
-          </div>           
-</mat-card>
-
-<mat-card class="orca_card" *ngIf="retailPrices?.length == 0">
-    <form [formGroup]="priceForm">
-      <div formArrayName="prices">
-          <div class="row">
-            <div class="col-3">
-                <div class="price-label">Min Qty</div>
-            </div>
-            <div class="col-3">
-                <div class="price-label">Max Qty</div>
-              </div>
-            <div class="col-3">
-                <div class="price-label">Price</div>
-              </div>
-          </div>
-          <div *ngFor="let price of priceForm['controls'].prices['controls'];let i=index">
-              <div class="row" [formGroupName]="i"> 
+        <div class="summary"><b>Retail Price Table</b></div>
+              <div class="row price-table">
                 <div class="col-3">
-                    <input type="number" required formControlName="min_qty" required readonly>
+                    <div class="price-label">Min Qty</div>
                 </div>
                 <div class="col-3">
-                    <input type="number" formControlName="max_qty" required>
+                    <div class="price-label">Max Qty</div>
+                  </div>
+                <div class="col-3">
+                    <div class="price-label">Price</div>
+                  </div>
+              </div>
+    
+              <div class="row price-table" *ngFor="let table of retailPrices"> 
+                  <div class="col-3">
+                    <span>{{table.min_qty | number}}</span>
+                  </div>
+                  <div class="col-3">
+                      <span>{{table.max_qty | number}}</span>
+                    </div>
+                  <div class="col-3">
+                      <span>{{table.price | number}}</span>
+                  </div> 
+              </div>           
+    </mat-card>
+    
+    <mat-card class="orca_card" *ngIf="retailPrices?.length == 0">
+        <form [formGroup]="priceForm">
+          <div formArrayName="prices">
+              <div class="row">
+                <div class="col-3">
+                    <div class="price-label">Min Qty</div>
                 </div>
                 <div class="col-3">
-                    <input type="number" formControlName="price" required>
-                </div>
-                <div  class="col-3">
-                    <i class="material-icons" *ngIf="priceForm['controls'].prices['controls'].length" (click)="onDelete(i)">
-                        cancel
-                    </i>
-                </div>     
-              </div>    
+                    <div class="price-label">Max Qty</div>
+                  </div>
+                <div class="col-3">
+                    <div class="price-label">Price</div>
+                  </div>
+              </div>
+              <div *ngFor="let price of priceForm['controls'].prices['controls'];let i=index">
+                  <div class="row" [formGroupName]="i"> 
+                    <div class="col-3">
+                        <input type="number" required formControlName="min_qty" required readonly>
+                    </div>
+                    <div class="col-3">
+                        <input type="number" formControlName="max_qty" required>
+                    </div>
+                    <div class="col-3">
+                        <input type="number" formControlName="price" required>
+                    </div>
+                    <div  class="col-3">
+                        <i class="material-icons" *ngIf="priceForm['controls'].prices['controls'].length" (click)="onDelete(i)">
+                            cancel
+                        </i>
+                    </div>     
+                  </div>    
+              </div>
+              <div style="width:90%;height:40px;line-height: 40px;" *ngIf="!hide">
+                  <button class="add_more_btn" mat-button (click)="savePriceTable()">Save</button>
+                  <button class="add_more_btn" mat-button (click)="onAddMore()">Add More</button>
+              </div>
           </div>
-          <div style="width:90%;height:40px;line-height: 40px;" *ngIf="!hide">
-              <button class="add_more_btn" mat-button (click)="savePriceTable()">Save</button>
-              <button class="add_more_btn" mat-button (click)="onAddMore()">Add More</button>
-          </div>
-      </div>
-    </form>
-</mat-card>
+        </form>
+    </mat-card>
