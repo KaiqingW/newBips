@@ -1,4 +1,4 @@
-<mat-card class="orca_card orca_font_md" *ngIf="retailPrices?.length > 0">
+<mat-card class="orca_card orca_font_md" *ngIf="retailPrices?.length > 0 && !editMode">
     <div class="summary orca_title_sm">
         <b>Retail Prices</b>
     </div>
@@ -25,9 +25,13 @@
             <span>{{table.price | number}}</span>
         </div>
     </div>
+
+    <div class="orca_btn_bar">
+        <button mat-raised-button mat-button color="warn" (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button>
+    </div>
 </mat-card>
 
-<mat-card class="orca_card orca_font_md" *ngIf="retailPrices?.length == 0">
+<mat-card class="orca_card orca_font_md" *ngIf="retailPrices?.length == 0 || editMode">
     <div class="summary orca_title_sm">
         <b>Retail Prices</b>
     </div>
@@ -47,7 +51,7 @@
             <div *ngFor="let price of priceForm['controls'].prices['controls'];let i=index">
                 <div class="row" [formGroupName]="i">
                     <div class="col-3">
-                        <input type="number" required formControlName="min_qty" required readonly>
+                        <input type="number" required formControlName="min_qty" required>
                     </div>
                     <div class="col-3">
                         <input type="number" formControlName="max_qty" required>
@@ -62,10 +66,12 @@
                     </div>
                 </div>
             </div>
-            <div class="orca_btn_bar" *ngIf="!hide">
+            <div class="orca_btn_bar">
+                <button *ngIf="retailPrices?.length > 0" mat-raised-button mat-button color="warn" (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button>
                 <button class="add_more_btn" mat-raised-button mat-button (click)="onAddMore()">Add More</button>
                 <button class="add_more_btn" mat-raised-button color="primary" mat-button (click)="savePriceTable()">Save</button>
             </div>
         </div>
     </form>
+
 </mat-card>

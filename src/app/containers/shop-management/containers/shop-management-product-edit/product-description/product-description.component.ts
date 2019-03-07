@@ -13,19 +13,23 @@ export class ShopProductDescriptionComponent implements OnInit {
     @Input() description: string;
     @Output() sendDes = new EventEmitter<string>();
     desForm: FormGroup;
+    editMode : boolean = false;
+
     constructor(private fb: FormBuilder,
         private dialogService: DialogService) {
     }
 
     ngOnInit() {
-        if (!this.description) {
-            this.createForm();
-        }
+        // if (!this.description) {
+        //     this.createForm();
+        // }
+
+        this.createForm();
     }
 
     createForm() {
         this.desForm = this.fb.group({
-            description: [""]
+            description: [this.description]
         })
     }
 
@@ -36,6 +40,7 @@ export class ShopProductDescriptionComponent implements OnInit {
         }
         if(this.desForm.valid){
             this.sendDes.emit(this.desForm.value);
+            this.editMode = false;
         }
     }
 }

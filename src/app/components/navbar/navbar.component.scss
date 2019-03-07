@@ -1,11 +1,12 @@
 :host {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0; // width:375px !important;
+    height: 965px;
+    // position: absolute;
+    // top: 0;
+    // bottom: 0;
+    // left: 0;
+    // right: 0; // width:375px !important;
 }
 
 .nav-container {
@@ -58,6 +59,7 @@
     height: 100%;
     // width: fit-content;
     background-color: rgb(212, 232, 233);
+    margin-top: 67px;
 }
 
 .no-padding {

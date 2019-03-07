@@ -23,21 +23,22 @@
     </div>
 </div>
 
+<shipping-info *ngIf="product" [shipping_info]="product?.free_shipping" (sendShippingInfo)="onGetShippingInfo($event)" ></shipping-info>
+
 <app-upload-single-img *ngIf="product && product?.images?.length < 1" (sendSave)="onGetImg($event)" [company_id]="company_id"></app-upload-single-img>
 
 <shop-product-description *ngIf="product" (sendDes)="onGetDes($event)" [description]="product?.description"></shop-product-description>
 
 <app-shop-category *ngIf="product && shopCategories" [firstCate]="product?.shop_first_category" [secondCate]="product?.shop_second_category"
-    [thirdCate]="product?.shop_third_category" [categories]="shopCategories" [unit_weight]="product?.unit_weight" (sendData)="onGetData($event)"></app-shop-category>
+    [thirdCate]="product?.shop_third_category" [product]="product" [categories]="shopCategories" [unit_weight]="product?.unit_weight" (sendData)="onGetData($event)"></app-shop-category>
 
-<app-price-table *ngIf="product" [retailPrices]="retailPrices" (sendPriceTable)="onReceivePriceTable($event)"></app-price-table>
+<app-price-table (sendEditMode)="onGetEditMode($event)" *ngIf="product" [retailPrices]="retailPrices" (sendEditPriceTable)="onGetPatchTable($event)" (sendPriceTable)="onReceivePriceTable($event)"></app-price-table>
 
 <div *ngIf="product">
     <a routerLink="addSalesSubject">Add Sales Pitches</a>
 </div>
 
 <!-- <sales-pitch-subject (sendSalesPitchForm)="onGetSalesPitch($event)"></sales-pitch-subject> -->
-
 
 <div class="btn-bar" *ngIf="checkProduct()">
     <button mat-raised-button color="primary" (click)="changeToOnline()">Set as Online Product</button>

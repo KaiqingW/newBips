@@ -32,6 +32,12 @@ export class ShopComponent implements OnInit {
     sell_orders;
     selectedImg;
     modalOpen: boolean = false;
+    needEditProductListNextUrl: string = "";
+    offlineProductListNextUrl: string = "";
+    onlineProductListNextUrl: string = "";
+    onlineLabel: string = "Online";
+    offlineLabel: string = "Offline";
+    IncompleteLabel: string = "Incomplete";
 
     constructor(private inventoryService: InventoryService,
         private route: ActivatedRoute,
@@ -75,7 +81,6 @@ export class ShopComponent implements OnInit {
             res => {
                 this.isLoading = false;
                 this.sell_orders = res.data;
-                console.log(this.sell_orders);
             }
         )
     }
@@ -87,7 +92,6 @@ export class ShopComponent implements OnInit {
                 this.isLoading = false;
 
                 this.purchase_orders = res.data;
-                console.log(res);
             }
         )
     }
@@ -149,17 +153,15 @@ export class ShopComponent implements OnInit {
 
                     this.searchService.searchShopProduct(171, search_obj).subscribe(
                         (res) => {
-                            console.log(res);
                             if (res.paging.total > 0) {
                                 this.shopservice.deleteShopProduct(this.companyId, product_id).subscribe(
                                     () => {
-                                        console.log('delet!');
                                         this.isLoading = false;
-                                        this.init();
+                                        this.getPostandUnpostProductList();
                                     }
                                 )
                             } else {
-                                this.init();
+                                this.getPostandUnpostProductList();
                             }
                         }
                     )
@@ -179,6 +181,7 @@ export class ShopComponent implements OnInit {
                             product['price_table'] = res;
                             let obj = {
                                 name: product.name,
+                                headline: product.headline,
                                 description: product.description,
                                 image: this.processImg(product['images']),
                                 company_id: this.companyId,
@@ -186,10 +189,11 @@ export class ShopComponent implements OnInit {
                                 first_category: product.shop_first_category,
                                 second_catagory: product.shop_second_category,
                                 third_category: product.shop_third_category,
+                                brand: product.brand,
                                 retail_prices: res,
+                                free_shipping: product.free_shipping,
                                 warehouses: this.processWarehouseAddressId(product.warehouses)
                             }
-                            console.log(obj);
                             this.shopservice.addProductFromCompanyToOrcashop(171, obj).subscribe(
                                 (res) => {
                                     this.init();
@@ -208,8 +212,51 @@ export class ShopComponent implements OnInit {
 
     }
 
-    onGetScroll($event) {
-        // console.log($event);
+    onGetScroll(evt, status) {
+        let container = document.getElementById('container');
+        if (container.scrollTop >= (container.scrollHeight - container.offsetHeight) && !this.isLoading) {
+            switch (status) {
+                case 'online':
+                    if (!this.onlineProductListNextUrl) return;
+                    this.isLoading = true;
+                    this.inventoryService.getProductListByPage(this.onlineProductListNextUrl).subscribe(
+                        (res) => {
+                            this.onlineProductList = this.onlineProductList.concat(res.data);
+                            this.onlineProductListNextUrl = res.paging.next;
+                            this.isLoading = false;
+                        }, (err) => {
+                            this.isLoading = false;
+                        }
+                    )
+                    break;
+                case 'offline':
+                    if (!this.offlineProductListNextUrl) return;
+                    this.isLoading = true;
+                    this.inventoryService.getProductListByPage(this.offlineProductListNextUrl).subscribe(
+                        (res) => {
+                            this.offlineProductList = this.offlineProductList.concat(res.data);
+                            this.offlineProductListNextUrl = res.paging.next;
+                            this.isLoading = false;
+                        }, (err) => {
+                            this.isLoading = false;
+                        }
+                    )
+                    break;
+                case 'incomplete':
+                    if (!this.needEditProductListNextUrl) return;
+                    this.isLoading = true;
+                    this.inventoryService.getProductListByPage(this.needEditProductListNextUrl).subscribe(
+                        (res) => {
+                            this.needEditProductList = this.needEditProductList.concat(res.data);
+                            this.needEditProductListNextUrl = res.paging.next;
+                            this.isLoading = false;
+                        }, (err) => {
+                            this.isLoading = false;
+                        }
+                    )
+                    break;
+            }
+        }
     }
 
     processWarehouseAddressId(warehouses) {
@@ -246,7 +293,6 @@ export class ShopComponent implements OnInit {
     }
 
     onGetNav(id) {
-        console.log(id);
         this.router.navigate(['order', id], { relativeTo: this.route });
     }
 
@@ -291,18 +337,22 @@ export class ShopComponent implements OnInit {
                 switch (shop_status) {
                     case 1:
                         this.needEditProductList = res.data;
+                        this.needEditProductListNextUrl = res.paging.next;
+                        this.IncompleteLabel = "Online" + "(" + res.paging.total + ")";
                         break;
                     case 2:
                         this.offlineProductList = res.data;
+                        this.offlineProductListNextUrl = res.paging.next;
+                        this.offlineLabel = "Offline" +"(" + res.paging.total + ")";
                         break;
                     case 3:
                         this.onlineProductList = res.data;
+                        this.onlineProductListNextUrl = res.paging.next;
+                        this.onlineLabel = "Need Edit" + "(" + res.paging.total + ")";
                         break;
-
                 }
             },
             err => {
-                console.log(err);
             },
             () => {
                 this.isLoading = false;

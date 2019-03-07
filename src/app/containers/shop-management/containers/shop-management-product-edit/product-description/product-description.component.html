@@ -1,20 +1,24 @@
-<mat-card class="orca_card" *ngIf="description">
+<mat-card class="orca_card" *ngIf="!editMode">
     <div class="orca_title_sm">
         <b>Product Description</b>
     </div>
     <div class="description orca_font_sm">
         {{description}}
     </div>
+    <div class="orca_btn_bar">
+        <button mat-raised-button mat-button color="warn"  (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button>
+    </div>
 </mat-card>
 
-<mat-card class="orca_card" *ngIf="!description">
+<mat-card class="orca_card" *ngIf="editMode">
     <div class="orca_title_sm">
         <b>Product Description</b>
     </div>
     <form [formGroup]="desForm" style="width:100%;">
-        <textarea class="orca_textarea" formControlName="description" required></textarea>
+        <textarea [(ngModel)]="description" class="orca_textarea" formControlName="description" required></textarea>
     </form>
     <div class="orca_btn_bar">
-        <button mat-raised-button mat-button color="primary" (click)="onSave()">Save</button>
+        <button mat-raised-button mat-button color="warn" (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button>
+        <button *ngIf="editMode" mat-raised-button mat-button color="primary" (click)="onSave()">Save</button>
     </div>
 </mat-card>

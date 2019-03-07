@@ -1,4 +1,4 @@
-<div *ngIf="!isLoading">
+<div *ngIf="company">
     <div class="company-title-background">
         <img src="assets/images/company-bg.png">
     </div>
@@ -26,19 +26,23 @@
                         <app-list-product-card (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)" [productList]="productList"></app-list-product-card>
                 </mat-tab> -->
 
-            <mat-tab label="Online">
-                <app-list-product-card (sendScroll)="onGetScroll($event)" (sendSelect)="onGetSelect($event)" [selects]="selects" [placeholder]="btnPlaceholder"
-                    [default]="'Online'" (sendNav)="onReceiveNav($event)" [productList]="onlineProductList"></app-list-product-card>
+            <mat-tab [label]="onlineLabel">
+                <app-list-product-card (sendScroll)="onGetScroll($event, 'online')" (sendSelect)="onGetSelect($event)" [selects]="selects"
+                    [placeholder]="btnPlaceholder" [default]="'Online'" (sendNav)="onReceiveNav($event)" [productList]="onlineProductList"></app-list-product-card>
+                {{onlineTotal}}
             </mat-tab>
 
-            <mat-tab label="Offline">
-                <app-list-product-card (sendScroll)="onGetScroll($event)" (sendSelect)="onGetSelect($event)" [selects]="selects" [placeholder]="btnPlaceholder"
-                    [default]="'Offline'" (sendNav)="onReceiveNav($event)" [productList]="offlineProductList"></app-list-product-card>
+            <mat-tab [label]="offlineLabel">
+                <app-list-product-card (sendScroll)="onGetScroll($event, 'offline')" (sendSelect)="onGetSelect($event)" [selects]="selects"
+                    [placeholder]="btnPlaceholder" [default]="'Offline'" (sendNav)="onReceiveNav($event)" [productList]="offlineProductList"></app-list-product-card>
+                {{offlineTotal}}
+
             </mat-tab>
 
-            <mat-tab label="Incomplete">
-                <app-list-product-card (sendScroll)="onGetScroll($event)" (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)"
+            <mat-tab [label]="IncompleteLabel">
+                <app-list-product-card (sendScroll)="onGetScroll($event, 'incomplete')" (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)"
                     [productList]="needEditProductList"></app-list-product-card>
+                {{needEditTotal}}
             </mat-tab>
         </mat-tab-group>
     </mat-card>
@@ -49,9 +53,9 @@
                 <app-order-list (sendImg)="onGetImg($event)" (sendNav)="onGetNav($event)" [orders]="purchase_orders"></app-order-list>
             </mat-tab>
 
-            <!-- <mat-tab class="label" label="Sold">
+            <mat-tab class="label" label="Sold">
                 <app-order-list (sendImg)="onGetImg($event)" (sendNav)="onGetNav($event)" [orders]="sell_orders"></app-order-list>
-            </mat-tab> -->
+            </mat-tab>
         </mat-tab-group>
     </mat-card>
 

@@ -73,8 +73,8 @@ export class AddSalesPitchComponent implements OnInit {
         fd.append('image', selectedFile, selectedFile.name);
     }
 
-    onDelete(i) {
-        this.sendOnDelete.emit(i);
+    onDelete() {
+        this.sendOnDelete.emit(this.index);
     }
 
     onAddMore() {
