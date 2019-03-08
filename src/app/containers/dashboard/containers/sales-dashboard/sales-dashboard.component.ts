@@ -112,7 +112,7 @@ export class SalesDashboardComponent implements OnInit {
         window.location.reload(true);
     }
     ngOnInit() {
-
+        console.log(this.dashboardData);
         // setTimeout(() => {
         //     const cancelClick = document.getElementById('header-cancel');
         //     cancelClick.addEventListener("click", ()=>{
@@ -296,7 +296,7 @@ export class SalesDashboardComponent implements OnInit {
         this.dashboardService.getDashBoardData(this.currentLoginCompanyId).subscribe(
             res=>{
                 this.dashboardData = res;
-                // console.log(res);
+                console.log(res);
             }
         )
     }
@@ -358,8 +358,10 @@ export class SalesDashboardComponent implements OnInit {
         "departmentOpportunity": "assets/images/testimg/department-opportunity.png",
         "quoteCenterUrl": "assets/images/testimg/quotes.png",
         "salesOrderUrl":"assets/images/testimg/salesorder.png",
-        "invoiceUrl": "assets/images/testimg/invoice.png"
-
+        "invoiceUrl": "assets/images/testimg/invoice.png",
+        "leadurl": "assets/images/testimg/lead.png",
+        "potentialurl": "assets/images/testimg/Potential.jpg",
+        "customerurl": "assets/images/testimg/customer.png",
     }
 
     goAddEmployeeO() {

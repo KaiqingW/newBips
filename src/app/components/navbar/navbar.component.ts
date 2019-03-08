@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
     const routeData = this.router.events.subscribe((data) => {
       // console.log("good");
       this.companyId = +localStorage.getItem("currentLoginCompanyId");
@@ -80,7 +80,7 @@ export class NavbarComponent implements OnInit {
           showHeader: fc.data.showHeader
         };
 
-        // console.log(this.headerData.needCart);
+        console.log(this.headerData);
 
         // redefind nextUrl for meeting, according to the title of headerData
         if (this.headerData.title == 'Meeting List' && this.companyId != 0) {

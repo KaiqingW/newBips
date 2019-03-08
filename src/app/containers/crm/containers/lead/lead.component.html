@@ -56,7 +56,7 @@
 
 <div [ngClass]="{'container-admin':currentCompanyUser?.is_admin >0,'container-user':currentCompanyUser?.is_admin ===0}" (scroll)="onMouseWheel($event)" id="content">
 
-    <div *ngIf="leadlist$ && leadlist$?.length > 0 && !isLoading; else no_subject_found" >
+    <div *ngIf="leadlist$ && leadlist$?.length > 0 && !isLoading; else no_subject_found">
         <div  class="company-card-margin" *ngFor="let lead of leadlist$" >
             <company-card [value]="lead" [url]="lead?.logo_url" [name]="lead?.name" [industry]="lead?.industry" [possibility]="lead?.lead_possibility"
                 [type]="lead?.type" [routerLink]="lead?.id" (click)="readAssignedCustomer(lead)">

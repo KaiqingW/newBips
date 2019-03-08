@@ -8,42 +8,60 @@
         <div style="width: 20%">
             <div class="company-title">
                 <button mat-raised-button color="warn" class="logout-btn" (click)="onHome()">Go Home</button>
-                <company-logo *ngIf="currentUserName" [url]="currentUser?.avatar_url" [comname]="currentUserName"
-                    [userId]="currentUser?.id">
-                </company-logo>
-                <div style="text-align: center; margin-bottom: 5px; font-size:14px;">
-                    <span
-                        routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>
-                </div>
-                <div class="company_name">
-                    <span>
-                        <b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b>
-                    </span>
-                </div>
-                <div class="company-position">
-                    <span> {{currentUserInCompany?.type}}</span>
+                <div style="display: flex;">
+                    <company-logo *ngIf="currentUserName" [url]="currentUser?.avatar_url" [comname]="currentUserName"
+                        [userId]="currentUser?.id">
+                    </company-logo>
+                    <div style="margin-top: 40px; margin-left: -23px;">
+                        <div style="text-align: center; margin-bottom: 5px; font-size:14px;">
+                            <span
+                                routerLink="/company/{{currentLoginCompanyId}}/company-detail">{{currentUserCompany?.name}}</span>
+                        </div>
+                        <div class="company_name">
+                            <span>
+                                <b>{{currentUser?.first_name}} {{currentUser?.last_name}}</b>
+                            </span>
+                        </div>
+                        <div class="company-position">
+                            <span> {{currentUserInCompany?.type}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <panel-card class="company-function" style="width: 80%">
 
-            <panel-card-title>Core Function
-                <!-- <panel-more-button routerLink="company-info">Detail ></panel-more-button> -->
-            </panel-card-title>
+            <!-- <panel-card-title>Core Function
+                <panel-more-button routerLink="company-info">Detail ></panel-more-button>
+            </panel-card-title> -->
             <panel-card-body>
 
-                <span class="left-arrow">
+                <!-- <span class="left-arrow">
                     <i class="material-icons">&#xE314;</i>
-                </span>
+                </span> -->
 
                 <div class="scroll-card tow-line" id="scrollCard">
                     <!-- <div class="tow-line" name="1"> -->
-                    <div class="function-icon-name">
+                    <!-- <div class="function-icon-name">
                         <logo [url]="fakeUrl.crmurl" [companyName]="'CRM'" [type]="1" [width]="50" [height]="50"
                             [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/crm/lead"></logo>
                         <span>CRM</span>
+                    </div> -->
+                    <div class="function-icon-name">
+                        <logo [url]="fakeUrl.leadurl" [companyName]="'CRM'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/crm/lead"></logo>
+                        <span>Lead</span>
                     </div>
-
+                    <div class="function-icon-name">
+                        <logo [url]="fakeUrl.potentialurl" [companyName]="'CRM'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/crm/potential"></logo>
+                        <span>Potential</span>
+                    </div>
+                    <div class="function-icon-name">
+                        <logo [url]="fakeUrl.customerurl" [companyName]="'CRM'" [type]="1" [width]="50" [height]="50"
+                            [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/crm/account"></logo>
+                        <span>Customer</span>
+                    </div>
                     <div class="function-icon-name">
                         <logo [url]="fakeUrl.vrmurl3" [companyName]="'VRM'" [type]="1" [width]="50" [height]="50"
                             [fontSize]="18" routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor"></logo>
@@ -254,9 +272,9 @@
                     </div>
                 </div> -->
                 </div>
-                <span class="right-arrow">
+                <!-- <span class="right-arrow">
                     <i class="material-icons">&#xE315;</i>
-                </span>
+                </span> -->
             </panel-card-body>
         </panel-card>
     </div>
