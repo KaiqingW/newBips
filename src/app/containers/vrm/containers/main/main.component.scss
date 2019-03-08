@@ -8,6 +8,8 @@
 .container{
     height:80%; 
     overflow-y:scroll;
+    width: 60%;
+    margin: 0 auto;
 }
 
 a{
@@ -80,6 +82,7 @@ a{
     flex-direction: column-reverse;
     position: absolute;
     top: 35%;
+    left: 40%;
     align-items: center;
     p {
         font-size: 20px;

@@ -1,3 +1,4 @@
+<div style="width: 80%; margin: 0 auto">
 <div class="product-header" *ngIf="product">
     <div class="bg-write">
         <img src="assets/images/universe.png" style="height: 60px; width: 100%; opacity: 1.0;">
@@ -53,6 +54,7 @@
             <div class="div2">Created By:{{selectedAttachment.created.by.first_name}} {{selectedAttachment.created.by.last_name}}</div>
         </div>
     </app-img-modal>
+</div>
 </div>
 <div style="height:100px;"></div>
 <app-spinner *ngIf="isLoading"></app-spinner>
