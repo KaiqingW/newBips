@@ -1,3 +1,7 @@
+<div style="display: flex">
+<div>
+
+
 <div class="fixed-area">
         <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor">Prospect</a>
         <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/backup-vendor">Backup<span *ngIf="totalNumber" class="totalnumber"><b *ngIf="unreadAssignNumber" style="color:red; font-size:13px;">{{unreadAssignNumber}}/</b>{{totalNumber}}</span></a>
@@ -53,13 +57,13 @@
             </div>
         </div>
 </div>
-<div class="container"  (scroll)="onMouseWheel($event)">
+<div class="container"  (scroll)="onMouseWheel($event)" style="display: flex; width: 100%">
 
     
     <div  *ngIf="backupVendorList && backupVendorList?.length > 0 && !isLoading; else no_subject_found">
         <div class="company-card-margin" *ngFor="let vendor of backupVendorList">
             <company-card [value]="vendor" [url]="vendor?.logo_url" [name]="vendor?.name" [industry]="vendor?.industry"
-                [possibility]="vendor?.lead_possibility" [type]="vendor?.type" [routerLink] ="vendor?.id" (click)="readAssignedCustomer(vendor)">
+                [possibility]="vendor?.lead_possibility" [type]="vendor?.type" (click)="readAssignedCustomer(vendor)">
                 <div class="customer-list">
                     <div class="customer_owner">
                             <company-logo [url]="vendor.followed_by?.avatar_url" [comname] = "getFullName(vendor.followed_by?.first_name, vendor.followed_by?.last_name)" [userId]="vendor.followed_by?.id"></company-logo>
@@ -111,6 +115,7 @@
             </div>
         </mat-card>
     </div>
+    
 
     <ng-template #no_subject_found>
         <div class="no-subject" *ngIf="!isLoading">
@@ -126,4 +131,8 @@
     <div *ngIf="isLoading"><app-spinner></app-spinner></div>
 
     <div *ngIf="isDataLoading"><app-spinner></app-spinner></div>
+</div>
+</div>
+<vendor-details *ngIf="selectedVendorId" [vendorId] = "selectedVendorId" style="width: 60%; margin-left: 78px; margin-top: 47px"></vendor-details>
+    
 </div>

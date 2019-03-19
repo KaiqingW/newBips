@@ -1,124 +1,157 @@
-<div class="fixed-area">
-    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor">Prospect </a>
-    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/backup-vendor">Backup</a>
-    <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/main-vendor">Vendor <span *ngIf="totalNumber" class="totalnumber"><b *ngIf="unreadAssignNumber" style="color:red; font-size:13px;">{{unreadAssignNumber}}/</b>{{totalNumber}}</span></a>
-    
-    <div class="search-component" *ngIf="currentCompanyUser?.is_admin >= 1">
-            <div class="search-area"  *ngIf="currentCompanyUser?.is_admin >= 1">
-                <mat-form-field class="choice-field" *ngIf="currentCompanyUser?.is_admin >= 1">
-                    <mat-select placeholder="Search By" [formControl]="choiceValueCtrl" [(ngModel)]="choiceValue">
-                        <mat-option *ngFor="let choice of adminChoices" [value]="choice" #choiceValue>{{choice}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+<div style="display: flex">
+    <div style="width: 30%">
+        <div class="fixed-area">
+            <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor">Prospect
+            </a>
+            <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/backup-vendor">Backup</a>
+            <a routerLinkActive="active" routerLink="/company/{{currentLoginCompanyId}}/vrm/main-vendor">Vendor <span
+                    *ngIf="totalNumber" class="totalnumber"><b *ngIf="unreadAssignNumber"
+                        style="color:red; font-size:13px;">{{unreadAssignNumber}}/</b>{{totalNumber}}</span></a>
 
-                <!-- <mat-form-field class="choice-field" *ngIf="currentCompanyUser?.is_admin == 0">
+            <div class="search-component" *ngIf="currentCompanyUser?.is_admin >= 1">
+                <div class="search-area" *ngIf="currentCompanyUser?.is_admin >= 1">
+                    <mat-form-field class="choice-field" *ngIf="currentCompanyUser?.is_admin >= 1">
+                        <mat-select placeholder="Search By" [formControl]="choiceValueCtrl" [(ngModel)]="choiceValue">
+                            <mat-option *ngFor="let choice of adminChoices" [value]="choice" #choiceValue>{{choice}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!-- <mat-form-field class="choice-field" *ngIf="currentCompanyUser?.is_admin == 0">
                         <mat-select placeholder="Search By" [formControl]="choiceValueCtrl" [(ngModel)]="choiceValue">
                         <mat-option *ngFor="let choice of normalChoices" [value]="choice" #choiceValue>{{choice}}</mat-option>
                     </mat-select>
                 </mat-form-field> -->
-        
-                <mat-form-field class="search-field" *ngIf="choiceValue === 'CompanyName'">
-                    <input  class="input" matInput placeholder="Customer Name" [formControl]="inputValueCtrl">
-                </mat-form-field>
 
-                <mat-form-field class="search-field" *ngIf="choiceValue === 'EmployeeName'">
-                    <input  class="input" matInput placeholder="Employee FirstName or LastName" [formControl]="inputValueCtrl">
-                </mat-form-field>
+                    <mat-form-field class="search-field" *ngIf="choiceValue === 'CompanyName'">
+                        <input class="input" matInput placeholder="Customer Name" [formControl]="inputValueCtrl">
+                    </mat-form-field>
 
-                <mat-form-field class="search-field" *ngIf="choiceValue === 'Description'">
-                    <input  class="input" matInput placeholder="Description" [(ngModel)]="inputValue" [formControl]="inputValueCtrl">
-                </mat-form-field>
+                    <mat-form-field class="search-field" *ngIf="choiceValue === 'EmployeeName'">
+                        <input class="input" matInput placeholder="Employee FirstName or LastName"
+                            [formControl]="inputValueCtrl">
+                    </mat-form-field>
 
-                <mat-form-field class="search-field" *ngIf="choiceValue === 'Website'">
-                    <input  class="input" matInput placeholder="Website" [(ngModel)]="inputValue" [formControl]="inputValueCtrl">
-                </mat-form-field>
+                    <mat-form-field class="search-field" *ngIf="choiceValue === 'Description'">
+                        <input class="input" matInput placeholder="Description" [(ngModel)]="inputValue"
+                            [formControl]="inputValueCtrl">
+                    </mat-form-field>
 
-                <mat-form-field class="search-field" *ngIf="choiceValue === 'Industry'">
-                    <input  class="input" matInput placeholder="Industry" [(ngModel)]="inputValue" [formControl]="inputValueCtrl">
-                </mat-form-field>
+                    <mat-form-field class="search-field" *ngIf="choiceValue === 'Website'">
+                        <input class="input" matInput placeholder="Website" [(ngModel)]="inputValue"
+                            [formControl]="inputValueCtrl">
+                    </mat-form-field>
 
-                <mat-form-field class="search-field" *ngIf="choiceValue === 'CompanyEmail'">
-                    <input  class="input" matInput placeholder="CompanyEmail" [(ngModel)]="inputValue" [formControl]="inputValueCtrl">
-                </mat-form-field>
-                
-                <mat-form-field class="search-field" *ngIf="choiceValue === 'Memo'">
-                    <input  class="input" matInput placeholder="Memo" [(ngModel)]="inputValue" [formControl]="inputValueCtrl">
-                </mat-form-field>
+                    <mat-form-field class="search-field" *ngIf="choiceValue === 'Industry'">
+                        <input class="input" matInput placeholder="Industry" [(ngModel)]="inputValue"
+                            [formControl]="inputValueCtrl">
+                    </mat-form-field>
 
-                <a class="filter-btn" (click)="getCustomerByFilterValue(choiceValue)" >Search</a>
+                    <mat-form-field class="search-field" *ngIf="choiceValue === 'CompanyEmail'">
+                        <input class="input" matInput placeholder="CompanyEmail" [(ngModel)]="inputValue"
+                            [formControl]="inputValueCtrl">
+                    </mat-form-field>
+
+                    <mat-form-field class="search-field" *ngIf="choiceValue === 'Memo'">
+                        <input class="input" matInput placeholder="Memo" [(ngModel)]="inputValue"
+                            [formControl]="inputValueCtrl">
+                    </mat-form-field>
+
+                    <a class="filter-btn" (click)="getCustomerByFilterValue(choiceValue)">Search</a>
+                </div>
             </div>
-    </div>
-</div>
+        </div>
 
-<div class="container" (scroll)="onMouseWheel($event)">
-    <div *ngIf="mainVendorList && mainVendorList?.length > 0 && !isLoading; else no_subject_found">
-        
-        <div class="company-card-margin" *ngFor="let vendor of mainVendorList">
-            <company-card [value]="vendor" [url]="vendor?.logo_url" [name]="vendor?.name" [industry]="vendor?.industry"
-                [possibility]="vendor?.lead_possibility"  [type]="vendor?.type" [routerLink] ="vendor?.id" (click)="readAssignedCustomer(vendor)">
-                <div class="customer-list">
-                    <div class="customer_owner">
-                        <company-logo [url]="vendor.followed_by?.avatar_url" [comname] = "getFullName(vendor?.followed_by?.first_name, vendor?.followed_by?.last_name)" [userId]="vendor.followed_by?.id"></company-logo>
-                    </div>
-                    <div class="contacts">
-                        <div *ngIf="vendor?.shared_with.length > 0">
-                            <div  class="contact" *ngFor="let contact of vendor?.shared_with">
-                                <company-logo [url]="contact?.avatar_url" [comname] = "getFullName(contact?.first_name, contact?.last_name)" ></company-logo>
+        <div class="container" (scroll)="onMouseWheel($event)" style="display: flex; width: 100%">
+            <div *ngIf="mainVendorList && mainVendorList?.length > 0 && !isLoading; else no_subject_found">
+
+                <div class="company-card-margin" *ngFor="let vendor of mainVendorList">
+                    <company-card [value]="vendor" [url]="vendor?.logo_url" [name]="vendor?.name"
+                        [industry]="vendor?.industry" [possibility]="vendor?.lead_possibility" [type]="vendor?.type"
+                        (click)="readAssignedCustomer(vendor)">
+                        <div class="customer-list">
+                            <div class="customer_owner">
+                                <company-logo [url]="vendor.followed_by?.avatar_url"
+                                    [comname]="getFullName(vendor?.followed_by?.first_name, vendor?.followed_by?.last_name)"
+                                    [userId]="vendor.followed_by?.id"></company-logo>
+                            </div>
+                            <div class="contacts">
+                                <div *ngIf="vendor?.shared_with.length > 0">
+                                    <div class="contact" *ngFor="let contact of vendor?.shared_with">
+                                        <company-logo [url]="contact?.avatar_url"
+                                            [comname]="getFullName(contact?.first_name, contact?.last_name)">
+                                        </company-logo>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>  
-                </div>          
-                <contact-bar (sendNavTo)="onGetNav($event)" [account]="vendor"></contact-bar>
-            </company-card>
-        </div>
-            <!-- <div *ngIf="next==null" class="more-leads">Ask your manager get more leads :)</div> -->
-    </div>
-    
-    <div style="height:85px;"></div>
-    <!-- for assign customer to user -->
-    <div class="formmat-modal"  *ngIf="assignModalOpen">
-        <mat-card>
-            <h4>Selecte User</h4>
-            <mat-form-field >
-                    <input  type="input" matInput  placeholder="Email"  name="email" [matAutocomplete]="auto" [formControl]="emailCtrl">
-                    <mat-autocomplete #auto= matAutocomplete>
-                    <mat-option *ngFor="let user of userEmailList" [value]="user?.email" (click)="assignedUserSlected(user)">
-                            <span *ngIf="user?.avatar_url"><img  [src]="user?.avatar_url" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
-                            <span *ngIf="!user?.avatar_url"><img  src="assets/images/testimg/useravatar2.png" height="30" style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
-                    </mat-option>
-                    </mat-autocomplete>
-            </mat-form-field>
-
-            <div>
-                <section class="example-section">
-                    <span style="line-height:24px; ">Notify Via</span>
-                    <mat-checkbox class="example-margin" [(ngModel)]="EmailChecked">Email</mat-checkbox>
-                    <mat-checkbox class="example-margin" [(ngModel)]="MessageChecked">Message</mat-checkbox>
-                </section>
-
-                <mat-form-field>
-                    <textarea matInput placeholder="Textarea" [(ngModel)]="NotifyContent" style="color:gray" ></textarea>
-                </mat-form-field>
+                        <contact-bar (sendNavTo)="onGetNav($event)" [account]="vendor"></contact-bar>
+                    </company-card>
+                </div>
+                <!-- <div *ngIf="next==null" class="more-leads">Ask your manager get more leads :)</div> -->
             </div>
 
-            <div class="form-btn">
-                <button mat-button color="primary" (click)="onCancelAssign()">Cancel</button>
-                <button mat-button color="primary" (click)="onSubmitAssign()" [disabled]="!selectAssignedUser">Submit</button>
+            <div style="height:85px;"></div>
+            <!-- for assign customer to user -->
+            <div class="formmat-modal" *ngIf="assignModalOpen">
+                <mat-card>
+                    <h4>Selecte User</h4>
+                    <mat-form-field>
+                        <input type="input" matInput placeholder="Email" name="email" [matAutocomplete]="auto"
+                            [formControl]="emailCtrl">
+                        <mat-autocomplete #auto=matAutocomplete>
+                            <mat-option *ngFor="let user of userEmailList" [value]="user?.email"
+                                (click)="assignedUserSlected(user)">
+                                <span *ngIf="user?.avatar_url"><img [src]="user?.avatar_url" height="30"
+                                        style="display:inline-block;margin-bottom: -8px"> {{user.email}}</span>
+                                <span *ngIf="!user?.avatar_url"><img src="assets/images/testimg/useravatar2.png"
+                                        height="30" style="display:inline-block;margin-bottom: -8px">
+                                    {{user.email}}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <div>
+                        <section class="example-section">
+                            <span style="line-height:24px; ">Notify Via</span>
+                            <mat-checkbox class="example-margin" [(ngModel)]="EmailChecked">Email</mat-checkbox>
+                            <mat-checkbox class="example-margin" [(ngModel)]="MessageChecked">Message</mat-checkbox>
+                        </section>
+
+                        <mat-form-field>
+                            <textarea matInput placeholder="Textarea" [(ngModel)]="NotifyContent"
+                                style="color:gray"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-btn">
+                        <button mat-button color="primary" (click)="onCancelAssign()">Cancel</button>
+                        <button mat-button color="primary" (click)="onSubmitAssign()"
+                            [disabled]="!selectAssignedUser">Submit</button>
+                    </div>
+                </mat-card>
             </div>
-        </mat-card>
-    </div>
 
-    <ng-template #no_subject_found>
-        <div class="no-subject" *ngIf="!isLoading">
-            <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
-            <p>No Vendors Found</p>
+            <ng-template #no_subject_found>
+                <div class="no-subject" *ngIf="!isLoading">
+                    <img src="../../../../assets/images/no-item.png" width="50%" height="50%">
+                    <p>No Vendors Found</p>
+                </div>
+            </ng-template>
+
+
+            <app-add-button *ngIf="!isLoading" routerLink="/company/{{this.currentLoginCompanyId}}/vrm/add-vendor">
+            </app-add-button>
+
+            <div *ngIf="isLoading">
+                <app-spinner></app-spinner>
+            </div>
+
+            <div *ngIf="isDataLoading">
+                <app-spinner></app-spinner>
+            </div>
         </div>
-    </ng-template>
-
-
-    <app-add-button *ngIf="!isLoading" routerLink="/company/{{this.currentLoginCompanyId}}/vrm/add-vendor"></app-add-button>
-
-    <div *ngIf="isLoading"><app-spinner></app-spinner></div>
-
-    <div *ngIf="isDataLoading"><app-spinner></app-spinner></div>
+    </div>
+    <vendor-details *ngIf="selectedVendorId" [vendorId]="selectedVendorId"
+        style="width: 60%; margin-left: 78px; margin-top: 47px"></vendor-details>
 </div>

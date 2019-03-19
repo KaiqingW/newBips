@@ -132,7 +132,6 @@ export class NavbarComponent implements OnInit {
         } else if (this.headerData.title == 'Subject List' && this.companyId == 0) {
           this.headerData.nextUrl = 'home';
         }
-
       }
     });
 
@@ -188,7 +187,6 @@ export class NavbarComponent implements OnInit {
   onSearch(value) {
     // this.commonService.sendMessage(value);
     this.commonService.searhTerm.next(value);
-
   }
 
 }

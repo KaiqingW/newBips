@@ -23,7 +23,7 @@ export class ProspectComponent implements OnInit{
     isDataLoading;
     totalNumber;
     currentCompanyUser;
-
+    selectedVendorId;
     //store next url to fetch more leads
      next:'';
     //count mouse wheel
@@ -466,6 +466,7 @@ export class ProspectComponent implements OnInit{
 
      //make the assigned customer read
      readAssignedCustomer(customer){
+        this.selectedVendorId = customer.id;
         if(customer.followed_by.id == this.currentLoginUserId){
             this.crmAssignmentService.deleteAssignAt(this.currentLoginCompanyId, customer.id ).subscribe(
                 res=>{
