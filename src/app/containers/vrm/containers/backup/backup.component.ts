@@ -23,6 +23,8 @@ export class BackupComponent implements OnInit{
     isDataLoading;
     totalNumber;
     currentCompanyUser;
+    selectedVendorId;
+    isAddVendor: boolean;
 
     //store next url to fetch more leads
     next:'';
@@ -104,6 +106,7 @@ export class BackupComponent implements OnInit{
         this.vrmService.getBackupList(this.currentLoginCompanyId).subscribe(
             res=>{
                 this.backupVendorList = res.data;
+                console.log(this.backupVendorList);
                 this.totalNumber = res.paging.total;
                 this.unreadAssignNumber = res.paging.unreadAssignCount;
                 this.next = res.paging.next;
@@ -420,9 +423,14 @@ export class BackupComponent implements OnInit{
             }
         )
     }
+    addVendor(){
+        this.isAddVendor = true;
+    }
 
     //make the assigned customer read
     readAssignedCustomer(customer){
+    console.log(customer.id);
+    this.selectedVendorId = customer.id;
     if(customer.followed_by.id == this.currentLoginUserId){
         this.crmAssignmentService.deleteAssignAt(this.currentLoginCompanyId, customer.id ).subscribe(
             res=>{

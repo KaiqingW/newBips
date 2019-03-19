@@ -1,14 +1,14 @@
 .fixed-area{
-    position: sticky;
-    top: 56;
-    right: 0;
-    width: 100%;
+    // position: sticky;
+    // top: 56;
+    // right: 0;
+    // width: 100%;
 }
 
 .container{
     height:80%; 
     overflow-y:scroll;
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -45,6 +45,7 @@ a{
 
 .company-card-margin{
     margin-bottom: 5px;
+    width: 140%;
 }
 
 .sub-header{

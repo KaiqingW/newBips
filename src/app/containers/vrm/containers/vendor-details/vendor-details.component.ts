@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild, Inject, Input} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'; 
 import { DialogService } from 'app/core/services/dialog.service';
 import { ToasterService } from 'app/core/services/toaster.service';
@@ -23,7 +23,7 @@ export class VendorDetailsComponent implements OnInit{
     vendorCompanyId;
     currentLoginCompanyId;
     currentVenderCompanyId;
-    vendorId;
+    @Input() vendorId;
     isLoading;
     vendorContacts;
     vendorAddresses;
@@ -64,65 +64,20 @@ export class VendorDetailsComponent implements OnInit{
         private commonService: CommonService
     ){
         this.currentLoginCompanyId = this.route.snapshot.paramMap.get('cid');
-        this.vendorId = this.route.snapshot.paramMap.get('ven_id');
+        // this.vendorId = this.route.snapshot.paramMap.get('ven_id');
         this.isLoading = true;
     }
     
     ngOnInit(){ 
-        this.vrmService.getVendor(this.currentLoginCompanyId, this.vendorId).subscribe(
-            res2=>{
-                this.Vendor = res2;
-                // console.log(this.Vendor );
-                this.vendorName = this.Vendor.name;
-                this.vendorCompanyId = this.Vendor.company_id;
-                this.vrmService.getVendorContacts(this.currentLoginCompanyId,this.vendorId).subscribe(
-                    res2=>{
-                        this.vendorContacts = res2.data;
-                    });
-                this.vrmService.getVendorAddresses(this.currentLoginCompanyId, this.vendorId).subscribe(
-                    res3=>{
-                        this.vendorAddresses = res3.data;
-                        this.isLoading = false;
-                    })
-                this.vrmService.getPrivateProductsByVendorId(this.currentLoginCompanyId, this.vendorId).subscribe(
-                    res4=>{
-                        this.vendorProducts = res4.data;
-                        console.log('----------------------------------');
-                        console.log(res4);
-                    }
-                )
-                this.companyService.searchCompany(this.vendorName).subscribe(
-                    res=>{
-                        if(res.data.length){
-                            const company_id = res.data[0].id;
-                            this.currentVenderCompanyId =  res.data[0].id;
-                            // console.log('@@@@', this.currentVenderCompanyId);
-                            this.companyService.getCompany(this.currentLoginCompanyId).subscribe(
-                                res=>{
-                                    const company_name = res.name;
-                                    this.searchService.searchAccountCompany(company_id, company_name, '', '').subscribe(
-                                        res=>{
-                                            if(res.data[0]){
-                                                const customer_id = res.data[0].id;
-                                                this.vrmService.getproductInterested(company_id, customer_id).subscribe(
-                                                    res=>{
-                                                        this.productInterested = res;
-                                                        // console.log(this.productInterested);
-                                                    }
-                                                )
-                                            }
-                                        }
-                                    )
-                                }
-                            )
-                        }
-                    }
-                )
-
-            }
-        )
+        console.log(this.vendorId);
+        this.init();
     }
-
+    
+    ngOnChanges(changes) {
+        console.log(changes.vendorId.currentValue);
+        this.vendorId = changes.vendorId.currentValue;
+        this.init();
+    }
     addOrderDialog() {
         const dialogRef = this.dialog.open(PSDialogComponent, {
             width:'700px',
@@ -133,7 +88,60 @@ export class VendorDetailsComponent implements OnInit{
               }
         });
     }
+init() {
+    this.vrmService.getVendor(this.currentLoginCompanyId, this.vendorId).subscribe(
+        res2=>{
+            this.Vendor = res2;
+            // console.log(this.Vendor );
+            this.vendorName = this.Vendor.name;
+            this.vendorCompanyId = this.Vendor.company_id;
+            this.vrmService.getVendorContacts(this.currentLoginCompanyId,this.vendorId).subscribe(
+                res2=>{
+                    this.vendorContacts = res2.data;
+                });
+            this.vrmService.getVendorAddresses(this.currentLoginCompanyId, this.vendorId).subscribe(
+                res3=>{
+                    this.vendorAddresses = res3.data;
+                    this.isLoading = false;
+                })
+            this.vrmService.getPrivateProductsByVendorId(this.currentLoginCompanyId, this.vendorId).subscribe(
+                res4=>{
+                    this.vendorProducts = res4.data;
+                    console.log('----------------------------------');
+                    console.log(res4);
+                }
+            )
+            this.companyService.searchCompany(this.vendorName).subscribe(
+                res=>{
+                    if(res.data.length){
+                        const company_id = res.data[0].id;
+                        this.currentVenderCompanyId =  res.data[0].id;
+                        // console.log('@@@@', this.currentVenderCompanyId);
+                        this.companyService.getCompany(this.currentLoginCompanyId).subscribe(
+                            res=>{
+                                const company_name = res.name;
+                                this.searchService.searchAccountCompany(company_id, company_name, '', '').subscribe(
+                                    res=>{
+                                        if(res.data[0]){
+                                            const customer_id = res.data[0].id;
+                                            this.vrmService.getproductInterested(company_id, customer_id).subscribe(
+                                                res=>{
+                                                    this.productInterested = res;
+                                                    // console.log(this.productInterested);
+                                                }
+                                            )
+                                        }
+                                    }
+                                )
+                            }
+                        )
+                    }
+                }
+            )
 
+        }
+    )
+}
     showMap(){
         this.isShowMap = !this.isShowMap;
         setTimeout(()=>{

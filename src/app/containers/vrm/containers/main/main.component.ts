@@ -35,7 +35,7 @@ export class MainComponent implements OnInit{
     userEmailList;
     selectAssignedUser;
     assignmentList= [];
-
+    selectedVendorId;
     //for search customer
     adminChoices = ['CompanyName', 'EmployeeName','Description','Website','Industry','CompanyEmail','Memo'];
     normalChoices = ['CompanyName','Description','Website','Industry','CompanyEmail','Memo'];
@@ -424,6 +424,7 @@ export class MainComponent implements OnInit{
 
     //make the assigned customer read
     readAssignedCustomer(customer){
+        this.selectedVendorId = customer.id;
         if(customer.followed_by.id == this.currentLoginUserId){
             this.crmAssignmentService.deleteAssignAt(this.currentLoginCompanyId, customer.id ).subscribe(
                 res=>{
