@@ -1,6 +1,6 @@
 <div style="display: flex">
-    <div>
-        <div class="fixed-area">
+    <div style="width: 30%; height: 1022px">
+        <div class="fixed-area" >
             <a routerLinkActive="active"
                 routerLink="/company/{{currentLoginCompanyId}}/vrm/prospect-vendor">Prospect<span *ngIf="totalNumber"
                     class="totalnumber"><b *ngIf="unreadAssignNumber"
@@ -68,7 +68,7 @@
 
         <div class="container" (scroll)="onMouseWheel($event)" style="display: flex; width: 100%">
 
-            <div *ngIf="prospectVendorList && prospectVendorList?.length > 0 && !isLoading; else no_subject_found">
+            <div *ngIf="prospectVendorList && prospectVendorList?.length > 0 && !isLoading; else no_subject_found" style="width: 100%">
                 <div class="company-card-margin" *ngFor="let vendor of prospectVendorList">
                     <company-card [value]="vendor" [url]="vendor?.logo_url" [name]="vendor?.name"
                         [industry]="vendor?.industry" [possibility]="vendor?.lead_possibility" [type]="vendor?.type"

@@ -1,12 +1,19 @@
 <ul *ngFor="let item of list;index as i;">
-    <li *ngIf="item?.name" >
+    <li *ngIf="item?.name" [ngStyle]="getLevelColor(item.level)">
         <span class="indent-span" [ngStyle]="getIndent(item)"></span>
         <i class="material-icons" (click)="open(i)" *ngIf="(item?.children?.length > 0) && !checkChildren(i)"> arrow_right </i>
         <i class="material-icons" (click)="close(i)" *ngIf="(item?.children?.length > 0) && checkChildren(i)"> arrow_drop_down </i>
         <input name="category_radio" id="item.id" type="radio" (click)="onSelectRadio(item)">
         <span class="txt-span" *ngIf="!editItem || (editItem != item)">{{item.name}}</span>
-        <form [formGroup]="editForm" *ngIf="editItem == item">
-            <input type="text" formControlName="name" required>
+        <form [formGroup]="editForm" *ngIf="editItem == item" style="height: 694px;">
+            <div style="width:0px;">
+                <input type="text" placeholder="name" formControlName="name" style="width: 300px; height: 50px;"required>
+                <div style="position: absolute; right: 451px;">
+                    <app-upload-single-img2 [getImg]="getImg" (imgChange)="onReceiveImgs($event)"></app-upload-single-img2>
+                </div>
+                <input type="text" placeholder="description" formControlName="description" style="width: 1000px; height: 500px;" required>
+            </div>
+
         </form>
         <div class="icon-bar">
             <i *ngIf="!editItem || (editItem != item)" (click)="onAddCategory(item, i)" class="material-icons">
@@ -20,12 +27,16 @@
                 remove_circle_outline
             </i>
         </div>
-
     </li>
 
-    <li *ngIf="!(item?.name)">
+    <li *ngIf="!(item?.name)" style="height: 120px;">
         <span class="indent-span" [ngStyle]="getInputIndent(item)"></span>
-        <input type="text" required style="width:100px;" [(ngModel)]="category">
+        <input type="text" placeholder="category" required style="width:100px; height: 30px;" [(ngModel)]="category">
+        <input type="text" placeholder="description" required style="width:100px; height: 30px;" [(ngModel)]="description">
+        <!-- <app-upload-img class="imgUpload"  [company_id]="company_id" (imgChange)="onReceiveImgs($event)"></app-upload-img> -->
+        <!-- <app-upload-single-img  class="imgUpload"  (imgChange)="onReceiveImgs($event)"></app-upload-single-img> -->
+        <app-upload-single-img2 class="imgUpload" [getImg]="getImg" (imgChange)="onReceiveImgs($event)"></app-upload-single-img2>
+
         <button (click)="saveCate(item)">Save</button>
         <i (click)="deleteCate(i)" class="material-icons">
             remove_circle_outline

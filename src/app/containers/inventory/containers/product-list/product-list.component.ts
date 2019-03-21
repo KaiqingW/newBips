@@ -54,6 +54,23 @@ export class ProductListComponent implements OnInit {
   defaultOption = this.options[0];
   optionPlaceholder = 'Search Type';
   searchPlaceholder = 'Search By ' + this.options[0];
+  isAddProd;
+  isAddProduct;
+  isAddService;
+  isOpenDetail;
+  product_id: number;
+  links = [
+      {
+          name: 'Add Product',
+          url: '../addProduct',
+          type: 'product',
+      },
+      {
+          name: 'Add Service',
+          url: '../addService',
+          type: 'service',
+      }
+  ];
   constructor(private inventoryService: InventoryService,
     private route: ActivatedRoute,
     private warehouseService: WarehouseService,
@@ -63,7 +80,6 @@ export class ProductListComponent implements OnInit {
     private shopService: ShopService,
     private searchService: SearchService
   ) {
-
     this.searchCtrl.valueChanges.subscribe(
       (term) => {
         this.onSearch(term);
@@ -71,9 +87,7 @@ export class ProductListComponent implements OnInit {
       }
     )
     this.company_id = + this.route.snapshot.paramMap.get('cid');
-    this.init()
-
-
+    this.init();
   }
 
   backToTop() {
@@ -110,12 +124,38 @@ export class ProductListComponent implements OnInit {
       }
     )
   }
+  addProduct() {
+    this.isAddProd = true;
+    this.isOpenDetail = false;
+  }
 
+  addItem(link) {
+    if (link.type == "product") {
+        this.isAddProduct = true;
+    } else if (link.type == 'service') {
+        this.isAddService = true;
+    }
+    this.isOpenDetail = false;
+    this.isAddProd = false;
+}
   init() {
     this.getWarehouses();
     this.getProducts();
+    this.isAddProduct = false;
+    this.isAddService = false;
+    this.isOpenDetail = false;
+    this.isAddProd = false;
   }
 
+  saveItem() {
+      this.router.navigate([`/company/${this.company_id}/inventory/product`]);
+      this.init();
+  }
+
+  onCancel() {
+    this.init();
+    this.router.navigate([`/company/${this.company_id}/inventory/product`]);
+  }
   changeProduct(showcase) {
     // product-> 
     // as_showcase-> 
@@ -175,12 +215,15 @@ export class ProductListComponent implements OnInit {
   }
 
   onNavToDetail($event, id) {
-    let pid = +id;
+    this.product_id = +id;
+    // console.log(this.product_id);
     $event.stopPropagation();
-
-    if (id) {
-      this.router.navigateByUrl(`/company/${this.company_id}/inventory/product/${id}`);
-    }
+    // if (id) {
+    //   this.router.navigateByUrl(`/company/${this.company_id}/inventory/product/${id}`);
+    // }
+    this.isAddProduct = false;
+    this.isAddService = false;
+    this.isOpenDetail = true;
   }
 
   onMouseWheel(evt) {

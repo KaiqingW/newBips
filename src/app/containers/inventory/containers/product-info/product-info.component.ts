@@ -1,6 +1,6 @@
 let note = 0;
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { } from '@types/googlemaps';
+import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
+// import { } from '@types/googlemaps';
 
 import { Product } from './../../../../core/models/index';
 import { Warehouse } from 'app/core/models/warehouse';
@@ -33,8 +33,8 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   selectedWarehouse: Warehouse = null;
   selectedWarehouseIndex: number;
   modalOpen: boolean = false;
-  product_id: number;
-  company_id: number;
+  @Input() product_id: number;
+  @Input() company_id: number;
   product;
   showMap: boolean = false;
   multiPictures = ["assets/images/icons/no-img.jpg"];
@@ -79,11 +79,16 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
 
     this.product_id = +this.route.snapshot.paramMap.get('pid');
     this.company_id = +this.route.snapshot.paramMap.get('cid');
+    console.log(this.product_id);
+    console.log(this.company_id);
     this.selected_copy_product = this.copyService.getSelectedProduct();
   }
 
 
   ngOnInit() {
+    this.init();
+  }
+  init() {
     this.getProduct();
     this.getProductAllCateogories();
     this.getWholesalePrices();
@@ -93,24 +98,28 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
     })
     this.checkEditAuth();
   }
-
+  ngOnChanges(changes) {
+    // console.log(changes.product_id.currentValue);
+    this.product_id = changes.product_id.currentValue;
+    this.init();
+  }
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-  getPath(address) {	
-    this.setDestinationOnMap(address);	
-    let directionsService = new google.maps.DirectionsService;	
-    let directionsDisplay = new google.maps.DirectionsRenderer;	
-    this.directionsDisplay.set('directions', null);	
-    this.directionsDisplay.setMap(this.map);	
-    if (this.selectedWarehouse) {	
-      let start = new google.maps.LatLng(	
-        this.selectedWarehouse.address.latitude,	
-        this.selectedWarehouse.address.longitude	
-      );	
-      this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, start, address.formatted_address);	
-    }	
+  getPath(address) {
+    this.setDestinationOnMap(address);
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+    this.directionsDisplay.set('directions', null);
+    this.directionsDisplay.setMap(this.map);
+    if (this.selectedWarehouse) {
+      let start = new google.maps.LatLng(
+        this.selectedWarehouse.address.latitude,
+        this.selectedWarehouse.address.longitude
+      );
+      this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, start, address.formatted_address);
+    }
   }
 
   getDistance(warehouse) {
@@ -118,62 +127,62 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   }
 
 
-  onSearch() {	
-    this.destinationArr = null;	
-    this.selectedDestination = '';	
-    this.inventoryService.searchPathOnGoogleMap(this.searchAddress).subscribe(	
-      (res) => {	
-        this.destinationArr = res;	
-        if (this.destinationArr.results.length == 1) {	
-          this.selectedDestination = this.destinationArr.results[0];	
-          this.setDestinationOnMap(this.selectedDestination);	
-          if (this.selectWarehouse && this.selectedDestination) {	
-            this.getPath(this.selectedDestination);	
-          }	
-        }	
-      }	
-    )	
-  }	
+  onSearch() {
+    this.destinationArr = null;
+    this.selectedDestination = '';
+    this.inventoryService.searchPathOnGoogleMap(this.searchAddress).subscribe(
+      (res) => {
+        this.destinationArr = res;
+        if (this.destinationArr.results.length == 1) {
+          this.selectedDestination = this.destinationArr.results[0];
+          this.setDestinationOnMap(this.selectedDestination);
+          if (this.selectWarehouse && this.selectedDestination) {
+            this.getPath(this.selectedDestination);
+          }
+        }
+      }
+    )
+  }
 
-   setDestinationOnMap(address) {	
+  setDestinationOnMap(address) {
     // this.reset();	
-    this.selectedDestination = address;	
-    let lat = address.geometry.location.lat;	
-    let lng = address.geometry.location.lng;	
-    let tempPoint = new google.maps.LatLng(	
-      lat,	
-      lng	
-    );	
-    let tempMarker = new google.maps.Marker({	
-      position: tempPoint,	
+    this.selectedDestination = address;
+    let lat = address.geometry.location.lat;
+    let lng = address.geometry.location.lng;
+    let tempPoint = new google.maps.LatLng(
+      lat,
+      lng
+    );
+    let tempMarker = new google.maps.Marker({
+      position: tempPoint,
       // label:index,	
-      animation: google.maps.Animation.DROP,	
-    });	
+      animation: google.maps.Animation.DROP,
+    });
 
-     let infowindow = new google.maps.InfoWindow({	
+    let infowindow = new google.maps.InfoWindow({
       content: `	
         <div style="width:250px !important;">	
           Your Destination: ${address.formatted_address}	
         </div>	
-      `	
-    });	
+      `
+    });
 
-     var icon = {	
+    var icon = {
       url: 'assets/images/icons/arrow_marker.png', // url	
       //scaledSize: new google.maps.Size(32, 32), // scaled size	
-      origin: new google.maps.Point(-8, 0),	
-    };	
-    tempMarker.setIcon(icon);	
-    tempMarker.setMap(this.map);	
+      origin: new google.maps.Point(-8, 0),
+    };
+    tempMarker.setIcon(icon);
+    tempMarker.setMap(this.map);
     // this.markers.push(tempMarker);	
-    this.selectedDestination = address;	
-    var geocoder = new google.maps.Geocoder;	
-    var service = new google.maps.DistanceMatrixService;	
-    if (!this.selectedWarehouse) {	
-      this.map.setCenter(new google.maps.LatLng(lat, lng));	
-      this.map.setZoom(8);	
-    }	
-    this.calculateDistance(address, geocoder, service);	
+    this.selectedDestination = address;
+    var geocoder = new google.maps.Geocoder;
+    var service = new google.maps.DistanceMatrixService;
+    if (!this.selectedWarehouse) {
+      this.map.setCenter(new google.maps.LatLng(lat, lng));
+      this.map.setZoom(8);
+    }
+    this.calculateDistance(address, geocoder, service);
   }
 
   switchShowMap() {
@@ -181,7 +190,7 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   }
 
   onNavToEdit() {
-    this.router.navigate([`../editProduct/${this.product_id}`], { relativeTo: this.route });
+    this.router.navigate([`../product/editProduct/${this.product_id}`], { relativeTo: this.route });
   }
 
   checkEditAuth() {
@@ -320,50 +329,50 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
     )
   }
 
-  setGoogleMap() {	
-    this.markers = [];	
-    let lati, long, center;	
-    let defaultCenter = new google.maps.LatLng(40.7128, 74.0060);	
+  setGoogleMap() {
+    this.markers = [];
+    let lati, long, center;
+    let defaultCenter = new google.maps.LatLng(40.7128, 74.0060);
 
-     if (!this.warehouses || this.warehouses.length === 0) {	
-      center = defaultCenter;	
-    } else {	
-      lati = this.warehouses[0].address.latitude;	
-      long = this.warehouses[0].address.longitude;	
-      center = new google.maps.LatLng(lati, long);	
-    }	
+    if (!this.warehouses || this.warehouses.length === 0) {
+      center = defaultCenter;
+    } else {
+      lati = this.warehouses[0].address.latitude;
+      long = this.warehouses[0].address.longitude;
+      center = new google.maps.LatLng(lati, long);
+    }
 
-     var mapProp = {	
-      center: center,	
-      zoom: 15,	
-      mapTypeId: google.maps.MapTypeId.ROADMAP	
-    };	
-    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);	
-    var bounds = new google.maps.LatLngBounds();	
+    var mapProp = {
+      center: center,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+    var bounds = new google.maps.LatLngBounds();
 
-     for (var i = 0; i < this.warehouses.length; i++) {	
+    for (var i = 0; i < this.warehouses.length; i++) {
 
-       if (this.warehouses[i].address && this.warehouses[i].address.latitude && this.warehouses[i].address.longitude) {	
-        this.addressArr.push(	
+      if (this.warehouses[i].address && this.warehouses[i].address.latitude && this.warehouses[i].address.longitude) {
+        this.addressArr.push(
           `${this.warehouses[i].address.street1},	
           ${this.warehouses[i].address.city},	
           ${this.warehouses[i].address.state},	
-          ${this.warehouses[i].address.zipcode}`);	
-        let tempPoint = new google.maps.LatLng(	
-          this.warehouses[i].address.latitude,	
-          this.warehouses[i].address.longitude	
-        );	
-        let index = (i + 1).toString();	
-        let tempMarker = new google.maps.Marker({	
-          position: tempPoint,	
+          ${this.warehouses[i].address.zipcode}`);
+        let tempPoint = new google.maps.LatLng(
+          this.warehouses[i].address.latitude,
+          this.warehouses[i].address.longitude
+        );
+        let index = (i + 1).toString();
+        let tempMarker = new google.maps.Marker({
+          position: tempPoint,
           // label:index,	
-          animation: google.maps.Animation.DROP,	
-        });	
+          animation: google.maps.Animation.DROP,
+        });
 
 
 
-         //set each info window	
-        let infowindow = new google.maps.InfoWindow({	
+        //set each info window	
+        let infowindow = new google.maps.InfoWindow({
           content: `	
             <div style="width:250px !important;">	
               ${this.warehouses[i].address.street1},	
@@ -377,22 +386,22 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
             <div>	
             <b>In Stock : ${this.warehouses[i].amount}</b>	
             </div>	
-          `	
-        });	
+          `
+        });
 
-         this.infoWindows.push(infowindow);	
+        this.infoWindows.push(infowindow);
 
-         tempMarker.setMap(this.map);	
-        this.markers.push(tempMarker);	
-        this.selectInMap(this.infoWindows, this.markers, i, this.warehouses);	
+        tempMarker.setMap(this.map);
+        this.markers.push(tempMarker);
+        this.selectInMap(this.infoWindows, this.markers, i, this.warehouses);
 
 
-         // tempMarker.	
-        bounds.extend(tempMarker.getPosition());	
-      }	
-    }	
+        // tempMarker.	
+        bounds.extend(tempMarker.getPosition());
+      }
+    }
 
-     this.map.fitBounds(bounds);	
+    this.map.fitBounds(bounds);
   }
 
   onGetProduct(product) {
@@ -443,62 +452,62 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
     this.selectedWarehouse = warehouse;
     this.getOneWarehouseWholesalePrices();
     this.selectedWarehouseIndex = i;
-    var icon = {	
+    var icon = {
       url: 'assets/images/icons/arrow_marker.png', // url	
       //scaledSize: new google.maps.Size(32, 32), // scaled size	
-      origin: new google.maps.Point(-8, 0),	
-    };	
+      origin: new google.maps.Point(-8, 0),
+    };
 
-     this.markers[i].setIcon(icon);	
+    this.markers[i].setIcon(icon);
 
-     //reset previous marker	
-    this.markers.forEach((marker, index) => {	
-      if (index !== this.selectedWarehouseIndex) {	
-        marker.setIcon();	
-        this.infoWindows[index].close();	
-      }	
-    })	
+    //reset previous marker	
+    this.markers.forEach((marker, index) => {
+      if (index !== this.selectedWarehouseIndex) {
+        marker.setIcon();
+        this.infoWindows[index].close();
+      }
+    })
 
-     //set content in infowindow for marker	
-    this.infoWindows[i].open(this.map, this.markers[i]);	
-    this.map.setCenter(new google.maps.LatLng(this.warehouses[i].address.latitude, this.warehouses[i].address.longitude));	
-    this.map.setZoom(8);	
-    if (this.selectWarehouse && this.selectedDestination) {	
+    //set content in infowindow for marker	
+    this.infoWindows[i].open(this.map, this.markers[i]);
+    this.map.setCenter(new google.maps.LatLng(this.warehouses[i].address.latitude, this.warehouses[i].address.longitude));
+    this.map.setZoom(8);
+    if (this.selectWarehouse && this.selectedDestination) {
       // this.getPath(this.selectedDestination);	
-    }	
-  }	
+    }
+  }
 
-   selectInMap(infoWindows, markers, i, warehouses) {	
-    google.maps.event.clearListeners(markers[i], 'click');	
-    markers[i].addListener('click', () => {	
-      this.map.setZoom(12);	
-      this.map.setCenter(markers[i].getPosition());	
-      infoWindows[i].open(markers[i].get('map'), markers[i]);	
-      this.selectedWarehouse = warehouses[i];	
+  selectInMap(infoWindows, markers, i, warehouses) {
+    google.maps.event.clearListeners(markers[i], 'click');
+    markers[i].addListener('click', () => {
+      this.map.setZoom(12);
+      this.map.setCenter(markers[i].getPosition());
+      infoWindows[i].open(markers[i].get('map'), markers[i]);
+      this.selectedWarehouse = warehouses[i];
 
-       var element_to_scroll_to = document.getElementById(i);	
-      element_to_scroll_to.scrollIntoView();	
+      var element_to_scroll_to = document.getElementById(i);
+      element_to_scroll_to.scrollIntoView();
 
-       var icon = {	
+      var icon = {
         url: 'assets/images/icons/arrow_marker.png', // url	
         //scaledSize: new google.maps.Size(32, 32), // scaled size	
-        origin: new google.maps.Point(-8, 0),	
-      };	
+        origin: new google.maps.Point(-8, 0),
+      };
 
-       this.markers[i].setIcon(icon);	
+      this.markers[i].setIcon(icon);
       //  reset previous marker	
-      markers.forEach((eachmarker, index) => {	
-        if (index !== i) {	
-          eachmarker.setIcon();	
-          infoWindows[index].close();	
-        }	
-      })	
-      document.getElementById(i).focus();	
+      markers.forEach((eachmarker, index) => {
+        if (index !== i) {
+          eachmarker.setIcon();
+          infoWindows[index].close();
+        }
+      })
+      document.getElementById(i).focus();
 
-       if (this.selectWarehouse && this.selectedDestination) {	
-        this.getPath(this.selectedDestination);	
-      }	
-    });	
+      if (this.selectWarehouse && this.selectedDestination) {
+        this.getPath(this.selectedDestination);
+      }
+    });
 
   }
 
@@ -578,7 +587,7 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
     this.selectFolderName = '';
     this.category = '';
   }
-  
+
   getType(showcase) {
     switch (showcase) {
       case 0:
@@ -635,7 +644,7 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   }
 
   getOneWarehouseWholesalePrices() {
-    this.inventoryService.getOneWarehouseWholesalePrices(this.company_id, this.selectedWarehouse.id, this.product_id, ).subscribe(
+    this.inventoryService.getOneWarehouseWholesalePrices(this.company_id, this.selectedWarehouse.id, this.product_id).subscribe(
       res => {
 
         this.wholesalePrices = res;

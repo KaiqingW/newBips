@@ -56,11 +56,15 @@ $tab-bar-height: 30px;
 .content {
     // position: fixed;
     // top:$warehouse-height + $margin * 2 + $search-bar-height + $tab-bar-height;
-    width: 30%;
-    height: 65%;
+    // width: 30%;
+    height: 703px;
     overflow: scroll;
 }
-
+.addItem {
+    width: 50%;
+    margin: 0 auto;
+    background-color: white
+}
 ::-webkit-scrollbar {
     display: none;
 }
@@ -149,7 +153,7 @@ $tab-bar-height: 30px;
     margin-top: -5%;
     color: #ffffff;
     background-color: rgb(66, 61, 61);
-    z-index: 100;
+    z-index: 5;
     opacity: 1;
     position: relative;
 }
@@ -262,4 +266,16 @@ mat-card {
     .mat-form-field-wrapper {
         padding: 5px 0 !important;
     }
+}
+
+#header-submit-edit {
+    background-color: #15305a;
+    color: white;
+    margin-top: 6px;
+    float: right;
+}
+#header-cancel {
+    background-color: #15305a;
+    color: white;
+    margin-top: 6px;
 }

@@ -6,6 +6,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListLeafComponent } from './list-leaf/list-leaf.component';
+import { UploadImgModule } from 'app/components/upload-img/upload-img.module';
+import { UploadSingleImgModule } from '../upload-single-img/upload-single-img.module';
+import { UploadSingleImg2Module } from '../upload-single-img2/upload-single-img2.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { ListLeafComponent } from './list-leaf/list-leaf.component';
     MatMenuModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UploadImgModule,
+    UploadSingleImgModule,
+    UploadSingleImg2Module
   ],
   exports: [
     ListTreeComponent

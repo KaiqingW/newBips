@@ -38,6 +38,9 @@ export class ShopComponent implements OnInit {
     onlineLabel: string = "Online";
     offlineLabel: string = "Offline";
     IncompleteLabel: string = "Incomplete";
+    selectedEditProductId;
+    selectedProductId;
+    isAddProduct: boolean;
 
     constructor(private inventoryService: InventoryService,
         private route: ActivatedRoute,
@@ -110,7 +113,10 @@ export class ShopComponent implements OnInit {
     }
 
     onReceiveNav(product) {
-        this.router.navigate([`/company/${this.companyId}/inventory/product/${product.id}`]);
+        console.log(product.id);
+        this.selectedProductId = product.id;
+        this.selectedEditProductId = "";
+        // this.router.navigate([`/company/${this.companyId}/inventory/product/${product.id}`]);
     }
 
     closeModal() {
@@ -289,13 +295,33 @@ export class ShopComponent implements OnInit {
     }
 
     onGetNavToEdit(id) {
-        this.router.navigate(['product', id, 'edit'], { relativeTo: this.route });
+        console.log(id);
+        this.selectedEditProductId = id;
+        this.selectedProductId = "";
+        this.isAddProduct = false;
+        // this.router.navigate(['product', id, 'edit'], { relativeTo: this.route });
     }
 
     onGetNav(id) {
         this.router.navigate(['order', id], { relativeTo: this.route });
     }
-
+    isAdd() {
+        this.isAddProduct = true;
+        this.selectedEditProductId = "";
+        this.selectedProductId = "";
+    }
+    onsave() {
+        this.selectedEditProductId = " ";
+        this.selectedProductId = "";
+        this.isAddProduct = false;
+        this.init();
+    }
+    onCancel() {
+        this.selectedEditProductId = "";
+        this.selectedProductId = "";
+        this.isAddProduct = false;
+        this.init();
+    }
     getPostandUnpostProductList() {
         // shop_status
         // 0 - not in shop
@@ -343,7 +369,7 @@ export class ShopComponent implements OnInit {
                     case 2:
                         this.offlineProductList = res.data;
                         this.offlineProductListNextUrl = res.paging.next;
-                        this.offlineLabel = "Offline" +"(" + res.paging.total + ")";
+                        this.offlineLabel = "Offline" + "(" + res.paging.total + ")";
                         break;
                     case 3:
                         this.onlineProductList = res.data;

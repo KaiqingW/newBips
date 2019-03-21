@@ -37,6 +37,7 @@ form {
         box-sizing: border-box;
         min-width: 90px;
         margin: 0 5px;
+        font-size: 17px;
     }
     .icon-bar {
         // width:90px;
@@ -69,3 +70,10 @@ button {
     height: 30px;
     margin: 0 5px;
 }
+.imgUpload {
+    position: relative;
+    right: 210px;
+    top: 30px;
+    width:100%;
+}
+
