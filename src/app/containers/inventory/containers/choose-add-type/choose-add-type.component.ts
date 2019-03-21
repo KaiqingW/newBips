@@ -12,15 +12,20 @@ export class ChooseAddTypeCompoent implements OnInit {
 
     // for opportunity, editted by yali    
     crmOpportunityProjectId;
+    isAddProduct;
+    isAddService;
+
 
     links = [
         {
             name: 'Add Product',
-            url: '../addProduct'
+            url: '../product/addProduct',
+            type: 'product',
         },
         {
             name: 'Add Service',
-            url: '../addService'
+            url: '../product/addService',
+            type: 'service',
         }
     ];
 
@@ -38,5 +43,13 @@ export class ChooseAddTypeCompoent implements OnInit {
 
     choose(type) {
 
+    }
+    addItem(link) {
+        console.log(link.type);
+        if (link.type == "product") {
+            this.isAddProduct = true;
+        } else if (link.type == 'service') {
+            this.isAddService = true;
+        }
     }
 }

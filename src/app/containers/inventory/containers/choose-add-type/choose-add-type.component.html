@@ -1,3 +1,5 @@
 <mat-nav-list>
     <a mat-list-item [routerLink]="link.url" [queryParams]="{crmOpportunityProjectId : crmOpportunityProjectId}" *ngFor="let link of links;let i = index;">{{i + 1}} . {{ link.name }} </a>
+    <!-- <a mat-list-item (click) = "addItem(link)" *ngFor="let link of links;let i = index;">{{i + 1}} . {{ link.name }} </a> -->
 </mat-nav-list>
+<!-- <add-product></add-product> -->

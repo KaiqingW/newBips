@@ -109,7 +109,7 @@ export class ProductAddComponent implements OnInit, OnChanges {
     }
 
     // for opportunity, editted by yali    
-    this.crmOpportunityProjectId = this.route.snapshot.queryParams['crmOpportunityProjectId'] ? this.route.snapshot.queryParams['crmOpportunityProjectId'] : "";
+    // this.crmOpportunityProjectId = this.route.snapshot.queryParams['crmOpportunityProjectId'] ? this.route.snapshot.queryParams['crmOpportunityProjectId'] : "";
   }
 
   ngOnInit() {

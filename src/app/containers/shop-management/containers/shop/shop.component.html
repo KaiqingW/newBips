@@ -1,73 +1,101 @@
-<div *ngIf="company" style="width: 60%; margin: 0 auto">
-    <div class="company-title-background">
-        <img src="assets/images/company-bg.png">
-    </div>
+<div style="display: flex">
+    <div style="width: 30%;">
 
-    <div class="company-title" *ngIf="company">
-        <div class="company-logo">
-            <img [src]="company.logo_url ?  company.logo_url : 'assets/images/testimg/company-logo.jpg'">
-        </div>
-        <div class="company_name">
-            <b>{{company.name}}</b>
-        </div>
-        <div class="company-address">
-            <span>{{company.address?.location}}</span>
-        </div>
 
-        <div class="product-card-title">
-            <div [class.prodcutTypeSelected]="prodcutSelectedType =='manage'" class="product-btn" (click)="viewManage()">Manage Products</div>
-            <div [class.prodcutTypeSelected]="prodcutSelectedType =='history'" class="product-btn" (click)="viewHistory()">Order History</div>
-        </div>
-    </div>
+        <div *ngIf="company" >
+            <div class="company-title-background">
+                <img src="assets/images/company-bg.png">
+            </div>
 
-    <mat-card class="orca_card" *ngIf="prodcutSelectedType == 'manage'">
-        <mat-tab-group>
-            <!-- <mat-tab label="All">
+            <div class="company-title" *ngIf="company">
+                <div class="company-logo">
+                    <img [src]="company.logo_url ?  company.logo_url : 'assets/images/testimg/company-logo.jpg'">
+                </div>
+                <div class="company_name">
+                    <b>{{company.name}}</b>
+                </div>
+                <div class="company-address">
+                    <span>{{company.address?.location}}</span>
+                </div>
+
+                <div class="product-card-title">
+                    <div [class.prodcutTypeSelected]="prodcutSelectedType =='manage'" class="product-btn"
+                        (click)="viewManage()">Manage Products</div>
+                    <div [class.prodcutTypeSelected]="prodcutSelectedType =='history'" class="product-btn"
+                        (click)="viewHistory()">Order History</div>
+                </div>
+            </div>
+
+            <mat-card class="orca_card" *ngIf="prodcutSelectedType == 'manage'">
+                <mat-tab-group>
+                    <!-- <mat-tab label="All">
                         <app-list-product-card (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)" [productList]="productList"></app-list-product-card>
                 </mat-tab> -->
 
-            <mat-tab [label]="onlineLabel">
-                <app-list-product-card (sendScroll)="onGetScroll($event, 'online')" (sendSelect)="onGetSelect($event)" [selects]="selects"
-                    [placeholder]="btnPlaceholder" [default]="'Online'" (sendNav)="onReceiveNav($event)" [productList]="onlineProductList"></app-list-product-card>
-                {{onlineTotal}}
-            </mat-tab>
+                    <mat-tab [label]="onlineLabel">
+                        <app-list-product-card (sendSelect)="onGetSelect($event)" [selects]="selects"
+                            [placeholder]="btnPlaceholder" [default]="'Online'" (sendNav)="onReceiveNav($event)"
+                            [productList]="onlineProductList"></app-list-product-card>
+                        {{onlineTotal}}
+                    </mat-tab>
 
-            <mat-tab [label]="offlineLabel">
-                <app-list-product-card (sendScroll)="onGetScroll($event, 'offline')" (sendSelect)="onGetSelect($event)" [selects]="selects"
-                    [placeholder]="btnPlaceholder" [default]="'Offline'" (sendNav)="onReceiveNav($event)" [productList]="offlineProductList"></app-list-product-card>
-                {{offlineTotal}}
+                    <mat-tab [label]="offlineLabel">
+                        <app-list-product-card (sendSelect)="onGetSelect($event)" [selects]="selects"
+                            [placeholder]="btnPlaceholder" [default]="'Offline'" (sendNav)="onReceiveNav($event)"
+                            [productList]="offlineProductList"></app-list-product-card>
+                        {{offlineTotal}}
 
-            </mat-tab>
+                    </mat-tab>
 
-            <mat-tab [label]="IncompleteLabel">
-                <app-list-product-card (sendScroll)="onGetScroll($event, 'incomplete')" (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)"
-                    [productList]="needEditProductList"></app-list-product-card>
-                {{needEditTotal}}
-            </mat-tab>
-        </mat-tab-group>
-    </mat-card>
+                    <mat-tab [label]="IncompleteLabel">
+                        <app-list-product-card (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)"
+                            [productList]="needEditProductList"></app-list-product-card>
+                        {{needEditTotal}}
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card>
 
-    <mat-card class="panel-card company-products" *ngIf="prodcutSelectedType == 'history'">
-        <mat-tab-group>
-            <mat-tab class="label" label="Purchased">
-                <app-order-list (sendImg)="onGetImg($event)" (sendNav)="onGetNav($event)" [orders]="purchase_orders"></app-order-list>
-            </mat-tab>
+            <mat-card class="panel-card company-products" *ngIf="prodcutSelectedType == 'history'">
+                <mat-tab-group>
+                    <mat-tab class="label" label="Purchased">
+                        <app-order-list (sendImg)="onGetImg($event)" (sendNav)="onGetNav($event)"
+                            [orders]="purchase_orders">
+                        </app-order-list>
+                    </mat-tab>
 
-            <mat-tab class="label" label="Sold">
-                <app-order-list (sendImg)="onGetImg($event)" (sendNav)="onGetNav($event)" [orders]="sell_orders"></app-order-list>
-            </mat-tab>
-        </mat-tab-group>
-    </mat-card>
+                    <mat-tab class="label" label="Sold">
+                        <app-order-list (sendImg)="onGetImg($event)" (sendNav)="onGetNav($event)"
+                            [orders]="sell_orders">
+                        </app-order-list>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card>
 
+        </div>
+        <!-- <app-add-button *ngIf="prodcutSelectedType == 'manage'" [routerLink]="['product', 'add']"></app-add-button> -->
+        <app-add-button *ngIf="prodcutSelectedType == 'manage'" (click)="isAdd()"></app-add-button>
+
+        <div *ngIf="modalOpen">
+            <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
+            </app-img-modal>
+        </div>
+
+    </div>
+
+    <div style="width: 50%" *ngIf="selectedEditProductId">
+        <app-shop-management-product-edit [product_id]="selectedEditProductId">
+        </app-shop-management-product-edit>
+        <button mat-button id="header-cancel" (click)="onCancel()" style="margin-left: 87px; margin-top: -11px">Cancel</button>
+        <!-- <app-product-info *ngIf="selectedProductId" [product_id]="selectedProductId"></app-product-info> -->
+        <!-- <app-product-info [product_id]="product_id"></app-product-info> -->
+
+    </div>
+    <div style="width: 50%; margin: 0 auto" *ngIf="isAddProduct">
+        <shop-add-product></shop-add-product>
+        <button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
+        <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button>
+    </div>
 </div>
-<app-add-button *ngIf="prodcutSelectedType == 'manage'" [routerLink]="['product', 'add']"></app-add-button>
-
-<div *ngIf="modalOpen">
-    <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
-    </app-img-modal>
-</div>
-
-
 <div *ngIf="isLoading">
     <app-spinner></app-spinner>
 </div>

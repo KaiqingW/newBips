@@ -1,0 +1,18 @@
+<div class="container">
+        <div class="img-container" *ngFor="let img of imgs;let i = index">
+                <span *ngIf="i == 0">
+                        <img class="avatar-img" [src]="img.url">
+                        <i class="material-icons remove" (click)=removeImg(i)>remove_circle</i>
+                </span>
+        </div>
+
+        <div *ngIf="imgs && imgs?.length <1" class="avatar" (click)=fileInput.click()>
+                <div class="profile">
+                        <mat-icon>camera_enhance</mat-icon>
+                </div>
+        </div>
+        <input style="display:none;" type="file" id="file" accept="image/*" (change)="onFileChange($event)" #fileInput>
+</div>
+
+
+<app-img-modal *ngIf="selectedImgUrl" [imgSrc]="selectedImgUrl" (click)="closeModal()"></app-img-modal>

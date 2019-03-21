@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { InventoryService } from '../../../../core/services/inventory.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShopService } from '../../../../core/services/shop.service';
@@ -13,7 +13,7 @@ import { DialogService } from '../../../../core/services/dialog.service';
 })
 
 export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
-    product_id: number;
+    @Input() product_id: number;
     company_id: number;
     modalOpen: boolean = false;
     selectedImg = '';
@@ -26,6 +26,7 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
     finishCount = 0;
     productSubscription: Subscription;
     editMode: boolean = false;
+    @Input() selectedProductId;
 
     constructor(private inventorySerivce: InventoryService,
         private route: ActivatedRoute,
@@ -39,13 +40,25 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.product_id = +this.route.snapshot.paramMap.get('pid');
+        // this.product_id = this.selectedProductId;
         this.company_id = +this.route.snapshot.paramMap.get('cid');
         this.getProductDetail();
         this.getRetailPrices();
         this.getShopCatgory();
     }
+    init() {
+        this.company_id = +this.route.snapshot.paramMap.get('cid');
+        this.getProductDetail();
+        this.getRetailPrices();
+        this.getShopCatgory();  
+    }
 
+ngOnChanges(changes) {
+    console.log(changes.product_id.currentValue);
+    this.product_id = changes.product_id.currentValue;
+    this.init();
+
+}
     ngOnDestroy() {
 
     }
@@ -65,6 +78,8 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
 
     getProductDetail() {
         this.isLoading = true;
+        console.log('In shop management product edit')
+        console.log(this.product_id)
         this.inventorySerivce.getProductInfo(this.company_id, this.product_id).subscribe(
             (res) => {
                 this.isLoading = false;

@@ -4,9 +4,11 @@ form {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    width: 60%;
+    // justify-content: space-around;
+    // width: 60%;
     margin: 0 auto;
+    height: 703px;
+    overflow-y: scroll;
 }
 
 .input-group {
@@ -28,6 +30,7 @@ form {
     box-sizing: border-box;
     padding-left:5%;
     display: flex;
+    margin-bottom: 55px;
     .input1 {
         width: 40%;
         box-sizing: border-box;
@@ -40,6 +43,7 @@ form {
         text-align: right;
         width: 17%;
         box-sizing: border-box;
+
     }
 }
 
