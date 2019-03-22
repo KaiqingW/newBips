@@ -559,5 +559,8 @@ export class ProductAddComponent implements OnInit, OnChanges {
       }
     )
   }
+  saveItem() {
+    this.router.navigate([`/company/`]);
+  }
 
 }

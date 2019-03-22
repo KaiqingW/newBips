@@ -28,6 +28,8 @@ export class ListProductCardComponent implements OnInit, OnChanges {
     selectedWarehouse;
     buttonTxt = '';
     @Output() sendScroll = new EventEmitter<any>();
+    isOpenDetail: boolean;
+    // @Output() opened;
 
     constructor() { }
 
@@ -50,7 +52,8 @@ export class ListProductCardComponent implements OnInit, OnChanges {
     onNavToDetail(event, id) {
         event.stopPropagation();
         this.sendNav.emit(id);
-
+        this.isOpenDetail = !this.isOpenDetail;
+        // this.opened.emit(this.isOpenDetail);
     }
     openAddTransDialog(id) {
 
@@ -66,5 +69,6 @@ export class ListProductCardComponent implements OnInit, OnChanges {
 
     onNavToEdit(id) {
         this.sendNavToEdit.emit(id);
+        
     }
 }

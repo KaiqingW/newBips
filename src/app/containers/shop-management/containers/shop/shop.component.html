@@ -2,7 +2,7 @@
     <div style="width: 30%;">
 
 
-        <div *ngIf="company" >
+        <div *ngIf="company">
             <div class="company-title-background">
                 <img src="assets/images/company-bg.png">
             </div>
@@ -32,7 +32,7 @@
                         <app-list-product-card (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)" [productList]="productList"></app-list-product-card>
                 </mat-tab> -->
 
-                    <mat-tab [label]="onlineLabel">
+                    <mat-tab [label]="IncompleteLabel">
                         <app-list-product-card (sendSelect)="onGetSelect($event)" [selects]="selects"
                             [placeholder]="btnPlaceholder" [default]="'Online'" (sendNav)="onReceiveNav($event)"
                             [productList]="onlineProductList"></app-list-product-card>
@@ -47,7 +47,7 @@
 
                     </mat-tab>
 
-                    <mat-tab [label]="IncompleteLabel">
+                    <mat-tab [label]="onlineLabel">
                         <app-list-product-card (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)"
                             [productList]="needEditProductList"></app-list-product-card>
                         {{needEditTotal}}
@@ -83,17 +83,20 @@
     </div>
 
     <div style="width: 50%" *ngIf="selectedEditProductId">
+        <button mat-button id="header-cancel" (click)="onCancel()" style="margin-left: 93px;">Complete</button>
         <app-shop-management-product-edit [product_id]="selectedEditProductId">
         </app-shop-management-product-edit>
-        <button mat-button id="header-cancel" (click)="onCancel()" style="margin-left: 87px; margin-top: -11px">Cancel</button>
         <!-- <app-product-info *ngIf="selectedProductId" [product_id]="selectedProductId"></app-product-info> -->
         <!-- <app-product-info [product_id]="product_id"></app-product-info> -->
 
     </div>
     <div style="width: 50%; margin: 0 auto" *ngIf="isAddProduct">
         <shop-add-product></shop-add-product>
-        <button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
-        <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button>
+    </div>
+    <div *ngIf="isOpenDetail">
+        <div style="width: 50%; margin: 0 auto; background-color: white">
+            <!-- <app-product-info [company_id]="companyId" [product_id] = "selectedProductId"></app-product-info> -->
+        </div>
     </div>
 </div>
 <div *ngIf="isLoading">

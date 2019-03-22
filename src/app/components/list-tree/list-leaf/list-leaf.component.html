@@ -11,7 +11,10 @@
                 <div style="position: absolute; right: 451px;">
                     <app-upload-single-img2 [getImg]="getImg" (imgChange)="onReceiveImgs($event)"></app-upload-single-img2>
                 </div>
-                <input type="text" placeholder="description" formControlName="description" style="width: 1000px; height: 500px;" required>
+                <!-- <input type="text" placeholder="description" formControlName="description" style="width: 1000px; height: 500px;" required> -->
+                <!-- <input style="width: 1000px; height: 500px;" [(ngModel)]="editorContent" required/> -->
+                <!-- <div [froalaEditor] [(froalaModel)]="editorContent"></div> -->
+                <div [froalaEditor]>Hello, Froala!</div>
             </div>
 
         </form>

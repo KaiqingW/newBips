@@ -28,6 +28,11 @@ export class ListLeafComponent implements OnInit {
   companyId;
   colors = [];
   getImg;
+  // options: Object = {
+  //   placeholderText: 'Edit Your Content Here!',
+  //   charCounterCount: false
+  // };
+  editorContent: string = 'My Document\'s Title';
 
   constructor(
     private fb: FormBuilder,

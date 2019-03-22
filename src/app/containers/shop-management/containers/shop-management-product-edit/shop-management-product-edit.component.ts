@@ -27,6 +27,7 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
     productSubscription: Subscription;
     editMode: boolean = false;
     @Input() selectedProductId;
+    isSalesPitch: boolean;
 
     constructor(private inventorySerivce: InventoryService,
         private route: ActivatedRoute,
@@ -326,5 +327,10 @@ ngOnChanges(changes) {
         }
         return images[0].url;
     }
-
+    isAddSalesPitch() {
+        this.isSalesPitch = true;
+    }
+    onCancel() {
+        this.isSalesPitch = false;
+    }
 }

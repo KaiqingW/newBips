@@ -87,6 +87,22 @@ mat-card {
             border: 1px solid #eeeeee;
         }
     }
+    .col-3-cancel {
+        display: flex;
+        flex-direction: column;
+        width:10px;
+        box-sizing: border-box;
+        justify-content: center;
+        input{
+            margin: 3px 0;
+            display: inline-block;
+            height:24px;
+        }
+        span{
+            text-align: center;
+            border: 1px solid #eeeeee;
+        }
+    }
 }
 .price-table{
     justify-content: space-around;
