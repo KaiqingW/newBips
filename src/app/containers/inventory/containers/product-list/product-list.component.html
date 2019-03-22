@@ -155,13 +155,13 @@
         </div>
         <div class="addItem" *ngIf="isAddProduct">
             <app-product-add></app-product-add>
-            <button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
-            <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button>
+            <button mat-button id="header-cancel" (click)="onCancel()">Back</button>
+            <!-- <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button> -->
         </div>
         <div class="addItem" *ngIf="isAddService">
             <app-service-add></app-service-add>
-            <button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
-            <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button>
+            <button mat-button id="header-cancel" (click)="onCancel()">Back</button>
+            <!-- <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button> -->
         </div>
         <div *ngIf="isOpenDetail" style="width: 50%; margin: 0 auto; background-color: white">
             <app-product-info [product_id]="product_id" [company_id]="company_id"></app-product-info>

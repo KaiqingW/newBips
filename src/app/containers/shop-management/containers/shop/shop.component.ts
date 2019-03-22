@@ -41,6 +41,7 @@ export class ShopComponent implements OnInit {
     selectedEditProductId;
     selectedProductId;
     isAddProduct: boolean;
+    isOpenDetail: boolean;
 
     constructor(private inventoryService: InventoryService,
         private route: ActivatedRoute,
@@ -77,7 +78,10 @@ export class ShopComponent implements OnInit {
     //         }
     //     )
     // }
-
+    openDetail(isOpen: boolean) {
+        console.log(isOpen);
+        this.isOpenDetail = isOpen;
+    }
     getSellOrders() {
         this.isLoading = true;
         this.shopservice.getSellOrders(this.companyId).subscribe(
@@ -113,9 +117,10 @@ export class ShopComponent implements OnInit {
     }
 
     onReceiveNav(product) {
-        console.log(product.id);
+        console.log(product);
         this.selectedProductId = product.id;
         this.selectedEditProductId = "";
+        this.isOpenDetail = true;
         // this.router.navigate([`/company/${this.companyId}/inventory/product/${product.id}`]);
     }
 

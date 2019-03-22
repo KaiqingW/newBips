@@ -1,4 +1,4 @@
-<div class="product-header" *ngIf="product">
+<!-- <div class="product-header" *ngIf="product">
     <div class="bg-write">
         <img src="assets/images/universe.png" style="height: 60px; width: 100%; opacity: 1.0;">
     </div>
@@ -17,15 +17,15 @@
             <br>
             <span style="font-size: 13px;" class="description">{{product.headline}}</span>
         </div>
-        <!-- <div class="overview-content">
+        <div class="overview-content">
                 <span style="font-size: 13px;">{{product.description}}</span>
-            </div> -->
+            </div>
     </div>
-</div>
+</div> -->
 
 <sales-pitch-subject *ngFor="let salesPitchSubject of product?.sales_pitch_subjects" [salesPitchSubject]="salesPitchSubject"></sales-pitch-subject>
 
-<mat-card class="orca_card orca_font_md">
+<mat-card class="orca_card orca_font_md" style="width: 476px">
     <form [formGroup]="pitchSubjectForm" novalidate>
         <div class="row title">
             <b>Sales Pitches Title</b>
@@ -51,6 +51,7 @@
         <button class="add_more_btn" mat-raised-button color="primary" (click)="onAddMore()">Add More</button>
         <!-- <button (click)="onSave()">Save All</button> -->
     </form>
+    <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button>
     <!-- <div *ngIf="modalOpen">
         <app-img-modal [imgSrc]="getImg(i)" (modalClose)="closeModal()"></app-img-modal>
     </div> -->

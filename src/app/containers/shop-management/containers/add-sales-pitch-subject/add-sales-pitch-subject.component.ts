@@ -15,8 +15,9 @@ export class AddSalesPitchSubjectComponent implements OnInit, OnDestroy {
     pitch_subject_names: string[] = ['Remark', 'Function', 'Package Content'];
     pitchSubjectForm: FormGroup;
     isLoading: boolean = false;
-    company_id: number;
-    product_id: number;
+    @Input() company_id: number;
+    @Input() product_id: number;
+    isSalesPitch: boolean;
     product;
 
     constructor(private fb: FormBuilder,
@@ -24,8 +25,8 @@ export class AddSalesPitchSubjectComponent implements OnInit, OnDestroy {
         private location: Location,
         private route: ActivatedRoute,
     ) {
-        this.product_id = +this.route.snapshot.paramMap.get('pid');
-        this.company_id = +this.route.snapshot.paramMap.get('cid');
+        // this.product_id = +this.route.snapshot.paramMap.get('pid');
+        // this.company_id = +this.route.snapshot.paramMap.get('cid');
     }
 
     ngOnInit() {
@@ -41,7 +42,9 @@ export class AddSalesPitchSubjectComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(){
     }
-
+    saveItem() {
+        this.isSalesPitch = false;
+    }
     getProductDetail() {
         this.isLoading = true;
         this.inventoryService.getProductInfo(this.company_id, this.product_id).subscribe(

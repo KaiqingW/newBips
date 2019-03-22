@@ -179,7 +179,13 @@
 #header-submit-edit {
     background-color: #15305a;
     color: white;
-    margin-top: 6px;
+    margin-top: -37px;
+    float: right;
+}
+#header-submit-edit-save{
+    background-color: #15305a;
+    color: white;
+    // margin-top: -37px;
     float: right;
 }
 #header-cancel {
