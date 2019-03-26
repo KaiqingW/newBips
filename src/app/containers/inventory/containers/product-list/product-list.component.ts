@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Product } from './../../../../core/models/index';
@@ -16,6 +16,7 @@ import { map, startWith } from 'rxjs/operators';
 import { ShopService } from '../../../../core/services/shop.service';
 import { SearchService } from '../../../../core/services/search.service';
 import { AddWarehouseTransactionComponent } from '../add-warehouse-trans/add-warehouse-trans.component';
+import { Ng2Ueditor } from 'ng2-ueditor';
 
 @Component({
   selector: 'app-product-list',
@@ -33,6 +34,7 @@ export class ProductListComponent implements OnInit {
   feedback;
   next = '';
   nextProducts = '';
+  @ViewChild('ueditor') ueditor: Ng2Ueditor;
   //warehouseMap = new Map<number, string>();
   //set maximum refresh height;
   refreshHeight: number = 400;
