@@ -54,6 +54,7 @@ import { ProductListComponent } from './containers/product-list/product-list.com
 import { ProductSearchBarModule } from './components/product-search-bar/product-search-bar.module';
 import { WholesalePriceComponent} from './containers/product-info/wholesale-price/wholesale-price.component';
 import { Ng2UeditorModule } from 'ng2-ueditor';
+
 // import { WholesalePriceTableModule} from './containers/product-info/wholesale-price-table/wholesale-price-table.module';
 // import { AddWholesalePriceTableModule} from './containers/product-info/add-wholesale-price-table/add-wholesale-price-table.module';
 // import { CategoryCardModule} from './containers/product-info/category-card/category-card.module';
@@ -112,12 +113,11 @@ import { Ng2UeditorModule } from 'ng2-ueditor';
         InventoryCategoryComponent,
         // WholesalePriceTableComponent,
         // AddWholesalePriceTableComponent,
-        ProductEditComponent,
+        // ProductEditComponent,
         ServiceAddComponent,
         ChooseAddTypeCompoent,
-
     ],
-    entryComponents: [AddWarehouseTransactionComponent, AddAttachmentComponent],
+    entryComponents: [AddWarehouseTransactionComponent, ProductEditComponent,],
     providers:[DialogService, InventoryService, WarehouseService, CommonService, VrmBaBaService, CopyService]
 })
 

@@ -39,7 +39,7 @@ import "froala-editor/js/froala_editor.pkgd.min.js";
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { Ng2UeditorModule } from 'ng2-ueditor';
 
-
+import { UMeditorModule } from 'ngx-umeditor';
 @NgModule({
   imports: [
     AuthModule,
@@ -78,6 +78,7 @@ import { Ng2UeditorModule } from 'ng2-ueditor';
     //     // blacklistedRoutes: ['localhost:3001/auth/']
     //   }
     // })
+    UMeditorModule.forRoot()
   ],
   declarations: [
     AppComponent,

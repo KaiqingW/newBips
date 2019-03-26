@@ -14,7 +14,7 @@
                 <!-- <input type="text" placeholder="description" formControlName="description" style="width: 1000px; height: 500px;" required> -->
                 <!-- <input style="width: 1000px; height: 500px;" [(ngModel)]="editorContent" required/> -->
                 <!-- <div [froalaEditor] [(froalaModel)]="editorContent"></div> -->
-                <div [froalaEditor]>Hello, Froala!</div>
+                
             </div>
 
         </form>
@@ -31,7 +31,7 @@
             </i>
         </div>
     </li>
-
+    <umeditor [(ngModel)]="full_source" #full></umeditor>
     <li *ngIf="!(item?.name)" style="height: 120px;">
         <span class="indent-span" [ngStyle]="getInputIndent(item)"></span>
         <input type="text" placeholder="category" required style="width:100px; height: 30px;" [(ngModel)]="category">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
 
@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { InventoryService } from 'app/core/services/inventory.service';
 // import { timingSafeEqual } from 'crypto';
+import { UMeditorComponent } from 'ngx-umeditor';
 
 @Component({
   selector: 'app-list-leaf',
@@ -33,11 +34,13 @@ export class ListLeafComponent implements OnInit {
   //   charCounterCount: false
   // };
   editorContent: string = 'My Document\'s Title';
+  @ViewChild('full') full: UMeditorComponent;
 
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService,
     private route: ActivatedRoute,
+    private el: ElementRef,
   ) {
     // this.companyId = this.route.snapshot.paramMap.get('cid');
     // let letters = '0123456789ABCDEF';
@@ -65,7 +68,10 @@ export class ListLeafComponent implements OnInit {
       this.showChildren.delete(i);
     }
   }
-
+  getAllHtml() {
+    // 通过 `this.full.Instance` 访问umeditor实例对象
+    alert(this.full.Instance.getAllHtml())
+  }
   getIndent(item) {
     let level = item.level;
     let indent = level * 48;
@@ -84,7 +90,7 @@ export class ListLeafComponent implements OnInit {
     switch (level) {
       case level:
         // return { 'color': this.colors[0] };
-      return  {'color' : colors[level]};
+        return { 'color': colors[level] };
       // return { 'color': color };
     }
   }

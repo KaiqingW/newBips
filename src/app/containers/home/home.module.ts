@@ -43,7 +43,7 @@ import { ShortTextPipe } from './short-text.pipe';
 import { AuthService } from 'app/core/services/auth.service';
 import { MeetingService } from 'app/core/services/meeting.service';
 import { DialogAlertModule } from '../../components/dialog-alert/dialog-alert.module';
-
+import { UMeditorModule } from 'ngx-umeditor';
 @NgModule({
   imports: [
     MatButtonModule,
@@ -69,7 +69,8 @@ import { DialogAlertModule } from '../../components/dialog-alert/dialog-alert.mo
     ImageCropperModule,
     CropModalModule,
     FileBoxModule,
-    DialogAlertModule
+    DialogAlertModule,
+    UMeditorModule
   ],
   declarations: [
     HomeComponent,

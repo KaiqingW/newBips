@@ -10,7 +10,7 @@ import { UploadImgModule } from 'app/components/upload-img/upload-img.module';
 import { UploadSingleImgModule } from '../upload-single-img/upload-single-img.module';
 import { UploadSingleImg2Module } from '../upload-single-img2/upload-single-img2.module';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-
+import { UMeditorModule } from 'ngx-umeditor';
 @NgModule({
   declarations: [
     ListTreeComponent,
@@ -27,7 +27,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     UploadSingleImgModule,
     UploadSingleImg2Module,
     FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    UMeditorModule
   ],
   exports: [
     ListTreeComponent

@@ -607,7 +607,9 @@ export class ProductEditComponent implements OnInit, OnChanges {
     )
   }
 
-
+  saveItem() {
+    this.router.navigate([``]);
+  }
   getVenderAddress(vender) {
     this.vrmService.getVendorAddresses(this.company_id, vender.id).subscribe(
       (res) => {

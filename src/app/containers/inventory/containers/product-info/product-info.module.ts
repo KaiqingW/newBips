@@ -42,7 +42,7 @@ import { ProductCategoryCardCompnent } from './category-card/category-card.compo
 import { WholesalePriceTableComponent } from './wholesale-price-table/wholesale-price-table.component';
 import { AddWholesalePriceTableComponent } from './add-wholesale-price-table/add-wholesale-price-table.component';
 import { WholesalePriceComponent} from './wholesale-price/wholesale-price.component';
- 
+import { ProductEditComponent } from '../../containers/product-edit/product-edit.component';
 @NgModule({
 
   imports: [
@@ -81,11 +81,15 @@ import { WholesalePriceComponent} from './wholesale-price/wholesale-price.compon
     WholesalePriceTableComponent,
     AddWholesalePriceTableComponent,
     WholesalePriceComponent,
+    ProductEditComponent
   ],
   exports: [
-ProductInfoComponent
+    ProductInfoComponent
   ],
-  entryComponents: [],
+  entryComponents: [
+    AddAttachmentComponent,
+    ProductEditComponent
+  ],
   providers: [
     InventoryService,
     WarehouseService,
@@ -94,7 +98,6 @@ ProductInfoComponent
     CopyService,
     DialogService,
     MatListModule,
-
   ]
 })
 export class ProductInfoModule { }
