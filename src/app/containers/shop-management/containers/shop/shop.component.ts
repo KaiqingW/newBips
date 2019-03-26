@@ -39,7 +39,7 @@ export class ShopComponent implements OnInit {
     offlineLabel: string = "Offline";
     IncompleteLabel: string = "Incomplete";
     selectedEditProductId;
-    selectedProductId;
+    product_id;
     isAddProduct: boolean;
     isOpenDetail: boolean;
 
@@ -78,10 +78,6 @@ export class ShopComponent implements OnInit {
     //         }
     //     )
     // }
-    openDetail(isOpen: boolean) {
-        console.log(isOpen);
-        this.isOpenDetail = isOpen;
-    }
     getSellOrders() {
         this.isLoading = true;
         this.shopservice.getSellOrders(this.companyId).subscribe(
@@ -118,8 +114,10 @@ export class ShopComponent implements OnInit {
 
     onReceiveNav(product) {
         console.log(product);
-        this.selectedProductId = product.id;
+        this.product_id = product.id;
+        console.log(this.product_id);
         this.selectedEditProductId = "";
+        this.isAddProduct = false;
         this.isOpenDetail = true;
         // this.router.navigate([`/company/${this.companyId}/inventory/product/${product.id}`]);
     }
@@ -302,8 +300,9 @@ export class ShopComponent implements OnInit {
     onGetNavToEdit(id) {
         console.log(id);
         this.selectedEditProductId = id;
-        this.selectedProductId = "";
+        this.product_id = "";
         this.isAddProduct = false;
+        this.isOpenDetail = false;
         // this.router.navigate(['product', id, 'edit'], { relativeTo: this.route });
     }
 
@@ -313,17 +312,19 @@ export class ShopComponent implements OnInit {
     isAdd() {
         this.isAddProduct = true;
         this.selectedEditProductId = "";
-        this.selectedProductId = "";
+        this.product_id = "";
+        this.isOpenDetail = false;
     }
     onsave() {
         this.selectedEditProductId = " ";
-        this.selectedProductId = "";
+        this.product_id = "";
         this.isAddProduct = false;
+        this.isOpenDetail = false;
         this.init();
     }
     onCancel() {
         this.selectedEditProductId = "";
-        this.selectedProductId = "";
+        this.product_id = "";
         this.isAddProduct = false;
         this.init();
     }

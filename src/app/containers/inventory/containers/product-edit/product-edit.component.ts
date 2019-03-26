@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewChecked, Inject } from '@angular/core';
 import { Product } from './../../../../core/models/index';
 import { Warehouse } from 'app/core/models/warehouse';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,7 +7,7 @@ import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFor
 import { InventoryService } from '../../../../core/services/inventory.service';
 import { VrmBaBaService } from '../../../vrm/vrm.service';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material'
+import { MatChipInputEvent, MAT_DIALOG_DATA } from '@angular/material'
 import { Observable } from 'rxjs/Observable';
 import { SearchService } from '../../../../core/services/search.service';
 import { CompanyService } from '../../../../core/services/company.service';
@@ -88,7 +88,8 @@ export class ProductEditComponent implements OnInit, OnChanges {
     private vrmService: VrmBaBaService,
     private copyService: CopyService,
     private leadService: LeadService,
-    private dialogService: DialogService) {
+    private dialogService: DialogService
+    ) {
 
     this.company_id = +this.route.snapshot.paramMap.get('cid');
     this.product_id = +this.route.snapshot.paramMap.get('pid');

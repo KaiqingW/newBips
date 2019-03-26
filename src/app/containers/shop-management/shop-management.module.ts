@@ -37,6 +37,7 @@ import { MomentModule } from 'angular2-moment/moment.module';
 import { LocalTimePipe } from './local-time.pipe';
 import { ShopComponent } from './containers/shop/shop.component';
 import { ShopManagementProductEditComponent } from './containers/shop-management-product-edit/shop-management-product-edit.component';
+import { ProductInfoModule } from '../inventory/containers/product-info/product-info.module';
 import { PriceTableComponent } from './containers/shop-management-product-edit/price-table/price-table.component';
 import { ShopCateogryComponent } from './containers/shop-management-product-edit/shop-category/shop-category.component';
 import { AddShopProductComponent } from './containers/add-shop-product/add-shop-product.component';
@@ -54,6 +55,12 @@ import { ShopManagementService } from '../../core/services/shop-management.servi
 import { ShortTextPipe } from './short-text.pipe';
 import { ShopProductDescriptionComponent } from './containers/shop-management-product-edit/product-description/product-description.component';
 import { ShippingInfoComponent } from './containers/shop-management-product-edit/shipping-info/shipping-info.component';
+import { AttchmentModule } from 'app/components/attachment/attachment.module';
+import { InventoryService } from '../../core/services/inventory.service';
+import { WarehouseService } from '../../core/services/warehouse.service';
+import { CopyService } from '../../core/services/copy.service';
+
+import { from } from 'rxjs/observable/from';
 @NgModule({
   imports: [
     RouterModule.forChild(ShopManagementRoutes),
@@ -84,7 +91,9 @@ import { ShippingInfoComponent } from './containers/shop-management-product-edit
     MatToolbarModule,
     MomentModule,
     EditorModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    AttchmentModule,
+    ProductInfoModule,
   ],
   declarations: [
     ShopManagementComponent,
@@ -105,7 +114,9 @@ import { ShippingInfoComponent } from './containers/shop-management-product-edit
     SalesPitchComponent,
     ShortTextPipe,
     ShopProductDescriptionComponent,
-    ShippingInfoComponent
+    ShippingInfoComponent,
+    // ProductInfoComponent,
+    // AddAttachmentComponent,
   ],
   providers: [
     ToasterService,
@@ -113,7 +124,10 @@ import { ShippingInfoComponent } from './containers/shop-management-product-edit
     CommonService,
     ShopService,
     UpsService,
-    ShopManagementService
+    ShopManagementService,
+    InventoryService, 
+    WarehouseService,
+    CopyService
   ],
   exports: [
     OrderListComponent,

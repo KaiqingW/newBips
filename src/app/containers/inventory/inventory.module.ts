@@ -25,7 +25,7 @@ import { InventoryService } from '../../core/services/inventory.service';
 import { WarehouseService } from '../../core/services/warehouse.service';
 import { CommonService } from 'app/core/services/common.service';
 import { SpinnerModule } from 'app/components/spinner/spinner.module';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ListTreeModule } from 'app/components/list-tree/list-tree.component.module';
 
 import { AttchmentModule } from 'app/components/attachment/attachment.module';
@@ -36,13 +36,13 @@ import { VrmBaBaService } from '../vrm/vrm.service';
 import { CopyService } from '../../core/services/copy.service';
 import { DialogService } from '../../core/services/dialog.service';
 import { MatListModule } from '@angular/material';
-import { ProductInfoComponent } from './containers/product-info/product-info.component';
+import { ProductInfoModule } from './containers/product-info/product-info.module';
+// import { ProductInfoComponent } from './containers/product-info/product-info.component';
 import { ProductAddComponent } from './containers/product-add/product-add.component';
 import { WarehouseDetailCompnent } from './containers/warehouse-detail/warehouse-detail.component';
 import { AddWarehouseTransactionComponent } from './containers/add-warehouse-trans/add-warehouse-trans.component';
 import { AddAttachmentComponent } from './containers/product-info/add-attachments/add-attachments.component';
 import { PriceTableComponent } from './containers/price-table/price-table.component';
-import { WholesalePriceComponent } from './containers/product-info/wholesale-price/wholesale-price.component';
 import { ProductCategoryCardCompnent } from './containers/product-info/category-card/category-card.component';
 import { InventoryCategoryComponent } from './containers/product-add/inventory-category/inventory-category.component';
 import { WholesalePriceTableComponent } from './containers/product-info/wholesale-price-table/wholesale-price-table.component';
@@ -52,6 +52,11 @@ import { ServiceAddComponent } from './containers/service-add/service-add.compon
 import { ChooseAddTypeCompoent } from './containers/choose-add-type/choose-add-type.component';
 import { ProductListComponent } from './containers/product-list/product-list.component';
 import { ProductSearchBarModule } from './components/product-search-bar/product-search-bar.module';
+import { WholesalePriceComponent} from './containers/product-info/wholesale-price/wholesale-price.component';
+// import { WholesalePriceTableModule} from './containers/product-info/wholesale-price-table/wholesale-price-table.module';
+// import { AddWholesalePriceTableModule} from './containers/product-info/add-wholesale-price-table/add-wholesale-price-table.module';
+// import { CategoryCardModule} from './containers/product-info/category-card/category-card.module';
+
 
 @NgModule({
     imports: [
@@ -85,25 +90,30 @@ import { ProductSearchBarModule } from './components/product-search-bar/product-
         SelectBarModule,
         OneClickDirectiveModule,
         MatListModule,
-        ProductSearchBarModule
+        ProductSearchBarModule,
+        ProductInfoModule,
+        // WholesalePriceModule,
+        // CategoryCardModule,
+        // WholesalePriceTableModule,
+        // AddWholesalePriceTableModule,
     ],
     declarations: [
         InventoryComponent,
         ProductListComponent,
-        ProductInfoComponent,
         ProductAddComponent,
         WarehouseDetailCompnent,
         AddWarehouseTransactionComponent,
-        AddAttachmentComponent,
+        // AddAttachmentComponent,
         PriceTableComponent,
-        WholesalePriceComponent,
-        ProductCategoryCardCompnent,
+        // WholesalePriceComponent,
+        // ProductCategoryCardCompnent,
         InventoryCategoryComponent,
-        WholesalePriceTableComponent,
-        AddWholesalePriceTableComponent,
+        // WholesalePriceTableComponent,
+        // AddWholesalePriceTableComponent,
         ProductEditComponent,
         ServiceAddComponent,
         ChooseAddTypeCompoent,
+
     ],
     entryComponents: [AddWarehouseTransactionComponent, AddAttachmentComponent],
     providers:[DialogService, InventoryService, WarehouseService, CommonService, VrmBaBaService, CopyService]
