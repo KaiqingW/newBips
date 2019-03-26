@@ -83,7 +83,7 @@ import { WholesalePriceComponent} from './wholesale-price/wholesale-price.compon
     WholesalePriceComponent,
   ],
   exports: [
-    ProductInfoComponent
+ProductInfoComponent
   ],
   entryComponents: [],
   providers: [

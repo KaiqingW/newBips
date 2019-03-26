@@ -37,6 +37,7 @@ import "froala-editor/js/froala_editor.pkgd.min.js";
 
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { Ng2UeditorModule } from 'ng2-ueditor';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     NgxMaskModule.forRoot(),
     FroalaEditorModule.forRoot(), 
     FroalaViewModule.forRoot(),
+    Ng2UeditorModule,
     // JwtModule.forRoot({
     //   config: { 
     //     tokenGetter: tokenGetter,
