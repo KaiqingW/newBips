@@ -38,7 +38,7 @@ import "froala-editor/js/froala_editor.pkgd.min.js";
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
-
+import { UMeditorModule } from 'ngx-umeditor';
 @NgModule({
   imports: [
     AuthModule,
@@ -76,6 +76,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     //     // blacklistedRoutes: ['localhost:3001/auth/']
     //   }
     // })
+    UMeditorModule.forRoot()
   ],
   declarations: [
     AppComponent,

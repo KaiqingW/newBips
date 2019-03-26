@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import * as fromAuthReducer from 'app/core/reducers/auth.reducer';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError, ActivatedRoute, RoutesRecognized } from '@angular/router';
 import { Header } from 'app/core/models/header';
@@ -13,7 +13,7 @@ import { DialogService } from 'app/core/services/dialog.service';
 import { CompanyService } from 'app/core/services/company.service';
 
 import { MeetingService } from 'app/core/services/meeting.service';
-
+import { UMeditorComponent } from 'ngx-umeditor';
 
 @Component({
   selector: 'business-dashboard',
@@ -43,6 +43,14 @@ export class BusinessDashboardComponent implements OnInit {
   isPPIEmployee: boolean = false;
   if_web;
 
+  @ViewChild('full') full: UMeditorComponent;
+
+
+    getAllHtml() {
+        // 通过 `this.full.Instance` 访问umeditor实例对象
+        alert(this.full.Instance.getAllHtml())
+    }
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -54,6 +62,7 @@ export class BusinessDashboardComponent implements OnInit {
     private dialogService: DialogService,
     private meetingService: MeetingService,
     private companyService: CompanyService,
+    private el: ElementRef
 
   ) {
     this.isLoading = true;
