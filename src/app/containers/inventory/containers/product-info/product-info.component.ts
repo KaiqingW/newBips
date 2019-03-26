@@ -10,10 +10,12 @@ import { InventoryService } from '../../../../core/services/inventory.service';
 import { WarehouseService } from 'app/core/services/warehouse.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddAttachmentComponent } from './add-attachments/add-attachments.component';
+import { ProductEditComponent } from '../../containers/product-edit/product-edit.component';
 import { Subscription } from 'rxjs';
 import { CopyService } from '../../../../core/services/copy.service';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { OrdersService } from '../../../../core/services/orders.service';
+import { from } from 'rxjs/observable/from';
 
 @Component({
   selector: 'app-product-info',
@@ -21,7 +23,7 @@ import { OrdersService } from '../../../../core/services/orders.service';
   styleUrls: ['./product-info.component.scss']
 })
 export class ProductInfoComponent implements OnInit, OnDestroy {
-
+  @Input() product_id: number;
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
   warehouses: Warehouse[] = [];
@@ -33,8 +35,8 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   selectedWarehouse: Warehouse = null;
   selectedWarehouseIndex: number;
   modalOpen: boolean = false;
-  @Input() product_id: number;
-  @Input() company_id: number;
+  // @Input() product_id: number;
+  company_id: number;
   product;
   showMap: boolean = false;
   multiPictures = ["assets/images/icons/no-img.jpg"];
@@ -77,7 +79,7 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
     private ordersService: OrdersService
   ) {
 
-    this.product_id = +this.route.snapshot.paramMap.get('pid');
+    // this.product_id = +this.route.snapshot.paramMap.get('pid');
     this.company_id = +this.route.snapshot.paramMap.get('cid');
     console.log(this.product_id);
     console.log(this.company_id);
@@ -190,7 +192,14 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   }
 
   onNavToEdit() {
-    this.router.navigate([`../product/editProduct/${this.product_id}`], { relativeTo: this.route });
+    // this.router.navigate([`../product/editProduct/${this.product_id}`], { relativeTo: this.route });
+    const dialogRef = this.dialog.open(ProductEditComponent, {
+      width: '700px',
+      data: {
+        company_id: this.company_id,
+        product_id: this.product_id,
+      }
+    });
   }
 
   checkEditAuth() {
@@ -312,7 +321,6 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       result => {
         this.getProduct();
-
       });
   }
 

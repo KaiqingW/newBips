@@ -93,9 +93,9 @@
     <div style="width: 50%; margin: 0 auto" *ngIf="isAddProduct">
         <shop-add-product></shop-add-product>
     </div>
-    <div *ngIf="isOpenDetail">
-        <div style="width: 50%; margin: 0 auto; background-color: white">
-            <!-- <app-product-info [company_id]="companyId" [product_id] = "selectedProductId"></app-product-info> -->
+    <div *ngIf="isOpenDetail" style="margin: 0 auto">
+        <div style="width: 100%; margin: 0 auto; background-color: white">
+            <app-product-info [product_id] = "product_id"></app-product-info>
         </div>
     </div>
 </div>

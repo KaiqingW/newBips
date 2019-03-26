@@ -26,7 +26,7 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
     finishCount = 0;
     productSubscription: Subscription;
     editMode: boolean = false;
-    @Input() selectedProductId;
+    // @Input() selectedProductId;
     isSalesPitch: boolean;
 
     constructor(private inventorySerivce: InventoryService,
