@@ -12,12 +12,14 @@ export class PriceTableComponent implements OnInit {
   priceForm: FormGroup;
   @Input() retailPrices;
   @Output() sendPriceTable = new EventEmitter<any>();
-  product_id : number;
+  product_id = 42;
   hide : boolean = false;
   constructor(private fb: FormBuilder,
               private inventoryService: InventoryService,
               private route:ActivatedRoute) { 
-                this.product_id = +this.route.snapshot.paramMap.get('pid');
+                // this.product_id = +this.route.snapshot.paramMap.get('pid');
+    console.log(this.product_id);
+
               }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class PriceTableComponent implements OnInit {
 
   initPriceArray(privousValueSet){
     return this.fb.group({
-      product_id: [this.product_id],
+      product_id: 42,
       min_qty: [privousValueSet.max_qty + 1],
       max_qty: [''],
       price: ['']
@@ -61,8 +63,9 @@ export class PriceTableComponent implements OnInit {
   }
 
   savePriceTable(){
-    let company_id = +this.route.snapshot.paramMap.get('cid');
+    // let company_id = +this.route.snapshot.paramMap.get('cid');
     if(this.priceForm.valid){
+      console.log(this.priceForm);
       this.sendPriceTable.emit(this.priceForm.value);
       this.hide = true;
     }

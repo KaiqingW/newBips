@@ -110,6 +110,7 @@ export class AddSalesPitchSubjectComponent implements OnInit, OnDestroy {
     }
 
     onDelete(i) {
+        console.log(this.pitchSubjectForm);
         if (this.pitchSubjectForm.controls.sales_pitches['controls'].length > 1) {
             const control = <FormArray>this.pitchSubjectForm.controls['sales_pitches'];
             control.removeAt(i);
@@ -138,7 +139,4 @@ export class AddSalesPitchSubjectComponent implements OnInit, OnDestroy {
     onGetSalesPitch(value) {
         this.isLoading = true;
     }
-
-
-
 }

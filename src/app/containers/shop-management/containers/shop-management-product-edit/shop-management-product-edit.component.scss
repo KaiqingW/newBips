@@ -11,7 +11,7 @@
 }
 
 .product-header{
-    width:100%;
+    width:676px;
     height:20%;
     text-align: center;
     display: inline-block;
@@ -41,7 +41,8 @@
     width:100%;
     display: flex;
     justify-content: space-around;
-    margin:10px 0;
+    // margin:18px -40px;
+    height: fit-content;
 }
 
 .item-name{

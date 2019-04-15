@@ -1,0 +1,47 @@
+.summary {
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    .showMoreBtn {
+        position: absolute;
+        right: 15px;
+    }
+    mat-card {
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    .col-3 {
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+        box-sizing: border-box;
+        justify-content: center;
+        input {
+            margin: 3px 0;
+            display: inline-block;
+            height: 24px;
+        }
+        span {
+            text-align: center;
+            border: 1px solid #eeeeee;
+        }
+    }
+}
+
+.price-label {
+    color: white;
+    padding: 1% 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #15305a;
+    width: 100%;
+    margin: 0;
+    text-align: center !important;
+}

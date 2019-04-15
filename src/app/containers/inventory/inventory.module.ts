@@ -47,13 +47,12 @@ import { ProductCategoryCardCompnent } from './containers/product-info/category-
 import { InventoryCategoryComponent } from './containers/product-add/inventory-category/inventory-category.component';
 import { WholesalePriceTableComponent } from './containers/product-info/wholesale-price-table/wholesale-price-table.component';
 import { AddWholesalePriceTableComponent } from './containers/product-info/add-wholesale-price-table/add-wholesale-price-table.component';
-import { ProductEditComponent } from './containers/product-edit/product-edit.component';
+import { ProductEditModule } from './containers/product-edit/product-edit.module';
 import { ServiceAddComponent } from './containers/service-add/service-add.component';
 import { ChooseAddTypeCompoent } from './containers/choose-add-type/choose-add-type.component';
 import { ProductListComponent } from './containers/product-list/product-list.component';
 import { ProductSearchBarModule } from './components/product-search-bar/product-search-bar.module';
 import { WholesalePriceComponent} from './containers/product-info/wholesale-price/wholesale-price.component';
-import { Ng2UeditorModule } from 'ng2-ueditor';
 
 // import { WholesalePriceTableModule} from './containers/product-info/wholesale-price-table/wholesale-price-table.module';
 // import { AddWholesalePriceTableModule} from './containers/product-info/add-wholesale-price-table/add-wholesale-price-table.module';
@@ -94,7 +93,8 @@ import { Ng2UeditorModule } from 'ng2-ueditor';
         MatListModule,
         ProductSearchBarModule,
         ProductInfoModule,
-        Ng2UeditorModule,
+        ProductEditModule,
+        // Ng2UeditorModule,
         // WholesalePriceModule,
         // CategoryCardModule,
         // WholesalePriceTableModule,
@@ -113,11 +113,10 @@ import { Ng2UeditorModule } from 'ng2-ueditor';
         InventoryCategoryComponent,
         // WholesalePriceTableComponent,
         // AddWholesalePriceTableComponent,
-        // ProductEditComponent,
         ServiceAddComponent,
         ChooseAddTypeCompoent,
     ],
-    entryComponents: [AddWarehouseTransactionComponent, ProductEditComponent,],
+    entryComponents: [AddWarehouseTransactionComponent, ],
     providers:[DialogService, InventoryService, WarehouseService, CommonService, VrmBaBaService, CopyService]
 })
 

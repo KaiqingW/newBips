@@ -37,7 +37,11 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
         private shopManagementService: ShopManagementService,
         private dialogService: DialogService,
     ) {
-
+        this.company_id = +this.route.snapshot.paramMap.get('cid');
+        console.log(this.company_id);
+        console.log(this.product_id);
+        this.getProductDetail();
+        console.log(this.product);
     }
 
     ngOnInit() {
@@ -51,15 +55,13 @@ export class ShopManagementProductEditComponent implements OnInit, OnDestroy {
         this.company_id = +this.route.snapshot.paramMap.get('cid');
         this.getProductDetail();
         this.getRetailPrices();
-        this.getShopCatgory();  
+        this.getShopCatgory();
     }
 
-ngOnChanges(changes) {
-    console.log(changes.product_id.currentValue);
-    this.product_id = changes.product_id.currentValue;
-    this.init();
-
-}
+    ngOnChanges(changes) {
+        this.product_id = changes.product_id.currentValue;
+        this.init();
+    }
     ngOnDestroy() {
 
     }
@@ -69,6 +71,7 @@ ngOnChanges(changes) {
         this.inventorySerivce.editProductAllInfo(this.company_id, this.product_id, shippingInfo).subscribe(
             res => {
                 this.product = res;
+                console.log(this.product);
                 this.isLoading = false;
             },
             (err) => {
@@ -79,17 +82,15 @@ ngOnChanges(changes) {
 
     getProductDetail() {
         this.isLoading = true;
-        console.log('In shop management product edit')
-        console.log(this.product_id)
         this.inventorySerivce.getProductInfo(this.company_id, this.product_id).subscribe(
             (res) => {
                 this.isLoading = false;
                 this.product = res;
+                console.log(this.product);
             },
             (err) => {
             },
             () => {
-
             }
         )
     }
@@ -120,7 +121,6 @@ ngOnChanges(changes) {
         if (!this.editMode) {
             this.inventorySerivce.getRetailPriceTable(this.company_id, this.product_id).subscribe(
                 (res) => {
-
                     res.forEach(
                         (priceObj) => {
                             priceObj.price /= 100;
@@ -130,7 +130,6 @@ ngOnChanges(changes) {
                 }
             )
         } else {
-
         }
     }
 
@@ -156,14 +155,44 @@ ngOnChanges(changes) {
         )
     }
 
-    onReceivePriceTable(priceTable) {
+    onGetPatchTable(priceTable) {
         this.isLoading = true;
-        let priceFormLength = priceTable.prices.length;
-        // console.log(priceFormLength);
         priceTable.prices.forEach(
             (priceObj) => {
                 priceObj.price *= 100;
-                this.inventoryService.addRetailPrice(this.company_id, this.product_id, priceObj).subscribe(
+            }
+        );
+        priceTable.prices.forEach(priceObj => priceObj['product_id'] = this.product_id);
+        console.log(priceTable);
+        this.inventorySerivce.editRetailPriceTable(this.company_id, this.product_id, priceTable).subscribe(
+            res => {
+                res.forEach(
+                    (priceObj) => {
+                        priceObj.price /= 100;
+                    }
+                )
+                this.retailPrices = res;
+                this.isLoading = false;
+            },
+            (err) => {
+                this.isLoading = false;
+            }
+        )
+    }
+
+    onReceivePriceTable(priceTable) {
+        this.isLoading = true;
+        let priceFormLength = priceTable.prices.length;
+
+        console.log(priceTable);
+        console.log(this.company_id);
+        priceTable.prices.forEach(
+            (priceObj) => {
+                priceObj.price *= 100;
+                priceObj['product_id'] = this.product_id;
+
+                console.log(priceObj);
+                this.inventoryService.addRetailPrice(this.company_id, +this.product_id, priceObj).subscribe(
                     (res) => {
                         this.finishCount++;
                     },
@@ -180,28 +209,6 @@ ngOnChanges(changes) {
         )
     }
 
-    onGetPatchTable(priceTable){
-        this.isLoading = true;
-        priceTable.prices.forEach(
-            (priceObj) => {
-                priceObj.price *= 100;
-            }
-        );
-        this.inventorySerivce.editRetailPriceTable(this.company_id, this.product_id, priceTable).subscribe(
-            res => {
-                res.forEach(
-                    (priceObj) => {
-                        priceObj.price /= 100;
-                    }
-                )
-                this.retailPrices = res;
-                this.isLoading = false;
-            },
-            (err) => {
-                this.isLoading = false;
-            }
-        )
-    }
 
     changeToOnline() {
         let if_pass = this.checkProductBeforeChangeStatus();

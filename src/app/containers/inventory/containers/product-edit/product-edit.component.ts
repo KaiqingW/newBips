@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewChecked, Inject } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewChecked, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from './../../../../core/models/index';
 import { Warehouse } from 'app/core/models/warehouse';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -33,7 +33,7 @@ export class ProductEditComponent implements OnInit, OnChanges {
   selected_category;
   itemNumErr: string;
   category_array = [];
-  product_id: number;
+  @Input() product_id: number;
   unit_price_type_group = [
     {
       name: 'International',
@@ -77,6 +77,8 @@ export class ProductEditComponent implements OnInit, OnChanges {
   selected_customer;
   customerCtrl: FormControl = new FormControl();
   filteredCustomers;
+  isSave: boolean;
+  @Output() saved = new EventEmitter<boolean>();
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -92,7 +94,7 @@ export class ProductEditComponent implements OnInit, OnChanges {
     ) {
 
     this.company_id = +this.route.snapshot.paramMap.get('cid');
-    this.product_id = +this.route.snapshot.paramMap.get('pid');
+    // this.product_id = +this.route.snapshot.paramMap.get('pid');
     this.getAllCategory();
     this.subscribeTermSearch();
   }
@@ -109,6 +111,10 @@ export class ProductEditComponent implements OnInit, OnChanges {
         this.onSearchCrm(term);
       }
     )
+  }
+  saveItem() {
+    this.isSave = true;
+    this.saved.emit(this.isSave);
   }
 
   onSearchCrm(term) {
@@ -607,9 +613,7 @@ export class ProductEditComponent implements OnInit, OnChanges {
     )
   }
 
-  saveItem() {
-    this.router.navigate([``]);
-  }
+
   getVenderAddress(vender) {
     this.vrmService.getVendorAddresses(this.company_id, vender.id).subscribe(
       (res) => {

@@ -9,7 +9,6 @@ import { ListLeafComponent } from './list-leaf/list-leaf.component';
 import { UploadImgModule } from 'app/components/upload-img/upload-img.module';
 import { UploadSingleImgModule } from '../upload-single-img/upload-single-img.module';
 import { UploadSingleImg2Module } from '../upload-single-img2/upload-single-img2.module';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { UMeditorModule } from 'ngx-umeditor';
 @NgModule({
   declarations: [
@@ -26,8 +25,6 @@ import { UMeditorModule } from 'ngx-umeditor';
     UploadImgModule,
     UploadSingleImgModule,
     UploadSingleImg2Module,
-    FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot(),
     UMeditorModule
   ],
   exports: [

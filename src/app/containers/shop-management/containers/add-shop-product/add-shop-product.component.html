@@ -1,5 +1,4 @@
 <app-search-bar (onSearch)="onGetSearch($event)" (onSendSelectProduct)="onGetSelectedProduct($event)" [products]="products" [placeholder]="searchPlaceholder"></app-search-bar>
 <h4 *ngIf="selectedProducts && selectedProducts.length > 0" class="title">Selected Products:</h4>
 <app-list-product-card [productList]="selectedProducts"></app-list-product-card>
-<button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
 <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button>
