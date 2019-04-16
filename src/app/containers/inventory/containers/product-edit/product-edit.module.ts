@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductInfoComponent } from './product-info.component';
-
+import { ProductEditComponent } from './product-edit.component';
 import { RouterModule } from '@angular/router';
 
 import { AddButtonModule } from 'app/components/add-button/add-button.module';
@@ -37,14 +36,31 @@ import { VrmBaBaService } from '../../../vrm/vrm.service';
 import { CopyService } from '../../../../core/services/copy.service';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { MatListModule } from '@angular/material';
-import { AddAttachmentComponent } from './add-attachments/add-attachments.component';
-import { ProductCategoryCardCompnent } from './category-card/category-card.component';
-import { WholesalePriceTableComponent } from './wholesale-price-table/wholesale-price-table.component';
-import { AddWholesalePriceTableComponent } from './add-wholesale-price-table/add-wholesale-price-table.component';
-import { WholesalePriceComponent} from './wholesale-price/wholesale-price.component';
+import { ProductInfoModule } from '../product-info/product-info.module';
 @NgModule({
-
+  declarations: [
+    ProductEditComponent,
+  ],
   imports: [
+    CommonModule,
+    RouterModule,
+    AddButtonModule,
+    UploadImgModule,
+    ShortPipeModule,
+    ImgModalModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatRadioModule,
+    BusinessNotesModule,
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     MatIconModule,
     MatCardModule,
@@ -71,21 +87,9 @@ import { WholesalePriceComponent} from './wholesale-price/wholesale-price.compon
     MatTabsModule,
     SelectBarModule,
     OneClickDirectiveModule,
+    ProductInfoModule,
   ],
-  declarations: [
-    ProductInfoComponent,
-    AddAttachmentComponent,
-    ProductCategoryCardCompnent,
-    WholesalePriceTableComponent,
-    AddWholesalePriceTableComponent,
-    WholesalePriceComponent,
-  ],
-  exports: [
-    ProductInfoComponent
-  ],
-  entryComponents: [
-    AddAttachmentComponent,
-  ],
+  exports: [ ProductEditComponent ],
   providers: [
     InventoryService,
     WarehouseService,
@@ -96,4 +100,4 @@ import { WholesalePriceComponent} from './wholesale-price/wholesale-price.compon
     MatListModule,
   ]
 })
-export class ProductInfoModule { }
+export class ProductEditModule { }

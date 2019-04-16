@@ -164,7 +164,11 @@
             <!-- <button id="header-submit-edit" mat-button (onclick)="saveItem()">Save</button> -->
         </div>
         <div *ngIf="isOpenDetail" style="width: 50%; margin: 0 auto; background-color: white">
-            <app-product-info [product_id] = "product_id"></app-product-info>
+            <app-product-info [product_id] = "product_id" (edited)="openEdit()"></app-product-info>
+        </div>
+        <div *ngIf="isEdit" style="margin: 0 auto; width: 50%; background-color: white">
+            <button mat-button id="header-cancel" (click)="onCancel()">Back</button>
+            <app-product-edit [product_id]="product_id" (saved)="saveEdit()"></app-product-edit>
         </div>
     </div>
 </div>

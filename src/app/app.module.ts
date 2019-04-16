@@ -32,12 +32,6 @@ import { ShopManagementModule } from './containers/shop-management/shop-manageme
 import { NgxMaskModule } from 'ngx-mask';
 import { FooterModule } from './containers/footer/footer.module';
 
-// Import the Froala Editor plugin.
-import "froala-editor/js/froala_editor.pkgd.min.js";
-
-// Import Angular plugin.
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import { Ng2UeditorModule } from 'ng2-ueditor';
 
 import { UMeditorModule } from 'ngx-umeditor';
 @NgModule({
@@ -68,9 +62,7 @@ import { UMeditorModule } from 'ngx-umeditor';
     FooterModule,
     ShopManagementModule,
     NgxMaskModule.forRoot(),
-    FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot(),
-    Ng2UeditorModule,
+    // Ng2UeditorModule,
     // JwtModule.forRoot({
     //   config: { 
     //     tokenGetter: tokenGetter,

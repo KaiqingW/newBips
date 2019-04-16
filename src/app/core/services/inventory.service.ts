@@ -16,10 +16,14 @@ export class InventoryService {
   public setwholesalePriceMode(mode) {
     this.wholesalePriceMode.next(mode);
   }
-
+  
   // get the product list by your company
-  public getProductList(company_id): Observable<any> {
+  public getProductList(company_id : number): Observable<any> {
     return this.http.get(environment.ORCA_API + `company/${company_id}/inventory/product`);
+  }
+  // get the product list by your company
+  public getNoStockProductList(company_id : number): Observable<any> {
+    return this.http.get(environment.ORCA_API + `company/${company_id}/inventory/product?nonStocked=1`);
   }
 
   // get orcashop product list
@@ -179,5 +183,19 @@ export class InventoryService {
 
   public getProductListByPage(url): Observable<any> {
     return this.http.get(url);
+  }
+
+  //add by simon 03/04/2019
+  public getNonStockProductsByFilter(company_id, fieldName, searchValue):Observable<any>{
+    return this.http.get(environment.ORCA_API+ `company/${company_id}/non_stock?fieldName=${fieldName}&searchValue=${searchValue}`);
+  }
+
+  //add related products
+  public addRelatedProducts(company_id, product_id, obj): Observable<any> {
+    return this.http.post(environment.ORCA_API + `company/${company_id}/product/${product_id}/related_products`, obj);
+  }
+
+  public addProductIndustrialCategories(company_id, obj): Observable<any> {
+    return this.http.post(environment.ORCA_API + `company/${company_id}/shop/usecase/category`, obj);
   }
 }
