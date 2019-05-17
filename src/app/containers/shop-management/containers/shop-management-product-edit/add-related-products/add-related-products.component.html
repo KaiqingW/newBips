@@ -1,0 +1,19 @@
+<div class="orca-card" *ngIf="editMode">
+  <app-search-bar (onSearch)="onGetSearch($event)" (onSendSelectProduct)="onGetSelectedProduct($event)" [products]="products"
+      [placeholder]="searchPlaceholder"></app-search-bar>
+
+  <h4 *ngIf="selectedProducts && selectedProducts.length > 0" class="title">Selected Related Products:</h4>
+  <app-list-product-card [showType]="'cancel'" (sendRemove)="onGetDeleteProduct($event)" [productList]="selectedProducts">
+  </app-list-product-card>
+  <div class="btn-group">
+      <button mat-raised-button mat-button color="warn" (click)="onClickCancel()">{{editMode ? 'Cancel' : 'Edit'}}</button>
+      <button mat-raised-button mat-button color="primary" (click)="onSave()">Save</button>
+  </div>
+</div>
+
+<div class="orca-card" *ngIf="!editMode">
+  <app-list-product-card [showType]="'null'" [productList]="selectedProducts"></app-list-product-card>
+  <div class="orca-btn-bar">
+      <button mat-raised-button mat-button color="warn" (click)="editMode = !editMode">{{editMode ? 'Cancel' : 'Edit'}}</button>
+  </div>
+</div>

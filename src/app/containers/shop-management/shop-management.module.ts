@@ -61,6 +61,7 @@ import { WarehouseService } from '../../core/services/warehouse.service';
 import { CopyService } from '../../core/services/copy.service';
 
 import { from } from 'rxjs/observable/from';
+import { AddRelatedProductsComponent } from './containers/shop-management-product-edit/add-related-products/add-related-products.component';
 @NgModule({
   imports: [
     RouterModule.forChild(ShopManagementRoutes),
@@ -115,6 +116,7 @@ import { from } from 'rxjs/observable/from';
     ShortTextPipe,
     ShopProductDescriptionComponent,
     ShippingInfoComponent,
+    AddRelatedProductsComponent,
     // ProductInfoComponent,
     // AddAttachmentComponent,
   ],

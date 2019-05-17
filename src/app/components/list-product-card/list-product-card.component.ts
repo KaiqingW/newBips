@@ -29,6 +29,7 @@ export class ListProductCardComponent implements OnInit, OnChanges {
     buttonTxt = '';
     @Output() sendScroll = new EventEmitter<any>();
     isOpenDetail: boolean;
+    @Input() showType = 'default';
     // @Output() opened;
 
     constructor() { }
