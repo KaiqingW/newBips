@@ -19,13 +19,15 @@ export const environment = {
   //local host:
   //ORCA_API: 'http://127.0.0.1:8000/', ORCA_SHOP_API: 'http://localhost:4200/',
 
+  defaultImg: "assets/images/default.png",
+  GOOGLE_MAP_API_KEY: "AIzaSyDreddPJLSQbrjQD9r4kTtmGlvdd0ZNsXA",
+  GOOGLE_MAP_API_KEY_BY_SU: "AIzaSyB_03FwtJV1PC8CbZNetMkFvUQIPzsbeKs",
+  
+  // test environment
+  // ORCA_API: 'https://orcasmart-dev.azurewebsites.net/', ORCA_SHOP_API: 'https://orcasmart-dev.azurewebsites.net/',
 
+   //azure back-end server with ssl certificate, editted by simon
+  ORCA_API: 'https://orcasmartmeback.azurewebsites.net/', ORCA_SHOP_API: 'https://orcasmartmeback.azurewebsites.net/',
 
-  ORCA_API: 'https://orcasmart-dev.azurewebsites.net/',
-
-
-  defaultImg: 'assets/images/default.png',
-  GOOGLE_MAP_API_KEY: 'AIzaSyDreddPJLSQbrjQD9r4kTtmGlvdd0ZNsXA',
-  GOOGLE_MAP_API_KEY_BY_SU: 'AIzaSyB_03FwtJV1PC8CbZNetMkFvUQIPzsbeKs',
 };
 
