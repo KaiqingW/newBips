@@ -16,6 +16,7 @@ import { map, startWith } from 'rxjs/operators';
 import { ShopService } from '../../../../core/services/shop.service';
 import { SearchService } from '../../../../core/services/search.service';
 import { AddWarehouseTransactionComponent } from '../add-warehouse-trans/add-warehouse-trans.component';
+// import { Ng2Ueditor } from 'ng2-ueditor';
 // import { ProductEditComponent } from '../product-edit/product-edit.component';
 
 @Component({

@@ -85,8 +85,8 @@
                         <a>Add Sales Pitches</a>
                     </div>
             
-                    <add-related-products (refresh)="onGetRefresh()" [selectedProducts]="product?.related_products" *ngIf="product && i == 4"
-                        (onSendRelatedProducts)="onGetRelatedProducts($event)"></add-related-products>
+                    <app-add-related-products (refresh)="onGetRefresh()" [selectedProducts]="product?.related_products" *ngIf="product && i == 4"
+                        (onSendRelatedProducts)="onGetRelatedProducts($event)"></app-add-related-products>
                 </mat-expansion-panel>
             </mat-accordion>
             

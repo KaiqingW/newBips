@@ -65,6 +65,7 @@ import { ShowPriceComponent } from './containers/shop-management-product-edit/pr
 import { AddRelatedProductsComponent } from './containers/shop-management-product-edit/add-related-products/add-related-products.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+import { from } from 'rxjs/observable/from';
 @NgModule({
   imports: [
     RouterModule.forChild(ShopManagementRoutes),

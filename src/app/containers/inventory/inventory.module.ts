@@ -53,6 +53,7 @@ import { ChooseAddTypeCompoent } from './containers/choose-add-type/choose-add-t
 import { ProductListComponent } from './containers/product-list/product-list.component';
 import { ProductSearchBarModule } from './components/product-search-bar/product-search-bar.module';
 import { WholesalePriceComponent} from './containers/product-info/wholesale-price/wholesale-price.component';
+// import { Ng2UeditorModule } from 'ng2-ueditor';
 
 // import { WholesalePriceTableModule} from './containers/product-info/wholesale-price-table/wholesale-price-table.module';
 // import { AddWholesalePriceTableModule} from './containers/product-info/add-wholesale-price-table/add-wholesale-price-table.module';
