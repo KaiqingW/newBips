@@ -59,9 +59,13 @@ import { AttchmentModule } from 'app/components/attachment/attachment.module';
 import { InventoryService } from '../../core/services/inventory.service';
 import { WarehouseService } from '../../core/services/warehouse.service';
 import { CopyService } from '../../core/services/copy.service';
+import { InventoryModule } from '../inventory/inventory.module';
+import { ProductEditModule } from '../inventory/containers/product-edit/product-edit.module';
+import { ShowPriceComponent } from './containers/shop-management-product-edit/price-table/show-price/show-price.component';
+import { AddRelatedProductsComponent } from './containers/shop-management-product-edit/add-related-products/add-related-products.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { from } from 'rxjs/observable/from';
-import { AddRelatedProductsComponent } from './containers/shop-management-product-edit/add-related-products/add-related-products.component';
 @NgModule({
   imports: [
     RouterModule.forChild(ShopManagementRoutes),
@@ -95,6 +99,9 @@ import { AddRelatedProductsComponent } from './containers/shop-management-produc
     MatButtonToggleModule,
     AttchmentModule,
     ProductInfoModule,
+    InventoryModule,
+    ProductEditModule,
+    MatExpansionModule,
   ],
   declarations: [
     ShopManagementComponent,
@@ -116,6 +123,7 @@ import { AddRelatedProductsComponent } from './containers/shop-management-produc
     ShortTextPipe,
     ShopProductDescriptionComponent,
     ShippingInfoComponent,
+    ShowPriceComponent,
     AddRelatedProductsComponent,
     // ProductInfoComponent,
     // AddAttachmentComponent,

@@ -1,0 +1,35 @@
+<div *ngIf="retailPrices?.length > 0" style="width:100%;box-sizing: border-box;">
+    <div class="summary orca-title-sm">
+        <b>Retail Prices</b>
+    </div>
+    <div class="row price-table">
+        <div class="col-3">
+            <div class="price-label">Min Qty</div>
+        </div>
+        <div class="col-3">
+            <div class="price-label">Max Qty</div>
+        </div>
+        <div class="col-3">
+            <div class="price-label">Price</div>
+        </div>
+        <div class="col-3">
+            <div class="price-label">Unit</div>
+        </div>
+    </div>
+
+    <div class="row price-table" *ngFor="let table of retailPrices">
+        <div class="col-3">
+            <span>{{table.min_qty | number}}</span>
+        </div>
+        <div class="col-3">
+            <span>{{table.max_qty | number}}</span>
+        </div>
+        <div class="col-3">
+            <span>{{table.price | number}}</span>
+        </div>
+        <div class="col-3" style="text-align: center;">
+            <div>{{unit ? unit : 'pc'}}</div>
+        </div>
+    </div>
+
+</div>

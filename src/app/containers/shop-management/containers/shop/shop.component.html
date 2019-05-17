@@ -1,7 +1,5 @@
 <div style="display: flex">
     <div style="width: 30%;">
-
-
         <div *ngIf="company">
             <div class="company-title-background">
                 <img src="assets/images/company-bg.png">
@@ -27,28 +25,27 @@
             </div>
 
             <mat-card class="orca_card" *ngIf="prodcutSelectedType == 'manage'">
-                <mat-tab-group>
+                <mat-tab-group id="container">
                     <!-- <mat-tab label="All">
                         <app-list-product-card (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)" [productList]="productList"></app-list-product-card>
                 </mat-tab> -->
 
-                    <mat-tab [label]="IncompleteLabel">
-                        <app-list-product-card (sendSelect)="onGetSelect($event)" [selects]="selects"
+                    <mat-tab [label]="onlineLabel">
+                        <app-list-product-card (sendScroll)="onGetScroll($event, 'online')" (sendSelect)="onGetSelect($event)" [selects]="selects"
                             [placeholder]="btnPlaceholder" [default]="'Online'" (sendNav)="onReceiveNav($event)"
                             [productList]="onlineProductList"></app-list-product-card>
                         {{onlineTotal}}
                     </mat-tab>
 
                     <mat-tab [label]="offlineLabel">
-                        <app-list-product-card (sendSelect)="onGetSelect($event)" [selects]="selects"
+                        <app-list-product-card (onSearch)="toSearch($event, 'offline')" (sendSelect)="onGetSelect($event)" [selects]="selects"
                             [placeholder]="btnPlaceholder" [default]="'Offline'" (sendNav)="onReceiveNav($event)"
                             [productList]="offlineProductList"></app-list-product-card>
                         {{offlineTotal}}
-
                     </mat-tab>
 
-                    <mat-tab [label]="onlineLabel">
-                        <app-list-product-card (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)"
+                    <mat-tab [label]="IncompleteLabel">
+                        <app-list-product-card (sendScroll)="onGetScroll($event, 'incomplete')" (sendNavToEdit)="onGetNavToEdit($event)" (sendNav)="onReceiveNav($event)"
                             [productList]="needEditProductList"></app-list-product-card>
                         {{needEditTotal}}
                     </mat-tab>
@@ -79,7 +76,6 @@
             <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
             </app-img-modal>
         </div>
-
     </div>
 
     <div style="width: 50%" *ngIf="selectedEditProductId">
@@ -91,12 +87,18 @@
 
     </div>
     <div style="width: 50%; margin: 0 auto" *ngIf="isAddProduct">
+        <button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
         <shop-add-product></shop-add-product>
     </div>
     <div *ngIf="isOpenDetail" style="margin: 0 auto">
+        <button mat-button id="header-cancel" (click)="onCancel()">Cancel</button>
         <div style="width: 100%; margin: 0 auto; background-color: white">
-            <app-product-info [product_id] = "product_id"></app-product-info>
+            <app-product-info [product_id]="product_id" (edited)="openEdit()"></app-product-info>
         </div>
+    </div>
+    <div *ngIf="isEdit" style="margin: 0 auto; width: 50%; background-color: white">
+        <button mat-button id="header-cancel" (click)="onCancel()" style="margin-left: 93px;">Cancel</button>
+        <app-product-edit [product_id]="product_id" (saved)="saveEdit()"></app-product-edit>
     </div>
 </div>
 <div *ngIf="isLoading">

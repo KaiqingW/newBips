@@ -17,6 +17,7 @@ import { ShopService } from '../../../../core/services/shop.service';
 import { SearchService } from '../../../../core/services/search.service';
 import { AddWarehouseTransactionComponent } from '../add-warehouse-trans/add-warehouse-trans.component';
 // import { Ng2Ueditor } from 'ng2-ueditor';
+// import { ProductEditComponent } from '../product-edit/product-edit.component';
 
 @Component({
   selector: 'app-product-list',
@@ -60,18 +61,20 @@ export class ProductListComponent implements OnInit {
   isAddProduct;
   isAddService;
   isOpenDetail;
+  isEdit: boolean;
+  isSaveEdit: boolean;
   product_id: number;
   links = [
-      {
-          name: 'Add Product',
-          url: '../addProduct',
-          type: 'product',
-      },
-      {
-          name: 'Add Service',
-          url: '../addService',
-          type: 'service',
-      }
+    {
+      name: 'Add Product',
+      url: '../addProduct',
+      type: 'product',
+    },
+    {
+      name: 'Add Service',
+      url: '../addService',
+      type: 'service',
+    }
   ];
   constructor(private inventoryService: InventoryService,
     private route: ActivatedRoute,
@@ -126,20 +129,7 @@ export class ProductListComponent implements OnInit {
       }
     )
   }
-  addProduct() {
-    this.isAddProd = true;
-    this.isOpenDetail = false;
-  }
 
-  addItem(link) {
-    if (link.type == "product") {
-        this.isAddProduct = true;
-    } else if (link.type == 'service') {
-        this.isAddService = true;
-    }
-    this.isOpenDetail = false;
-    this.isAddProd = false;
-}
   init() {
     this.getWarehouses();
     this.getProducts();
@@ -147,16 +137,38 @@ export class ProductListComponent implements OnInit {
     this.isAddService = false;
     this.isOpenDetail = false;
     this.isAddProd = false;
+    this.isEdit = false;
+    this.isSaveEdit = false;
   }
 
+  addProduct() {
+    this.init();
+    this.isAddProd = true;
+  }
+
+  addItem(link) {
+    this.init();
+    if (link.type == "product") {
+      this.isAddProduct = true;
+    } else if (link.type == 'service') {
+      this.isAddService = true;
+    }
+  }
   saveItem() {
-      this.router.navigate([`/company/${this.company_id}/inventory/product`]);
-      this.init();
+    this.router.navigate([`/company/${this.company_id}/inventory/product`]);
+    this.init();
   }
 
   onCancel() {
     this.init();
     this.router.navigate([`/company/${this.company_id}/inventory/product`]);
+  }
+  openEdit() {
+    this.init();
+    this.isEdit = true;
+  }
+  saveEdit(saved: boolean) {
+    this.init();
   }
   changeProduct(showcase) {
     // product-> 
@@ -225,6 +237,9 @@ export class ProductListComponent implements OnInit {
     // }
     this.isAddProduct = false;
     this.isAddService = false;
+    this.isAddProd = false;
+    this.isEdit = false;
+    this.isSaveEdit = false;
     this.isOpenDetail = true;
   }
 
@@ -369,4 +384,5 @@ export class ProductListComponent implements OnInit {
     this.selectedProduct = null;
     this.total = 0;
   }
+
 }

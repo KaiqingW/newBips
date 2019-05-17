@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { StoreState, User } from 'app/core/models';
 import { Router, ActivatedRoute, ParamMap, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
@@ -13,7 +13,8 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls:['./app.component.scss']
+  styleUrls:['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 

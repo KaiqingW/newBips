@@ -9,6 +9,7 @@ import { ShopService } from '../../../../core/services/shop.service';
 import { UpsService } from '../../../../core/services/ups.service';
 import { Http, Headers } from '@angular/http';
 import { SearchService } from '../../../../core/services/search.service';
+// import { timingSafeEqual } from 'crypto';
 
 @Component({
     selector: "app-shop",
@@ -42,6 +43,8 @@ export class ShopComponent implements OnInit {
     product_id;
     isAddProduct: boolean;
     isOpenDetail: boolean;
+    isEdit: boolean;
+    isSaveEdit: boolean;
 
     constructor(private inventoryService: InventoryService,
         private route: ActivatedRoute,
@@ -111,7 +114,25 @@ export class ShopComponent implements OnInit {
     viewManage() {
         this.prodcutSelectedType = 'manage';
     }
-
+    clearAll() {
+        this.isAddProduct = false;
+        this.isOpenDetail = false;
+        this.isEdit = false;
+        this.isSaveEdit = false;
+        this.selectedEditProductId = "";
+        this.product_id = "";
+    }
+    openEdit() {
+        this.isEdit = true;
+        console.log(this.isEdit);
+        this.isOpenDetail = false;
+        this.isAddProduct = false;
+    }
+    saveEdit(saved: boolean) {
+        console.log(this.isEdit);
+        console.log(saved);
+        this.clearAll();
+    }
     onReceiveNav(product) {
         console.log(product);
         this.product_id = product.id;
@@ -121,6 +142,7 @@ export class ShopComponent implements OnInit {
         this.isOpenDetail = true;
         // this.router.navigate([`/company/${this.companyId}/inventory/product/${product.id}`]);
     }
+
 
     closeModal() {
         this.modalOpen = false;
@@ -223,6 +245,7 @@ export class ShopComponent implements OnInit {
 
     onGetScroll(evt, status) {
         let container = document.getElementById('container');
+        console.log(container);
         if (container.scrollTop >= (container.scrollHeight - container.offsetHeight) && !this.isLoading) {
             switch (status) {
                 case 'online':
@@ -326,6 +349,7 @@ export class ShopComponent implements OnInit {
         this.selectedEditProductId = "";
         this.product_id = "";
         this.isAddProduct = false;
+        this.clearAll();
         this.init();
     }
     getPostandUnpostProductList() {
@@ -370,7 +394,7 @@ export class ShopComponent implements OnInit {
                     case 1:
                         this.needEditProductList = res.data;
                         this.needEditProductListNextUrl = res.paging.next;
-                        this.IncompleteLabel = "Online" + "(" + res.paging.total + ")";
+                        this.IncompleteLabel = "Need Edit" + "(" + res.paging.total + ")";
                         break;
                     case 2:
                         this.offlineProductList = res.data;
@@ -380,7 +404,7 @@ export class ShopComponent implements OnInit {
                     case 3:
                         this.onlineProductList = res.data;
                         this.onlineProductListNextUrl = res.paging.next;
-                        this.onlineLabel = "Need Edit" + "(" + res.paging.total + ")";
+                        this.onlineLabel = "Online" + "(" + res.paging.total + ")";
                         break;
                 }
             },

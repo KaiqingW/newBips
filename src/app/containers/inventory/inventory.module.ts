@@ -47,7 +47,7 @@ import { ProductCategoryCardCompnent } from './containers/product-info/category-
 import { InventoryCategoryComponent } from './containers/product-add/inventory-category/inventory-category.component';
 import { WholesalePriceTableComponent } from './containers/product-info/wholesale-price-table/wholesale-price-table.component';
 import { AddWholesalePriceTableComponent } from './containers/product-info/add-wholesale-price-table/add-wholesale-price-table.component';
-import { ProductEditComponent } from './containers/product-edit/product-edit.component';
+import { ProductEditModule } from './containers/product-edit/product-edit.module';
 import { ServiceAddComponent } from './containers/service-add/service-add.component';
 import { ChooseAddTypeCompoent } from './containers/choose-add-type/choose-add-type.component';
 import { ProductListComponent } from './containers/product-list/product-list.component';
@@ -94,6 +94,7 @@ import { WholesalePriceComponent} from './containers/product-info/wholesale-pric
         MatListModule,
         ProductSearchBarModule,
         ProductInfoModule,
+        ProductEditModule,
         // Ng2UeditorModule,
         // WholesalePriceModule,
         // CategoryCardModule,
@@ -113,11 +114,10 @@ import { WholesalePriceComponent} from './containers/product-info/wholesale-pric
         InventoryCategoryComponent,
         // WholesalePriceTableComponent,
         // AddWholesalePriceTableComponent,
-        // ProductEditComponent,
         ServiceAddComponent,
         ChooseAddTypeCompoent,
     ],
-    entryComponents: [AddWarehouseTransactionComponent, ProductEditComponent,],
+    entryComponents: [AddWarehouseTransactionComponent, ],
     providers:[DialogService, InventoryService, WarehouseService, CommonService, VrmBaBaService, CopyService]
 })
 

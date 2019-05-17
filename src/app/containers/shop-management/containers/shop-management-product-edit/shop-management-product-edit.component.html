@@ -26,14 +26,28 @@
                         </div> -->
                     </div>
                 </div>
+                <mat-card class="orca-card" *ngIf="product">
+                    <div class="orca-title-sm">
+                        <b>Product Cost</b>
+                    </div>
+                    <div class="orca-title-content-row" *ngIf="product.unit_price_type">
+                        <span class="orca-title-h-blue">Unit Price Type</span>
+                        <span class="orca-content-h-white">{{product.unit_price_type}}</span>
+                    </div>
+                    <div class="orca-title-content-row" *ngIf="product.est_cost">
+                        <span class="orca-title-h-blue">Est Cost</span>
+                        <span class="orca-content-h-white">$ {{product.est_cost / 100000 | number}}</span>
+                    </div>
+                    <show-price *ngIf="retailPrices" [retailPrices]="retailPrices"></show-price>
+                </mat-card>
 
                 <shipping-info *ngIf="product" [shipping_info]="product?.free_shipping"
                     (sendShippingInfo)="onGetShippingInfo($event)"></shipping-info>
 
-                <app-upload-single-img *ngIf="product && product?.images?.length < 1" (sendSave)="onGetImg($event)"
+                <app-upload-single-img (sendSave)="onGetImg($event)"
                     [company_id]="company_id"></app-upload-single-img>
 
-                <shop-product-description *ngIf="product" (sendDes)="onGetDes($event)"
+                <!-- <shop-product-description *ngIf="product" (sendDes)="onGetDes($event)"
                     [description]="product?.description">
                 </shop-product-description>
 
@@ -44,33 +58,41 @@
 
                 <app-price-table (sendEditMode)="onGetEditMode($event)" *ngIf="product" [retailPrices]="retailPrices"
                     (sendEditPriceTable)="onGetPatchTable($event)" (sendPriceTable)="onReceivePriceTable($event)">
-                </app-price-table>
+                </app-price-table> -->
             </div>
 
-            <div style="margin-left: 111px">
-                <div *ngIf="modalOpen">
-                    <app-img-modal [imgSrc]="selectedImg" (modalClose)="closeModal()">
-                        <div *ngIf="selectedAttachment" class="attachment-product-content">
-                            <p>Comment: {{selectedAttachment.comment}}</p>
-                            <div class="div1">{{selectedAttachment.created.at}}</div>
-                            <div class="div2">Created By:{{selectedAttachment.created.by.first_name}}
-                                {{selectedAttachment.created.by.last_name}}</div>
-                        </div>
-                    </app-img-modal>
-                </div>
-                <div *ngIf="product" style="width: 400px; margin-top: 10px;">
-                    <a *ngIf="!isSalesPitch" (click)="isAddSalesPitch()" style="background-color: #15305a; color: white; padding: 10px;">Add Sales Pitches</a>
-                    <a *ngIf="isSalesPitch" (click)="onCancel()" style="background-color: #15305a; color: white; padding: 10px;">Cancel</a>
-                </div>
-                <div class="btn-bar" *ngIf="checkProduct()">
-                    <button mat-raised-button color="primary" (click)="changeToOnline()">Set as Online Product</button>
-                    <button mat-raised-button color="primary" (click)="changeToOffline()">Set as Offline
-                        Product</button>
-                </div>
-                <div *ngIf="isSalesPitch" style="margin-top: 10px">
-                    <add-sales-pitch-subject [product_id]="product_id" [company_id]="company_id">
-                    </add-sales-pitch-subject>
-                </div>
+            <mat-accordion *ngFor="let step of steps; let i = index;">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header [ngClass]="{ 'finish' : isFinished(i) , 'unfinish' : !isFinished(i), 'unfinishOrange' : !isFinished(i) && (i == 3 || i == 4)}">
+                        <mat-panel-title>
+                            Step {{i + 1}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{step.description}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+            
+                    <shop-product-description *ngIf="product && i == 0" (sendDes)="onGetDes($event)" [description]="product?.description"></shop-product-description>
+            
+                    <app-shop-category *ngIf="product && shopCategories && i == 1" [firstCate]="product?.shop_first_category" [secondCate]="product?.shop_second_category"
+                        [thirdCate]="product?.shop_third_category" [product]="product" [categories]="shopCategories" [unit_weight]="product?.unit_weight"
+                        (sendData)="onGetData($event)"></app-shop-category>
+            
+                    <app-price-table *ngIf="product && i == 2" (sendEditMode)="onGetEditMode($event)" [retailPrices]="retailPrices" (sendEditPriceTable)="onGetPatchTable($event)"
+                        (sendPriceTable)="onReceivePriceTable($event)"></app-price-table>
+            
+                    <div *ngIf="product && i == 3">
+                        <a>Add Sales Pitches</a>
+                    </div>
+            
+                    <app-add-related-products (refresh)="onGetRefresh()" [selectedProducts]="product?.related_products" *ngIf="product && i == 4"
+                        (onSendRelatedProducts)="onGetRelatedProducts($event)"></app-add-related-products>
+                </mat-expansion-panel>
+            </mat-accordion>
+            
+            <div class="btn-bar" *ngIf="checkProduct()">
+                <button mat-raised-button color="primary" *ngIf="product?.shop_status != 3" (click)="changeToOnline()">Set as Online Product</button>
+                <button mat-raised-button color="primary" *ngIf="product?.shop_status != 3" (click)="changeToOffline()">Set as Offline Product</button>
             </div>
 
             <!-- <sales-pitch-subject (sendSalesPitchForm)="onGetSalesPitch($event)"></sales-pitch-subject> -->

@@ -1,5 +1,5 @@
 let note = 0;
-import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 // import { } from '@types/googlemaps';
 
 import { Product } from './../../../../core/models/index';
@@ -16,6 +16,7 @@ import { CopyService } from '../../../../core/services/copy.service';
 import { DialogService } from '../../../../core/services/dialog.service';
 import { OrdersService } from '../../../../core/services/orders.service';
 import { from } from 'rxjs/observable/from';
+
 
 @Component({
   selector: 'app-product-info',
@@ -67,6 +68,8 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
   copy_sub: Subscription;
   selected_copy_product;
   showEditButton: boolean = false;
+  isEdited: boolean;
+  @Output() edited = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
@@ -193,13 +196,15 @@ export class ProductInfoComponent implements OnInit, OnDestroy {
 
   onNavToEdit() {
     // this.router.navigate([`../product/editProduct/${this.product_id}`], { relativeTo: this.route });
-    const dialogRef = this.dialog.open(ProductEditComponent, {
-      width: '700px',
-      data: {
-        company_id: this.company_id,
-        product_id: this.product_id,
-      }
-    });
+    // const dialogRef = this.dialog.open(ProductEditComponent, {
+    //   width: '700px',
+    //   data: {
+    //     company_id: this.company_id,
+    //     product_id: this.product_id,
+    //   }
+    // });
+    this.isEdited = true;
+    this.edited.emit(this.isEdited);
   }
 
   checkEditAuth() {
