@@ -7,7 +7,7 @@
     <editor id="quill" style="height: 38%;width: 50%;background-color:white;" (onContentChanged)="onContentChanged($event)"
       [defaultContent]="defaultContent"></editor>
     <div>
-      <button mat-flat-button color="primary" (click)="onSave()">
+      <button mat-flat-button color="primary" (click)="onSave()" style="z-index:10;">
         Save</button><button mat-flat-button color="warn" (click)="onCancel()">
         Cancel
       </button>

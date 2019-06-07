@@ -13,9 +13,9 @@ export class EditTextComponent implements OnInit {
   editMode = false;
   defaultContent;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onAdd() {
     this.editMode = true;

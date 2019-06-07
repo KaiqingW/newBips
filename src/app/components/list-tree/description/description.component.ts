@@ -235,6 +235,6 @@ export class DescriptionComponent implements OnInit {
   preview() {
     const companyID = this.routes.parent.snapshot.params['cid'];
     const categoryID = this.routes.snapshot.params['id'];
-    window.open(`http://localhost:4200/description/${companyID}/${categoryID}`);
+    window.open(`http://localhost:4500/description/${companyID}/${categoryID}`);
   }
 }

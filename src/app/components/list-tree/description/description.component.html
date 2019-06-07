@@ -105,7 +105,7 @@
   <div id="template-1" style="position:relative;">
     <div id="textContent-1" style="background-color: white;min-height: 25vh;display: flex;justify-content: center;align-items: center;">
       <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent1($event)"></edit-text>
-      <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;z-index: 1;"></div>
+      <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;z-index: 1;text-align: center;"></div>
     </div>
     <div id="imageContent-1" style="height: 25vh;width: 100%;background-color: white;margin-right: 30px;display: flex;justify-content: center;align-items: center;position:absolute;left: 0;top: 0;">
       <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent1($event)"></edit-image>
@@ -119,7 +119,7 @@
       </div>
       <div id="textContent-2" style="background-color: white;width: 60%;display: flex;justify-content: center;align-items: center;">
         <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent2($event)"></edit-text>
-        <div class="textContent" style="padding:0 20px;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+        <div class="textContent" style="padding:0 20px;font-family: Roboto,Arial,Helvetica,sans-serif;z-index: 1;"></div>
       </div>
     </div>
   </div>
@@ -128,7 +128,7 @@
       Publish
     </button>
     <button mat-raised-button color="primary" (click)="preview()" style="margin-left:5px;">
-      Preview
+      View
     </button>
   </div>
 </div>
@@ -139,49 +139,57 @@
   <div id="template-2">
     <div id='textContent-1' style="background-color: white;min-height: 25vh;display: flex;justify-content: center;align-items: center;">
       <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent1($event)"></edit-text>
-      <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+      <div class="textContent" style="display: flex;justify-content: center;flex-direction: column;align-items: center;text-align:center; padding:0 150px;"></div>
     </div>
     <div style="display:flex;justify-content:space-around;flex-wrap:wrap;">
-      <div class='items-1' style="width:175px;min-height:440px;">
-        <div id='imageContent-1' style="height:30%;">
+      <div class='items-1' style="width:240px;min-height:310px;box-shadow: 0 45px 100px rgba(0, 0, 0, 0.4);border:0.5px solid #eee;">
+        <div id='imageContent-1' style="height:40%;">
           <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent1($event)"></edit-image>
-          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 80%;object-fit: cover;" />
         </div>
-        <div id='textContent-2' style="height:70%;">
+        <div id='textContent-2' style="height:60%;">
           <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent2($event)"></edit-text>
-          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+          <div class="textContent" style="padding:0 20px;display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
         </div>
       </div>
-      <div class='items-2' style="width:175px;min-height:440px;">
-        <div id='imageContent-2' style="height:30%;">
+      <div class='items-2' style="width:240px;min-height:310px;box-shadow: 0 45px 100px rgba(0, 0, 0, 0.4);border:0.5px solid #eee;">
+        <div id='imageContent-2' style="height:40%;">
           <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent2($event)"></edit-image>
-          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 80%;object-fit: cover;" />
         </div>
-        <div id='textContent-3' style="height:70%;">
+        <div id='textContent-3' style="height:60%;">
           <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent3($event)"></edit-text>
-          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+          <div class="textContent" style="padding:0 14px;display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
         </div>
       </div>
-      <div class='items-3' style="width:175px;min-height:440px;">
-        <div id='imageContent-3' style="height:30%;">
+      <div class='items-3' style="width:240px;min-height:310px;box-shadow: 0 45px 100px rgba(0, 0, 0, 0.4);border:0.5px solid #eee;">
+        <div id='imageContent-3' style="height:40%;">
           <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent3($event)"></edit-image>
-          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 80%;object-fit: cover;" />
         </div>
-        <div id='textContent-4' style="height:70%;">
+        <div id='textContent-4' style="height:60%;">
           <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent4($event)"></edit-text>
-          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+          <div class="textContent" style="padding:0 14px;display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
         </div>
       </div>
-      <div class='items-4' style="width:175px;min-height:440px;">
-        <div id='imageContent-4' style="height:30%;">
+      <div class='items-4' style="width:240px;min-height:310px;box-shadow: 0 45px 100px rgba(0, 0, 0, 0.4);border:0.5px solid #eee;">
+        <div id='imageContent-4' style="height:40%;">
           <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent4($event)"></edit-image>
-          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 80%;object-fit: cover;" />
         </div>
-        <div id='textContent-5' style="height:70%;">
+        <div id='textContent-5' style="height:60%;">
           <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent5($event)"></edit-text>
-          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+          <div class="textContent" style="padding:0 14px;display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
         </div>
       </div>
     </div>
+  </div>
+  <div style="display:flex;justify-content: center;margin-bottom:20px;">
+    <button mat-raised-button color="primary" (click)="onSaveForm()">
+      Publish
+    </button>
+    <button mat-raised-button color="primary" (click)="preview()" style="margin-left:5px;">
+      View
+    </button>
   </div>
 </div>
