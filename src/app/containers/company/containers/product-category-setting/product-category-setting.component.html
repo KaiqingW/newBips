@@ -1,4 +1,7 @@
 <app-list-tree (sendCategory)="onReceiveCate($event)" (sendRadio)="onGetRadio($event)" [list]="categories">
 </app-list-tree>
 
-<div *ngIf="isLoading"><app-spinner></app-spinner></div>
+<router-outlet></router-outlet>
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>

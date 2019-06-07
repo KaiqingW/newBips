@@ -1,4 +1,4 @@
 <div style="text-align:right;margin-top:5px;">
-    <button  mat-raised-button color="primary" (click)="onAddOuterCategory()">Add First Layer Category</button>
+    <button mat-raised-button color="primary" (click)="onAddOuterCategory()">Add First Layer Category</button>
 </div>
 <app-list-leaf [list]="list" (sendRadio)="onSelectRadio($event)" (sendCategory)="onGetCate($event)"></app-list-leaf>

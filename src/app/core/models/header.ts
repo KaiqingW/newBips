@@ -184,7 +184,7 @@ export const requestPriceHeader: Header = new Header('Request Price', false, tru
 
 /*Quote*/
 export const quotasHeader: Header = new Header('Quotes', false, true, true);
-export const QuoteCenterHeader : Header = new Header('Quotes Center', false, true, true);
+export const QuoteCenterHeader: Header = new Header('Quotes Center', false, true, true);
 export const addQuoteHeader: Header = new Header('Add Quote', true, false);
 export const quoteDetailsHeader: Header = new Header('Quote', false, true);
 export const editQuoteHeader: Header = new Header('Edit Quote', true, false);
@@ -207,14 +207,15 @@ export const humanDetailsHeader: Header = new Header('Human Details', false, tru
 export const financialHeader: Header = new Header('Financial', false, true);
 
 /*Create company*/
-export const createCompanyHeader: Header = new Header('Add Company', true, false, );
+export const createCompanyHeader: Header = new Header('Add Company', true, false);
 export const companyInfoHeader: Header = new Header('Company Info', false, true);
-export const createProcessHeader: Header = new Header('Create Company', false, true, );
+export const createProcessHeader: Header = new Header('Create Company', false, true);
 export const searchCompanyHeader: Header = new Header('Search Company', false, true);
 export const showBusinessHeader: Header = new Header('Company Info', false, true);
 export const editCompanyHeader: Header = new Header('Company Edit', true, false);
 export const addEmployeeHeader: Header = new Header('Add Employee', false, true);
 export const fileboxHeader: Header = new Header('File Box', false, true);
+export const ShopDepartmentCategoryHeader: Header = new Header('Shop Department Setting', false, true);
 export const settingDashboardUpdateHeader: Header = new Header('Setting Dashboard', false, true);
 export const ProductCategoryHeader: Header = new Header('Product Category Setting', false, true);
 export const ServiceCategoryHeader: Header = new Header('Service Category Setting', false, true);

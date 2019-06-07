@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
 
@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { InventoryService } from 'app/core/services/inventory.service';
 // import { timingSafeEqual } from 'crypto';
-import { UMeditorComponent } from 'ngx-umeditor';
 
 @Component({
   selector: 'app-list-leaf',
@@ -24,24 +23,25 @@ export class ListLeafComponent implements OnInit {
   // categoryForm : FormGroup;
   editItem;
   editForm: FormGroup;
+  addForm: FormGroup;
+
   cropper: ImageCropperComponent;
   modalOpenCropImage = false;
   companyId;
   colors = [];
   getImg;
-  // options: Object = {
-  //   placeholderText: 'Edit Your Content Here!',
-  //   charCounterCount: false
-  // };
-  editorContent: string = 'My Document\'s Title';
-  @ViewChild('full') full: UMeditorComponent;
+  richEditor: boolean = false;
+  s3Params;
+  editorContent;
+  options;
 
   constructor(
     private fb: FormBuilder,
     private inventoryService: InventoryService,
     private route: ActivatedRoute,
-    private el: ElementRef,
+    private router: Router
   ) {
+    this.createAddForm();
     // this.companyId = this.route.snapshot.paramMap.get('cid');
     // let letters = '0123456789ABCDEF';
     // let color = '#';
@@ -54,7 +54,6 @@ export class ListLeafComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.list);
   }
 
   open(i) {
@@ -68,10 +67,7 @@ export class ListLeafComponent implements OnInit {
       this.showChildren.delete(i);
     }
   }
-  getAllHtml() {
-    // 通过 `this.full.Instance` 访问umeditor实例对象
-    alert(this.full.Instance.getAllHtml())
-  }
+
   getIndent(item) {
     let level = item.level;
     let indent = level * 48;
@@ -125,7 +121,17 @@ export class ListLeafComponent implements OnInit {
     this.onSelectRadio(item);
   }
 
+  createAddForm() {
+    this.addForm = this.fb.group({
+      name: [],
+      parent_id: [],
+      description: [],
+      weight: [],
+    });
+  }
+
   onAddCategory(item, i) {
+    // this.createAddForm();
     this.open(i);
     let ifAdd = true;
     item.children.forEach(
@@ -149,6 +155,13 @@ export class ListLeafComponent implements OnInit {
 
   }
 
+  onSaveClick() {
+    this.richEditor = false;
+    this.editForm.patchValue({
+      description: this.editorContent
+    })
+  }
+
   onAddOuterCategory() {
     this.list.push(
       {
@@ -170,7 +183,8 @@ export class ListLeafComponent implements OnInit {
       "description": this.description,
       "type": "product",
       // "parent_id" : 1,
-      "image_id": this.imgId
+      "image_id": this.imgId,
+      // "weight" : this.weight
     }
     item.name = this.category;
     item.description = this.description;
@@ -196,11 +210,8 @@ export class ListLeafComponent implements OnInit {
   }
 
   onEditCategory(item) {
-    this.createEditForm(item);
-    this.editItem = item;
-    console.log(item);
-    this.getImg = item.image;
-    console.log(this.getImg);
+    const id = item.id;
+    this.router.navigate(['edit', id], { relativeTo: this.route });
   }
 
   onSaveEditForm(item) {
@@ -208,7 +219,9 @@ export class ListLeafComponent implements OnInit {
       item.action = "edit";
       item.name = this.editForm.value.name;
       item.description = this.editForm.value.description;
+      item.parent_id = this.editForm.value.parent_id;
       item.image_id = this.imgId ? this.imgId[0] : "";
+      item.weight = this.editForm.value.weight;
       this.sendCategory.emit(item);
       console.log(item);
     }
@@ -217,8 +230,26 @@ export class ListLeafComponent implements OnInit {
   createEditForm(item) {
     this.editForm = this.fb.group({
       name: [item.name],
-      description: [item.description]
+      parent_id: [item.parent_id],
+      description: [item.description],
+      weight: [item.weight],
     });
+    this.editorContent = item.description;
+  }
+
+  onEditorClick() {
+    this.options = {
+      width: '400px',
+      height: '300px',
+      imageUploadToS3: this.s3Params,
+      fileUploadToS3: this.s3Params,
+      videoUploadToS3: this.s3Params
+    }
+    this.richEditor = true;
+  }
+
+  onCancelClick() {
+    this.richEditor = false;
   }
 
   // onFileChange(event) {

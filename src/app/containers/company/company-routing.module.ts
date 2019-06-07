@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CompanyComponent } from "./company.component";
 import { CompanySettingComponent } from "./containers/company-setting/company-setting.component";
-import { editCompanyHeader, CompanyCategoryHeader, addEmployeeHeader, showcaseHeader, settingDashboardUpdateHeader,
-         ProductCategoryHeader, companyInfoHeader, CompanyQuotesSettingHeader, ServiceCategoryHeader } from "../../core/models/header";
+import {
+    editCompanyHeader, CompanyCategoryHeader, addEmployeeHeader, showcaseHeader, settingDashboardUpdateHeader,
+    ProductCategoryHeader, companyInfoHeader, CompanyQuotesSettingHeader, ServiceCategoryHeader, ShopDepartmentCategoryHeader
+} from "../../core/models/header";
 // import { ShowcaseComponent } from "app/containers/showcase/showcase.component";
 import { AddEmployeeComponent } from 'app/containers/company/containers/add-employee/add-employee.component';
 import { SettingDashboardComponent } from './containers/dashboard/dashboard.component';
@@ -13,6 +15,7 @@ import { CompanyCategorySettingComponent } from './containers/company-category-s
 import { CompanyDetailComponent } from './containers/company-detail/company-detail.component';
 import { CompanyQuoteSettingComponent } from './containers/company-quote-setting/company-quote-setting.component';
 import { ServiceCategorySettingComponent } from './containers/service-category-setting/service-category-setting.component';
+import { DescriptionComponent } from 'app/components/list-tree/description/description.component';
 
 const companyRoutes: Routes = [
     {
@@ -26,7 +29,7 @@ const companyRoutes: Routes = [
             },
         ]
     },
-    
+
     {
         path: ':cid/company-setting',
         component: SettingDashboardComponent,
@@ -34,13 +37,24 @@ const companyRoutes: Routes = [
     },
     {
         path: ':cid/company-detail',
-        component : CompanyDetailComponent,
+        component: CompanyDetailComponent,
         data: companyInfoHeader
     },
     {
         path: ':cid/company-setting/product-category',
         component: ProdcutCategorySettingComponent,
         data: ProductCategoryHeader
+    },
+    {
+        path: ':cid/company-setting/shop-department-setting',
+        component: ProdcutCategorySettingComponent,
+        data: ShopDepartmentCategoryHeader,
+        children: [
+            {
+                path: 'edit/:id',
+                component: DescriptionComponent
+            }
+        ]
     },
     {
         path: ':cid/company-setting/service-category',
@@ -150,7 +164,7 @@ const companyRoutes: Routes = [
     },
     {
         path: ':cid/salesentity',
-        loadChildren:'app/components/business-quota/business-quota.module#BusinessQuotasModule',
+        loadChildren: 'app/components/business-quota/business-quota.module#BusinessQuotasModule',
     },
 
 ]

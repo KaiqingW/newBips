@@ -1,0 +1,187 @@
+<!-- <div id="template-1">
+  <div id="component-1" style="background-color: white;min-height: 25vh;display: flex;justify-content: center;align-items: center;">
+    <div class="edit-headline-wrapper" style="  padding: 40px 60px;font-size: 20px;border: 2px dashed #000066;border-radius: 8px;color: grey;font-weight: bold;"
+      *ngIf="!hasHeadline" (click)="onEditHeadline()">
+      Click To Edit Headline
+    </div>
+    <div style="position: relative;z-index:5;" *ngIf="editHeadlineMode">
+      <div style="position:fixed;top:0;left:0;justify-content:center;align-items:center;display:flex;flex-direction:column;width:100%;height:100%;background-color:white;">
+        <editor id="quill" style="height: 30%;width: 50%;" (onContentChanged)="logHeadlineChange($event)"></editor>
+        <div class="btn-bar">
+          <button mat-flat-button color="primary" (click)="onSaveHeadline()">
+            Save
+          </button>
+          <button mat-flat-button color="warn" (click)="onCancelHeadline()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="component1-content" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;">
+
+    </div>
+    <i class="material-icons" id="editHeadline" (click)="onEditCategory($event)">
+      edit
+    </i>
+  </div>
+  <div style="display: flex;margin: 0 80px;justify-content: space-between;margin-bottom: 80px;margin-top:30px;">
+    <div id="component-2" style="height: 40vh;width: 40%;background-color: white;margin-right: 30px;display: flex;justify-content: center;align-items: center;">
+      <div class="upload-btn-wrapper" style="position: relative;overflow: hidden;display: inline-block;" *ngIf="!hasImage || editImageMode">
+        <button class="btn" style="border: 2px dashed #000066;color: gray;background-color: white;padding: 40px 60px;border-radius: 8px;font-size: 20px;font-weight: bold;">
+          Click To Add Image</button>
+        <input type="file" name="myfile" (change)="selectFile($event)" style="font-size: 100px;position: absolute;left: 0;top: 0;opacity: 0;" />
+      </div>
+      <img id="imgContent" src="" alt="image" style="width: 100%;height: 100%;">
+    </div>
+    <div id="component-3" style="background-color: white;width: 60%;display: flex;justify-content: center;align-items: center;">
+      <div class="edit-desc-wrapper" style="padding: 40px 60px;font-size: 20px;border: 2px dashed #000066;border-radius: 8px;color: grey;font-weight: bold;"
+        *ngIf="!hasDescription" (click)="onEditDescription()">
+        Click To Edit Description
+      </div>
+      <div style="position: relative;z-index:5;" *ngIf="editDescriptionMode">
+        <div style="position:fixed;top:0;left:0;justify-content:center;align-items:center;display:flex;flex-direction:column;width:100%;height:100%;background-color:white;">
+          <editor id="quill" style="height: 30%;width: 50%;" (onContentChanged)="logDescriptionChange($event)"></editor>
+          <div class="btn-bar">
+            <button mat-flat-button color="primary" (click)="onSaveDescription()">
+              Save
+            </button>
+            <button mat-flat-button color="warn" (click)="onCancelDescription()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="component3-content" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center; padding:0 20px;font-family: Roboto,Arial,Helvetica,sans-serif;">
+      </div>
+      <i class="material-icons" id="editDescription" (click)="onEditCategory($event)">
+        edit
+      </i>
+    </div>
+  </div>
+</div>
+<div style="text-align:center;margin-top:-10px;">
+  <button mat-flat-button color="primary" (click)="onSaveForm()">Save</button>
+</div> -->
+
+<div *ngIf="templateID === 0" style="height:80vh;width:100vw;display:flex;justify-content:center;align-items:center;">
+  <button mat-raised-button color="primary" style="height:40px;" (click)="selectTemplate()">
+    Choose your template
+  </button>
+</div>
+
+<div style="position:relative;z-index:1;" *ngIf="chooseTemplateMode">
+  <div style="height:100%;;width:100%;position:fixed;top:0;left:0;display:flex;justify-content:center;align-items:center;">
+    <div style="min-height:60vh;width: 50%;background-image:linear-gradient(to right bottom,#3b5b8e,#000066);display: flex;flex-direction: column;">
+      <div style="flex-grow:1;">
+        <mat-grid-list cols="2" rowHeight="1.5:1" style="margin:10px;">
+          <mat-grid-tile (click)="chooseTemplate($event)"><img style="height:100%;width:100%;" src="https://orcasmart.s3.us-east-2.amazonaws.com/category/%E7%85%A7%E7%89%87.jpg"
+              alt="template-1" /></mat-grid-tile>
+          <mat-grid-tile (click)="chooseTemplate($event)" style="margin-left:5px;"><img style="height:100%;width:100%;"
+              src="https://orcasmart.s3.us-east-2.amazonaws.com/category/%E7%85%A7%E7%89%87.jpg" alt="template-2" /></mat-grid-tile>
+          <mat-grid-tile (click)="chooseTemplate($event)"><img style="height:100%;width:100%;" src="https://orcasmart.s3.us-east-2.amazonaws.com/category/%E7%85%A7%E7%89%87.jpg"
+              alt="template-3" /></mat-grid-tile>
+          <mat-grid-tile (click)="chooseTemplate($event)" style="margin-left:5px; "><img style="height:100%;width:100%;"
+              src="https://orcasmart.s3.us-east-2.amazonaws.com/category/%E7%85%A7%E7%89%87.jpg" alt="template-4" /></mat-grid-tile>
+          <mat-grid-tile (click)="chooseTemplate($event)"><img style="height:100%;width:100%;" src="https://orcasmart.s3.us-east-2.amazonaws.com/category/%E7%85%A7%E7%89%87.jpg"
+              alt="template-5" /></mat-grid-tile>
+          <mat-grid-tile (click)="chooseTemplate($event)" style="margin-left:5px;"><img style="height:100%;width:100%;"
+              src="https://orcasmart.s3.us-east-2.amazonaws.com/category/%E7%85%A7%E7%89%87.jpg" alt="template-6" /></mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <button mat-raised-button style="margin-right:20px;margin-bottom:20px;" (click)="onConfirmTemplate()">
+          Confirm
+        </button>
+        <button mat-raised-button style="margin-bottom:20px;" (click)="onCancelTemplate()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ************************************ Template 1 *********************************** -->
+<div *ngIf="templateID === 1" style="background-color:white;">
+  <div id="template-1" style="position:relative;">
+    <div id="textContent-1" style="background-color: white;min-height: 25vh;display: flex;justify-content: center;align-items: center;">
+      <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent1($event)"></edit-text>
+      <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;z-index: 1;"></div>
+    </div>
+    <div id="imageContent-1" style="height: 25vh;width: 100%;background-color: white;margin-right: 30px;display: flex;justify-content: center;align-items: center;position:absolute;left: 0;top: 0;">
+      <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent1($event)"></edit-image>
+      <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;text-align: center;object-fit: cover;" />
+    </div>
+
+    <div style="display: flex;margin: 0 80px;justify-content: space-between;margin-bottom: 80px;margin-top:30px;">
+      <div id="imageContent-2" style="height: 40vh;width: 40%;background-color: white;margin-right: 30px;display: flex;justify-content: center;align-items: center;">
+        <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent2($event)"></edit-image>
+        <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;text-align: center;" />
+      </div>
+      <div id="textContent-2" style="background-color: white;width: 60%;display: flex;justify-content: center;align-items: center;">
+        <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent2($event)"></edit-text>
+        <div class="textContent" style="padding:0 20px;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content: center;margin-bottom:20px;">
+    <button mat-raised-button color="primary" (click)="onSaveForm()">
+      Publish
+    </button>
+    <button mat-raised-button color="primary" (click)="preview()" style="margin-left:5px;">
+      Preview
+    </button>
+  </div>
+</div>
+
+
+<!-- ************************************Template 2******************************************* -->
+<div *ngIf="templateID === 2" style="background-color:white;">
+  <div id="template-2">
+    <div id='textContent-1' style="background-color: white;min-height: 25vh;display: flex;justify-content: center;align-items: center;">
+      <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent1($event)"></edit-text>
+      <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-around;flex-wrap:wrap;">
+      <div class='items-1' style="width:175px;min-height:440px;">
+        <div id='imageContent-1' style="height:30%;">
+          <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent1($event)"></edit-image>
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+        </div>
+        <div id='textContent-2' style="height:70%;">
+          <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent2($event)"></edit-text>
+          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+        </div>
+      </div>
+      <div class='items-2' style="width:175px;min-height:440px;">
+        <div id='imageContent-2' style="height:30%;">
+          <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent2($event)"></edit-image>
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+        </div>
+        <div id='textContent-3' style="height:70%;">
+          <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent3($event)"></edit-text>
+          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+        </div>
+      </div>
+      <div class='items-3' style="width:175px;min-height:440px;">
+        <div id='imageContent-3' style="height:30%;">
+          <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent3($event)"></edit-image>
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+        </div>
+        <div id='textContent-4' style="height:70%;">
+          <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent4($event)"></edit-text>
+          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+        </div>
+      </div>
+      <div class='items-4' style="width:175px;min-height:440px;">
+        <div id='imageContent-4' style="height:30%;">
+          <edit-image [hasImage]="hasContent" (sendImage)="onSaveImageContent4($event)"></edit-image>
+          <img class="imageContent" src="" alt="image" style="width: 100%;height: 100%;object-fit: cover;" />
+        </div>
+        <div id='textContent-5' style="height:70%;">
+          <edit-text [hasContent]="hasContent" (onSaveChange)="onSaveTextContent5($event)"></edit-text>
+          <div class="textContent" style="display: flex; flex-direction: column; justify-content: space-between;align-items: center;font-family: Roboto,Arial,Helvetica,sans-serif;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

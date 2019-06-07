@@ -1,20 +1,37 @@
 <ul *ngFor="let item of list;index as i;">
     <li *ngIf="item?.name" [ngStyle]="getLevelColor(item.level)">
         <span class="indent-span" [ngStyle]="getIndent(item)"></span>
-        <i class="material-icons" (click)="open(i)" *ngIf="(item?.children?.length > 0) && !checkChildren(i)"> arrow_right </i>
-        <i class="material-icons" (click)="close(i)" *ngIf="(item?.children?.length > 0) && checkChildren(i)"> arrow_drop_down </i>
+        <i class="material-icons" (click)="open(i)" *ngIf="(item?.children?.length > 0) && !checkChildren(i)">
+            arrow_right </i>
+        <i class="material-icons" (click)="close(i)" *ngIf="(item?.children?.length > 0) && checkChildren(i)">
+            arrow_drop_down </i>
         <input name="category_radio" id="item.id" type="radio" (click)="onSelectRadio(item)">
-        <span class="txt-span" *ngIf="!editItem || (editItem != item)">{{item.name}}</span>
-        <form [formGroup]="editForm" *ngIf="editItem == item" style="height: 694px;">
-            <div style="width:0px;">
-                <input type="text" placeholder="name" formControlName="name" style="width: 300px; height: 50px;"required>
-                <div style="position: absolute; right: 451px;">
-                    <app-upload-single-img2 [getImg]="getImg" (imgChange)="onReceiveImgs($event)"></app-upload-single-img2>
-                </div>
-                <!-- <input type="text" placeholder="description" formControlName="description" style="width: 1000px; height: 500px;" required> -->
-                <!-- <input style="width: 1000px; height: 500px;" [(ngModel)]="editorContent" required/> -->
+        <span class="txt-span" *ngIf="!editItem || (editItem != item)">{{item.name}}
+            (Id:{{item.id}})(Position:{{item.weight ? item.weight : 0}})</span>
+        <form [formGroup]="editForm" *ngIf="editItem == item" style="height: 250px;">
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="name" formControlName="name" required>
+                </mat-form-field>
             </div>
-
+            <div class="input-container-description">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="description" formControlName="description">
+                </mat-form-field>
+            </div>
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput type="number" placeholder="Parent Id" formControlName="parent_id">
+                </mat-form-field>
+            </div>
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput type="number" placeholder="Position" formControlName="weight">
+                </mat-form-field>
+            </div>
+            <div class="img-container">
+                <app-upload-single-img2 [getImg]="getImg" (imgChange)="onReceiveImgs($event)"></app-upload-single-img2>
+            </div>
         </form>
         <div class="icon-bar">
             <i *ngIf="!editItem || (editItem != item)" (click)="onAddCategory(item, i)" class="material-icons">
@@ -23,25 +40,43 @@
             <i *ngIf="!editItem || (editItem != item)" class="material-icons" (click)="onEditCategory(item)">
                 edit
             </i>
-            <button (click)="onSaveEditForm(item)" *ngIf="editItem && editItem == item">Save</button>
-            <i class="material-icons" (click)="onDropCategory(item)">
-                remove_circle_outline
-            </i>
         </div>
     </li>
-    <li *ngIf="!(item?.name)" style="height: 120px;">
+
+    <li *ngIf="!(item?.name)">
         <span class="indent-span" [ngStyle]="getInputIndent(item)"></span>
-        <input type="text" placeholder="category" required style="width:100px; height: 30px;" [(ngModel)]="category">
-        <input type="text" placeholder="description" required style="width:100px; height: 30px;" [(ngModel)]="description">
+        <form [formGroup]="addForm" style="height: 250px;">
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput type="text" formControlName="name" placeholder="Name" required style="width:100px; height: 30px;"
+                        [(ngModel)]="category">
+                </mat-form-field>
+            </div>
+            <div class="input-container">
+                <mat-form-field>
+                    <input matInput type="text" formControlName="description" placeholder="description" required style="width:100px; height: 30px;"
+                        [(ngModel)]="description">
+                </mat-form-field>
+            </div>
+            <div class="img-container-2">
+                <app-upload-single-img2 class="imgUpload" [getImg]="getImg" (imgChange)="onReceiveImgs($event)"></app-upload-single-img2>
+            </div>
+        </form>
         <!-- <app-upload-img class="imgUpload"  [company_id]="company_id" (imgChange)="onReceiveImgs($event)"></app-upload-img> -->
         <!-- <app-upload-single-img  class="imgUpload"  (imgChange)="onReceiveImgs($event)"></app-upload-single-img> -->
-        <app-upload-single-img2 class="imgUpload" [getImg]="getImg" (imgChange)="onReceiveImgs($event)"></app-upload-single-img2>
+        <div class="icon-bar">
+            <button mat-raised-button color="primary" (click)="saveCate(item)">Save</button>
+            <button mat-raised-button color="warn" (click)="deleteCate(i)">
+                Cancel
+            </button>
+        </div>
 
-        <button (click)="saveCate(item)">Save</button>
-        <i (click)="deleteCate(i)" class="material-icons">
+
+        <!-- <i (click)="deleteCate(i)" class="material-icons">
             remove_circle_outline
-        </i>
+        </i> -->
     </li>
 
-    <app-list-leaf *ngIf="item?.children && checkChildren(i)" (sendCategory)="onGetCate($event)" [list]="item.children" (sendRadio)="onGetRadio($event)"></app-list-leaf>
+    <app-list-leaf *ngIf="item?.children && checkChildren(i)" (sendCategory)="onGetCate($event)" [list]="item.children"
+        (sendRadio)="onGetRadio($event)"></app-list-leaf>
 </ul>

@@ -14,7 +14,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
-
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { CompanyRoutingModule } from './company-routing.module';
 import { CompanyComponent } from './company.component';
@@ -39,7 +38,12 @@ import { DiableColorDirectiveModule } from '../../directives/disable-color/disab
 import { PanelCardModule } from "app/containers/crm/components/panel-card/panel-card.module";
 import { QuoteSettingService } from 'app/core/services/quote-setting.service';
 import { ServiceCategorySettingComponent } from './containers/service-category-setting/service-category-setting.component';
-
+import { SettingService } from 'app/core/services/setting.service';
+import { DescriptionComponent } from 'app/components/list-tree/description/description.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { EditTextComponent } from 'app/components/list-tree/description/editText/editText';
+import { EditImageComponent } from 'app/components/list-tree/description/editImage/editImage';
+import { EditorModule } from 'app/components/editor/editor.module';
 @NgModule({
     imports: [
         CommonModule,
@@ -62,7 +66,9 @@ import { ServiceCategorySettingComponent } from './containers/service-category-s
         LogoModule,
         ListTreeModule,
         DiableColorDirectiveModule,
-        PanelCardModule
+        PanelCardModule,
+        MatGridListModule,
+        EditorModule
     ],
     declarations: [
         CompanyComponent,
@@ -73,14 +79,18 @@ import { ServiceCategorySettingComponent } from './containers/service-category-s
         CompanyCategorySettingComponent,
         CompanyDetailComponent,
         CompanyQuoteSettingComponent,
-        ServiceCategorySettingComponent
+        ServiceCategorySettingComponent,
+        DescriptionComponent,
+        EditTextComponent,
+        EditImageComponent
     ],
     providers: [
         CompanyService,
         DialogService,
         InventoryService,
         HrService,
-        QuoteSettingService
+        QuoteSettingService,
+        SettingService
     ]
 })
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import * as Quill from 'quill';
@@ -20,6 +20,8 @@ export class EditorComponent implements AfterViewInit {
   @Output() onContentChanged: EventEmitter<any> = new EventEmitter();
   @Output() onEditor = new EventEmitter();
   // @Output() onSelectionChanged: EventEmitter<any> = new EventEmitter();
+  @Input() defaultValue = '';
+  @Input() defaultContent = '';
 
   editor: any;
 
@@ -58,6 +60,15 @@ export class EditorComponent implements AfterViewInit {
       placeholder: 'Type the text here...',
       theme: 'snow',
     });
+
+    console.log("editor here !!!!!!!!!", this.defaultValue);
+    if (this.defaultValue) {
+      this.editor.clipboard.dangerouslyPasteHTML(this.defaultValue["body"]);
+    }
+
+    if (this.defaultContent) {
+      this.editor.clipboard.dangerouslyPasteHTML(this.defaultContent);
+    }
 
     this.editor.on('text-change', (delta, oldDelta, source) => {
       // var characterRemaining;

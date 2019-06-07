@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InventoryService } from '../../../../core/services/inventory.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SettingService } from '../../../../core/services/setting.service';
 
 @Component({
     selector: 'setting-product-category',
@@ -14,21 +15,31 @@ export class ProdcutCategorySettingComponent implements OnInit {
     company_id: number;
     isLoading: boolean = false;
     selected_category;
+    category_type: string = "product";
 
     constructor(private inventoryService: InventoryService,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private router: Router,
+        private settingService: SettingService) {
         this.company_id = +this.route.snapshot.paramMap.get('cid');
+
+        if (this.router.url.includes('shop-department-setting')) {
+            this.category_type = "shopDept";
+        } else if (this.router.url.includes('shop-useCase-setting')) {
+            this.category_type = "useCase";
+        }
+        this.getAllCategory();
     }
 
     ngOnInit() {
-        this.getAllCategory();
+
 
     }
 
     getAllCategory() {
         this.isLoading = true;
 
-        this.inventoryService.getCategories(this.company_id, 'product').subscribe(
+        this.inventoryService.getCategories(this.company_id, this.category_type).subscribe(
             (res) => {
                 this.isLoading = false;
                 this.categories = res;
@@ -37,6 +48,7 @@ export class ProdcutCategorySettingComponent implements OnInit {
     }
 
     onReceiveCate(obj) {
+        obj["type"] = this.category_type;
         this.isLoading = true;
         if (obj.action == 'add') {
             this.inventoryService.addCategory(this.company_id, obj).subscribe(
