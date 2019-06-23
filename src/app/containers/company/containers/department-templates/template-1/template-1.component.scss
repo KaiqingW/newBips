@@ -1,0 +1,48 @@
+// .row{
+//     background-repeat:no-repeat, repeat;
+//     background-size: cover;
+//     width:100%;
+//     min-height: 289px;
+//     display: flex;
+//     justify-content: center;
+
+//     .title{
+
+//     }
+
+//     .description{
+
+//     }
+// }
+$break-small: 750px;
+$break-large: 1200px;
+
+.isEdit {
+    border: 3px solid red;
+}
+
+.form {
+    color: black !important;
+    background-color: white !important;
+    z-index: 10;
+    border:1px solid red;
+    width:100%;
+    min-height:289px;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: 1vw 13vw;
+    font-size: 24px;
+}
+
+
+@media screen and (max-width: $break-small) {
+    .row {
+        b {
+            font-size: 32px !important;
+        }
+        min-height:375px !important;
+        padding: 10px 20px !important;
+        width: 100% !important;
+        margin-bottom:5px !important;
+    }
+}

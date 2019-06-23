@@ -10,6 +10,7 @@ export class ListTreeComponent implements OnInit {
   @Input() list;
   @Output() sendRadio = new EventEmitter<any>();
   @Output() sendCategory = new EventEmitter<any>();
+
   showChildren = new Set();
   category;
   // categoryForm : FormGroup;

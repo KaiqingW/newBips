@@ -44,6 +44,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { EditTextComponent } from 'app/components/list-tree/description/editText/editText';
 import { EditImageComponent } from 'app/components/list-tree/description/editImage/editImage';
 import { EditorModule } from 'app/components/editor/editor.module';
+import { Template2Component } from './containers/department-templates/template-2/template-2.component';
+import { DepartmentTemplateSelectorComponent } from './containers/department-template-selector/department-template-selector.component';
+import { AddDepartmentPageComponent } from './containers/add-department-page/add-department-page.component';
+import { WebsiteService } from '../../core/services/website.service';
+import { UploadSingleImg2Module } from '../../components/upload-single-img2/upload-single-img2.module';
+import { Template3Component } from './containers/department-templates/template-3/template-3.component';
+import { Template1Component } from './containers/department-templates/template-1/template-1.component';
+import { Template8Component } from './containers/department-templates/template-8/template-8.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -68,7 +76,8 @@ import { EditorModule } from 'app/components/editor/editor.module';
         DiableColorDirectiveModule,
         PanelCardModule,
         MatGridListModule,
-        EditorModule
+        EditorModule,
+        UploadSingleImg2Module
     ],
     declarations: [
         CompanyComponent,
@@ -82,7 +91,13 @@ import { EditorModule } from 'app/components/editor/editor.module';
         ServiceCategorySettingComponent,
         DescriptionComponent,
         EditTextComponent,
-        EditImageComponent
+        EditImageComponent,
+        DepartmentTemplateSelectorComponent,
+        AddDepartmentPageComponent,
+        Template1Component,
+        Template2Component,
+        Template3Component,
+        Template8Component
     ],
     providers: [
         CompanyService,
@@ -90,7 +105,8 @@ import { EditorModule } from 'app/components/editor/editor.module';
         InventoryService,
         HrService,
         QuoteSettingService,
-        SettingService
+        SettingService,
+        WebsiteService
     ]
 })
 
