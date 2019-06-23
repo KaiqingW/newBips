@@ -16,6 +16,7 @@ import { CompanyDetailComponent } from './containers/company-detail/company-deta
 import { CompanyQuoteSettingComponent } from './containers/company-quote-setting/company-quote-setting.component';
 import { ServiceCategorySettingComponent } from './containers/service-category-setting/service-category-setting.component';
 import { DescriptionComponent } from 'app/components/list-tree/description/description.component';
+import { AddDepartmentPageComponent } from './containers/add-department-page/add-department-page.component';
 
 const companyRoutes: Routes = [
     {
@@ -54,7 +55,21 @@ const companyRoutes: Routes = [
                 path: 'edit/:id',
                 component: DescriptionComponent
             }
+            // ,
+            // {
+            //     path: ':dId/add',
+            //     component: AddDepartmentPageComponent
+            // },
+            // {
+            //     path: ':dId/edit',
+            //     component: EditDepartmentPageComponent
+            // },
         ]
+    },
+    {
+        path: ':cid/company-setting/shop-department-setting/:dId/edit',
+        component: AddDepartmentPageComponent,
+        data: ShopDepartmentCategoryHeader,
     },
     {
         path: ':cid/company-setting/service-category',

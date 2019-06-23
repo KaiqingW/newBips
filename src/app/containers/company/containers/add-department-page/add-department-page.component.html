@@ -1,0 +1,97 @@
+<!-- <div [ngStyle]="componentStylerow.component">
+    <div [ngStyle]="componentStylerow.title">
+        <h4>Wine Bottle</h4>
+    </div>
+    <div>
+        <p [ngStyle]="componentStylerow.content">Custom Bottle Molds From a simple sketch to a detailed 3D model engineered for production. We have the skills to
+            bring your concept to life.</p>
+    </div>
+    <div [ngStyle]="colStyle.component">
+        <div>
+            <img [ngStyle]="colStyle.image" src="https://static.wixstatic.com/media/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.jpg/v1/fill/w_234,h_390,al_c,q_90,usm_0.66_1.00_0.01/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.webp"
+                alt="">
+        </div>
+        <div>
+            <b [ngStyle]="colStyle.title">Bordeaux</b>
+        </div>
+        <div>
+            <p [ngStyle]="colStyle.content">Glopak Wine and Spirits supplies a variety of quality Bordeaux, Burgundy, Claret and Ice Wine bottles with both
+                stelvin and cork neck finishes. In addition to supplying in bulk, many of our bottles are available by the
+                case and ready for immediate delivery from one of our conveniently located warehouses. To inquire about availability,
+                pricing and minimum order quantities, or to obtain a quote please contact our wine sales team directly or
+                give us a call (844)-4-GLOPAK</p>
+        </div>
+    </div>
+    <div [ngStyle]="colStyle.component">
+        <div>
+            <img [style.width]="colStyle.image.width" [ngStyle]="colStyle.image" src="https://static.wixstatic.com/media/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.jpg/v1/fill/w_234,h_390,al_c,q_90,usm_0.66_1.00_0.01/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.webp"
+                alt="">
+        </div>
+        <div>
+            <b [ngStyle]="colStyle.title">Bordeaux</b>
+        </div>
+        <div>
+            <p [ngStyle]="colStyle.content">Glopak Wine and Spirits supplies a variety of quality Bordeaux, Burgundy, Claret and Ice Wine bottles with both
+                stelvin and cork neck finishes. In addition to supplying in bulk, many of our bottles are available by the
+                case and ready for immediate delivery from one of our conveniently located warehouses. To inquire about availability,
+                pricing and minimum order quantities, or to obtain a quote please contact our wine sales team directly or
+                give us a call (844)-4-GLOPAK</p>
+        </div>
+    </div>
+    <div [ngStyle]="colStyle.component">
+        <div>
+            <img [ngStyle]="colStyle.image" src="https://static.wixstatic.com/media/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.jpg/v1/fill/w_234,h_390,al_c,q_90,usm_0.66_1.00_0.01/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.webp"
+                alt="">
+        </div>
+        <div>
+            <b [ngStyle]="colStyle.title">Bordeaux</b>
+        </div>
+        <div>
+            <p [ngStyle]="colStyle.content">Glopak Wine and Spirits supplies a variety of quality Bordeaux, Burgundy, Claret and Ice Wine bottles with both
+                stelvin and cork neck finishes. In addition to supplying in bulk, many of our bottles are available by the
+                case and ready for immediate delivery from one of our conveniently located warehouses. To inquire about availability,
+                pricing and minimum order quantities, or to obtain a quote please contact our wine sales team directly or
+                give us a call (844)-4-GLOPAK</p>
+        </div>
+    </div>
+    <div [ngStyle]="colStyle.component">
+        <div>
+            <img [ngStyle]="colStyle.image" src="https://static.wixstatic.com/media/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.jpg/v1/fill/w_234,h_390,al_c,q_90,usm_0.66_1.00_0.01/feb466_0ecbb8d21b6b42808d72d74b843622b5~mv2.webp"
+                alt="">
+        </div>
+        <div>
+            <b [ngStyle]="colStyle?.title">Bordeaux</b>
+        </div>
+        <div>
+            <p [ngStyle]="colStyle.content">Glopak Wine and Spirits supplies a variety of quality Bordeaux, Burgundy, Claret and Ice Wine bottles with both
+                stelvin and cork neck finishes. In addition to supplying in bulk, many of our bottles are available by the
+                case and ready for immediate delivery from one of our conveniently located warehouses. To inquire about availability,
+                pricing and minimum order quantities, or to obtain a quote please contact our wine sales team directly or
+                give us a call (844)-4-GLOPAK</p>
+        </div>
+    </div>
+</div> -->
+
+<department-template-selector *ngFor="let row of rows;let i = index" [row]="row"></department-template-selector>
+
+<form [formGroup]="selectTemplateForm">
+    <mat-form-field>
+        <mat-label>Select an Template</mat-label>
+        <mat-select formControlName="template_id" required disableRipple>
+            <mat-option>None</mat-option>
+            <mat-option value="1">1 . Banner</mat-option>
+            <mat-option value="2">2 . Row with two Columns</mat-option>
+            <mat-option value="3">3 . Top piccture bottom word</mat-option>
+            <mat-option value="4">4 . picture left and right products</mat-option>
+            <mat-option value="5">5 . picture left and right products</mat-option>
+            <mat-option value="6">6 . picture left and right circle products</mat-option>
+            <mat-option value="7">7 . complex product picture</mat-option>
+            <mat-option value="8">8 . left big picture and right picture</mat-option>
+
+            <!-- <mat-option value="3">Option 3</mat-option> -->
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button mat-button color="primary" (click)="addTemplate()">Add Template</button>
+</form>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

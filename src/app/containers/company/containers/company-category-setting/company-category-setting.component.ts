@@ -35,7 +35,6 @@ export class CompanyCategorySettingComponent implements OnInit {
         )
     }
 
-
     onReceiveCate(obj) {
         this.isLoading = true;
         if (obj.action == 'add') {

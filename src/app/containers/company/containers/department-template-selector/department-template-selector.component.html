@@ -1,0 +1,13 @@
+<div *ngIf="row" [ngSwitch]="row.template_id">
+<!-- <div *ngIf="row" [ngSwitch]="row.template_id" (mouseenter)="isEdit = true" (mouseleave)="isEdit = false"> -->
+    <template-1 *ngSwitchCase="'1'" [row]="row" [isEdit]="isEdit"></template-1>
+    <template-2 *ngSwitchCase="'2'" [row]="row" [isEdit]="isEdit"></template-2>
+    <template-3 *ngSwitchCase="'3'" [row]="row" [isEdit]="isEdit"></template-3>
+    <!-- <template-4 *ngSwitchCase="'4'" [row]="row" [isEdit]="isEdit"></template-4>
+    <template-5 *ngSwitchCase="'5'" [row]="row" [isEdit]="isEdit"></template-5>
+    <template-6 *ngSwitchCase="'6'" [row]="row" [isEdit]="isEdit"></template-6> -->
+    <!-- <template-3 *ngSwitchCase="'3'" [row]="row" [isEdit]="isEdit"></template-3> -->
+    <template-8 *ngSwitchCase="'8'" [row]="row" [isEdit]="isEdit"></template-8>
+
+    <div *ngSwitchDefault></div>
+</div>

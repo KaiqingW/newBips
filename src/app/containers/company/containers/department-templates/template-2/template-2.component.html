@@ -1,0 +1,53 @@
+<div *ngIf="!isEdit && !row.dummy_template" class="row" [ngStyle]="componentStyle?.component">
+    <div class="col" *ngFor="let column of row.columns;let i = index;" [ngStyle]="getBackground(column)">
+        <div class="title-box">
+            <b [ngStyle]="componentStyle?.title">{{column.title}}</b>
+        </div>
+        <a href={{column?.link_description}}>
+            <button mat-raised-button color="warn">{{column.link_description}}</button>
+        </a>
+    </div>
+</div>
+
+<!-- <div  [ngStyle]="componentStyle.component">
+    <div *ngIf="row.title">
+        <b [ngStyle]="componentStyle.title">{{row.title}}</b>
+    </div>
+    <div *ngIf="row.description">
+        <p [ngStyle]="componentStyle.content">{{row.description}}</p>
+    </div>
+</div> -->
+
+<form class="form" *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+    <!-- <div>
+        <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
+    </div>
+    <div>
+        <textarea type="text" placeholder="Please proivde description." formControlName="description" name="" value="" cols="30"
+            rows="10"></textarea>
+    </div>
+
+    <app-upload-single-img2 (imgChange)="onGetImageChange($event)"></app-upload-single-img2> -->
+    <div class="form-column" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
+        <label for="">Column {{i + 1}} : </label>
+        <div [formGroupName]="i">
+            <div>
+                <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
+            </div>
+            <div>
+                <input matInput type="text" required formControlName="link_description" placeholder="Please provide description on navigation button."
+                    name="" value="">
+            </div>
+            <div>
+                <input matInput type="text" required formControlName="link" placeholder="Please provide url on navigation button." name=""
+                    value="">
+            </div>
+            <label for="">Background Image:</label>
+            <app-upload-single-img2 (imgChange)="onGetImageChange($event, i)"></app-upload-single-img2>
+        </div>
+    </div>
+
+
+    <button [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
+        type="submit">Save</button>
+</form>

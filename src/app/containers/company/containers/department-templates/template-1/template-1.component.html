@@ -1,0 +1,24 @@
+<div class="row" *ngIf="!isEdit && !row.dummy_template" [ngStyle]="componentStyle.component">
+    <div *ngIf="row.title">
+        <b [ngStyle]="componentStyle.title">{{row.title}}</b>
+    </div>
+    <div *ngIf="row.description">
+        <p [ngStyle]="componentStyle.content">{{row.description}}</p>
+    </div>
+</div>
+
+<form *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+    <div>
+        <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
+    </div>
+    <div>
+        <textarea type="text" placeholder="Please proivde description." formControlName="description" name="" value="" cols="30"
+            rows="10"></textarea>
+    </div>
+
+    <app-upload-single-img2 (imgChange)="onGetImageChange($event)"></app-upload-single-img2>
+
+    <button [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
+        type="submit">Save</button>
+    <!-- <button>Cancel</button> -->
+</form>

@@ -16,6 +16,7 @@ export class ListLeafComponent implements OnInit {
   @Input() list;
   @Output() sendRadio = new EventEmitter<any>();
   @Output() sendCategory = new EventEmitter<any>();
+
   showChildren = new Set();
   category;
   description;
@@ -54,6 +55,10 @@ export class ListLeafComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onSendAddPage(item) {
+    this.router.navigate([item.id, 'edit'], { relativeTo: this.route });
   }
 
   open(i) {
