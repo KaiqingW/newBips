@@ -52,6 +52,12 @@ import { UploadSingleImg2Module } from '../../components/upload-single-img2/uplo
 import { Template3Component } from './containers/department-templates/template-3/template-3.component';
 import { Template1Component } from './containers/department-templates/template-1/template-1.component';
 import { Template8Component } from './containers/department-templates/template-8/template-8.component';
+import { Template4Component } from './containers/department-templates/template-4/template-4.component';
+import { Template5Component } from './containers/department-templates/template-5/template-5.component';
+import { Template6Component } from './containers/department-templates/template-6/template-6.component';
+import { Template7Component } from './containers/department-templates/template-7/template-7.component';
+import { ShortPipeModule } from '../../components/short-pipe/short.pipe.module';
+import { Template9Component } from './containers/department-templates/template-9/template-9.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -77,7 +83,8 @@ import { Template8Component } from './containers/department-templates/template-8
         PanelCardModule,
         MatGridListModule,
         EditorModule,
-        UploadSingleImg2Module
+        UploadSingleImg2Module,
+        ShortPipeModule
     ],
     declarations: [
         CompanyComponent,
@@ -97,7 +104,13 @@ import { Template8Component } from './containers/department-templates/template-8
         Template1Component,
         Template2Component,
         Template3Component,
-        Template8Component
+        Template4Component,
+        Template5Component,
+        Template6Component,
+        Template7Component,
+        Template8Component,
+        Template9Component
+
     ],
     providers: [
         CompanyService,

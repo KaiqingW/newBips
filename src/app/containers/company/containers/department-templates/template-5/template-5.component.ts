@@ -1,15 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { WebsiteService } from '../../../../../core/services/website.service';
 @Component({
-    selector: 'template-2',
-    templateUrl: './template-2.component.html',
-    styleUrls: ['./template-2.component.scss'],
+    selector: 'template-5',
+    templateUrl: './template-5.component.html',
+    styleUrls: ['./template-5.component.scss'],
 })
 
-export class Template2Component implements OnInit {
+export class Template5Component implements OnInit {
     @Input() row;
     @Input() isEdit: boolean = false;
     company_id: number;
@@ -17,60 +17,72 @@ export class Template2Component implements OnInit {
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
-        private websiteService: WebsiteService,
-        private router:Router
+        private websiteService: WebsiteService
     ) {
         this.company_id = + this.route.snapshot.paramMap.get('cid');
     }
 
     ngOnInit() {
         this.createTemplateForm();
-
     }
 
-    getBackground(column){
+    getColumnBackground(column) {
         return {
             "background-image": `linear-gradient(0deg, rgba(60, 65, 60, 0.4), rgba(77, 75, 75, 0.4)), url(${column.background_image.url})`
         }
     }
 
-    onNavTo(url) {
-        this.router.navigate([url])
-
-        // window.location.href = url;
+    getColumnPicture(column){
+        if(column.image && column.image.url){
+            return column.image.url;
+        }
+        return "";
     }
 
     createTemplateForm() {
         this.templateForm = this.fb.group({
-            template_id: 2,
+            template_id: 5,
             title: [""],
             description: [""],
             background_image_id: [""],
+            image_id: [""],
             columns: this.fb.array([])
         });
-        this.createColumns(2)
+        this.createColumns(1)
     }
 
     createColumns(numOfColumns: number) {
         let column = this.templateForm.get('columns') as FormArray;
-        for(var i = 0; i < numOfColumns; i++){
+        for (var i = 0; i < numOfColumns; i++) {
             column.push(this.createColumn());
         }
     }
 
     createColumn(): FormGroup {
         return this.fb.group({
-            style : [""], 
-            title : [""], 
-            description : [""],
+            style: [""],
+            title: [""],
+            description: [""],
             image_id: [""],
-            background_image_id : [""],
-            link:[""],
-            link_description:[""]
+            background_image_id: [""],
+            link: [""],
+            link_description: [""]
+        });
+    }
+    
+    onGetRowImg(imgs) {
+        this.templateForm.patchValue({
+            background_image_id: imgs[0].id
         });
     }
 
-    onGetImageChange(imgs, index : number){
+    onGetImageChange(imgs, index: number) {
+        (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
+            image_id: imgs[0].id
+        });
+    }
+
+    onGetBackgroundImageChange(imgs, index: number) {
         (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
             background_image_id: imgs[0].id
         });
