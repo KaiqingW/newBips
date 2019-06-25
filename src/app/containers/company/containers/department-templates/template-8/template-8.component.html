@@ -8,9 +8,7 @@
     </div> -->
 
     <div class="col" *ngFor="let column of row.columns;let i = index;">
-        <!-- <div class="picture-box"> -->
-            <img [src]="getColumnPicture(column)" alt="">
-        <!-- </div> -->
+        <img [src]="getColumnPicture(column)" alt="">
         <div class="column-description" *ngIf="column?.description">
             <p>{{column.description}}</p>
         </div>

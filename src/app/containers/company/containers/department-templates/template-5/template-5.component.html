@@ -1,10 +1,18 @@
-<div *ngIf="!isEdit && !row.dummy_template" class="row" [ngStyle]="componentStyle?.component">
-    <div class="col" *ngFor="let column of row.columns;let i = index;" [ngStyle]="getBackground(column)">
-        <div class="title-box">
-            <b [ngStyle]="componentStyle?.title">{{column.title}}</b>
+<div *ngIf="!isEdit && !row.dummy_template" class="row">
+    <!-- <div *ngIf="row.title">
+        <b>{{row.title}}</b>
+    </div> -->
+    <!-- <img class="row-picture" *ngIf="row?.image?.url" [src]="row?.image?.url" alt="">
+    <div *ngIf="row?.description">
+        <p>{{row.description}}</p>
+    </div> -->
+
+    <div class="col" *ngFor="let column of row.columns;let i = index;">
+        <div class="picture-box">
+            <img [src]="getColumnPicture(column)" alt="">
         </div>
-        <div (click)="onNavTo(column.link)">
-            <button mat-raised-button color="warn" >{{column.link_description}}</button>
+        <div class="column-description" *ngIf="column?.description">
+            <p>{{column.description}}</p>
         </div>
     </div>
 </div>
@@ -20,29 +28,33 @@
 
 <form class="form" *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
     <!-- <div>
-        <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
+        <input matInput type="text" formControlName="title" placeholder="Please provide setion title." name="" value="">
     </div>
     <div>
-        <textarea type="text" placeholder="Please proivde description." formControlName="description" name="" value="" cols="30"
+        <textarea type="text" required placeholder="Please proivde description." formControlName="description" name="" value="" cols="30"
             rows="10"></textarea>
     </div>
 
-    <app-upload-single-img2 (imgChange)="onGetImageChange($event)"></app-upload-single-img2> -->
+    <app-upload-single-img2 (imgChange)="onGetRowImg($event)"></app-upload-single-img2> -->
     <div class="form-column" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
         <label for="">Column {{i + 1}} : </label>
         <div [formGroupName]="i">
-            <div>
+            <!-- <div>
                 <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
-            </div>
+            </div> -->
             <div>
+                <input matInput type="text" required formControlName="description" placeholder="Please provide setion description." name=""
+                    value="">
+            </div>
+            <!-- <div>
                 <input matInput type="text" required formControlName="link_description" placeholder="Please provide description on navigation button."
                     name="" value="">
             </div>
             <div>
                 <input matInput type="text" required formControlName="link" placeholder="Please provide url on navigation button." name=""
                     value="">
-            </div>
-            <label for="">Background Image:</label>
+            </div> -->
+            <label for="">Image:</label>
             <app-upload-single-img2 (imgChange)="onGetImageChange($event, i)"></app-upload-single-img2>
         </div>
     </div>
