@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { WebsiteService } from '../../../../../core/services/website.service';
 @Component({
@@ -17,7 +17,8 @@ export class Template6Component implements OnInit {
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
-        private websiteService: WebsiteService
+        private websiteService: WebsiteService,
+        private router: Router
     ) {
         this.company_id = + this.route.snapshot.paramMap.get('cid');
     }
@@ -26,14 +27,26 @@ export class Template6Component implements OnInit {
         this.createTemplateForm();
     }
 
+    getRowBackground(row) {
+        return {
+            "background-image": `url(${row.background_image.url})`
+        }
+    }
+
+    onNavTo(url) {
+        this.router.navigate([url])
+
+        // window.location.href = url;
+    }
+
     getColumnBackground(column) {
         return {
             "background-image": `linear-gradient(0deg, rgba(60, 65, 60, 0.4), rgba(77, 75, 75, 0.4)), url(${column.background_image.url})`
         }
     }
 
-    getColumnPicture(column){
-        if(column.image && column.image.url){
+    getColumnPicture(column) {
+        if (column.image && column.image.url) {
             return column.image.url;
         }
         return "";
@@ -48,7 +61,7 @@ export class Template6Component implements OnInit {
             image_id: [""],
             columns: this.fb.array([])
         });
-        this.createColumns(1)
+        this.createColumns(5)
     }
 
     createColumns(numOfColumns: number) {
@@ -69,7 +82,7 @@ export class Template6Component implements OnInit {
             link_description: [""]
         });
     }
-    
+
     onGetRowImg(imgs) {
         this.templateForm.patchValue({
             background_image_id: imgs[0].id
