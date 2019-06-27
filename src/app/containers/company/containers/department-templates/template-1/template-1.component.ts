@@ -34,7 +34,7 @@ export class Template1Component implements OnInit, OnChanges {
 
             //custom
             // "background-image": "url('https://orcasmart.com/assets/images/banner/campers.jpg')",
-            "background-color": "white",
+            // "background-color": "white",
             color: "white",
             // height: "500px",
 
@@ -98,5 +98,11 @@ export class Template1Component implements OnInit, OnChanges {
         this.templateForm.patchValue({
             background_image_id : imgs[0].id
         });
+        this.setBackgroundImg(imgs[0]);
+    }
+
+    setBackgroundImg(img){
+        this.componentStyle.component["background-image"] = `url(${img.url})`;
+        console.log(this.componentStyle);
     }
 }

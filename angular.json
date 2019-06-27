@@ -23,6 +23,7 @@
             "styles": [
               "src/styles.css",
               "src/orcasmart-theme.scss"
+         
             ],
             "scripts": []
           },

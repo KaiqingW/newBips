@@ -18,25 +18,21 @@ $break-small: 750px;
 $break-large: 1200px;
 
 .isEdit {
-    border: 3px solid red;
+    background-color:grey;
 }
 
 .form {
-    color: black !important;
-    background-color: white !important;
-    z-index: 10;
-    border:1px solid red;
-    width:100%;
+    width:80%;
+    margin:4vw auto;
     min-height:289px;
-    box-sizing: border-box;
-    flex-direction: column;
-    padding: 1vw 13vw;
     font-size: 24px;
+    background-color:white;
+    padding:2vw;
 }
 
 
 @media screen and (max-width: $break-small) {
-    .row {
+    .template-row {
         b {
             font-size: 32px !important;
         }

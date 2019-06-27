@@ -8,9 +8,12 @@
     </div> -->
 
     <div class="col" *ngFor="let column of row.columns;let i = index;">
-        <img [src]="getColumnPicture(column)" alt="">
-        <div class="column-description" *ngIf="column?.description">
-            <p>{{column.description}}</p>
+        <div class="picture-box">
+            <img [src]="getColumnPicture(column)" alt="">
+        </div>
+        <div class="column-description">
+            <h3 *ngIf="column.title">{{column.title}}</h3>
+            <p *ngIf="column?.description">{{column.description}}</p>
         </div>
     </div>
 </div>
@@ -37,9 +40,9 @@
     <div class="form-column" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
         <label for="">Column {{i + 1}} : </label>
         <div [formGroupName]="i">
-            <!-- <div>
+            <div>
                 <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
-            </div> -->
+            </div>
             <div>
                 <input matInput type="text" required formControlName="description" placeholder="Please provide setion description." name=""
                     value="">
