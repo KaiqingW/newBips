@@ -35,9 +35,8 @@ export class Template2Component implements OnInit {
     }
 
     onNavTo(url) {
-        this.router.navigate([url])
-
-        // window.location.href = url;
+        // this.router.navigate([url])
+        window.location.href = url;
     }
 
     createTemplateForm() {
