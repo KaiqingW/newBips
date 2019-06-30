@@ -58,6 +58,7 @@ import { Template6Component } from './containers/department-templates/template-6
 import { Template7Component } from './containers/department-templates/template-7/template-7.component';
 import { ShortPipeModule } from '../../components/short-pipe/short.pipe.module';
 import { Template9Component } from './containers/department-templates/template-9/template-9.component';
+import { UploadSingleImg3Module } from '../../components/upload-single-img3/upload-single-img3.module';
 @NgModule({
     imports: [
         CommonModule,
@@ -84,7 +85,8 @@ import { Template9Component } from './containers/department-templates/template-9
         MatGridListModule,
         EditorModule,
         UploadSingleImg2Module,
-        ShortPipeModule
+        ShortPipeModule,
+        UploadSingleImg3Module
     ],
     declarations: [
         CompanyComponent,

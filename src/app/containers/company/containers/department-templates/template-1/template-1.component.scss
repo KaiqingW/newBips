@@ -18,24 +18,30 @@ $break-small: 750px;
 $break-large: 1200px;
 
 .isEdit {
-    background-color:grey;
+    background-color: white;
+    border:1px solid grey;
 }
 
 .form {
-    width:80%;
-    margin:4vw auto;
-    min-height:289px;
-    font-size: 24px;
-    background-color:white;
-    padding:2vw;
-}
+    width: 80%;
+    margin: 4vw auto;
+    min-height: 289px;
+    font-size: 16px;
+    label{
+        font-size: 18px !important;
+        font-weight:bold;
+    }
 
+    background-color: white;
+    padding: 2vw;
+}
 
 @media screen and (max-width: $break-small) {
     .template-row {
         b {
             font-size: 32px !important;
         }
+
         min-height:375px !important;
         padding: 10px 20px !important;
         width: 100% !important;

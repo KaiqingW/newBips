@@ -1,10 +1,10 @@
-<div *ngIf="!isEdit && !row.dummy_template" class="row" [ngStyle]="componentStyle?.component">
-    <div class="col" *ngFor="let column of row.columns;let i = index;" [ngStyle]="getBackground(column)">
+<div *ngIf="!isEdit && !row.dummy_template" class="template-row" [ngStyle]="componentStyle?.component">
+    <div class="template-col" *ngFor="let column of row.columns;let i = index;" [ngStyle]="getBackground(column)">
         <div class="title-box">
             <b [ngStyle]="componentStyle?.title">{{column.title}}</b>
         </div>
         <div (click)="onNavTo(column.link)">
-            <button mat-raised-button color="warn" >{{column.link_description}}</button>
+            <button mat-raised-button color="warn">{{column.link_description}}</button>
         </div>
     </div>
 </div>
@@ -17,37 +17,57 @@
         <p [ngStyle]="componentStyle.content">{{row.description}}</p>
     </div>
 </div> -->
+<div class="container">
+    <form *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+        <div class="row">
+            <div class="col-sm-6" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
 
-<form class="form" *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
-    <!-- <div>
-        <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
-    </div>
-    <div>
-        <textarea type="text" placeholder="Please proivde description." formControlName="description" name="" value="" cols="30"
-            rows="10"></textarea>
-    </div>
+                <div [formGroupName]="i">
+                    <label for="">Column {{i + 1}}</label>
+                    <hr>
+                    <div class="form-group">
+                        <label for="title">Title (Not Required)</label>
+                        <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" formControlName="title"
+                            name="title" value="col 1">
+                    </div>
 
-    <app-upload-single-img2 (imgChange)="onGetImageChange($event)"></app-upload-single-img2> -->
-    <div class="form-column" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
-        <label for="">Column {{i + 1}} : </label>
-        <div [formGroupName]="i">
-            <div>
-                <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
+                    <div class="form-group">
+                        <label for="title">Navigation Button Description (Required)</label>
+                        <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please provide description on navigation button."
+                            type="text" formControlName="link_description" name="title" value="col 1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Title (Required)</label>
+                        <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please provide url on navigation button."
+                            type="text" formControlName="link" name="title" value="col 1">
+                    </div>
+
+                    <app-upload-single-img3 [title]="'Column Background (Required)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
+                </div>
             </div>
-            <div>
-                <input matInput type="text" required formControlName="link_description" placeholder="Please provide description on navigation button."
-                    name="" value="">
+            
+            <br>
+
+            <div class="col-sm-12">
+                    <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
+                    type="submit">Save</button>
             </div>
-            <div>
-                <input matInput type="text" required formControlName="link" placeholder="Please provide url on navigation button." name=""
-                    value="">
-            </div>
-            <label for="">Background Image:</label>
-            <app-upload-single-img2 (imgChange)="onGetImageChange($event, i)"></app-upload-single-img2>
+  
         </div>
-    </div>
+        <!-- <div>
+                    <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
+                </div>
+                <div>
+                    <textarea type="text" placeholder="Please proivde description." formControlName="description" name="" value="" cols="30"
+                        rows="10"></textarea>
+                </div>
+            
+                <app-upload-single-img2 (imgChange)="onGetImageChange($event)"></app-upload-single-img2> -->
 
+        <div class="row">
+         
+        </div>
 
-    <button [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
-        type="submit">Save</button>
-</form>
+    </form>
+</div>
