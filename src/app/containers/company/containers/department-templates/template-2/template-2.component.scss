@@ -1,7 +1,7 @@
 $break-small: 750px;
 $break-large: 1200px;
 
-.row {
+.template-row {
     width: 100%;
     background-color: white;
     display: flex;
@@ -26,7 +26,7 @@ $break-large: 1200px;
         margin-bottom: 30px;
     }
 
-    .col {
+    .template-col {
         padding: 4vw 6vw;
         box-sizing: border-box;
         height: 100%;
@@ -39,7 +39,7 @@ $break-large: 1200px;
     }
 
     @media screen and (max-width: $break-small) {
-        .col {
+        .template-col {
             b {
                 font-size: 32px;
             }
@@ -59,23 +59,37 @@ $break-large: 1200px;
     // }
 }
 
-.form {
-    color: black !important;
-    background-color: white !important;
-    z-index: 10;
-    border: 1px solid red;
-    width: 100%;
-    min-height: 289px;
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: row;
-    padding: 1vw 13vw;
-    font-size: 24px;
+// .form {
+//     color: black !important;
+//     background-color: white !important;
+//     z-index: 10;
+//     border: 1px solid red;
+//     width: 100%;
+//     min-height: 289px;
+//     display: flex;
+//     box-sizing: border-box;
+//     flex-direction: row;
+//     padding: 1vw 13vw;
+//     font-size: 24px;
 
-    .form-column {
-        padding: 2px;
-        margin:2px;
-        border: 1px solid rgb(216, 216, 216);
-        width: 50%;
+//     .form-column {
+//         padding: 2px;
+//         margin:2px;
+//         border: 1px solid rgb(216, 216, 216);
+//         width: 50%;
+//     }
+// }
+
+.container {
+    width: 80%;
+    margin: 4vw auto;
+    min-height: 289px;
+    font-size: 16px;
+    label{
+        font-size: 18px !important;
+        font-weight:bold;
     }
+
+    background-color: white;
+    padding: 2vw;
 }
