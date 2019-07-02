@@ -157,7 +157,14 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
             alert("please select a template.");
             return;
         }
+        this.removePrevDummyTemplate();
         this.rows.push(this.selectTemplateForm.value);
+    }
+
+    removePrevDummyTemplate(){
+        this.rows = this.rows.filter(row => {
+            return !row['dummy_template'];
+        })
     }
 
     createSelectTemplateForm() {
