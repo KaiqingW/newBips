@@ -115,24 +115,3 @@ $p:16px;
         }
     }
 }
-
-.form {
-    color: black !important;
-    background-color: white !important;
-    z-index: 10;
-    border: 1px solid red;
-    width: 100%;
-    min-height: 289px;
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: row;
-    padding: 1vw 13vw;
-    font-size: 24px;
-
-    .form-column {
-        padding: 2px;
-        margin: 2px;
-        border: 1px solid rgb(216, 216, 216);
-        width: 50%;
-    }
-}
