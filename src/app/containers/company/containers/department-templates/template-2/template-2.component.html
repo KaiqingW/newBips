@@ -1,14 +1,15 @@
-<div *ngIf="!isEdit && !row.dummy_template" class="template-row" [ngStyle]="componentStyle?.component">
-    <div class="template-col" *ngFor="let column of row.columns;let i = index;" [ngStyle]="getBackground(column)">
-        <div class="title-box">
+<!-- <div  class="template-row" [ngStyle]="componentStyle?.component">
+    <div class="template-col" *ngFor="let column of row?.columns;let i = index;" [ngStyle]="getBackground(column)">
+        <div *ngIf="column.title" class="title-box">
             <b [ngStyle]="componentStyle?.title">{{column.title}}</b>
         </div>
-        <div (click)="onNavTo(column.link)">
+        <div *ngIf="column.link && column.link_description" (click)="onNavTo(column.link)">
             <button mat-raised-button color="warn">{{column.link_description}}</button>
         </div>
     </div>
-</div>
+</div> -->
 
+<template-2-view [row]="row" [isEdit]="row.dummy_template"></template-2-view>
 <!-- <div  [ngStyle]="componentStyle.component">
     <div *ngIf="row.title">
         <b [ngStyle]="componentStyle.title">{{row.title}}</b>
@@ -17,43 +18,43 @@
         <p [ngStyle]="componentStyle.content">{{row.description}}</p>
     </div>
 </div> -->
-<div class="container">
-    <form *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+<div *ngIf="isEdit || row.dummy_template" class="container">
+    <form  class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
         <div class="row">
             <div class="col-sm-6" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
 
                 <div [formGroupName]="i">
-                    <label for="">Column {{i + 1}}</label>
+                    <label for="">{{i == 0 ? 'Left Column' : 'Right Column'}}</label>
                     <hr>
                     <div class="form-group">
-                        <label for="title">Title (Not Required)</label>
-                        <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" formControlName="title"
+                        <label for="title">Title</label>
+                        <input [(ngModel)]="row.columns[i].title" required class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" formControlName="title"
                             name="title" value="col 1">
                     </div>
 
                     <div class="form-group">
-                        <label for="title">Navigation Button Description (Required)</label>
-                        <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please provide description on navigation button."
+                        <label for="title">Navigation Button Description</label>
+                        <input required [(ngModel)]="row.columns[i].link_description"  class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please provide description on navigation button."
                             type="text" formControlName="link_description" name="title" value="col 1">
                     </div>
 
                     <div class="form-group">
-                        <label for="title">Title (Required)</label>
-                        <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please provide url on navigation button."
+                        <label for="title">Title</label>
+                        <input required [(ngModel)]="row.columns[i].link" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please provide url on navigation button."
                             type="text" formControlName="link" name="title" value="col 1">
                     </div>
 
                     <app-upload-single-img3 [title]="'Column Background (Required)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
                 </div>
             </div>
-            
+
             <br>
 
             <div class="col-sm-12">
-                    <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
+                <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
                     type="submit">Save</button>
             </div>
-  
+
         </div>
         <!-- <div>
                     <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
@@ -66,7 +67,7 @@
                 <app-upload-single-img2 (imgChange)="onGetImageChange($event)"></app-upload-single-img2> -->
 
         <div class="row">
-         
+
         </div>
 
     </form>

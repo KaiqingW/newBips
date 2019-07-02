@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { WebsiteService } from '../../../../../core/services/website.service';
     styleUrls: ['./template-2.component.scss'],
 })
 
-export class Template2Component implements OnInit {
+export class Template2Component implements OnInit, OnChanges {
     @Input() row;
     @Input() isEdit: boolean = false;
     company_id: number;
@@ -24,8 +24,13 @@ export class Template2Component implements OnInit {
     }
 
     ngOnInit() {
-        this.createTemplateForm();
 
+    }
+    
+    ngOnChanges(){
+        if(this.row.dummy_template){
+            this.createTemplateForm();
+        }
     }
 
     getBackground(column){
@@ -47,6 +52,7 @@ export class Template2Component implements OnInit {
             background_image_id: [""],
             columns: this.fb.array([])
         });
+        this.createColumnsObj(2);
         this.createColumns(2)
     }
 
@@ -55,6 +61,7 @@ export class Template2Component implements OnInit {
         for(var i = 0; i < numOfColumns; i++){
             column.push(this.createColumn());
         }
+    
     }
 
     createColumn(): FormGroup {
@@ -63,16 +70,36 @@ export class Template2Component implements OnInit {
             title : [""], 
             description : [""],
             image_id: [""],
-            background_image_id : [""],
+            background_image_id : ["", [Validators.required]],
             link:[""],
             link_description:[""]
         });
+    }
+
+    createColumnsObj(numOfColumns : number){
+        this.row['columns'] = [];
+        for(var i = 0; i < numOfColumns; i++){
+            this.createColumnObj();
+        }
+    }
+
+    createColumnObj(){
+        this.row.columns.push({
+            title: "",
+            description : "",
+            background_image : {}
+        })
     }
 
     onGetImageChange(imgs, index : number){
         (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
             background_image_id: imgs[0].id
         });
+        this.updateViewBackgroundImage(imgs[0].url, index);
+    }
+
+    updateViewBackgroundImage(url : string, columnIndex : number){
+        this.row.columns[columnIndex]['background_image']['url'] = url;
     }
 
     onSave() {
@@ -91,7 +118,7 @@ export class Template2Component implements OnInit {
     //         "box-sizing": "border-box",
     //         "flex-direction": "row",
     //         "align-items": "center",
-    //         "justify-content" : 
+    //         // "justify-content" : 
     //         "padding": "1vw 13vw",
     //         ///////////////
 

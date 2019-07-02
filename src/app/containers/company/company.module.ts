@@ -59,6 +59,8 @@ import { Template7Component } from './containers/department-templates/template-7
 import { ShortPipeModule } from '../../components/short-pipe/short.pipe.module';
 import { Template9Component } from './containers/department-templates/template-9/template-9.component';
 import { UploadSingleImg3Module } from '../../components/upload-single-img3/upload-single-img3.module';
+import { Template2ViewComponent } from './containers/department-templates/template-2/template-2-view/template-2-view.component';
+import { Template4ViewComponent } from './containers/department-templates/template-4/template-4-view/template-4-view.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -111,7 +113,9 @@ import { UploadSingleImg3Module } from '../../components/upload-single-img3/uplo
         Template6Component,
         Template7Component,
         Template8Component,
-        Template9Component
+        Template9Component,
+        Template2ViewComponent,
+        Template4ViewComponent
 
     ],
     providers: [

@@ -7,7 +7,6 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 export class DepartmentTemplateSelectorComponent implements OnInit, OnChanges {
     @Input() row;
-    isEdit : boolean = false;
     
     constructor() {
 
