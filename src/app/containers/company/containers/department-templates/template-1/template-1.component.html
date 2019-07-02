@@ -33,7 +33,7 @@
             <!-- <small id="description" class="form-text text-muted">Not required.</small> -->
         </div>
 
-        <app-upload-single-img3 [title]="'Banner Background (Required)'" (imgChange)="onGetImageChange($event)"></app-upload-single-img3>
+        <app-upload-single-img3 [title]="'Banner Background (Required) (1900 * 400)'" (imgChange)="onGetImageChange($event)"></app-upload-single-img3>
 
         <button type="submit" class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
             type="submit">Save</button>
