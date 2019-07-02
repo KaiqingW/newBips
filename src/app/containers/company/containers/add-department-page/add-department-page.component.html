@@ -71,28 +71,37 @@
         </div>
     </div>
 </div> -->
+<div class="page-container">
+    <department-template-selector *ngFor="let row of rows;let i = index" [row]="row"></department-template-selector>
 
-<department-template-selector *ngFor="let row of rows;let i = index" [row]="row"></department-template-selector>
-
-<form [formGroup]="selectTemplateForm">
-    <mat-form-field>
-        <mat-label>Select an Template</mat-label>
-        <mat-select formControlName="template_id" required disableRipple>
-            <mat-option>None</mat-option>
-            <mat-option value="1">1 . Banner</mat-option>
-            <mat-option value="2">2 . Row with two Columns</mat-option>
-            <mat-option value="3">3 . Top picture bottom word</mat-option>
-            <mat-option value="4">4 . picture left and right products</mat-option>
-            <!-- <mat-option value="5">5 . picture left and right products</mat-option>
-            <mat-option value="6">6 . picture left and right circle products</mat-option> -->
-            <!-- <mat-option value="7">7 . complex products picture</mat-option> -->
-            <mat-option value="8">8 . left picture and right description</mat-option>
-            <mat-option value="9">9 . Complex text layout</mat-option>
-
-            <!-- <mat-option value="3">Option 3</mat-option> -->
-        </mat-select>
-    </mat-form-field>
-    <button mat-raised-button mat-button color="primary" (click)="addTemplate()">Add Template</button>
-</form>
-
-<app-spinner *ngIf="isLoading"></app-spinner>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="selectTemplateForm">
+                    <mat-form-field>
+                        <mat-label>Select an Template</mat-label>
+                        <mat-select formControlName="template_id" required disableRipple>
+                            <mat-option>None</mat-option>
+                            <mat-option value="1">1 . Banner</mat-option>
+                            <mat-option value="2">2 . Row with two Columns</mat-option>
+                            <mat-option value="3">3 . Top picture bottom word</mat-option>
+                            <mat-option value="4">4 . picture left and right products</mat-option>
+                            <!-- <mat-option value="5">5 . picture left and right products</mat-option>
+                            <mat-option value="6">6 . picture left and right circle products</mat-option> -->
+                            <!-- <mat-option value="7">7 . complex products picture</mat-option> -->
+                            <mat-option value="8">8 . left picture and right description</mat-option>
+                            <mat-option value="9">9 . Complex text layout</mat-option>
+    
+                            <!-- <mat-option value="3">Option 3</mat-option> -->
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-raised-button mat-button color="primary" (click)="addTemplate()">Add Template</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <app-spinner *ngIf="isLoading"></app-spinner>
+</div>

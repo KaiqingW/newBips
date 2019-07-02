@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { WebsiteService } from '../../../../../core/services/website.service';
     styleUrls: ['./template-9.component.scss'],
 })
 
-export class Template9Component implements OnInit {
+export class Template9Component implements OnInit, OnChanges {
     @Input() row;
     @Input() isEdit: boolean = false;
     company_id: number;
@@ -23,7 +23,12 @@ export class Template9Component implements OnInit {
     }
 
     ngOnInit() {
-        this.createTemplateForm();
+    }
+
+    ngOnChanges() {
+        if (this.row.dummy_template) {
+            this.createTemplateForm();
+        }
     }
 
     getColumnBackground(column) {
@@ -32,8 +37,8 @@ export class Template9Component implements OnInit {
         }
     }
 
-    getColumnPicture(column){
-        if(column.image && column.image.url){
+    getColumnPicture(column) {
+        if (column.image && column.image.url) {
             return column.image.url;
         }
         return "";
@@ -48,7 +53,30 @@ export class Template9Component implements OnInit {
             image_id: [""],
             columns: this.fb.array([])
         });
+
+        this.createRowObj();
+        this.createColumnsObj(4);
         this.createColumns(4)
+    }
+
+    createRowObj() {
+        this.row['background_image'] = {};
+    }
+
+    createColumnsObj(numOfColumns: number) {
+        this.row['columns'] = [];
+        for (var i = 0; i < numOfColumns; i++) {
+            this.createColumnObj();
+        }
+    }
+
+    createColumnObj() {
+        this.row.columns.push({
+            title: "",
+            description: "",
+            image: {},
+            background_image: {}
+        })
     }
 
     createColumns(numOfColumns: number) {
@@ -69,7 +97,7 @@ export class Template9Component implements OnInit {
             link_description: [""]
         });
     }
-    
+
     onGetRowImg(imgs) {
         this.templateForm.patchValue({
             background_image_id: imgs[0].id
@@ -86,6 +114,12 @@ export class Template9Component implements OnInit {
         (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
             background_image_id: imgs[0].id
         });
+        this.updateColumnBackgrounImage(imgs[0].url, index);
+    }
+
+    updateColumnBackgrounImage(url, index){
+        console.log(url,  this.row.columns[index]);
+        this.row.columns[index]['background_image'].url = url;
     }
 
     onSave() {
