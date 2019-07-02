@@ -1,7 +1,7 @@
 <template-8-view [row]="row" [isEdit]="row.dummy_template"></template-8-view>
 
-<div class="container">
-    <form class="form" *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+<div class="container" *ngIf="isEdit || row.dummy_template">
+    <form class="form"  class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
         <div class="form-column" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
             <div [formGroupName]="i">
                 <div class="form-group">
@@ -19,7 +19,6 @@
                 <app-upload-single-img3 [title]="'Left Image ' + '(400 * 280)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
             </div>
         </div>
-
 
         <div class="col-sm-12">
             <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
