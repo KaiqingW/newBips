@@ -61,6 +61,7 @@ import { Template9Component } from './containers/department-templates/template-9
 import { UploadSingleImg3Module } from '../../components/upload-single-img3/upload-single-img3.module';
 import { Template2ViewComponent } from './containers/department-templates/template-2/template-2-view/template-2-view.component';
 import { Template4ViewComponent } from './containers/department-templates/template-4/template-4-view/template-4-view.component';
+import { Template9ViewComponent } from './containers/department-templates/template-9/template-9-view/template-9-view.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -115,8 +116,8 @@ import { Template4ViewComponent } from './containers/department-templates/templa
         Template8Component,
         Template9Component,
         Template2ViewComponent,
-        Template4ViewComponent
-
+        Template4ViewComponent,
+        Template9ViewComponent
     ],
     providers: [
         CompanyService,

@@ -1,26 +1,4 @@
-<div class="template-row" *ngIf="!isEdit && !row.dummy_template">
-    <div class="row-title" *ngIf="row.title">
-        <h2>{{row.title}}</h2>
-    </div>
-    <div class="row-description" *ngIf="row?.description">
-        <p>{{row.description}}</p>
-    </div>
-    <hr>
-    <div class="template-cols">
-        <div class="template-col" *ngFor="let column of row.columns;let i = index;">
-            <div class="column-background" *ngIf="column?.background_image?.url" class="column-image">
-                <img [src]="column?.background_image?.url" alt="">
-            </div>
-            <h3 class="column-title" *ngIf="row?.title">
-                {{column.title}}
-            </h3>
-            <div class="column-description" *ngIf="column?.description">
-                <p>{{column.description}}</p>
-            </div>
-        </div>
-    </div>
 
-</div>
 
 <!-- <div  [ngStyle]="componentStyle.component">
     <div *ngIf="row.title">
@@ -30,25 +8,28 @@
         <p [ngStyle]="componentStyle.content">{{row.description}}</p>
     </div>
 </div> -->
-<div class="container">
-    <form class="form" *ngIf="isEdit || row.dummy_template" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+<template-9-view [row]="row" [isEdit]="row.dummy_template"></template-9-view>
+
+<div class="container" *ngIf="isEdit || row.dummy_template" >
+    <form class="form" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
         <div class="row">
-            Top Component information
+            <div class="col-12">
+                Top Component information
 
-            <div class="form-group">
-                <label for="title">Top Title (Not Required)</label>
-                <input class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" [(ngModel)]="row.title"
-                    formControlName="title" name="title" value="">
-                <!-- <small id="titleHelp" class="form-text text-muted">Not required.</small> -->
+                <div class="form-group">
+                    <label for="title">Top Title (Not Required)</label>
+                    <input class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" [(ngModel)]="row.title"
+                        formControlName="title" name="title" value="">
+                    <!-- <small id="titleHelp" class="form-text text-muted">Not required.</small> -->
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Top Description (Not Required)</label>
+                    <textarea class="form-control" id="description" aria-describedby="description" [(ngModel)]="row.description" type="text"
+                        placeholder="Please proivde description." formControlName="description" name="" value="" cols="30" rows="10"></textarea>
+                    <!-- <small id="description" class="form-text text-muted">Not required.</small> -->
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="description">Top Description (Not Required)</label>
-                <textarea class="form-control" id="description" aria-describedby="description" [(ngModel)]="row.description" type="text"
-                    placeholder="Please proivde description." formControlName="description" name="" value="" cols="30" rows="10"></textarea>
-                <!-- <small id="description" class="form-text text-muted">Not required.</small> -->
-            </div>
-
         </div>
 
         <div class="row">
@@ -63,9 +44,8 @@
 
                     <div class="form-group">
                         <label for="title">Column Description</label>
-                        <input required [(ngModel)]="row.columns[i].description" class="form-control" id="title" aria-describedby="titleHelp"
-                            placeholder="Please Column Description." type="text" formControlName="description"
-                            name="title" value="col 1">
+                        <input required [(ngModel)]="row.columns[i].description" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please Column Description."
+                            type="text" formControlName="description" name="title" value="col 1">
                     </div>
 
                     <div class="form-group">
@@ -74,11 +54,11 @@
                             type="text" formControlName="link" name="title" value="col 1">
                     </div>
 
-                    <app-upload-single-img3 [title]="'Image For Column ' + (i + 1) + '(140 * 140)'" (imgChange)="onGetBackgroundImageChange($event, i)"></app-upload-single-img3>
+                    <app-upload-single-img3 [title]="'Image For Column ' + (i + 1) + '(295 * 190)'" (imgChange)="onGetBackgroundImageChange($event, i)"></app-upload-single-img3>
                 </div>
             </div>
         </div>
-   
+
 
         <!-- <app-upload-single-img2 (imgChange)="onGetRowImg($event)"></app-upload-single-img2> -->
         <!-- <div class="form-column" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
@@ -96,7 +76,7 @@
                 <app-upload-single-img2 (imgChange)="onGetBackgroundImageChange($event, i)"></app-upload-single-img2>
             </div>
         </div> -->
-            
+
         <br>
 
         <div class="col-sm-12">
