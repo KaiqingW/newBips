@@ -80,7 +80,6 @@ export class NavbarComponent implements OnInit {
           showHeader: fc.data.showHeader
         };
 
-        console.log(this.headerData);
 
         // redefind nextUrl for meeting, according to the title of headerData
         if (this.headerData.title == 'Meeting List' && this.companyId != 0) {

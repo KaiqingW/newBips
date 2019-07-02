@@ -25,7 +25,6 @@ export class UploadSingleImg3Component implements OnInit{
     }
 
     ngOnInit(){
-        console.log(this.getImg);
         if(this.getImg != null){
             this.imgs.push(this.getImg);
         }
@@ -39,7 +38,6 @@ export class UploadSingleImg3Component implements OnInit{
             this.fd.append('type', file.type);
             this.fd.append('image', file, file.name);
             this.fd.append('description', file.type);
-            console.log(this.company_id);
             this.inventoryService.uploadImage(this.company_id,this.fd).subscribe(
                 (res) => {
                      this.imgs.push(res);
@@ -50,9 +48,7 @@ export class UploadSingleImg3Component implements OnInit{
     }
     
     imgChanged() {
-        console.log(this.imgs);
         this.imgChange.emit(this.imgs);
-
     }
 
 }

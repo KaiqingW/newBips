@@ -4,7 +4,7 @@ $h2:34px;
 $h3:24px;
 $p:16px;
 
-.row {
+.template-row {
     line-height: 1.438em;
     width: 100%;
     display: flex;
@@ -46,7 +46,7 @@ $p:16px;
         line-height: 1.438em;
     }
 
-    .cols {
+    .template-cols {
         // max-width: 1280px;
         display: flex;
         flex-direction: row;
@@ -55,7 +55,7 @@ $p:16px;
         width: 1280px;
         flex-wrap: wrap;
 
-        .col {
+        .template-col {
             // padding: 4vw 6vw;
             box-sizing: border-box;
             width: 295px;

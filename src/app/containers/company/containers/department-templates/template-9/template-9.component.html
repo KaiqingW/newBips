@@ -1,4 +1,4 @@
-<div class="row" *ngIf="!isEdit && !row.dummy_template">
+<div class="template-row" *ngIf="!isEdit && !row.dummy_template">
     <div class="row-title" *ngIf="row.title">
         <h2>{{row.title}}</h2>
     </div>
@@ -6,8 +6,8 @@
         <p>{{row.description}}</p>
     </div>
     <hr>
-    <div class="cols">
-        <div class="col" *ngFor="let column of row.columns;let i = index;">
+    <div class="template-cols">
+        <div class="template-col" *ngFor="let column of row.columns;let i = index;">
             <div class="column-background" *ngIf="column?.background_image?.url" class="column-image">
                 <img [src]="column?.background_image?.url" alt="">
             </div>

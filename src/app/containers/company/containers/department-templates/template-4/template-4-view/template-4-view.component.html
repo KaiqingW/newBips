@@ -1,0 +1,28 @@
+<div *ngIf="row" class="template-row" [ngStyle]="{'background-color':getBackgroundColor()}">
+    <div class="template-container">
+        <div class="title-box">
+            <b>{{row.title}}</b>
+            <div style="width:80%">
+                <span class="line"></span>
+            </div>
+        </div>
+
+        <div class="template-cols">
+            <div class="template-col" [ngStyle]="getRowBackground(row)">
+                <div *ngIf="row?.description">
+                    <p>{{row.description}}</p>
+                </div>
+            </div>
+
+            <div class="template-col border-grey" *ngFor="let column of row.columns;let i = index;">
+                <div (click)="onNavTo(column.link)" class="picture-box">
+                    <img *ngIf="getColumnPicture(column)" [src]="getColumnPicture(column)" alt="">
+                </div>
+                <div class="column-description">
+                    <span class="colmn-title" *ngIf="column?.title">{{column.title}}</span>
+                    <span class="colmn-detail" *ngIf="column?.description">{{column.description | short : 20}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
