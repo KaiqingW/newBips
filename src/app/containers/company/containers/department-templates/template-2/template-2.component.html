@@ -1,23 +1,5 @@
-<!-- <div  class="template-row" [ngStyle]="componentStyle?.component">
-    <div class="template-col" *ngFor="let column of row?.columns;let i = index;" [ngStyle]="getBackground(column)">
-        <div *ngIf="column.title" class="title-box">
-            <b [ngStyle]="componentStyle?.title">{{column.title}}</b>
-        </div>
-        <div *ngIf="column.link && column.link_description" (click)="onNavTo(column.link)">
-            <button mat-raised-button color="warn">{{column.link_description}}</button>
-        </div>
-    </div>
-</div> -->
-
 <template-2-view [row]="row" [isEdit]="row.dummy_template"></template-2-view>
-<!-- <div  [ngStyle]="componentStyle.component">
-    <div *ngIf="row.title">
-        <b [ngStyle]="componentStyle.title">{{row.title}}</b>
-    </div>
-    <div *ngIf="row.description">
-        <p [ngStyle]="componentStyle.content">{{row.description}}</p>
-    </div>
-</div> -->
+
 <div *ngIf="isEdit || row.dummy_template" class="container">
     <form class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
         <div class="row">
@@ -45,7 +27,7 @@
                             type="text" formControlName="link" name="link" value="">
                     </div>
 
-                    <app-upload-single-img3 [title]="'Column Background (Required)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
+                    <app-upload-single-img3 [title]="'Column Background (Required) (800 * 375)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
                 </div>
             </div>
 
@@ -57,19 +39,5 @@
             </div>
 
         </div>
-        <!-- <div>
-                    <input matInput type="text" required formControlName="title" placeholder="Please provide setion title." name="" value="">
-                </div>
-                <div>
-                    <textarea type="text" placeholder="Please proivde description." formControlName="description" name="" value="" cols="30"
-                        rows="10"></textarea>
-                </div>
-            
-                <app-upload-single-img2 (imgChange)="onGetImageChange($event)"></app-upload-single-img2> -->
-
-        <div class="row">
-
-        </div>
-
     </form>
 </div>

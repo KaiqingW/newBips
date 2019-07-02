@@ -22,8 +22,6 @@ export class Template2ViewComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-
-
     }
 
     ngOnChanges() {

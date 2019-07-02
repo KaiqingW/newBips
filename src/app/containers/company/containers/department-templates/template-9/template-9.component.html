@@ -10,7 +10,7 @@
 </div> -->
 <template-9-view [row]="row" [isEdit]="row.dummy_template"></template-9-view>
 
-<div class="container" *ngIf="isEdit || row.dummy_template" >
+<div class="container template-container" *ngIf="isEdit || row.dummy_template" >
     <form class="form" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
         <div class="row">
             <div class="col-12">
