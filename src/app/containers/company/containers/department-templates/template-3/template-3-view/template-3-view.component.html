@@ -1,10 +1,9 @@
 <div *ngIf="row" class="template-row" [ngStyle]="{'background-color':getBackgroundColor()}">
-    <div class="template-col" *ngFor="let column of row?.columns;let i = index;" [ngStyle]="getBackground(column)">
-        <div *ngIf="column.title" class="title-box">
-            <b >{{column.title}}</b>
+    <div *ngFor="let column of row?.columns;let i = index;">
+        <div class="template-col" [ngStyle]="getBackground(column)" style="width: 100%; margin: 0 50px;">
         </div>
-        <div *ngIf="column.link && column.link_description" (click)="onNavTo(column.link)">
-            <button mat-raised-button color="warn">{{column.link_description}}</button>
+        <div *ngIf="column.description" class="title-box">
+            <b>{{column.description}}</b>
         </div>
     </div>
 </div>
