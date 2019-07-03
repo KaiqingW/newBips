@@ -3,12 +3,12 @@ import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFor
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    selector: 'template-2-view',
-    templateUrl: './template-2-view.component.html',
-    styleUrls: ['./template-2-view.component.scss'],
+    selector: 'template-8-view',
+    templateUrl: './template-8-view.component.html',
+    styleUrls: ['./template-8-view.component.scss'],
 })
 
-export class Template2ViewComponent implements OnInit, OnChanges {
+export class Template8ViewComponent implements OnInit, OnChanges {
     @Input() row;
     @Input() isEdit: boolean = false;
     company_id: number;
@@ -22,6 +22,8 @@ export class Template2ViewComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+
+
     }
 
     ngOnChanges() {
@@ -43,4 +45,18 @@ export class Template2ViewComponent implements OnInit, OnChanges {
         return this.isEdit ? 'grey' : 'white';
     }
 
+    getRowBackground(row) {
+        if(!row || !row.background_image || !row.background_image.url) return {};
+        
+        return {
+            "background-image": `url(${row.background_image.url})`
+        }
+    }
+
+    getColumnPicture(column) {
+        if (column.image && column.image.url) {
+            return column.image.url;
+        }
+        return "";
+    }
 }

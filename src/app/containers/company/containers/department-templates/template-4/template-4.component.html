@@ -7,15 +7,14 @@
     </div>
 </div> -->
 <template-4-view [row]="row" [isEdit]="row.dummy_template"></template-4-view>
-<div class="container template-container">
-    <form *ngIf="isEdit || row.dummy_template" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+<div *ngIf="isEdit || row.dummy_template" class="container template-container">
+    <form  #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
         <div class="row">
             <div class="col-sm-3">
                     Left Component information
-
                     <div class="form-group">
                         <label for="title">Top Title (Not Required)</label>
-                        <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" [(ngModel)]="row.title"
+                        <input class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" [(ngModel)]="row.title"
                             formControlName="title" name="title" value="">
                         <!-- <small id="titleHelp" class="form-text text-muted">Not required.</small> -->
                     </div>

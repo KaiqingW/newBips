@@ -1,0 +1,11 @@
+<div *ngIf="row" class="template-row">
+    <div class="template-col" *ngFor="let column of row.columns;let i = index;">
+        <div class="picture-box">
+            <img [src]="getColumnPicture(column)" alt="">
+        </div>
+        <div class="column-description">
+            <h3 *ngIf="column.title">{{column.title}}</h3>
+            <p *ngIf="column?.description">{{column.description}}</p>
+        </div>
+    </div>
+</div>
