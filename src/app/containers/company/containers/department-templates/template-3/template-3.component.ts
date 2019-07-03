@@ -23,7 +23,12 @@ export class Template3Component implements OnInit {
     }
 
     ngOnInit() {
-        this.createTemplateForm();
+    }
+
+    ngOnChanges() {
+        if (this.row.dummy_template) {
+            this.createTemplateForm();
+        }
     }
 
     getColumnBackground(column) {
@@ -48,7 +53,8 @@ export class Template3Component implements OnInit {
             image_id: [""],
             columns: this.fb.array([])
         });
-        this.createColumns(1)
+        this.createColumnsObj(1);
+        this.createColumns(1);
     }
 
     createColumns(numOfColumns: number) {
@@ -69,6 +75,21 @@ export class Template3Component implements OnInit {
             link_description: [""]
         });
     }
+
+    createColumnsObj(numOfColumns: number) {
+        this.row['columns'] = [];
+        for (var i = 0; i < numOfColumns; i++) {
+            this.createColumnObj();
+        }
+    }
+
+    createColumnObj() {
+        this.row.columns.push({
+            title: "",
+            description: "",
+            background_image: {}
+        })
+    }
     
     onGetRowImg(imgs) {
         this.templateForm.patchValue({
@@ -78,17 +99,17 @@ export class Template3Component implements OnInit {
 
     onGetImageChange(imgs, index: number) {
         (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
-            image_id: imgs[0].id
-        });
-    }
-
-    onGetBackgroundImageChange(imgs, index: number) {
-        (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
             background_image_id: imgs[0].id
         });
+        this.updateViewBackgroundImage(imgs[0].url, index);
+    }
+
+    updateViewBackgroundImage(url: string, columnIndex: number) {
+        this.row.columns[columnIndex]['background_image']['url'] = url;
     }
 
     onSave() {
+        console.log(this.templateForm.value);
         this.websiteService.rowSubject.next(this.templateForm.value);
     }
     // componentStyle = {
