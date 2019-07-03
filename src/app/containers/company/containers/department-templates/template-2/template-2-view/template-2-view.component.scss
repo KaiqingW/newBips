@@ -3,6 +3,7 @@ $break-small: 750px;
 $break-large: 1200px;
 
 .template-row {
+    position: relative;
     width: 100%;
     background-color: white;
     display: flex;
@@ -25,6 +26,17 @@ $break-large: 1200px;
 
     .title-box {
         margin-bottom: 30px;
+    }
+
+    .delete-button {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .template-col:hover + .delete-button, .delete-button:hover {
+        display: block;
     }
 
     .template-col {

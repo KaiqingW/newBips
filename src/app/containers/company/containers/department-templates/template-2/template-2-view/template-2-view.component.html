@@ -1,10 +1,11 @@
 <div *ngIf="row" class="template-row" [ngStyle]="{'background-color':getBackgroundColor()}">
     <div class="template-col" *ngFor="let column of row?.columns;let i = index;" [ngStyle]="getBackground(column)">
         <div *ngIf="column.title" class="title-box">
-            <b >{{column.title}}</b>
+            <b>{{column.title}}</b>
         </div>
         <div *ngIf="column.link && column.link_description" (click)="onNavTo(column.link)">
             <button mat-raised-button color="warn">{{column.link_description}}</button>
         </div>
     </div>
+    <button mat-raised-button color="warn" class="delete-button" (click)="onDelete(row)">Delete</button>
 </div>

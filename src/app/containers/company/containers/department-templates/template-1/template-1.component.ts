@@ -15,7 +15,7 @@ export class Template1Component implements OnInit, OnChanges {
     @Input() isEdit: boolean = false;
     templateForm: FormGroup;
     company_id: number;
-    sub : Subscription
+    sub: Subscription
     componentStyle = {
         component: {
             //preset
@@ -25,6 +25,7 @@ export class Template1Component implements OnInit, OnChanges {
             "width": "100%",
             "min-height": "400px",
             display: "flex",
+            "position": "relative",
             "justify-content": "center",
             "box-sizing": "border-box",
             "flex-direction": "column",
@@ -96,13 +97,27 @@ export class Template1Component implements OnInit, OnChanges {
 
     onGetImageChange(imgs) {
         this.templateForm.patchValue({
-            background_image_id : imgs[0].id
+            background_image_id: imgs[0].id
         });
         this.setBackgroundImg(imgs[0]);
     }
 
-    setBackgroundImg(img){
+    setBackgroundImg(img) {
         this.componentStyle.component["background-image"] = `url(${img.url})`;
         console.log(this.componentStyle);
+    }
+
+    onDelete(row) {
+        console.log(row);
+        if (!row.columns[0]) {
+            this.websiteService.deleteColumn(this.company_id, 0, row.id).subscribe(res => {
+                console.log(res);
+            });
+        } else {
+            this.websiteService.deleteColumn(this.company_id, row.columns[0].row_id, row.id).subscribe(res => {
+                console.log(res);
+            });
+        }
+        this.websiteService.removeRow.next();
     }
 }

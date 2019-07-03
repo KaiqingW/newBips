@@ -36,6 +36,19 @@ $break-large: 1200px;
     padding: 2vw;
 }
 
+.delete-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.template-row:hover {
+    .delete-button {
+        display: block;
+    }
+}
+
 @media screen and (max-width: $break-small) {
     .template-row {
         b {

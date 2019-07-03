@@ -5,6 +5,7 @@
     <div *ngIf="row.description">
         <p [ngStyle]="componentStyle.content">{{row.description}}</p>
     </div>
+    <button mat-raised-button color="warn" class="delete-button" (click)="onDelete(row)">Delete</button>
 </div>
 
 <div *ngIf="isEdit || row.dummy_template">
@@ -20,22 +21,23 @@
     <form class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
 
         <div class="form-group">
-            <label for="title">Title  (Not Required)</label>
-            <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title" type="text" [(ngModel)]="row.title"
-                formControlName="title" name="title" value="">
+            <label for="title">Title (Not Required)</label>
+            <input type="email" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title"
+                type="text" [(ngModel)]="row.title" formControlName="title" name="title" value="">
             <!-- <small id="titleHelp" class="form-text text-muted">Not required.</small> -->
         </div>
 
         <div class="form-group">
             <label for="description">Description (Not Required)</label>
-            <textarea class="form-control" id="description" aria-describedby="description" [(ngModel)]="row.description" type="text"
-                placeholder="Please proivde description." formControlName="description" name="" value="" cols="30" rows="10"></textarea>
+            <textarea class="form-control" id="description" aria-describedby="description" [(ngModel)]="row.description"
+                type="text" placeholder="Please proivde description." formControlName="description" name="" value=""
+                cols="30" rows="10"></textarea>
             <!-- <small id="description" class="form-text text-muted">Not required.</small> -->
         </div>
 
         <app-upload-single-img3 [title]="'Banner Background (Required) (1900 * 400)'" (imgChange)="onGetImageChange($event)"></app-upload-single-img3>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
-            type="submit">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')"
+            #button (ngSubmit)="button.setAttribute('is-disabled', 'true')" type="submit">Save</button>
     </form>
 </div>
