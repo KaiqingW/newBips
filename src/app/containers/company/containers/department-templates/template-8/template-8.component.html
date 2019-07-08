@@ -1,28 +1,29 @@
 <template-8-view [row]="row" [isEdit]="row.dummy_template"></template-8-view>
 
 <div class="container" *ngIf="isEdit || row.dummy_template">
-    <form class="form"  class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
+    <form class="form" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
         <div class="form-column" formArrayName="columns" *ngFor="let column of templateForm.get('columns').controls; let i = index;">
             <div [formGroupName]="i">
                 <div class="form-group">
                     <label for="title">Button Description</label>
-                    <input [(ngModel)]="row.columns[i].title" required class="form-control" id="title" aria-describedby="titleHelp" placeholder="Button Description"
-                        type="text" formControlName="title" name="title" value="col 1">
+                    <input [(ngModel)]="row.columns[i].title" required class="form-control" id="title" aria-describedby="titleHelp"
+                        placeholder="Button Description" type="text" formControlName="title" name="title" value="col 1">
                 </div>
 
                 <div class="form-group">
                     <label for="title">Column Description</label>
-                    <input required [(ngModel)]="row.columns[i].description" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please Column Description."
-                        type="text" formControlName="description" name="title" value="col 1">
+                    <input required [(ngModel)]="row.columns[i].description" class="form-control" id="title"
+                        aria-describedby="titleHelp" placeholder="Please Column Description." type="text"
+                        formControlName="description" name="title" value="col 1">
                 </div>
 
-                <app-upload-single-img3 [title]="'Left Image ' + '(400 * 280)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
+                <app-upload-single-img3 [title]="'Left Image ' + '(480 * 280)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
             </div>
         </div>
 
         <div class="col-sm-12">
-            <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
-                type="submit">Save</button>
+            <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button
+                (ngSubmit)="button.setAttribute('is-disabled', 'true')" type="submit">Save</button>
         </div>
     </form>
 </div>

@@ -1,9 +1,10 @@
 <div *ngIf="row" class="template-row" [ngStyle]="{'background-color':getBackgroundColor()}">
-    <div *ngFor="let column of row?.columns;let i = index;">
-        <div class="template-col" [ngStyle]="getBackground(column)" style="width: 100%; margin: 0 50px;">
+    <div *ngFor="let column of row?.columns;let i = index;" style="width: 20%;margin-left: 20px;margin-top: 30px;">
+        <div class="template-col" [ngStyle]="getBackground(column)" style="width: 100%;">
         </div>
         <div *ngIf="column.description" class="title-box">
-            <b>{{column.description}}</b>
+            {{column.description}}
         </div>
     </div>
+    <button mat-raised-button color="warn" class="delete-button" (click)="onDelete(row)">Delete</button>
 </div>

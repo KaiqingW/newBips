@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
+import { WebsiteService } from 'app/core/services/website.service';
 
 @Component({
     selector: 'template-9-view',
@@ -16,7 +17,8 @@ export class Template9ViewComponent implements OnInit, OnChanges {
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private websiteService: WebsiteService
     ) {
         this.company_id = + this.route.snapshot.paramMap.get('cid');
     }
@@ -47,8 +49,8 @@ export class Template9ViewComponent implements OnInit, OnChanges {
     }
 
     getRowBackground(row) {
-        if(!row || !row.background_image || !row.background_image.url) return {};
-        
+        if (!row || !row.background_image || !row.background_image.url) return {};
+
         return {
             "background-image": `url(${row.background_image.url})`
         }
@@ -59,5 +61,19 @@ export class Template9ViewComponent implements OnInit, OnChanges {
             return column.image.url;
         }
         return "";
+    }
+
+    onDelete(row) {
+        console.log(row);
+        if (!row.columns[0]) {
+            this.websiteService.deleteColumn(this.company_id, 0, row.id).subscribe(res => {
+                console.log(res);
+            });
+        } else {
+            this.websiteService.deleteColumn(this.company_id, row.columns[0].row_id, row.id).subscribe(res => {
+                console.log(res);
+            });
+        }
+        this.websiteService.removeRow.next();
     }
 }

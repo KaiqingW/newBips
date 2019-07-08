@@ -74,7 +74,7 @@
 <div class="page-container">
     <department-template-selector *ngFor="let row of rows;let i = index" [row]="row"></department-template-selector>
 
-    <div class="container">
+    <div class="container" style="margin-top: 40px;">
         <div class="row">
             <div class="col-12">
                 <form [formGroup]="selectTemplateForm">
@@ -91,7 +91,7 @@
                             <!-- <mat-option value="7">7 . complex products picture</mat-option> -->
                             <mat-option value="8">8 . left picture and right description</mat-option>
                             <mat-option value="9">9 . Complex text layout</mat-option>
-    
+
                             <!-- <mat-option value="3">Option 3</mat-option> -->
                         </mat-select>
                     </mat-form-field>
@@ -100,8 +100,8 @@
             </div>
         </div>
     </div>
-    
-    
-    
+
+
+
     <app-spinner *ngIf="isLoading"></app-spinner>
 </div>

@@ -1,24 +1,23 @@
-
 <div *ngIf="row" class="template-row">
-        <div class="row-title" *ngIf="row.title">
-            <h2>{{row.title}}</h2>
-        </div>
-        <div class="row-description" *ngIf="row?.description">
-            <p>{{row.description}}</p>
-        </div>
-        <hr>
-        <div class="template-cols">
-            <div class="template-col" *ngFor="let column of row.columns;let i = index;">
-                <div class="column-background" *ngIf="column?.background_image?.url" class="column-image">
-                    <img [src]="column?.background_image?.url" alt="">
-                </div>
-                <h3 class="column-title" *ngIf="row?.title">
-                    {{column.title}}
-                </h3>
-                <div class="column-description" *ngIf="column?.description">
-                    <p>{{column.description}}</p>
-                </div>
+    <div class="row-title" *ngIf="row.title">
+        <h2>{{row.title}}</h2>
+    </div>
+    <div class="row-description" *ngIf="row?.description">
+        <p>{{row.description}}</p>
+    </div>
+    <hr>
+    <div class="template-cols">
+        <div class="template-col" *ngFor="let column of row.columns;let i = index;">
+            <div class="column-background" *ngIf="column?.background_image?.url" class="column-image">
+                <img [src]="column?.background_image?.url" alt="">
+            </div>
+            <h3 class="column-title" *ngIf="row?.title">
+                {{column.title}}
+            </h3>
+            <div class="column-description" *ngIf="column?.description">
+                <p>{{column.description}}</p>
             </div>
         </div>
-    
     </div>
+    <button mat-raised-button color="warn" class="delete-button" (click)="onDelete(row)">Delete</button>
+</div>

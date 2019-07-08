@@ -19,7 +19,8 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
     company_id: number;
     departement_id: number;
     sub: Subscription;
-    isLoading : boolean = false;
+    removeRowSub: Subscription;
+    isLoading: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -34,6 +35,7 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscribeRowSubject();
+        this.subscribeRemoveRow();
         setTimeout(() => {
 
             this.componentStylerow = {
@@ -108,6 +110,13 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+        this.removeRowSub.unsubscribe();
+    }
+
+    subscribeRemoveRow() {
+        this.removeRowSub = this.websiteService.removeRow.subscribe(() => {
+            this.getRows();
+        })
     }
 
     subscribeRowSubject() {
@@ -161,7 +170,7 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
         this.rows.push(this.selectTemplateForm.value);
     }
 
-    removePrevDummyTemplate(){
+    removePrevDummyTemplate() {
         this.rows = this.rows.filter(row => {
             return !row['dummy_template'];
         })

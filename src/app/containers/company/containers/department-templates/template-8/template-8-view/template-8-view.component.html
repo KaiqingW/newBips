@@ -8,4 +8,5 @@
             <p *ngIf="column?.description">{{column.description}}</p>
         </div>
     </div>
+    <button mat-raised-button color="warn" class="delete-button" (click)="onDelete(row)">Delete</button>
 </div>

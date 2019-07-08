@@ -62,12 +62,9 @@ import { UploadSingleImg3Module } from '../../components/upload-single-img3/uplo
 import { Template2ViewComponent } from './containers/department-templates/template-2/template-2-view/template-2-view.component';
 import { Template4ViewComponent } from './containers/department-templates/template-4/template-4-view/template-4-view.component';
 import { Template9ViewComponent } from './containers/department-templates/template-9/template-9-view/template-9-view.component';
-<<<<<<< HEAD
 import { Template3ViewComponent } from './containers/department-templates/template-3/template-3-view/template-3-view.component';
-
-=======
 import { Template8ViewComponent } from './containers/department-templates/template-8/template-8-view/template-8-view.component';
->>>>>>> db4721711617dda00c2f48df27777e49f4c21923
+
 @NgModule({
     imports: [
         CommonModule,

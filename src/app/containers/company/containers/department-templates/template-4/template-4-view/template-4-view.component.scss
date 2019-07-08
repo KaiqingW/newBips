@@ -8,9 +8,17 @@ $break-large: 1200px;
     box-sizing: border-box;
     color: black;
     padding: 2vw;
+    position: relative;
     justify-content: space-between;
     border-top: 1px solid rgb(216, 216, 216);
     border-bottom: 1px solid rgb(216, 216, 216);
+
+    .delete-button {
+        display: none;
+        top: 0;
+        right: 0;
+        position: absolute;
+    }
 
     .template-container {
         max-width: 1280px;
@@ -102,3 +110,9 @@ $break-large: 1200px;
         }
     }
 }
+
+    .template-row:hover {
+    .delete-button {
+        display: block;
+    }
+    }
