@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
+import { WebsiteService } from 'app/core/services/website.service';
 
 @Component({
     selector: 'template-3-view',
@@ -16,7 +17,8 @@ export class Template3ViewComponent implements OnInit, OnChanges {
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private websiteService: WebsiteService
     ) {
         this.company_id = + this.route.snapshot.paramMap.get('cid');
     }
@@ -44,5 +46,10 @@ export class Template3ViewComponent implements OnInit, OnChanges {
     getBackgroundColor() {
         return this.isEdit ? 'grey' : 'white';
     }
-
+    onDelete(row) {
+        this.websiteService.deleteColumn(this.company_id, row.columns[0].row_id, row.id).subscribe(res => {
+            console.log(res);
+        });
+        this.websiteService.removeRow.next();
+    }
 }

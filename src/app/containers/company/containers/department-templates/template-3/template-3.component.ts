@@ -37,8 +37,8 @@ export class Template3Component implements OnInit {
         }
     }
 
-    getColumnPicture(column){
-        if(column.image && column.image.url){
+    getColumnPicture(column) {
+        if (column.image && column.image.url) {
             return column.image.url;
         }
         return "";
@@ -53,8 +53,8 @@ export class Template3Component implements OnInit {
             image_id: [""],
             columns: this.fb.array([])
         });
-        this.createColumnsObj(1);
-        this.createColumns(1);
+        this.createColumnsObj(4);
+        this.createColumns(4);
     }
 
     createColumns(numOfColumns: number) {
@@ -90,7 +90,7 @@ export class Template3Component implements OnInit {
             background_image: {}
         })
     }
-    
+
     onGetRowImg(imgs) {
         this.templateForm.patchValue({
             background_image_id: imgs[0].id
