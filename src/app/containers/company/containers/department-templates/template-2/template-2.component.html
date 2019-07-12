@@ -1,4 +1,4 @@
-<template-2-view [row]="row" [isEdit]="row.dummy_template"></template-2-view>
+<template-2-view [row]="row" [isEdit]="row.dummy_template" (onEditContent)="onEdit($event)"></template-2-view>
 
 <div *ngIf="isEdit || row.dummy_template" class="container">
     <form class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">
@@ -10,32 +10,33 @@
                     <hr>
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input [(ngModel)]="row.columns[i].title" required class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title"
-                            type="text" formControlName="title" name="title" value="col 1">
+                        <input [(ngModel)]="row.columns[i].title" required class="form-control" id="title"
+                            aria-describedby="titleHelp" placeholder="Enter title" type="text" formControlName="title"
+                            name="title" value="col 1">
                     </div>
 
                     <div class="form-group">
                         <label for="title">Navigation Button Description</label>
-                        <input required [(ngModel)]="row.columns[i].link_description" class="form-control" id="title" aria-describedby="titleHelp"
-                            placeholder="Please provide description on navigation button." type="text" formControlName="link_description"
-                            name="link_description" value="">
+                        <input required [(ngModel)]="row.columns[i].link_description" class="form-control" id="title"
+                            aria-describedby="titleHelp" placeholder="Please provide description on navigation button."
+                            type="text" formControlName="link_description" name="link_description" value="">
                     </div>
 
                     <div class="form-group">
                         <label for="title">Navigation To Url</label>
-                        <input required [(ngModel)]="row.columns[i].link" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Please provide url on navigation button."
-                            type="text" formControlName="link" name="link" value="">
+                        <input required [(ngModel)]="row.columns[i].link" class="form-control" id="title"
+                            aria-describedby="titleHelp" placeholder="Please provide url on navigation button." type="text"
+                            formControlName="link" name="link" value="">
                     </div>
 
                     <app-upload-single-img3 [title]="'Column Background (Required) (800 * 375)'" (imgChange)="onGetImageChange($event, i)"></app-upload-single-img3>
                 </div>
             </div>
-
             <br>
 
             <div class="col-sm-12">
-                <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button (ngSubmit)="button.setAttribute('is-disabled', 'true')"
-                    type="submit">Save</button>
+                <button class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')" #button
+                    (ngSubmit)="button.setAttribute('is-disabled', 'true')" type="submit">Save</button>
             </div>
 
         </div>

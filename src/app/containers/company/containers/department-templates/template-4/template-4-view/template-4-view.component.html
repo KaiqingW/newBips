@@ -25,5 +25,8 @@
             </div>
         </div>
     </div>
-    <button mat-raised-button color="warn" class="delete-button" (click)="onDelete(row)">Delete</button>
+    <div class="delete-button">
+        <button mat-raised-button color="primary" class="edit" (click)="onEdit(row)">Edit</button>
+        <button mat-raised-button color="warn" class="delete" (click)="onDelete(row)">Delete</button>
+    </div>
 </div>

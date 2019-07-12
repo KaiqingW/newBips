@@ -20,6 +20,7 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
     departement_id: number;
     sub: Subscription;
     removeRowSub: Subscription;
+    updateRowSub: Subscription;
     isLoading: boolean = false;
 
     constructor(
@@ -36,6 +37,7 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscribeRowSubject();
         this.subscribeRemoveRow();
+        this.subscribeUpdateRow();
         setTimeout(() => {
 
             this.componentStylerow = {
@@ -119,9 +121,24 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
         })
     }
 
+    subscribeUpdateRow() {
+        this.updateRowSub = this.websiteService.updateRowSubject.subscribe((rowData) => {
+            console.log('main page', rowData);
+            this.updateRow(rowData);
+        })
+    }
+
     subscribeRowSubject() {
         this.sub = this.websiteService.rowSubject.subscribe((rowData) => {
+            console.log(rowData);
             this.addRow(rowData);
+        })
+    }
+
+    updateRow(rowData) {
+        this.isLoading = true;
+        this.websiteService.updateRow(this.company_id, rowData.id, rowData).subscribe(res => {
+            this.isLoading = false;
         })
     }
 
@@ -147,6 +164,7 @@ export class AddDepartmentPageComponent implements OnInit, OnDestroy {
     getRows() {
         this.websiteService.getRows(this.company_id, this.departement_id).subscribe(
             rows => {
+                console.log(rows);
                 this.rows = rows
             }
         )

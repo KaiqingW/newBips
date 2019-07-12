@@ -14,6 +14,7 @@ export class Template9Component implements OnInit, OnChanges {
     @Input() isEdit: boolean = false;
     company_id: number;
     templateForm: FormGroup;
+    editMode = false;
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -117,13 +118,47 @@ export class Template9Component implements OnInit, OnChanges {
         this.updateColumnBackgrounImage(imgs[0].url, index);
     }
 
-    updateColumnBackgrounImage(url, index){
-        console.log(url,  this.row.columns[index]);
+    updateColumnBackgrounImage(url, index) {
+        console.log(url, this.row.columns[index]);
         this.row.columns[index]['background_image'].url = url;
     }
 
+    onEdit(row) {
+        console.log(row);
+        let columns = new FormArray([]);
+        for (let column of row.columns) {
+            columns.push(new FormGroup({
+                style: new FormControl(column.style),
+                title: new FormControl(column.title),
+                description: new FormControl(column.description),
+                link: new FormControl(column.link),
+                link_description: new FormControl(column.link_description),
+                background_image: new FormControl(column.background_image),
+                background_image_id: new FormControl(column.background_image.id)
+            }))
+        }
+        this.templateForm = this.fb.group({
+            template_id: 9,
+            title: row.title,
+            description: row.description,
+            category_id: row.category_id,
+            id: row.id,
+            priority: 0,
+            columns: columns
+        });
+        console.log(this.templateForm);
+        this.isEdit = true;
+        this.editMode = true;
+    }
+
     onSave() {
-        this.websiteService.rowSubject.next(this.templateForm.value);
+        if (!this.editMode) {
+            this.websiteService.rowSubject.next(this.templateForm.value);
+        }
+        else {
+            this.websiteService.updateRowSubject.next(this.templateForm.value);
+            this.isEdit = false;
+        }
     }
     // componentStyle = {
     //     component: {

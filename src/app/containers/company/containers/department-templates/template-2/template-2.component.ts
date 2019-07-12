@@ -13,27 +13,27 @@ export class Template2Component implements OnInit, OnChanges {
     @Input() row;
     @Input() isEdit: boolean = false;
     company_id: number;
+    editMode = false;
     templateForm: FormGroup;
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
         private websiteService: WebsiteService,
-        private router:Router
+        private router: Router
     ) {
         this.company_id = + this.route.snapshot.paramMap.get('cid');
     }
 
     ngOnInit() {
-
     }
-    
-    ngOnChanges(){
-        if(this.row.dummy_template){
+
+    ngOnChanges() {
+        if (this.row.dummy_template) {
             this.createTemplateForm();
         }
     }
 
-    getBackground(column){
+    getBackground(column) {
         return {
             "background-image": `linear-gradient(0deg, rgba(60, 65, 60, 0.4), rgba(77, 75, 75, 0.4)), url(${column.background_image.url})`
         }
@@ -42,6 +42,33 @@ export class Template2Component implements OnInit, OnChanges {
     onNavTo(url) {
         // this.router.navigate([url])
         window.location.href = url;
+    }
+
+    onEdit(row) {
+        let columns = new FormArray([]);
+        for (let column of row.columns) {
+            columns.push(new FormGroup({
+                style: new FormControl(column.style),
+                title: new FormControl(column.title),
+                description: new FormControl(column.description),
+                link: new FormControl(column.link),
+                link_description: new FormControl(column.link_description),
+                background_image: new FormControl(column.background_image),
+                background_image_id: new FormControl(column.background_image.id)
+            }))
+        }
+        this.templateForm = this.fb.group({
+            template_id: 2,
+            title: row.title,
+            description: row.description,
+            category_id: row.category_id,
+            id: row.id,
+            priority: 0,
+            columns: columns
+        });
+        console.log(this.templateForm);
+        this.isEdit = true;
+        this.editMode = true;
     }
 
     createTemplateForm() {
@@ -58,52 +85,57 @@ export class Template2Component implements OnInit, OnChanges {
 
     createColumns(numOfColumns: number) {
         let column = this.templateForm.get('columns') as FormArray;
-        for(var i = 0; i < numOfColumns; i++){
+        for (var i = 0; i < numOfColumns; i++) {
             column.push(this.createColumn());
         }
-    
     }
 
     createColumn(): FormGroup {
         return this.fb.group({
-            style : [""], 
-            title : [""], 
-            description : [""],
+            style: [""],
+            title: [""],
+            description: [""],
             image_id: [""],
-            background_image_id : ["", [Validators.required]],
-            link:[""],
-            link_description:[""]
+            background_image_id: ["", [Validators.required]],
+            link: [""],
+            link_description: [""]
         });
     }
 
-    createColumnsObj(numOfColumns : number){
+    createColumnsObj(numOfColumns: number) {
         this.row['columns'] = [];
-        for(var i = 0; i < numOfColumns; i++){
+        for (var i = 0; i < numOfColumns; i++) {
             this.createColumnObj();
         }
     }
 
-    createColumnObj(){
+    createColumnObj() {
         this.row.columns.push({
             title: "",
-            description : "",
-            background_image : {}
+            description: "",
+            background_image: {}
         })
     }
 
-    onGetImageChange(imgs, index : number){
+    onGetImageChange(imgs, index: number) {
         (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
             background_image_id: imgs[0].id
         });
         this.updateViewBackgroundImage(imgs[0].url, index);
     }
 
-    updateViewBackgroundImage(url : string, columnIndex : number){
+    updateViewBackgroundImage(url: string, columnIndex: number) {
         this.row.columns[columnIndex]['background_image']['url'] = url;
     }
 
     onSave() {
-        this.websiteService.rowSubject.next(this.templateForm.value);
+        if (!this.editMode) {
+            this.websiteService.rowSubject.next(this.templateForm.value);
+        }
+        else {
+            this.websiteService.updateRowSubject.next(this.templateForm.value);
+            this.isEdit = false;
+        }
     }
     // componentStyle = {
     //     component: {

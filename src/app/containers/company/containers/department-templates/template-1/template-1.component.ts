@@ -15,7 +15,9 @@ export class Template1Component implements OnInit, OnChanges {
     @Input() isEdit: boolean = false;
     templateForm: FormGroup;
     company_id: number;
-    sub: Subscription
+    sub: Subscription;
+    editMode = false;
+
     componentStyle = {
         component: {
             //preset
@@ -92,7 +94,13 @@ export class Template1Component implements OnInit, OnChanges {
     }
 
     onSave() {
-        this.websiteService.rowSubject.next(this.templateForm.value);
+        if (!this.editMode) {
+            this.websiteService.rowSubject.next(this.templateForm.value);
+        }
+        else {
+            this.websiteService.updateRowSubject.next(this.templateForm.value);
+            this.isEdit = false;
+        }
     }
 
     onGetImageChange(imgs) {
@@ -105,6 +113,34 @@ export class Template1Component implements OnInit, OnChanges {
     setBackgroundImg(img) {
         this.componentStyle.component["background-image"] = `url(${img.url})`;
         console.log(this.componentStyle);
+    }
+
+    onEdit(row) {
+        console.log(row);
+        let columns = new FormArray([]);
+        for (let column of row.columns) {
+            columns.push(new FormGroup({
+                style: new FormControl(column.style),
+                title: new FormControl(column.title),
+                description: new FormControl(column.description),
+                link: new FormControl(column.link),
+                link_description: new FormControl(column.link_description),
+                background_image: new FormControl(column.background_image),
+                background_image_id: new FormControl(column.background_image.id)
+            }))
+        }
+        this.templateForm = this.fb.group({
+            template_id: 1,
+            title: row.title,
+            description: row.description,
+            category_id: row.category_id,
+            id: row.id,
+            columns: columns,
+            background_image_id: row.background_image.id
+        });
+        console.log(this.templateForm);
+        this.isEdit = true;
+        this.editMode = true;
     }
 
     onDelete(row) {

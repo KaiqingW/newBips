@@ -1,4 +1,4 @@
-<template-8-view [row]="row" [isEdit]="row.dummy_template"></template-8-view>
+<template-8-view [row]="row" [isEdit]="row.dummy_template" (onEditContent)="onEdit($event)"></template-8-view>
 
 <div class="container" *ngIf="isEdit || row.dummy_template">
     <form class="form" class="form" #form="ngForm" (ngSubmit)="onSave()" [formGroup]="templateForm">

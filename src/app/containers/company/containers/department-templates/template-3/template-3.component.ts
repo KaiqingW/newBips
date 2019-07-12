@@ -13,6 +13,7 @@ export class Template3Component implements OnInit {
     @Input() row;
     @Input() isEdit: boolean = false;
     company_id: number;
+    editMode = false;
     templateForm: FormGroup;
 
     constructor(private fb: FormBuilder,
@@ -108,9 +109,40 @@ export class Template3Component implements OnInit {
         this.row.columns[columnIndex]['background_image']['url'] = url;
     }
 
+    onEdit(row) {
+        let columns = new FormArray([]);
+        for (let column of row.columns) {
+            columns.push(new FormGroup({
+                style: new FormControl(column.style),
+                title: new FormControl(column.title),
+                description: new FormControl(column.description),
+                link: new FormControl(column.link),
+                link_description: new FormControl(column.link_description),
+                background_image: new FormControl(column.background_image),
+                background_image_id: new FormControl(column.background_image.id)
+            }))
+        }
+        this.templateForm = this.fb.group({
+            template_id: 3,
+            title: row.title,
+            description: row.description,
+            category_id: row.category_id,
+            id: row.id,
+            columns: columns
+        });
+        console.log(this.templateForm);
+        this.isEdit = true;
+        this.editMode = true;
+    }
+
     onSave() {
-        console.log(this.templateForm.value);
-        this.websiteService.rowSubject.next(this.templateForm.value);
+        if (!this.editMode) {
+            this.websiteService.rowSubject.next(this.templateForm.value);
+        }
+        else {
+            this.websiteService.updateRowSubject.next(this.templateForm.value);
+            this.isEdit = false;
+        }
     }
     // componentStyle = {
     //     component: {

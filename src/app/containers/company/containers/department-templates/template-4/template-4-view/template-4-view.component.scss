@@ -79,8 +79,8 @@ $break-large: 1200px;
       
             img {
                 cursor: pointer;
-                width: 140px;
-                height: 140px;
+                width: 175px;
+                height: 145px;
                 background: transparent;
                 transition: transform ease .3s;
             }
@@ -111,8 +111,8 @@ $break-large: 1200px;
     }
 }
 
-    .template-row:hover {
+.template-row:hover {
     .delete-button {
         display: block;
     }
-    }
+}

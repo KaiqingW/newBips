@@ -26,7 +26,7 @@
     </div>
 </div> -->
 
-<template-3-view [row]="row" [isEdit]="row.dummy_template"></template-3-view>
+<template-3-view [row]="row" [isEdit]="row.dummy_template" (onEditContent)="onEdit($event)"></template-3-view>
 
 <div *ngIf="isEdit || row.dummy_template" class="container">
     <form #form="ngForm" *ngIf="isEdit || row.dummy_template" (ngSubmit)="onSave()" [formGroup]="templateForm">

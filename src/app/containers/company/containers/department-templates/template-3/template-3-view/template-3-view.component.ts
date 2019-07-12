@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebsiteService } from 'app/core/services/website.service';
@@ -14,6 +14,8 @@ export class Template3ViewComponent implements OnInit, OnChanges {
     @Input() isEdit: boolean = false;
     company_id: number;
     templateForm: FormGroup;
+
+    @Output() onEditContent = new EventEmitter<any>();
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -46,10 +48,15 @@ export class Template3ViewComponent implements OnInit, OnChanges {
     getBackgroundColor() {
         return this.isEdit ? 'grey' : 'white';
     }
+
     onDelete(row) {
         this.websiteService.deleteColumn(this.company_id, row.columns[0].row_id, row.id).subscribe(res => {
             console.log(res);
         });
         this.websiteService.removeRow.next();
+    }
+
+    onEdit(row) {
+        this.onEditContent.emit(row);
     }
 }
