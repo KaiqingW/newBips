@@ -10,43 +10,44 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./upload-single-img3.component.scss']
 })
 
-export class UploadSingleImg3Component implements OnInit{
+export class UploadSingleImg3Component implements OnInit {
     @Input() getImg;
-    @Input() title : string = "";
-     
+    @Input() title: string = "";
+
     imgs = [];
     fd = new FormData();
     @Output() imgChange = new EventEmitter<any>();
     company_id: number;
     @Output() sendSave = new EventEmitter<any>();
-    constructor(private inventoryService : InventoryService,
-                private route: ActivatedRoute){
+    constructor(private inventoryService: InventoryService,
+        private route: ActivatedRoute) {
         this.company_id = +this.route.snapshot.paramMap.get('cid');
     }
 
-    ngOnInit(){
-        if(this.getImg != null){
+    ngOnInit() {
+        if (this.getImg != null) {
             this.imgs.push(this.getImg);
         }
     }
 
-    onFileChange(event){
+    onFileChange(event) {
+        this.imgs = [];
         let reader = new FileReader();
-        if(event.target.files && event.target.files.length > 0) {
+        if (event.target.files && event.target.files.length > 0) {
             let file = event.target.files[0];
             this.fd.append('size', file.size);
             this.fd.append('type', file.type);
             this.fd.append('image', file, file.name);
             this.fd.append('description', file.type);
-            this.inventoryService.uploadImage(this.company_id,this.fd).subscribe(
+            this.inventoryService.uploadImage(this.company_id, this.fd).subscribe(
                 (res) => {
-                     this.imgs.push(res);
-                     this.imgChanged();
+                    this.imgs.push(res);
+                    this.imgChanged();
                 }
             )
         }
     }
-    
+
     imgChanged() {
         this.imgChange.emit(this.imgs);
     }

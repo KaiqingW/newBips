@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 export class WebsiteService {
     rowSubject = new Subject<any>();
     removeRow = new Subject<any>();
+    updateRowSubject = new Subject<any>();
 
     constructor(
         private http: HttpClient
@@ -29,5 +30,9 @@ export class WebsiteService {
 
     public deleteColumn(company_id, column_id, row_id): Observable<any> {
         return this.http.delete(environment.ORCA_API + `company/${company_id}/website/department/delete/${column_id}/${row_id}`);
+    }
+
+    public updateRow(company_id, row_id, obj): Observable<any> {
+        return this.http.patch(environment.ORCA_API + `company/${company_id}/website/department/row/${row_id}`, obj);
     }
 }

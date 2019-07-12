@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebsiteService } from 'app/core/services/website.service';
@@ -12,6 +12,9 @@ import { WebsiteService } from 'app/core/services/website.service';
 export class Template2ViewComponent implements OnInit, OnChanges {
     @Input() row;
     @Input() isEdit: boolean = false;
+
+    @Output() onEditContent = new EventEmitter<any>();
+
     company_id: number;
     templateForm: FormGroup;
 
@@ -50,5 +53,10 @@ export class Template2ViewComponent implements OnInit, OnChanges {
             console.log(res);
         });
         this.websiteService.removeRow.next();
+    }
+
+    onEdit(row) {
+        console.log('template view', row);
+        this.onEditContent.emit(row);
     }
 }

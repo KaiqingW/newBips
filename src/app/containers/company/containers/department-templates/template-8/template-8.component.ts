@@ -15,6 +15,8 @@ export class Template8Component implements OnInit, OnChanges {
     company_id: number;
     templateForm: FormGroup;
 
+    editMode = false;
+
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
         private websiteService: WebsiteService
@@ -25,7 +27,7 @@ export class Template8Component implements OnInit, OnChanges {
     ngOnInit() {
     }
 
-    ngOnChanges(){
+    ngOnChanges() {
         if (this.row.dummy_template) {
             this.createTemplateForm();
         }
@@ -37,8 +39,8 @@ export class Template8Component implements OnInit, OnChanges {
         }
     }
 
-    getColumnPicture(column){
-        if(column.image && column.image.url){
+    getColumnPicture(column) {
+        if (column.image && column.image.url) {
             return column.image.url;
         }
         return "";
@@ -96,7 +98,7 @@ export class Template8Component implements OnInit, OnChanges {
             link_description: [""]
         });
     }
-    
+
     onGetRowImg(imgs) {
         this.templateForm.patchValue({
             background_image_id: imgs[0].id
@@ -110,7 +112,7 @@ export class Template8Component implements OnInit, OnChanges {
         this.updateColumnImage(imgs[0].url, index);
     }
 
-    updateColumnImage(url, index){
+    updateColumnImage(url, index) {
         this.row.columns[index]['image']['url'] = url;
     }
 
@@ -120,8 +122,45 @@ export class Template8Component implements OnInit, OnChanges {
         });
     }
 
+    onEdit(row) {
+        console.log(row);
+        let columns = new FormArray([]);
+        for (let column of row.columns) {
+            columns.push(new FormGroup({
+                style: new FormControl(column.style),
+                title: new FormControl(column.title),
+                description: new FormControl(column.description),
+                link: new FormControl(column.link),
+                link_description: new FormControl(column.link_description),
+                image_id: new FormControl(column.image.id),
+                image: new FormGroup({
+                    id: new FormControl(column.image.id),
+                    url: new FormControl(column.image.url)
+                })
+            }))
+        }
+        this.templateForm = this.fb.group({
+            template_id: 8,
+            title: row.title,
+            description: row.description,
+            category_id: row.category_id,
+            id: row.id,
+            priority: 0,
+            columns: columns
+        });
+        console.log(this.templateForm);
+        this.isEdit = true;
+        this.editMode = true;
+    }
+
     onSave() {
-        this.websiteService.rowSubject.next(this.templateForm.value);
+        if (!this.editMode) {
+            this.websiteService.rowSubject.next(this.templateForm.value);
+        }
+        else {
+            this.websiteService.updateRowSubject.next(this.templateForm.value);
+            this.isEdit = false;
+        }
     }
     // componentStyle = {
     //     component: {
