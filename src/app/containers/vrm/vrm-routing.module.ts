@@ -53,10 +53,7 @@ const vrmRoutes : Routes = [
         component: AddContactComponent,
         data: addContactHeader
     },
-    {
-        path: 'prospect-vendor/:ven_id/salesentity',
-        loadChildren:'app/components/business-quota/business-quota.module#BusinessQuotasModule',
-    },
+
     {
         path: 'prospect-vendor/:cusid/notes',
         loadChildren: 'app/components/business-notes/business-notes.module#BusinessNotesModule',
@@ -109,10 +106,7 @@ const vrmRoutes : Routes = [
         component: AddContactComponent,
         data: addContactHeader
     },
-    {
-        path: 'main-vendor/:ven_id/salesentity',
-        loadChildren:'app/components/business-quota/business-quota.module#BusinessQuotasModule',
-    },
+
     {
         path: 'main-vendor/:cusid/notes',
         loadChildren: 'app/components/business-notes/business-notes.module#BusinessNotesModule',
@@ -173,10 +167,7 @@ const vrmRoutes : Routes = [
         component: AddContactComponent,
         data: addContactHeader
     },
-    {
-        path: 'backup-vendor/:ven_id/salesentity',
-        loadChildren:'app/components/business-quota/business-quota.module#BusinessQuotasModule',
-    },
+
     {
         path: 'backup-vendor/:cusid/notes',
         loadChildren: 'app/components/business-notes/business-notes.module#BusinessNotesModule',
