@@ -24,10 +24,10 @@ export const environment = {
   GOOGLE_MAP_API_KEY_BY_SU: "AIzaSyB_03FwtJV1PC8CbZNetMkFvUQIPzsbeKs",
 
   // test environment
-  ORCA_API: 'https://orcasmart-dev.azurewebsites.net/', ORCA_SHOP_API: 'https://orcasmart-dev.azurewebsites.net/',
+  // ORCA_API: 'https://orcasmart-dev.azurewebsites.net/', ORCA_SHOP_API: 'https://orcasmart-dev.azurewebsites.net/',
 
   //azure back-end server with ssl certificate, editted by simon
-  // ORCA_API: 'https://orcasmartmeback.azurewebsites.net/', ORCA_SHOP_API: 'https://orcasmartmeback.azurewebsites.net/',
+  ORCA_API: 'https://orcasmartmeback.azurewebsites.net/', ORCA_SHOP_API: 'https://orcasmartmeback.azurewebsites.net/',
 
 };
 

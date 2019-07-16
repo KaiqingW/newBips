@@ -1,8 +1,8 @@
 $break-small: 750px;
 $break-large: 1200px;
-$h2:34px;
+$h2:36px;
 $h3:24px;
-$p:16px;
+$p:20px;
 
 .template-row {
     line-height: 1.438em;
@@ -30,6 +30,7 @@ $p:16px;
 
     h2 {
         font-size: $h2;
+        font-weight: bold;
     }
 
     h3 {
@@ -52,6 +53,7 @@ $p:16px;
 
     .row-description {
         line-height: 1.438em;
+        padding: 20px 80px 0 80px;
     }
 
     .template-cols {
@@ -89,10 +91,8 @@ $p:16px;
 
             .column-image {
                 width: 295px;
-                height: 130px;
+                height: 180px;
                 display: flex;
-                justify-content: center;
-                align-items: center;
 
                 img {
                     // max-width: 100%;
@@ -112,6 +112,7 @@ $p:16px;
             .column-description {
                 margin: 20px 20px 20px 20px;
                 text-align: center;
+                word-break: break-word;
             }
 
             img {

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray, ReactiveFormsModule } from "@angular/forms";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { WebsiteService } from '../../../../../core/services/website.service';
 @Component({
@@ -9,21 +9,38 @@ import { WebsiteService } from '../../../../../core/services/website.service';
     styleUrls: ['./template-5.component.scss'],
 })
 
-export class Template5Component implements OnInit {
+export class Template5Component implements OnInit, OnChanges {
     @Input() row;
     @Input() isEdit: boolean = false;
     company_id: number;
+    editMode = false;
     templateForm: FormGroup;
 
     constructor(private fb: FormBuilder,
         private route: ActivatedRoute,
-        private websiteService: WebsiteService
+        private websiteService: WebsiteService,
+        private router: Router
     ) {
         this.company_id = + this.route.snapshot.paramMap.get('cid');
     }
 
     ngOnInit() {
-        this.createTemplateForm();
+    }
+
+    ngOnChanges() {
+        if (this.row.dummy_template) {
+            this.createTemplateForm();
+        }
+    }
+
+    getRowBackground(row) {
+        return {
+            "background-image": `url(${row.background_image.url})`
+        }
+    }
+
+    onNavTo(url) {
+        this.router.navigate([url])
     }
 
     getColumnBackground(column) {
@@ -32,8 +49,8 @@ export class Template5Component implements OnInit {
         }
     }
 
-    getColumnPicture(column){
-        if(column.image && column.image.url){
+    getColumnPicture(column) {
+        if (column.image && column.image.url) {
             return column.image.url;
         }
         return "";
@@ -48,7 +65,31 @@ export class Template5Component implements OnInit {
             image_id: [""],
             columns: this.fb.array([])
         });
-        this.createColumns(1)
+
+        this.createRowObj();
+        this.createColumnsObj(3);
+        this.createColumns(3);
+
+    }
+
+    createRowObj() {
+        this.row['background_image'] = {};
+    }
+
+    createColumnsObj(numOfColumns: number) {
+        this.row['columns'] = [];
+        for (var i = 0; i < numOfColumns; i++) {
+            this.createColumnObj();
+        }
+    }
+
+    createColumnObj() {
+        this.row.columns.push({
+            title: "",
+            description: "",
+            image: {},
+            background_image: {}
+        })
     }
 
     createColumns(numOfColumns: number) {
@@ -69,17 +110,29 @@ export class Template5Component implements OnInit {
             link_description: [""]
         });
     }
-    
+
     onGetRowImg(imgs) {
         this.templateForm.patchValue({
             background_image_id: imgs[0].id
         });
+
+        this.updateRowBackgroundImage(imgs[0].url);
+    }
+
+    updateRowBackgroundImage(url) {
+        this.row['background_image']['url'] = url;
     }
 
     onGetImageChange(imgs, index: number) {
         (<FormArray>this.templateForm.get('columns')).at(index).patchValue({
             image_id: imgs[0].id
         });
+        this.updateColumnImage(imgs[0].url, index);
+    }
+
+    updateColumnImage(url, index) {
+        console.log(url, this.row.columns[index]);
+        this.row.columns[index]['image'].url = url;
     }
 
     onGetBackgroundImageChange(imgs, index: number) {
@@ -88,44 +141,52 @@ export class Template5Component implements OnInit {
         });
     }
 
-    onSave() {
-        this.websiteService.rowSubject.next(this.templateForm.value);
+    onEdit(row) {
+        console.log(row);
+        let columns = new FormArray([]);
+        for (let column of row.columns) {
+            columns.push(new FormGroup({
+                style: new FormControl(column.style),
+                title: new FormControl(column.title),
+                description: new FormControl(column.description),
+                link: new FormControl(column.link),
+                link_description: new FormControl(column.link_description),
+                background_image: new FormControl(column.background_image),
+                image_id: new FormControl(column.image.id),
+                image: new FormGroup({
+                    id: new FormControl(column.image.id),
+                    url: new FormControl(column.image.url)
+                })
+            }))
+        }
+        this.templateForm = this.fb.group({
+            template_id: 5,
+            title: row.title,
+            description: row.description,
+            category_id: row.category_id,
+            id: row.id,
+            columns: columns,
+            background_image: row.background_image,
+            background_image_id: row.background_image.id
+        });
+        console.log(this.templateForm);
+        this.isEdit = true;
+        this.editMode = true;
     }
-    // componentStyle = {
-    //     component: {
-    //         //preset
-    //         "background-repeat": "no-repeat, repeat",
-    //         "background-size": "cover",
-    //         " background-position": "50% center",
-    //         "width": "100%",
-    //         "min-height": "400px",
-    //         display: "flex",
-    //         // "justify-content": "center",
-    //         "box-sizing": "border-box",
-    //         "flex-direction": "row",
-    //         "align-items": "center",
-    //         "justify-content" : 
-    //         "padding": "1vw 13vw",
-    //         ///////////////
 
-    //         //custom
-    //         // "background-image": "url('https://orcasmart.com/assets/images/banner/campers.jpg')",
-    //         "background-color": "white",
-    //         color: "white",
-    //         // height: "500px",
+    onSave() {
+        if (!this.editMode) {
+            this.websiteService.rowSubject.next(this.templateForm.value);
+        }
+        else {
+            console.log('save', this.templateForm.value);
+            this.websiteService.updateRowSubject.next(this.templateForm.value);
+            this.isEdit = false;
+        }
+    }
 
-
-    //     },
-    //     title: {
-    //         // preset
-    //         "padding": "1vw",
-
-    //         //custom
-    //         'font-size': "5vw",
-    //     },
-    //     content: {
-    //         // preset
-    //         "padding": "1vw",
-    //     }
-    // };
+    onCancel() {
+        this.editMode = false;
+        this.isEdit = false;
+    }
 }

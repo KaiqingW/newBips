@@ -156,4 +156,9 @@ export class Template1Component implements OnInit, OnChanges {
         }
         this.websiteService.removeRow.next();
     }
+
+    onCancel() {
+        this.editMode = false;
+        this.isEdit = false;
+    }
 }
