@@ -42,5 +42,6 @@
 
         <button type="submit" class="btn btn-primary" [disabled]="!form.valid || button.hasAttribute('is-disabled')"
             #button (ngSubmit)="button.setAttribute('is-disabled', 'true')" type="submit">Save</button>
+        <button class="btn btn-danger" *ngIf="editMode" (click)="onCancel()">Cancel</button>
     </form>
 </div>

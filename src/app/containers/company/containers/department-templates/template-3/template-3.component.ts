@@ -144,6 +144,11 @@ export class Template3Component implements OnInit {
             this.isEdit = false;
         }
     }
+
+    onCancel() {
+        this.editMode = false;
+        this.isEdit = false;
+    }
     // componentStyle = {
     //     component: {
     //         //preset

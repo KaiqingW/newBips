@@ -33,7 +33,6 @@ export class ProdcutCategorySettingComponent implements OnInit {
 
     ngOnInit() {
 
-
     }
 
     getAllCategory() {

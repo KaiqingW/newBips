@@ -1,0 +1,22 @@
+<div class="template-row" *ngIf="row" [ngStyle]="{'background-color': getBackgroundColor()}">
+  <div class="category">
+    <p style="margin-bottom: 18px; font-size: 24px; font-weight: bold;">Our Categories</p>
+    <p *ngFor="let category of categories" class="category-name">
+      &#183;&nbsp;&nbsp;&nbsp;{{ category.name }}</p>
+  </div>
+  <div class="template-col" [ngStyle]="getRowBackground(row)">
+  </div>
+  <div class="source-solution">
+    <div *ngFor="let column of row.columns;let i=index;" class="title-button">
+      <div class="left">
+        <p>{{ column.title }}</p>
+        <button mat-raised-button color="primary" (click)="onNavTo(column)">{{ column.link_description }}</button>
+      </div>
+      <img [src]="column.image.url" alt="">
+    </div>
+  </div>
+  <div class="delete-button">
+    <button mat-raised-button color="primary" (click)="onEdit(row)">Edit</button>
+    <button mat-raised-button color="warn" (click)="onDelete(row)">Delete</button>
+  </div>
+</div>

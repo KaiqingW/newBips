@@ -64,6 +64,7 @@ import { Template4ViewComponent } from './containers/department-templates/templa
 import { Template9ViewComponent } from './containers/department-templates/template-9/template-9-view/template-9-view.component';
 import { Template3ViewComponent } from './containers/department-templates/template-3/template-3-view/template-3-view.component';
 import { Template8ViewComponent } from './containers/department-templates/template-8/template-8-view/template-8-view.component';
+import { Template5ViewComponent } from './containers/department-templates/template-5/template-5-view/template-5-view.component';
 
 @NgModule({
     imports: [
@@ -122,7 +123,8 @@ import { Template8ViewComponent } from './containers/department-templates/templa
         Template4ViewComponent,
         Template9ViewComponent,
         Template3ViewComponent,
-        Template8ViewComponent
+        Template8ViewComponent,
+        Template5ViewComponent
     ],
     providers: [
         CompanyService,

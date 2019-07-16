@@ -137,6 +137,11 @@ export class Template2Component implements OnInit, OnChanges {
             this.isEdit = false;
         }
     }
+
+    onCancel() {
+        this.editMode = false;
+        this.isEdit = false;
+    }
     // componentStyle = {
     //     component: {
     //         //preset
