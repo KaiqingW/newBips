@@ -177,10 +177,7 @@ const companyRoutes: Routes = [
         path: ':cid/crm-assignment/:cstype',
         loadChildren: 'app/containers/business/crmassignment/assignment.module#CrmAssignmentModule',
     },
-    {
-        path: ':cid/salesentity',
-        loadChildren: 'app/components/business-quota/business-quota.module#BusinessQuotasModule',
-    },
+
 
 ]
 

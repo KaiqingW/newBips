@@ -65,14 +65,6 @@ const crmRoutes : Routes = [
     },
 
     {
-        path: 'lead/:cusid/salesentity',
-        loadChildren:'app/components/business-quota/business-quota.module#BusinessQuotasModule',
-    },
-    // {
-    //     path: 'lead/:cusid/opportunities',
-    //     loadChildren:'app/components/opportunity/opportunity.module#OpportunityModule',
-    // },
-    {
         path: 'lead/:cusid/addresses',
         loadChildren:'app/containers/crm/components/address/address.module#AddressModule',
     },
@@ -113,10 +105,7 @@ const crmRoutes : Routes = [
         component: AddContactComponent,
         data: addContactHeader
     },
-    {
-        path: 'potential/:cusid/salesentity',
-        loadChildren:'app/components/business-quota/business-quota.module#BusinessQuotasModule',
-    },
+
     {
         path: 'potential/:cusid/notes',
         loadChildren: 'app/components/business-notes/business-notes.module#BusinessNotesModule',
@@ -162,10 +151,6 @@ const crmRoutes : Routes = [
         path:'account/:cusid/add-contact',
         component: AddContactComponent,
         data: addContactHeader
-    },
-    {
-        path: 'account/:cusid/salesentity',
-        loadChildren:'app/components/business-quota/business-quota.module#BusinessQuotasModule',
     },
 
     {

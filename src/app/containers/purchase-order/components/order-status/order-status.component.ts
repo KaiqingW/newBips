@@ -9,10 +9,10 @@ import { AddProdDateComponent } from './prod-date/add-prod-date/add-prod-date.co
 import { ConfirmProdDateComponent } from './prod-date/confirm-prod-date/confirm-prod-date.component';
 import { Production_Schedule } from 'app/core/models/index';
 import { CompanyService } from 'app/core/services/company.service';
-import 'jspdf-autotable';
+// import 'jspdf-autotable';
 import { DialogService } from 'app/core/services/dialog.service';
-declare let jsPDF: any;
-declare var require: any;
+// declare let jsPDF: any;
+// declare var require: any;
 
 @Component({
   selector: 'app-order-status',
