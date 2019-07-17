@@ -1,137 +1,63 @@
+// .row{
+//     background-repeat:no-repeat, repeat;
+//     background-size: cover;
+//     width:100%;
+//     min-height: 289px;
+//     display: flex;
+//     justify-content: center;
+
+//     .title{
+
+//     }
+
+//     .description{
+
+//     }
+// }
 $break-small: 750px;
 $break-large: 1200px;
 
-.row-title {
-    color: black;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    font-size: 1.5rem;
-
-}
-
-.row {
-    width: 100%;
+.isEdit {
     background-color: white;
-    box-sizing: border-box;
-    color: black;
-    padding: 2vw;
-    justify-content: space-between;
-    border-top: 1px solid rgb(216, 216, 216);
-    border-bottom: 1px solid rgb(216, 216, 216);
-
-    .container {
-        max-width: 1280px;
-        margin: 0 auto;
-
-        .title-box {
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        .line {
-            display: block;
-            margin-top: 11px;
-            font-size: 100%;
-            border: 3px solid #DCDEE3;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-    }
-
-    .row-picture {
-        max-width: 80vw;
-        height: auto;
-    }
-
-    b {
-        font-size: 24px;
-    }
-
-    p {
-        font-size: 1rem;
-    }
-
-    .title-box {
-        margin-bottom: 30px;
-    }
-
-    .cols {
-        display: flex;
-        box-sizing: border-box;
-        .col {
-            width: 300px;
-            height: 200px;
-            // border:1px solid red;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 10px;
-            background-repeat: no-repeat, repeat;
-            background-size: cover;
-            background-position: 50% center;
-      
-            img {
-                cursor: pointer;
-                width: 140px;
-                height: 140px;
-                background: transparent;
-                transition: transform ease .3s;
-            }
-
-            img:hover {
-                transform: scale(1.05);
-            }
-
-            .column-description {
-                margin-top: 8px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .colmn-title {
-                background-color: #FE2435;
-                text-align: center;
-                border-radius: 10px;
-                padding: 5px 20px;
-                color: #FFF;
-                font-size: 0.9rem;
-                line-height: 19px;
-                height: 18px;
-                margin: 0 6px;
-            }
-
-            .colmn-detail {
-                font-size: 15px;
-                color: #000;
-                line-height: 18px;
-                height: 18px;
-                margin-top: 3px;
-            }
-        }
-    }
+    border:1px solid grey;
 }
 
 .form {
-    color: black !important;
-    background-color: white !important;
-    z-index: 10;
-    border: 1px solid red;
-    width: 100%;
+    width: 80%;
+    margin: 4vw auto;
     min-height: 289px;
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: row;
-    padding: 1vw 13vw;
-    font-size: 24px;
+    font-size: 16px;
+    label{
+        font-size: 18px !important;
+        font-weight:bold;
+    }
 
-    .form-column {
-        padding: 2px;
-        margin: 2px;
-        border: 1px solid rgb(216, 216, 216);
-        width: 50%;
+    background-color: white;
+    padding: 2vw;
+}
+
+.delete-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.template-row:hover {
+    .delete-button {
+        display: block;
+    }
+}
+
+@media screen and (max-width: $break-small) {
+    .template-row {
+        b {
+            font-size: 32px !important;
+        }
+
+        min-height:375px !important;
+        padding: 10px 20px !important;
+        width: 100% !important;
+        margin-bottom:5px !important;
     }
 }
