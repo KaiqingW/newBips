@@ -48,7 +48,7 @@ export class Template1Component implements OnInit, OnChanges {
             "padding": "1vw",
 
             //custom
-            'font-size': "5vw",
+            'font-size': "4vw",
         },
         content: {
             // preset
