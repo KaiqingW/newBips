@@ -36,7 +36,7 @@
     "angular2-image-upload": "^1.0.0-rc.1",
     "angular2-moment": "^1.9.0",
     "angular2-signaturepad": "^2.8.0",
-    "aws-sdk": "^2.469.0",
+    "aws-sdk": "^2.814.0",
     "blueimp-canvas-to-blob": "^3.14.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.4.1",
